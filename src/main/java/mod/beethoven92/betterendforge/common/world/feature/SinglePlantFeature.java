@@ -11,8 +11,10 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
 
-public class SinglePlantFeature extends ScatterFeature
+public class SinglePlantFeature extends Feature<NoFeatureConfig>
 {
 	private final Block plant;
 	private final boolean rawHeightmap;
