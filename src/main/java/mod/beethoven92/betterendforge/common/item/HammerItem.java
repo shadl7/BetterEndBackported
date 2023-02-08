@@ -95,7 +95,7 @@ public class HammerItem extends ToolItem
 			{
 				mult = this.getTier().getEfficiency() / 2.0F;
 			}
-			return mult > 1.0F ? mult : 1.0F;
+			return Math.max(mult, 1.0F);
 		}
 		return 1.0F;
 	}

@@ -593,18 +593,16 @@ public class ModBlockStates extends BlockStateProvider
            switch (dir) 
            {
            case DOWN:
-        	   break;
+               case UP:
+               case SOUTH:
+                   break;
            case EAST:
         	   y = 270;
         	   break;
            case NORTH:
         	   y = 180;
         	   break;
-           case SOUTH:
-        	   break;
-           case UP:
-        	   break;
-           case WEST:
+               case WEST:
         	   y = 90;
         	   break;
            }
@@ -640,9 +638,7 @@ public class ModBlockStates extends BlockStateProvider
            case NORTH:
         	   y = 180;
         	   break;
-           case SOUTH:
-        	   break;
-           case WEST:
+			   case WEST:
         	   y = 90;
         	   break;
 		   default:
@@ -683,9 +679,7 @@ public class ModBlockStates extends BlockStateProvider
            case EAST:
         	   y = 90;
         	   break;
-           case NORTH:
-        	   break;
-           case SOUTH:
+			   case SOUTH:
         	   y = 180;
         	   break;
            case WEST:

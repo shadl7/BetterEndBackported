@@ -251,12 +251,12 @@ public class ModMathHelper
 	
 	public static int min(int a, int b) 
 	{
-		return a < b ? a : b;
+		return Math.min(a, b);
 	}
 	
 	public static int max(int a, int b) 
 	{
-		return a > b ? a : b;
+		return Math.max(a, b);
 	}
 	
 	public static int min(int a, int b, int c) 
@@ -271,12 +271,12 @@ public class ModMathHelper
 	
 	public static float min(float a, float b) 
 	{
-		return a < b ? a : b;
+		return Math.min(a, b);
 	}
 	
 	public static float max(float a, float b) 
 	{
-		return a > b ? a : b;
+		return Math.max(a, b);
 	}
 	
 	public static float max(float a, float b, float c) 

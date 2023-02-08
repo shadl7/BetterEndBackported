@@ -84,7 +84,7 @@ public class EndSignBlock extends AbstractSignBlock {
 
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-		if (placer != null && placer instanceof PlayerEntity) {
+		if (placer instanceof PlayerEntity) {
 			ESignTileEntity sign = (ESignTileEntity) world.getTileEntity(pos);
 			if (!world.isRemote) {
 				sign.setEditor((PlayerEntity) placer);
