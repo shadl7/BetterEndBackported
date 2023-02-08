@@ -117,11 +117,10 @@ public class EndSignBlock extends AbstractSignBlock {
 			IWorld worldView = ctx.getWorld();
 			BlockPos blockPos = ctx.getPos();
 			Direction[] directions = ctx.getNearestLookingDirections();
-			Direction[] var7 = directions;
-			int var8 = directions.length;
+            int var8 = directions.length;
 
 			for (int var9 = 0; var9 < var8; ++var9) {
-				Direction direction = var7[var9];
+				Direction direction = directions[var9];
 				if (direction.getAxis().isHorizontal()) {
 					Direction direction2 = direction.getOpposite();
 					int rot = MathHelper.floor((180.0 + direction2.getHorizontalAngle() * 16.0 / 360.0) + 0.5 + 4) & 15;

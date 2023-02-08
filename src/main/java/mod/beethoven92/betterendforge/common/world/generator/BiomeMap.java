@@ -103,14 +103,14 @@ public class BiomeMap
 				search = biome.getParentBiome();
 			int d = (int) Math.ceil(search.getEdgeSize() / 4F) << 2;
 			
-			boolean edge = !search.isSame(getRawBiome(x + d, z));
-			edge = edge || !search.isSame(getRawBiome(x - d, z));
-			edge = edge || !search.isSame(getRawBiome(x, z + d));
-			edge = edge || !search.isSame(getRawBiome(x, z - d));
-			edge = edge || !search.isSame(getRawBiome(x - 1, z - 1));
-			edge = edge || !search.isSame(getRawBiome(x - 1, z + 1));
-			edge = edge || !search.isSame(getRawBiome(x + 1, z - 1));
-			edge = edge || !search.isSame(getRawBiome(x + 1, z + 1));
+			boolean edge = search.isSame(getRawBiome(x + d, z));
+			edge = edge || search.isSame(getRawBiome(x - d, z));
+			edge = edge || search.isSame(getRawBiome(x, z + d));
+			edge = edge || search.isSame(getRawBiome(x, z - d));
+			edge = edge || search.isSame(getRawBiome(x - 1, z - 1));
+			edge = edge || search.isSame(getRawBiome(x - 1, z + 1));
+			edge = edge || search.isSame(getRawBiome(x + 1, z - 1));
+			edge = edge || search.isSame(getRawBiome(x + 1, z + 1));
 			
 			if (edge)
 			{

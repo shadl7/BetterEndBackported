@@ -143,7 +143,7 @@ public class GeneratorOptions {
 	}
 
 	public static boolean generateObsidianPlatform() {
-		return generateObsidianPlatform;
+		return !generateObsidianPlatform;
 	}
 
 	public static int getEndCityFailChance() {

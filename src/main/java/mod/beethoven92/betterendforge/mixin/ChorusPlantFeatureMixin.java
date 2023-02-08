@@ -27,13 +27,12 @@ public abstract class ChorusPlantFeatureMixin
 			BlockPos blockPos, NoFeatureConfig config, CallbackInfoReturnable<Boolean> info) 
 	{
 
-		final ISeedReader structureWorldAccess = worldIn;
-		if (structureWorldAccess.isAirBlock(blockPos) && structureWorldAccess.getBlockState(blockPos.down()).isIn(ModBlocks.CHORUS_NYLIUM.get())) {
-			ChorusFlowerBlock.generatePlant(structureWorldAccess, blockPos, random, ModMathHelper.randRange(8, 16, random));
-			BlockState bottom = structureWorldAccess.getBlockState(blockPos);
+		if (worldIn.isAirBlock(blockPos) && worldIn.getBlockState(blockPos.down()).isIn(ModBlocks.CHORUS_NYLIUM.get())) {
+			ChorusFlowerBlock.generatePlant(worldIn, blockPos, random, ModMathHelper.randRange(8, 16, random));
+			BlockState bottom = worldIn.getBlockState(blockPos);
 			if (bottom.isIn(Blocks.CHORUS_PLANT)) {
 				BlockHelper.setWithoutUpdate(
-						structureWorldAccess,
+						worldIn,
 						blockPos,
 						bottom.with(SixWayBlock.DOWN, true)
 				);

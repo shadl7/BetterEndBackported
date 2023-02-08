@@ -45,10 +45,9 @@ public class ThinArchFeature extends Feature<NoFeatureConfig> {
     public boolean generate(ISeedReader level, ChunkGenerator generator, Random random, BlockPos origin,
                             NoFeatureConfig config)
     {
-        final ISeedReader world = level;
 
-        BlockPos pos = FeatureHelper.getPosOnSurface(world, new BlockPos((origin.getX() & 0xFFFFFFF0) | 7, 0, (origin.getZ() & 0xFFFFFFF0) | 7));
-        if (!world.getBlockState(pos.down(5)).isIn(ModTags.GEN_TERRAIN)) {
+        BlockPos pos = FeatureHelper.getPosOnSurface(level, new BlockPos((origin.getX() & 0xFFFFFFF0) | 7, 0, (origin.getZ() & 0xFFFFFFF0) | 7));
+        if (!level.getBlockState(pos.down(5)).isIn(ModTags.GEN_TERRAIN)) {
             return false;
         }
 
@@ -84,7 +83,7 @@ public class ThinArchFeature extends Feature<NoFeatureConfig> {
             side = 47;
         }
 
-        sdf.fillArea(world, pos, ofSize(atCenterOf(pos), side, side, side));
+        sdf.fillArea(level, pos, ofSize(atCenterOf(pos), side, side, side));
         return true;
 
     }

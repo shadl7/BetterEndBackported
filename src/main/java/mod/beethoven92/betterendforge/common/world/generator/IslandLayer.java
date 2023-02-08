@@ -67,12 +67,10 @@ public class IslandLayer
 			for (int pox = -1; pox < 2; pox++)
 			{
 				int px = pox + ix;
-				long px2 = px;
-				for (int poz = -1; poz < 2; poz++)
+                for (int poz = -1; poz < 2; poz++)
 				{
 					int pz = poz + iz;
-					long pz2 = pz;
-					if (GeneratorOptions.noRingVoid() || px2 * px2 + pz2 * pz2 > options.centerDist)
+                    if (GeneratorOptions.noRingVoid() || (long) px * (long) px + (long) pz * (long) pz > options.centerDist)
 					{
 						RANDOM.setSeed(getSeed(px, pz));
 						double posX = (px + RANDOM.nextFloat()) * options.distance;

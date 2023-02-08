@@ -111,7 +111,7 @@ public class ModBiomes
 				
 				if (Configs.BIOME_CONFIG.getBoolean(id, "enabled", true))
 				{
-					if (!LAND_BIOMES.containsImmutable(id) && !VOID_BIOMES.containsImmutable(id) && !SUBBIOMES_UNMUTABLES.contains(id)) 
+					if (LAND_BIOMES.containsImmutable(id) && VOID_BIOMES.containsImmutable(id) && !SUBBIOMES_UNMUTABLES.contains(id))
 					{
 						JsonObject config = configs.get(id.getNamespace());
 						if (config == null) 

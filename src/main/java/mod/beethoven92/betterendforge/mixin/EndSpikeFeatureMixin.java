@@ -52,9 +52,7 @@ public abstract class EndSpikeFeatureMixin
 		int radius = spike.getRadius();
 		int minY = 0;
 
-		long lx = x;
-		long lz = z;
-		if (lx * lx + lz * lz < 10000) {
+        if ((long) x * (long) x + (long) z * (long) z < 10000) {
 			String pillarID = String.format("%d_%d", x, z);
 			CompoundNBT pillar = WorldDataAPI.getCompoundTag(BetterEnd.MOD_ID, "pillars");
 			boolean haveValue = pillar.contains(pillarID);

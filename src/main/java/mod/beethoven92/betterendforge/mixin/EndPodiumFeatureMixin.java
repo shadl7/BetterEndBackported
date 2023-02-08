@@ -41,12 +41,11 @@ public abstract class EndPodiumFeatureMixin
 		}
 
 		else if (GeneratorOptions.replacePortal() && FMLLoader.getLoadingModList().getModFileById("endergetic") == null) {
-			ISeedReader world = level;
-			BlockPos blockPos = be_updatePos(origin, world);
+            BlockPos blockPos = be_updatePos(origin, level);
 			Template structure = StructureHelper.readStructure(BetterEnd.makeID(activePortal ? "portal/end_portal_active" : "portal/end_portal_inactive"));
 			Vector3i size = structure.getSize();
 			blockPos = blockPos.add(-(size.getX() >> 1), -1, -(size.getZ() >> 1));
-			structure.func_237146_a_(world, blockPos, blockPos, new PlacementSettings(), random, 2);
+			structure.func_237146_a_(level, blockPos, blockPos, new PlacementSettings(), random, 2);
 			info.setReturnValue(true);
 			info.cancel();
 		}

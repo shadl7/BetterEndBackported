@@ -14,7 +14,7 @@ public class ServerPlayerEntityMixin
 	@Inject(method = "func_242110_a", at = @At("HEAD"), cancellable = true)
 	private void be_createEndSpawnPlatform(ServerWorld world, BlockPos centerPos, CallbackInfo info)
 	{
-		if (!GeneratorOptions.generateObsidianPlatform())
+		if (GeneratorOptions.generateObsidianPlatform())
 		{
 			info.cancel();
 		}

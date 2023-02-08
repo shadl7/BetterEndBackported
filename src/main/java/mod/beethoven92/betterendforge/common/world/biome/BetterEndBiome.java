@@ -115,7 +115,7 @@ public class BetterEndBiome
 
 	public boolean isSame(BetterEndBiome biome) 
 	{
-		return biome == this || (biome.hasParentBiome() && biome.getParentBiome() == this);
+		return biome != this && (!biome.hasParentBiome() || biome.getParentBiome() != this);
 	}
 	
 	public boolean canGenerate(float chance) 
