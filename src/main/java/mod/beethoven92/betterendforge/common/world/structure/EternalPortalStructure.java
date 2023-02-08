@@ -53,8 +53,8 @@ public class EternalPortalStructure extends Structure<NoFeatureConfig>
 			SharedSeedRandom sharedSeedRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos,
 			NoFeatureConfig config) 
 	{
-		long x = chunkPos.x * chunkPos.x;
-		long z = chunkPos.z * chunkPos.z;
+		long x = (long) chunkPos.x * chunkPos.x;
+		long z = (long) chunkPos.z * chunkPos.z;
 		long d = x * x + z * z;
 		if (d < 1024) 
 		{
