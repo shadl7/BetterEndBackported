@@ -41,12 +41,8 @@ public abstract class ScatterFeature extends Feature<NoFeatureConfig>
 		{
 			return false;
 		}
-		else if (!world.getBlockState(pos.down()).isIn(ModTags.END_GROUND)) 
-		{
-			return false;
-		}
-		return true;
-	}
+		else return world.getBlockState(pos.down()).isIn(ModTags.END_GROUND);
+    }
 	
 	protected boolean getGroundPlant(ISeedReader world, Mutable pos)
 	{

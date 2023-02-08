@@ -69,12 +69,8 @@ public class JsonConfigKey
 				return false;
 			}
 		}
-		if (!entry.equals(other.entry))
-		{
-			return false;
-		}
-		return true;
-	}
+        return entry.equals(other.entry);
+    }
 	
 	@Override
 	public String toString() 

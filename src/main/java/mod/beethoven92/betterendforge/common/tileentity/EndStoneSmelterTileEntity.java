@@ -450,10 +450,7 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 	{
 		if (direction == Direction.DOWN && index == 2) 
 		{
-			if (stack.getItem() != Items.BUCKET && stack.getItem() != Items.WATER_BUCKET) 
-			{
-				return false;
-			}
+            return stack.getItem() == Items.BUCKET || stack.getItem() == Items.WATER_BUCKET;
 		}
 		return true;
 	}

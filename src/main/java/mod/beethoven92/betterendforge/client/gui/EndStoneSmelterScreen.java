@@ -102,7 +102,7 @@ public class EndStoneSmelterScreen extends ContainerScreen<EndStoneSmelterContai
 		} 
 		else 
 		{
-			return this.narrow && this.recipeBook.isVisible() ? true : super.mouseClicked(mouseX, mouseY, button);
+			return this.narrow && this.recipeBook.isVisible() || super.mouseClicked(mouseX, mouseY, button);
 		}
 	}
 	
@@ -116,7 +116,7 @@ public class EndStoneSmelterScreen extends ContainerScreen<EndStoneSmelterContai
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) 
 	{
-		return this.recipeBook.keyPressed(keyCode, scanCode, modifiers) ? false : super.keyPressed(keyCode, scanCode, modifiers);
+		return !this.recipeBook.keyPressed(keyCode, scanCode, modifiers) && super.keyPressed(keyCode, scanCode, modifiers);
 	}
 	
 	@Override
@@ -129,7 +129,7 @@ public class EndStoneSmelterScreen extends ContainerScreen<EndStoneSmelterContai
 	@Override
 	public boolean charTyped(char codePoint, int modifiers) 
 	{
-		return this.recipeBook.charTyped(codePoint, modifiers) ? true : super.charTyped(codePoint, modifiers);
+		return this.recipeBook.charTyped(codePoint, modifiers) || super.charTyped(codePoint, modifiers);
 	}
 	
 	@Override

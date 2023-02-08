@@ -70,14 +70,7 @@ public class TerrainBlock extends Block
 	      {
 	         return true;
 	      } 
-	      else if (blockState.getFluidState().getLevel() == 8) 
-	      {
-	         return false;
-	      } 
-	      else 
-	      {
-              return true;
-	      }
+	      else return blockState.getFluidState().getLevel() != 8;
 	   }
 
 }

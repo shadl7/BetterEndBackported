@@ -222,7 +222,7 @@ public class BetterEndBiome
 			return true;
 		}
 		BetterEndBiome biome = (BetterEndBiome) obj;
-		return biome == null ? false : biome.id.equals(id);
+		return biome != null && biome.id.equals(id);
 	}
 	
 	@Override

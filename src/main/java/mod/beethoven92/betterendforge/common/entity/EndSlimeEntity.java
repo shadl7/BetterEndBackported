@@ -320,9 +320,7 @@ public class EndSlimeEntity extends SlimeEntity {
 			} else if (!livingEntity.isAlive()) {
 				return false;
 			} else {
-				return livingEntity instanceof PlayerEntity && ((PlayerEntity) livingEntity).abilities.disableDamage
-						? false
-						: EndSlimeEntity.this.getMoveHelper() instanceof EndSlimeMoveControl;
+				return (!(livingEntity instanceof PlayerEntity) || !((PlayerEntity) livingEntity).abilities.disableDamage) && EndSlimeEntity.this.getMoveHelper() instanceof EndSlimeMoveControl;
 			}
 		}
 

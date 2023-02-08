@@ -333,7 +333,7 @@ public class ModBlockStates extends BlockStateProvider
                boolean powered = state.get(WoodButtonBlock.POWERED);
 
                return ConfiguredModel.builder()
-               .modelFile(powered == true ? buttonPressed : button)
+               .modelFile(powered ? buttonPressed : button)
                .rotationX(state.get(BlockStateProperties.FACE).ordinal() * 90)
                .rotationY((((int) state.get(BlockStateProperties.HORIZONTAL_FACING).getHorizontalAngle() + angleOffset) + (state.get(BlockStateProperties.FACE) == AttachFace.CEILING ? 180 : 0)) % 360)
                .build();
@@ -349,7 +349,7 @@ public class ModBlockStates extends BlockStateProvider
            boolean powered = state.get(PressurePlateBlock.POWERED);
 
            return ConfiguredModel.builder()
-           .modelFile(powered == true ? plateDown : plate)
+           .modelFile(powered ? plateDown : plate)
            .build();
         });
     }

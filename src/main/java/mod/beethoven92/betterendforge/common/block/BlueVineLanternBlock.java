@@ -24,7 +24,7 @@ public class BlueVineLanternBlock extends Block
 	@Override
 	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
 	{
-		return state.get(NATURAL) ? worldIn.getBlockState(pos.down()).getBlock() == ModBlocks.BLUE_VINE.get() : true;
+		return !state.get(NATURAL) || worldIn.getBlockState(pos.down()).getBlock() == ModBlocks.BLUE_VINE.get();
 	}
 	
 	@Override
