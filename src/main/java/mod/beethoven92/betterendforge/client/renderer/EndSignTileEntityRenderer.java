@@ -41,7 +41,7 @@ public class EndSignTileEntityRenderer extends TileEntityRenderer<ESignTileEntit
 		matrixStack.push();
 
 		matrixStack.translate(0.5D, 0.5D, 0.5D);
-		float angle = -((float) ((Integer) state.get(StandingSignBlock.ROTATION) * 360) / 16.0F);
+		float angle = -((float) (state.get(StandingSignBlock.ROTATION) * 360) / 16.0F);
 
 		BlockState blockState = signBlockEntity.getBlockState();
 		if (blockState.get(EndSignBlock.FLOOR)) {
@@ -71,11 +71,11 @@ public class EndSignTileEntityRenderer extends TileEntityRenderer<ESignTileEntit
 		for (int s = 0; s < 4; ++s) {
 			IReorderingProcessor orderedText = signBlockEntity.getTextBeingEditedOnRow(s, (text) -> {
 				List<IReorderingProcessor> list = textRenderer.trimStringToWidth(text, 90);
-				return list.isEmpty() ? IReorderingProcessor.field_242232_a : (IReorderingProcessor) list.get(0);
+				return list.isEmpty() ? IReorderingProcessor.field_242232_a : list.get(0);
 			});
 			if (orderedText != null) {
 				float t = (float) (-textRenderer.func_243245_a(orderedText) / 2);
-				textRenderer.func_238416_a_((IReorderingProcessor) orderedText, t, (float) (s * 10 - 20), q, false,
+				textRenderer.func_238416_a_(orderedText, t, (float) (s * 10 - 20), q, false,
 						matrixStack.getLast().getMatrix(), provider, false, 0, light);
 			}
 		}

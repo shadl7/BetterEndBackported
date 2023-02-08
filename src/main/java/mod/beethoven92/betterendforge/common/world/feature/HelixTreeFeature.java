@@ -114,7 +114,7 @@ public class HelixTreeFeature extends Feature<NoFeatureConfig> {
 			float div = point.getY() - lastPoint.getY();
 			for (float py = minY; py <= maxY; py += 0.2F) {
 				start.set(0, py, 0);
-				float delta = (float) (py - minY) / div;
+				float delta = (py - minY) / div;
 				float px = MathHelper.lerp(delta, lastPoint.getX(), point.getX());
 				float pz = MathHelper.lerp(delta, lastPoint.getZ(), point.getZ());
 				end.set(px, py, pz);

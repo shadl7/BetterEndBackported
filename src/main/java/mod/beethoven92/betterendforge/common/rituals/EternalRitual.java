@@ -554,7 +554,6 @@ public class EternalRitual
 			{
 				this.center = initial.west(5).north(4);
 			}
-			return;
 		}
 	}
 	

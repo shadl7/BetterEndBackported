@@ -35,7 +35,7 @@ public class BlockSignEditScreen extends Screen {
 	private int ticksSinceOpened;
 	private int currentRow;
 	private TextInputUtil selectionManager;
-	private final String[] text = (String[]) Util.make(new String[4], (strings) -> {
+	private final String[] text = Util.make(new String[4], (strings) -> {
 		Arrays.fill(strings, "");
 	});
 
@@ -85,7 +85,7 @@ public class BlockSignEditScreen extends Screen {
 
 	private void finishEditing() {
 		this.sign.markDirty();
-		this.minecraft.displayGuiScreen((Screen) null);
+		this.minecraft.displayGuiScreen(null);
 	}
 
 	@Override
@@ -121,7 +121,7 @@ public class BlockSignEditScreen extends Screen {
 		this.renderBackground(matrices);
 		AbstractGui.drawCenteredString(matrices, this.font, this.title, this.width / 2, 40, 16777215);
 		matrices.push();
-		matrices.translate((double) (this.width / 2), 0.0D, 50.0D);
+		matrices.translate(this.width / 2, 0.0D, 50.0D);
 
 		matrices.scale(93.75F, -93.75F, 93.75F);
 		matrices.translate(0.0D, -1.3125D, 0.0D);

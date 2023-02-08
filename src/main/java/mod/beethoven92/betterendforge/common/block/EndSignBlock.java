@@ -97,7 +97,7 @@ public class EndSignBlock extends AbstractSignBlock {
 	@Override
 	public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState neighborState,
 			IWorld world, BlockPos pos, BlockPos neighborPos) {
-		if ((Boolean) state.get(WATERLOGGED)) {
+		if (state.get(WATERLOGGED)) {
 			world.getPendingFluidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
 
@@ -138,11 +138,11 @@ public class EndSignBlock extends AbstractSignBlock {
 
 	@Override
 	public BlockState rotate(BlockState state, Rotation rotation) {
-		return (BlockState) state.with(ROTATION, rotation.rotate((Integer) state.get(ROTATION), 16));
+		return state.with(ROTATION, rotation.rotate(state.get(ROTATION), 16));
 	}
 
 	@Override
 	public BlockState mirror(BlockState state, Mirror mirror) {
-		return (BlockState) state.with(ROTATION, mirror.mirrorRotation((Integer) state.get(ROTATION), 16));
+		return state.with(ROTATION, mirror.mirrorRotation(state.get(ROTATION), 16));
 	}
 }

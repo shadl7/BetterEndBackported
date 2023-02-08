@@ -52,8 +52,8 @@ public abstract class EndSpikeFeatureMixin
 		int radius = spike.getRadius();
 		int minY = 0;
 
-		long lx = (long) x;
-		long lz = (long) z;
+		long lx = x;
+		long lz = z;
 		if (lx * lx + lz * lz < 10000) {
 			String pillarID = String.format("%d_%d", x, z);
 			CompoundNBT pillar = WorldDataAPI.getCompoundTag(BetterEnd.MOD_ID, "pillars");
@@ -154,12 +154,12 @@ public abstract class EndSpikeFeatureMixin
 							if (bl || bl2 || bl3) {
 								boolean bl4 = px == -2 || px == 2 || bl3;
 								boolean bl5 = pz == -2 || pz == 2 || bl3;
-								BlockState blockState = (BlockState) ((BlockState) ((BlockState) ((BlockState) Blocks.IRON_BARS
+								BlockState blockState = Blocks.IRON_BARS
 										.getDefaultState()
-										.with(PaneBlock.NORTH, bl4 && pz != -2)).with(
+										.with(PaneBlock.NORTH, bl4 && pz != -2).with(
 										PaneBlock.SOUTH,
 										bl4 && pz != 2
-								)).with(PaneBlock.WEST, bl5 && px != -2)).with(
+								).with(PaneBlock.WEST, bl5 && px != -2).with(
 										PaneBlock.EAST,
 										bl5 && px != 2
 								);

@@ -90,14 +90,14 @@ public class NeonCactusPlantBlock extends Block implements IWaterLoggable {
 
 	@Override
 	public FluidState getFluidState(BlockState state) {
-		return (Boolean) state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
 	}
 
 	@Override
 	public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world,
 			BlockPos pos, BlockPos facingPos) {
 		world.getPendingBlockTicks().scheduleTick(pos, this, 2);
-		if ((Boolean) state.get(WATERLOGGED)) {
+		if (state.get(WATERLOGGED)) {
 			world.getPendingFluidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
 		Direction dir = state.get(FACING);

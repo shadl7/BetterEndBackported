@@ -28,7 +28,7 @@ public class MengerSpongeWetBlock extends WetSpongeBlock
 		{
 			worldIn.setBlockState(pos, ModBlocks.MENGER_SPONGE.get().getDefaultState(), 3);
 	        worldIn.playEvent(2009, pos, 0);
-	        worldIn.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, (1.0F + worldIn.getRandom().nextFloat() * 0.2F) * 0.7F);
+	        worldIn.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, (1.0F + worldIn.getRandom().nextFloat() * 0.2F) * 0.7F);
 	    }
 	}
 

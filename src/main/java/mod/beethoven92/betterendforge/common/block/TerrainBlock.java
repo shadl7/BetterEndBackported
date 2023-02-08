@@ -66,7 +66,7 @@ public class TerrainBlock extends Block
 	{
 	      BlockPos blockPos = pos.up();
 	      BlockState blockState = world.getBlockState(blockPos);
-	      if (blockState.isIn(Blocks.SNOW) && (Integer)blockState.get(SnowBlock.LAYERS) == 1) 
+	      if (blockState.isIn(Blocks.SNOW) && blockState.get(SnowBlock.LAYERS) == 1)
 	      {
 	         return true;
 	      } 

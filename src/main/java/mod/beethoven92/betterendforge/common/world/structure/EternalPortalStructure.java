@@ -69,7 +69,7 @@ public class EternalPortalStructure extends Structure<NoFeatureConfig>
 
 	private static int getGenerationHeight(int chunkX, int chunkZ, ChunkGenerator chunkGenerator) 
 	{
-		Random random = new Random((long) (chunkX + chunkZ * 10387313));
+		Random random = new Random(chunkX + chunkZ * 10387313);
 		Rotation blockRotation = Rotation.randomRotation(random);
 		int i = 5;
 		int j = 5;
