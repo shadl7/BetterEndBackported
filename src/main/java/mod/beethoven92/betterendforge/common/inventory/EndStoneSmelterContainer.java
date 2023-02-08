@@ -118,7 +118,7 @@ public class EndStoneSmelterContainer extends RecipeBookContainer<IInventory>
 
 	protected boolean isSmeltable(ItemStack itemStack) 
 	{
-		return this.world.getRecipeManager().getRecipe(AlloyingRecipe.TYPE, new Inventory(new ItemStack[]{itemStack}), this.world).isPresent();
+		return this.world.getRecipeManager().getRecipe(AlloyingRecipe.TYPE, new Inventory(itemStack), this.world).isPresent();
 	}
 
 	public boolean isFuel(ItemStack itemStack) 

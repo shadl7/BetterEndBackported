@@ -243,7 +243,7 @@ public abstract class NBTFeature extends Feature<NoFeatureConfig>
 		return template;
 	}
 	
-	public static enum TerrainMerge 
+	public enum TerrainMerge
 	{
 		NONE,
 		SURFACE,

@@ -28,7 +28,7 @@ public class BlockProperties
 	public static final IntegerProperty PORTAL = IntegerProperty.create("portal", 0, EndPortals.getCount());
 	public static final IntegerProperty SIZE = IntegerProperty.create("size", 0, 7);
 	
-	public static enum TripleShape implements IStringSerializable 
+	public enum TripleShape implements IStringSerializable
 	{
 		TOP("top", 0),
 		MIDDLE("middle", 1),
@@ -64,7 +64,7 @@ public class BlockProperties
 		}
 	}
 	
-	public static enum PedestalState implements IStringSerializable 
+	public enum PedestalState implements IStringSerializable
 	{
 		PEDESTAL_TOP("pedestal_top"),
 		COLUMN_TOP("column_top"),
@@ -93,7 +93,7 @@ public class BlockProperties
 		}
 	}
 	
-	public static enum HydraluxShape implements IStringSerializable
+	public enum HydraluxShape implements IStringSerializable
 	{
 		FLOWER_BIG_BOTTOM("flower_big_bottom", true),
 		FLOWER_BIG_TOP("flower_big_top", true),
@@ -129,7 +129,7 @@ public class BlockProperties
 		}
 	}
 	
-	public static enum PentaShape implements IStringSerializable {
+	public enum PentaShape implements IStringSerializable {
 		BOTTOM("bottom"),
 		PRE_BOTTOM("pre_bottom"),
 		MIDDLE("middle"),
@@ -153,7 +153,7 @@ public class BlockProperties
 		}
 	}
 	
-	public static enum LumecornShape implements IStringSerializable {
+	public enum LumecornShape implements IStringSerializable {
 		LIGHT_TOP("light_top", 15),
 		LIGHT_TOP_MIDDLE("light_top_middle", 15),
 		LIGHT_MIDDLE("light_middle", 15),
@@ -185,7 +185,7 @@ public class BlockProperties
 		}
 	}
 	
-	public static enum CactusBottom implements IStringSerializable {
+	public enum CactusBottom implements IStringSerializable {
 		EMPTY("empty"),
 		SAND("sand"),
 		MOSS("moss");

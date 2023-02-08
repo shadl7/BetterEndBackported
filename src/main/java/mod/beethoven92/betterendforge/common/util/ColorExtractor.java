@@ -75,9 +75,9 @@ public class ColorExtractor
 				red += center.r * weight;
 				green += center.g * weight;
 				blue += center.b * weight;
-			};
-			
-			int a = (int) Math.round(alpha / weights);
+			}
+
+            int a = (int) Math.round(alpha / weights);
 			int r = (int) Math.round(red / weights);
 			int g = (int) Math.round(green / weights);
 			int b = (int) Math.round(blue / weights);

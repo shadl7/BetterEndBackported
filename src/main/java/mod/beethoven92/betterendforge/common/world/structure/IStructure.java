@@ -6,5 +6,5 @@ import net.minecraft.world.IServerWorld;
 import java.util.Random;
 
 public interface IStructure {
-	public void generate(IServerWorld world, BlockPos pos, Random random);
+	void generate(IServerWorld world, BlockPos pos, Random random);
 }

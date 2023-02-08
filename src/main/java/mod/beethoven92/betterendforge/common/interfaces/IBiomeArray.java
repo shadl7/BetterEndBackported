@@ -5,5 +5,5 @@ import net.minecraft.world.biome.Biome;
 
 public interface IBiomeArray 
 {
-	public void setBiome(Biome biome, BlockPos pos);
+	void setBiome(Biome biome, BlockPos pos);
 }

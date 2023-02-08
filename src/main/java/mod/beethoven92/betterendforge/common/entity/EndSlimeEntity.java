@@ -272,8 +272,7 @@ public class EndSlimeEntity extends SlimeEntity {
 		public void tick() {
 			if (EndSlimeEntity.this.getRNG().nextFloat() < 0.8F) {
 				EndSlimeEntity.this.getJumpController().setJumping();
-				;
-			}
+            }
 
 			((EndSlimeMoveControl) EndSlimeEntity.this.getMoveHelper()).move(1.2D);
 		}

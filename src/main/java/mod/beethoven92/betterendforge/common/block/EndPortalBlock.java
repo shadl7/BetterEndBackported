@@ -80,7 +80,7 @@ public class EndPortalBlock extends NetherPortalBlock
 		if (worldIn instanceof ServerWorld && !entityIn.isPassenger() && !entityIn.isBeingRidden() 
 				&& entityIn.isNonBoss()) 
 		{
-			TeleportingEntity teleEntity = TeleportingEntity.class.cast(entityIn);
+			TeleportingEntity teleEntity = (TeleportingEntity) entityIn;
 			
 			//if (teleEntity.hasCooldown()) return;
 			// Checks if entity has nether portal cooldown

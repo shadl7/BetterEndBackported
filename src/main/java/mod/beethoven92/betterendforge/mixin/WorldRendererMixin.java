@@ -182,8 +182,8 @@ public abstract class WorldRendererMixin
 	private void renderBuffer(MatrixStack matrixStackIn, VertexBuffer buffer, VertexFormat format, float r, float g, float b, float a) 
 	{
 		RenderSystem.color4f(r, g, b, a);
-		buffer.bindBuffer();;
-		format.setupBufferState(0L);
+		buffer.bindBuffer();
+        format.setupBufferState(0L);
         buffer.draw(matrixStackIn.getLast().getMatrix(), 7);
         VertexBuffer.unbindBuffer();
         format.clearBufferState();

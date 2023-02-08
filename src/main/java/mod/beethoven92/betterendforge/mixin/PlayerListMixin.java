@@ -45,9 +45,9 @@ public class PlayerListMixin
 	
 	@Final
 	@Shadow
-	private DynamicRegistries.Impl field_232639_s_;;
+	private DynamicRegistries.Impl field_232639_s_;
 
-	@Shadow
+    @Shadow
 	private int viewDistance;
 	
 	@Shadow

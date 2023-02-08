@@ -44,8 +44,8 @@ public class EndStoneSmelterRecipeBookScreen extends BlastFurnaceRecipeGui
 	@Override
 	public void setupGhostRecipe(IRecipe<?> recipe, List<Slot> slots) 
 	{
-		this.ghostRecipe.clear();;
-		ItemStack result = recipe.getRecipeOutput();
+		this.ghostRecipe.clear();
+        ItemStack result = recipe.getRecipeOutput();
 		this.ghostRecipe.setRecipe(recipe);
 		this.ghostRecipe.addIngredient(Ingredient.fromStacks(result), (slots.get(3)).xPos, (slots.get(3)).yPos);
 		NonNullList<Ingredient> inputs = recipe.getIngredients();

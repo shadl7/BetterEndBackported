@@ -14,7 +14,7 @@ public class FuelRegistry {
 	public static void onFuelBurnTimeEvent(FurnaceFuelBurnTimeEvent event) {
 		ItemStack stack = event.getItemStack();
 		IItemProvider item = stack.getItem();
-		if (FUELS.keySet().contains(item)) {
+		if (FUELS.containsKey(item)) {
 			event.setBurnTime(FUELS.get(item));
 		}
 	}
