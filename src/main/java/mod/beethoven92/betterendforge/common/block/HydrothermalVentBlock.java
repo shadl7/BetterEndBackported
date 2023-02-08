@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModParticleTypes;
 import mod.beethoven92.betterendforge.common.tileentity.HydrothermalVentTileEntity;
@@ -30,6 +28,9 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class HydrothermalVentBlock extends Block implements IWaterLoggable
 {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -42,8 +43,9 @@ public class HydrothermalVentBlock extends Block implements IWaterLoggable
 		this.setDefaultState(getDefaultState().with(WATERLOGGED, true).with(ACTIVATED, false));
 	}
 	
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	@Nonnull
+    @Override
+	public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		return SHAPE;
 	}
@@ -61,7 +63,7 @@ public class HydrothermalVentBlock extends Block implements IWaterLoggable
 	}
 	
 	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack)
+	public void onBlockPlacedBy(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull BlockState state, LivingEntity placer, @Nonnull ItemStack stack)
 	{
 		if (worldIn instanceof ServerWorld && state.get(WATERLOGGED) && worldIn.getBlockState(pos.up()).isIn(Blocks.WATER))
 		{
@@ -70,7 +72,7 @@ public class HydrothermalVentBlock extends Block implements IWaterLoggable
 	}
 	
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
+	public boolean isValidPosition(@Nonnull BlockState state, IWorldReader worldIn, BlockPos pos)
 	{
 		state = worldIn.getBlockState(pos.down());
 		return state.isIn(ModBlocks.SULPHURIC_ROCK.stone.get());
@@ -84,9 +86,10 @@ public class HydrothermalVentBlock extends Block implements IWaterLoggable
 		return this.getDefaultState().with(WATERLOGGED, world.getFluidState(blockPos).getFluid() == Fluids.WATER);
 	}
 	
-	@Override
-	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
-			BlockPos currentPos, BlockPos facingPos) 
+	@Nonnull
+    @Override
+	public BlockState updatePostPlacement(@Nonnull BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn,
+                                          @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos)
 	{
 		if (!isValidPosition(stateIn, worldIn, currentPos)) 
 		{
@@ -100,7 +103,7 @@ public class HydrothermalVentBlock extends Block implements IWaterLoggable
 	}
 	
 	@Override
-	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) 
+	public void animateTick(BlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Random rand)
 	{
 		if (!stateIn.get(ACTIVATED) && rand.nextBoolean()) 
 		{
@@ -119,7 +122,7 @@ public class HydrothermalVentBlock extends Block implements IWaterLoggable
 	}
 	
 	@Override
-	public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) 
+	public void randomTick(@Nonnull BlockState state, ServerWorld worldIn, BlockPos pos, @Nonnull Random random)
 	{
 		BlockPos up = pos.up();
 		if (worldIn.getBlockState(up).isIn(Blocks.WATER)) 
@@ -129,10 +132,11 @@ public class HydrothermalVentBlock extends Block implements IWaterLoggable
 		}
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public FluidState getFluidState(BlockState state) 
 	{
-		return (Boolean) state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();
+		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();
 	}
 	
 	@Override

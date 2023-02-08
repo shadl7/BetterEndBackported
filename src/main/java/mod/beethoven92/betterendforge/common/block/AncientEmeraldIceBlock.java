@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModParticleTypes;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
@@ -13,6 +11,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class AncientEmeraldIceBlock extends Block
 {
 	public AncientEmeraldIceBlock(Properties properties) 
@@ -21,7 +22,7 @@ public class AncientEmeraldIceBlock extends Block
 	}
 
 	@Override
-	public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) 
+	public void randomTick(@Nonnull BlockState state, @Nonnull ServerWorld worldIn, @Nonnull BlockPos pos, @Nonnull Random random)
 	{
 		Direction dir = BlockHelper.randomDirection(random);
 		

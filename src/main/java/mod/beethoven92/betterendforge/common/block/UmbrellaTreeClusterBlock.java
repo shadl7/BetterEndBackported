@@ -18,6 +18,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class UmbrellaTreeClusterBlock extends Block
 {
 	public static final BooleanProperty NATURAL = BlockProperties.NATURAL;
@@ -34,9 +36,10 @@ public class UmbrellaTreeClusterBlock extends Block
 		builder.add(NATURAL);
 	}
 	
-	@Override
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
-			Hand handIn, BlockRayTraceResult hit) 
+	@Nonnull
+    @Override
+	public ActionResultType onBlockActivated(@Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos, PlayerEntity player,
+                                             @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit)
 	{
 		ItemStack stack = player.getHeldItemMainhand();
 		if (stack.getItem() == Items.GLASS_BOTTLE) 

@@ -1,11 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.structure;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import com.mojang.serialization.Codec;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
@@ -28,25 +23,29 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+
 public class GiantIceStarStructure extends SDFStructure
 {
-	private final float minSize = 20;
-	private final float maxSize = 35;
-	private final int minCount = 25;
-	private final int maxCount = 40;
-	
-	public GiantIceStarStructure(Codec<NoFeatureConfig> codec) 
+
+    public GiantIceStarStructure(Codec<NoFeatureConfig> codec)
 	{
 		super(codec);
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public Decoration getDecorationStage() 
 	{
 		return Decoration.SURFACE_STRUCTURES;
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public String getStructureName() 
 	{
 		return BetterEnd.MOD_ID + ":giant_ice_star_structure";
@@ -55,8 +54,12 @@ public class GiantIceStarStructure extends SDFStructure
 	@Override
 	protected SDF getSDF(BlockPos pos, Random random)
 	{
-		float size = ModMathHelper.randRange(minSize, maxSize, random);
-		int count = ModMathHelper.randRange(minCount, maxCount, random);
+        float maxSize = 35;
+        float minSize = 20;
+        float size = ModMathHelper.randRange(minSize, maxSize, random);
+        int maxCount = 40;
+        int minCount = 25;
+        int count = ModMathHelper.randRange(minCount, maxCount, random);
 		List<Vector3f> points = getFibonacciPoints(count);
 		SDF sdf = null;
 		SDF spike = new SDFCappedCone().setRadius1(3 + (size - 5) * 0.2F).setRadius2(0).setHeight(size).setBlock(ModBlocks.DENSE_SNOW.get());
@@ -64,7 +67,7 @@ public class GiantIceStarStructure extends SDFStructure
 		for (Vector3f point: points) 
 		{
 			SDF rotated = spike;
-			point = ModMathHelper.normalize(point);
+			ModMathHelper.normalize(point);
 			float angle = ModMathHelper.angle(Vector3f.YP, point);
 			if (angle > 0.01F && angle < 3.14F) 
 			{
@@ -89,7 +92,7 @@ public class GiantIceStarStructure extends SDFStructure
 		final BlockState ancient = ModBlocks.ANCIENT_EMERALD_ICE.get().getDefaultState();
 		final SDF sdfCopy = sdf;
 		
-		return sdf.addPostProcess((info) -> {
+		return Objects.requireNonNull(sdf).addPostProcess((info) -> {
 			BlockPos bpos = info.getPos();
 			float px = bpos.getX() - center.getX();
 			float py = bpos.getY() - center.getY();
@@ -114,7 +117,7 @@ public class GiantIceStarStructure extends SDFStructure
 	private List<Vector3f> getFibonacciPoints(int count) 
 	{
 		float max = count - 1;
-		List<Vector3f> result = new ArrayList<Vector3f>(count);
+		List<Vector3f> result = new ArrayList<>(count);
 		for (int i = 0; i < count; i++) 
 		{
 			float y = 1F - (i / max) * 2F;
@@ -127,6 +130,7 @@ public class GiantIceStarStructure extends SDFStructure
 		return result;
 	}
 	
+	@Nonnull
 	@Override
 	public IStartFactory<NoFeatureConfig> getStartFactory() 
 	{
@@ -142,14 +146,14 @@ public class GiantIceStarStructure extends SDFStructure
 		}
 
 		@Override
-		public void func_230364_a_(DynamicRegistries registry, ChunkGenerator chunkGenerator,
-				TemplateManager manager, int chunkX, int chunkZ, Biome biome,
-				NoFeatureConfig config) 
+		public void func_230364_a_(@Nonnull DynamicRegistries registry, @Nonnull ChunkGenerator chunkGenerator,
+                                   @Nonnull TemplateManager manager, int chunkX, int chunkZ, @Nonnull Biome biome,
+                                   @Nonnull NoFeatureConfig config)
 		{
 			int x = (chunkX << 4) | ModMathHelper.randRange(4, 12, rand);
 			int z = (chunkZ << 4) | ModMathHelper.randRange(4, 12, rand);
 			BlockPos start = new BlockPos(x, ModMathHelper.randRange(32, 128, rand), z);
-			VoxelPiece piece = new VoxelPiece((world) -> { ((SDFStructure) this.getStructure()).getSDF(start, this.rand).fillRecursive(world, start); }, rand.nextInt());
+			VoxelPiece piece = new VoxelPiece((world) -> ((SDFStructure) this.getStructure()).getSDF(start, this.rand).fillRecursive(world, start), rand.nextInt());
 			this.components.add(piece);
 			this.recalculateStructureSize();
 		}

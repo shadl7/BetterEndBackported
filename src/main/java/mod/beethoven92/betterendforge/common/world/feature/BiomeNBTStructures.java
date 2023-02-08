@@ -1,11 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
-
 import com.google.common.collect.Maps;
-
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.StructureHelper;
@@ -17,6 +12,10 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 public class BiomeNBTStructures extends NBTFeature
 {

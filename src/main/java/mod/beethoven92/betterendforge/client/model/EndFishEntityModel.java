@@ -2,11 +2,12 @@ package mod.beethoven92.betterendforge.client.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import mod.beethoven92.betterendforge.common.entity.EndFishEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+
+import javax.annotation.Nonnull;
 
 public class EndFishEntityModel extends EntityModel<EndFishEntity>
 {
@@ -67,15 +68,15 @@ public class EndFishEntityModel extends EntityModel<EndFishEntity>
 	}
 	
 	@Override
-	public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
-			float red, float green, float blue, float alpha) 
+	public void render(@Nonnull MatrixStack matrixStackIn, @Nonnull IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
+                       float red, float green, float blue, float alpha)
 	{
 		model.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn);
 	}
 
 	@Override
-	public void setRotationAngles(EndFishEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
-			float netHeadYaw, float headPitch) 
+	public void setRotationAngles(@Nonnull EndFishEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
+                                  float netHeadYaw, float headPitch)
 	{
 		float s1 = (float) Math.sin(ageInTicks * 0.1);
 		float s2 = (float) Math.sin(ageInTicks * 0.05);

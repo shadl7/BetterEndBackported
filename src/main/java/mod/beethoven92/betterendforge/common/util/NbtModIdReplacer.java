@@ -1,13 +1,15 @@
 package mod.beethoven92.betterendforge.common.util;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import mod.beethoven92.betterendforge.BetterEnd;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.CompressedStreamTools;
 import net.minecraft.nbt.ListNBT;
 import net.minecraft.util.ResourceLocation;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class NbtModIdReplacer 
 {
@@ -38,7 +40,7 @@ public class NbtModIdReplacer
 	    
         String fileToSave = filePath + replacePath + ".nbt";  
        
-        try (OutputStream outputstream = new FileOutputStream(fileToSave)) 
+        try (OutputStream outputstream = Files.newOutputStream(Paths.get(fileToSave)))
         {
             CompressedStreamTools.writeCompressed(compound, outputstream);
             BetterEnd.LOGGER.debug("STRUCTURE: " + replacePath + " WROTE TO FILE");

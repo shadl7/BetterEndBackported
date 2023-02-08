@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
@@ -18,11 +16,10 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.template.BlockIgnoreStructureProcessor;
-import net.minecraft.world.gen.feature.template.IStructureProcessorType;
-import net.minecraft.world.gen.feature.template.PlacementSettings;
-import net.minecraft.world.gen.feature.template.StructureProcessor;
-import net.minecraft.world.gen.feature.template.Template;
+import net.minecraft.world.gen.feature.template.*;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class CrashedShipFeature extends NBTFeature
 {
@@ -35,9 +32,9 @@ public class CrashedShipFeature extends NBTFeature
 		REPLACER = new StructureProcessor() 
 		{
 			@Override
-			public Template.BlockInfo process(IWorldReader worldView, BlockPos pos, BlockPos blockPos, 
-					Template.BlockInfo structureBlockInfo, Template.BlockInfo structureBlockInfo2, 
-					PlacementSettings structurePlacementData, Template template) 
+			public Template.BlockInfo process(@Nonnull IWorldReader worldView, @Nonnull BlockPos pos, @Nonnull BlockPos blockPos,
+                                              @Nonnull Template.BlockInfo structureBlockInfo, @Nonnull Template.BlockInfo structureBlockInfo2,
+                                              @Nonnull PlacementSettings structurePlacementData, Template template)
 			{
 				BlockState state = structureBlockInfo2.state;
 				if (state.isIn(Blocks.SPAWNER) || state.getMaterial().equals(Material.WOOL)) 
@@ -47,7 +44,8 @@ public class CrashedShipFeature extends NBTFeature
 				return structureBlockInfo2;
 			}
 
-			@Override
+			@Nonnull
+            @Override
 			protected IStructureProcessorType<?> getType() 
 			{
 				return IStructureProcessorType.NOP;
@@ -108,8 +106,8 @@ public class CrashedShipFeature extends NBTFeature
 	}
 	
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos center,
-			NoFeatureConfig config) 
+	public boolean generate(@Nonnull ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos center,
+                            @Nonnull NoFeatureConfig config)
 	{
 		center = new BlockPos(((center.getX() >> 4) << 4) | 8, 128, ((center.getZ() >> 4) << 4) | 8);
 		center = getGround(world, center);

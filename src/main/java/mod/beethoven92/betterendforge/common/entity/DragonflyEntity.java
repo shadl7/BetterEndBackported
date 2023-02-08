@@ -1,19 +1,11 @@
 package mod.beethoven92.betterendforge.common.entity;
 
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModEntityTypes;
 import mod.beethoven92.betterendforge.common.init.ModSoundEvents;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -39,6 +31,11 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap.Type;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
+
 public class DragonflyEntity extends AnimalEntity implements IFlyingAnimal
 {
 	public DragonflyEntity(EntityType<? extends AnimalEntity> type, World worldIn) 
@@ -60,7 +57,8 @@ public class DragonflyEntity extends AnimalEntity implements IFlyingAnimal
 		this.goalSelector.addGoal(4, new WanderAroundGoal());
 	}
 
-	public static AttributeModifierMap.MutableAttribute registerAttributes() 
+	@Nonnull
+	public static AttributeModifierMap.MutableAttribute registerAttributes()
 	{
 		return LivingEntity.registerAttributes().createMutableAttribute(Attributes.MAX_HEALTH, 8.0).
 				createMutableAttribute(Attributes.FOLLOW_RANGE, 16.0).
@@ -69,18 +67,19 @@ public class DragonflyEntity extends AnimalEntity implements IFlyingAnimal
 	}
 
 	@Override
-	public float getBlockPathWeight(BlockPos pos, IWorldReader worldIn) 
+	public float getBlockPathWeight(@Nonnull BlockPos pos, IWorldReader worldIn)
 	{
 		return worldIn.getBlockState(pos).isAir() ? 10.0F : 0.0F;
 	}
 	
+	@Nonnull
 	@Override
-	protected PathNavigator createNavigator(World worldIn) 
+	protected PathNavigator createNavigator(@Nonnull World worldIn)
 	{
 		FlyingPathNavigator flyingNavigator = new FlyingPathNavigator(this, worldIn) 
 		{
 			@Override
-	         public boolean canEntityStandOnPos(BlockPos pos) 
+	         public boolean canEntityStandOnPos(@Nonnull BlockPos pos)
 	         {
 				BlockState state = this.world.getBlockState(pos);
 				return state.isAir() || !state.getMaterial().blocksMovement();
@@ -128,7 +127,7 @@ public class DragonflyEntity extends AnimalEntity implements IFlyingAnimal
 	}
 		
 	@Override
-	public AgeableEntity func_241840_a(ServerWorld p_241840_1_, AgeableEntity p_241840_2_) 
+	public AgeableEntity func_241840_a(@Nonnull ServerWorld p_241840_1_, @Nonnull AgeableEntity p_241840_2_)
 	{
 		return ModEntityTypes.DRAGONFLY.get().create(world);
 	}
@@ -137,14 +136,14 @@ public class DragonflyEntity extends AnimalEntity implements IFlyingAnimal
 			BlockPos pos, Random random)
 	{
 		AxisAlignedBB box = new AxisAlignedBB(pos).grow(16);
-		List<DragonflyEntity> list = world.getEntitiesWithinAABB(DragonflyEntity.class, box, (entity) -> { return true; });
+		List<DragonflyEntity> list = world.getEntitiesWithinAABB(DragonflyEntity.class, box, (entity) -> true);
 		int y = world.getChunk(pos).getTopBlockY(Type.WORLD_SURFACE, pos.getX() & 15, pos.getY() & 15);
 		
 		// FIX dragonfly spawning too much and preventing other entities to spawn
 		return y > 0 && pos.getY() >= y && list.size() < 9;
 	}
 	
-	public class DragonflyLookControl extends LookController 
+	public static class DragonflyLookControl extends LookController
 	{
 		DragonflyLookControl(MobEntity entity) 
 		{

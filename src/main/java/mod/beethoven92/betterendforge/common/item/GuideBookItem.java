@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.item;
 
-import java.util.List;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -18,6 +16,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.ModList;
 import vazkii.patchouli.api.PatchouliAPI;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+
 public class GuideBookItem extends Item
 {
 	private final static ResourceLocation BOOK_ID = new ResourceLocation(BetterEnd.MOD_ID, "guidebook");
@@ -27,8 +28,9 @@ public class GuideBookItem extends Item
 		super(properties);
 	}
 	
-	@Override
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) 
+	@Nonnull
+    @Override
+	public ActionResult<ItemStack> onItemRightClick(World worldIn, @Nonnull PlayerEntity playerIn, @Nonnull Hand handIn)
 	{
     	if (!worldIn.isRemote && playerIn instanceof ServerPlayerEntity)
     	{
@@ -47,7 +49,7 @@ public class GuideBookItem extends Item
 	}
 	
 	@Override
-	public void addInformation(ItemStack stack, World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) 
+	public void addInformation(@Nonnull ItemStack stack, World worldIn, List<ITextComponent> tooltip, @Nonnull ITooltipFlag flagIn)
 	{
 		tooltip.add(new TranslationTextComponent(String.format("%s.%s", "book.betterendforge", "subtitle")).
 				mergeStyle(TextFormatting.DARK_PURPLE, TextFormatting.ITALIC));

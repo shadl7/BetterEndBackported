@@ -1,16 +1,6 @@
 package mod.beethoven92.betterendforge.common.util;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Enumeration;
-import java.util.Random;
-import java.util.Set;
-import java.util.zip.ZipEntry;
-import java.util.zip.ZipFile;
-
 import com.google.common.collect.Sets;
-
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import net.minecraft.block.BlockState;
@@ -30,6 +20,15 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Enumeration;
+import java.util.Random;
+import java.util.Set;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
+
 public class StructureHelper 
 {
 	private static final Direction[] DIR = BlockHelper.makeHorizontal();
@@ -45,7 +44,7 @@ public class StructureHelper
 	{
 		if (datapack.isDirectory()) 
 		{
-			return readStructure(datapack.toString() + "/" + path);
+			return readStructure(datapack + "/" + path);
 		}
 		else if (datapack.isFile() && datapack.getName().endsWith(".zip")) 
 		{

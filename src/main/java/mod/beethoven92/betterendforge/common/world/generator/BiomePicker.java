@@ -1,14 +1,13 @@
 package mod.beethoven92.betterendforge.common.world.generator;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import mod.beethoven92.betterendforge.common.world.biome.BetterEndBiome;
+import net.minecraft.util.ResourceLocation;
+
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
-
-import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-
-import mod.beethoven92.betterendforge.common.world.biome.BetterEndBiome;
-import net.minecraft.util.ResourceLocation;
 
 public class BiomePicker 
 {
@@ -36,9 +35,8 @@ public class BiomePicker
 	public void clearMutables() 
 	{
 		maxChance = maxChanceUnmutable;
-		for (int i = biomes.size() - 1; i >= biomeCount; i--)
-		{
-			biomes.remove(i);
+		if (biomes.size() > biomeCount) {
+			biomes.subList(biomeCount, biomes.size()).clear();
 		}
 	}
 	
@@ -54,7 +52,7 @@ public class BiomePicker
 	
 	public boolean containsImmutable(ResourceLocation id) 
 	{
-		return immutableIDs.contains(id);
+		return !immutableIDs.contains(id);
 	}
 	
 	public void removeMutableBiome(ResourceLocation id) 

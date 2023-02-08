@@ -2,7 +2,6 @@ package mod.beethoven92.betterendforge.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.client.model.CubozoaModel;
 import mod.beethoven92.betterendforge.common.entity.CubozoaEntity;
@@ -14,6 +13,8 @@ import net.minecraft.client.renderer.entity.layers.AbstractEyesLayer;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+
 public class CubozoaRenderer extends MobRenderer<CubozoaEntity, CubozoaModel> {
 	private static final ResourceLocation[] TEXTURE = new ResourceLocation[2];
 	private static final RenderType[] GLOW = new RenderType[2];
@@ -21,13 +22,14 @@ public class CubozoaRenderer extends MobRenderer<CubozoaEntity, CubozoaModel> {
 	public CubozoaRenderer(EntityRendererManager entityRenderDispatcher) {
 		super(entityRenderDispatcher, new CubozoaModel(), 0.5f);
 		this.addLayer(new AbstractEyesLayer<CubozoaEntity, CubozoaModel>(this) {
-			@Override
+			@Nonnull
+            @Override
 			public RenderType getRenderType() {
 				return GLOW[0];
 			}
 
 			@Override
-			public void render(MatrixStack matrices, IRenderTypeBuffer vertexConsumers, int light, CubozoaEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
+			public void render(@Nonnull MatrixStack matrices, @Nonnull IRenderTypeBuffer vertexConsumers, int light, @Nonnull CubozoaEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
 				IVertexBuilder ivertexbuilder = vertexConsumers.getBuffer(GLOW[entity.getVariant()]);
 				this.getEntityModel().render(matrices, ivertexbuilder, 15728640, OverlayTexture.NO_OVERLAY, 1.0F, 1.0F, 1.0F, 1.0F);
 			}
@@ -41,7 +43,8 @@ public class CubozoaRenderer extends MobRenderer<CubozoaEntity, CubozoaModel> {
 	}
 	
 
-	@Override
+	@Nonnull
+    @Override
 	public ResourceLocation getEntityTexture(CubozoaEntity entity) {
 		return TEXTURE[entity.getVariant()];
 	}

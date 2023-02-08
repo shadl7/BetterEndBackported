@@ -1,16 +1,7 @@
 package mod.beethoven92.betterendforge.client.event.mod;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import mod.beethoven92.betterendforge.BetterEnd;
-import mod.beethoven92.betterendforge.common.block.AuroraCrystalBlock;
-import mod.beethoven92.betterendforge.common.block.EndPortalBlock;
-import mod.beethoven92.betterendforge.common.block.HelixTreeLeavesBlock;
-import mod.beethoven92.betterendforge.common.block.JellyshroomCapBlock;
-import mod.beethoven92.betterendforge.common.block.ModLanternBlock;
-import mod.beethoven92.betterendforge.common.block.RespawnObeliskBlock;
-import mod.beethoven92.betterendforge.common.block.TenaneaFlowersBlock;
+import mod.beethoven92.betterendforge.common.block.*;
 import mod.beethoven92.betterendforge.common.block.material.ColoredMaterial;
 import mod.beethoven92.betterendforge.common.block.material.StoneMaterial;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
@@ -24,20 +15,24 @@ import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 @EventBusSubscriber(modid = BetterEnd.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ColorHandler 
 {
 	@SubscribeEvent
 	public static void BlockColorHandler(ColorHandlerEvent.Block event)
 	{
-		event.getBlockColors().register((state, reader, pos, color) -> 
-		                 {return AuroraCrystalBlock.getBlockColor(pos);}, ModBlocks.AURORA_CRYSTAL.get());
+		event.getBlockColors().register((state, reader, pos, color) ->
+				AuroraCrystalBlock.getBlockColor(Objects.requireNonNull(pos)), ModBlocks.AURORA_CRYSTAL.get());
 		
-		event.getBlockColors().register((state, reader, pos, color) -> 
-		                 {return TenaneaFlowersBlock.getBlockColor(pos);}, ModBlocks.TENANEA_FLOWERS.get());
+		event.getBlockColors().register((state, reader, pos, color) ->
+				TenaneaFlowersBlock.getBlockColor(Objects.requireNonNull(pos)), ModBlocks.TENANEA_FLOWERS.get());
 		
-		event.getBlockColors().register((state, reader, pos, color) -> 
-        				 {return RespawnObeliskBlock.getBlockColor(pos);}, ModBlocks.RESPAWN_OBELISK.get());
+		event.getBlockColors().register((state, reader, pos, color) ->
+				RespawnObeliskBlock.getBlockColor(pos), ModBlocks.RESPAWN_OBELISK.get());
 
 		registerColoredMaterialBlocks(event, ModBlocks.HYDRALUX_PETAL_BLOCK_COLORED);
 		registerColoredMaterialBlocks(event, ModBlocks.IRON_BULB_LANTERN_COLORED);
@@ -45,37 +40,34 @@ public class ColorHandler
 		registerColoredMaterialBlocks(event, ModBlocks.TERMINITE.bulb_lantern_colored);
 		
 		event.getBlockColors().register((state, reader, pos, color) ->
-		 				 {return HelixTreeLeavesBlock.getBlockColor(state);}, 
+						HelixTreeLeavesBlock.getBlockColor(state),
 		 				 ModBlocks.HELIX_TREE_LEAVES.get());
 		
 		event.getBlockColors().register((state, reader, pos, color) ->
-                         {return ((JellyshroomCapBlock)(state.getBlock())).getBlockColor(state);}, 
+						((JellyshroomCapBlock)(state.getBlock())).getBlockColor(state),
                          ModBlocks.JELLYSHROOM_CAP_PURPLE.get());
 		
-		event.getBlockColors().register((state, reader, pos, color) ->
-						 {return ModLanternBlock.getBlockColor(state, reader, pos, color);}, 
+		event.getBlockColors().register(ModLanternBlock::getBlockColor,
 						 getLanterns());
 		
 		event.getBlockColors().register((state, reader, pos, color) ->
-                         {return EndPortals.getColor(state.get(EndPortalBlock.PORTAL));}, 
+						EndPortals.getColor(state.get(EndPortalBlock.PORTAL)),
                          ModBlocks.END_PORTAL_BLOCK.get());
 	}
 	
 	@SubscribeEvent
 	public static void ItemColorHandler(ColorHandlerEvent.Item event)
 	{
-		event.getItemColors().register((stack, tintIndex) -> 
-		                 {return AuroraCrystalBlock.getItemColor();}, ModBlocks.AURORA_CRYSTAL.get());
+		event.getItemColors().register((stack, tintIndex) ->
+				AuroraCrystalBlock.getItemColor(), ModBlocks.AURORA_CRYSTAL.get());
 		
-		event.getItemColors().register((stack, tintIndex) -> 
-                         {return TenaneaFlowersBlock.getItemColor();}, ModBlocks.TENANEA_FLOWERS.get());
+		event.getItemColors().register((stack, tintIndex) ->
+				TenaneaFlowersBlock.getItemColor(), ModBlocks.TENANEA_FLOWERS.get());
 		
-		event.getItemColors().register((stack, tintIndex) -> 
-                         {return HelixTreeLeavesBlock.getItemColor();}, ModBlocks.HELIX_TREE_LEAVES.get());
+		event.getItemColors().register((stack, tintIndex) ->
+				HelixTreeLeavesBlock.getItemColor(), ModBlocks.HELIX_TREE_LEAVES.get());
 		
-		event.getItemColors().register((stack, color) -> {
-			return ((SpawnEggItem) stack.getItem()).getColor(color);
-		}, ModItems.DRAGONFLY_SPAWN_EGG.get(), ModItems.END_FISH_SPAWN_EGG.get(),
+		event.getItemColors().register((stack, color) -> ((SpawnEggItem) stack.getItem()).getColor(color), ModItems.DRAGONFLY_SPAWN_EGG.get(), ModItems.END_FISH_SPAWN_EGG.get(),
 				ModItems.SHADOW_WALKER_SPAWN_EGG.get(), ModItems.END_SLIME_SPAWN_EGG.get(),
 				ModItems.CUBOZOA_SPAWN_EGG.get(), ModItems.SILK_MOTH_SPAWN_EGG.get());
 		
@@ -84,29 +76,28 @@ public class ColorHandler
 		registerColoredMaterialItems(event, ModBlocks.THALLASIUM.bulb_lantern_colored);
 		registerColoredMaterialItems(event, ModBlocks.TERMINITE.bulb_lantern_colored);
 		
-		event.getItemColors().register((stack, tintIndex) -> 
-                         {return JellyshroomCapBlock.getItemColor(stack);}, ModBlocks.JELLYSHROOM_CAP_PURPLE.get());
-		
 		event.getItemColors().register((stack, tintIndex) ->
-						 {return ModLanternBlock.getItemColor(stack, tintIndex);}, 
+				JellyshroomCapBlock.getItemColor(stack), ModBlocks.JELLYSHROOM_CAP_PURPLE.get());
+		
+		event.getItemColors().register(ModLanternBlock::getItemColor,
 						 getLanterns());
 		
 		event.getItemColors().register((stack, tintIndex) ->
-		                 {return EndPortals.getColor(0);}, 
+						EndPortals.getColor(0),
 		                 ModBlocks.END_PORTAL_BLOCK.get());
 	}
 	
 	private static void registerColoredMaterialBlocks(ColorHandlerEvent.Block event, ColoredMaterial material)
 	{
-		event.getBlockColors().register((state, reader, pos, color) -> 
-		                  {return state.getBlock().getMaterialColor().colorValue;}, 
+		event.getBlockColors().register((state, reader, pos, color) ->
+						state.getBlock().getMaterialColor().colorValue,
                           material.getBlocks());
 	}
 	
 	private static void registerColoredMaterialItems(ColorHandlerEvent.Item event, ColoredMaterial material)
 	{
-		event.getItemColors().register((stack, tintIndex) -> 
-                         {return ((BlockItem)stack.getItem()).getBlock().getMaterialColor().colorValue;}, 
+		event.getItemColors().register((stack, tintIndex) ->
+						((BlockItem)stack.getItem()).getBlock().getMaterialColor().colorValue,
                          material.getBlocks());
 	}
 	

@@ -1,9 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
@@ -28,6 +24,11 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.surfacebuilders.ISurfaceBuilderConfig;
+
+import javax.annotation.Nonnull;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Random;
 
 public abstract class NBTFeature extends Feature<NoFeatureConfig>
 {
@@ -87,8 +88,8 @@ public abstract class NBTFeature extends Feature<NoFeatureConfig>
 	}
 	
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos center,
-			NoFeatureConfig config) 
+	public boolean generate(@Nonnull ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos center,
+                            @Nonnull NoFeatureConfig config)
 	{
 		center = new BlockPos(((center.getX() >> 4) << 4) | 8, 128, ((center.getZ() >> 4) << 4) | 8);
 		center = getGround(world, center);
@@ -243,7 +244,7 @@ public abstract class NBTFeature extends Feature<NoFeatureConfig>
 		return template;
 	}
 	
-	public static enum TerrainMerge 
+	public enum TerrainMerge
 	{
 		NONE,
 		SURFACE,

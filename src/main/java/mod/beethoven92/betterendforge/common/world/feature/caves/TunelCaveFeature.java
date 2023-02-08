@@ -18,9 +18,10 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.feature.*;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.NoFeatureConfig;
 
-
+import javax.annotation.Nonnull;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
@@ -108,8 +109,8 @@ public class TunelCaveFeature extends EndCaveFeature {
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator generator, Random random,
-						 BlockPos pos, NoFeatureConfig config) {
+	public boolean generate(@Nonnull ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random random,
+							@Nonnull BlockPos pos, @Nonnull NoFeatureConfig config) {
 		if (pos.getX() * pos.getX() + pos.getZ() * pos.getZ() <= 2500) {
 			return false;
 		}
@@ -137,20 +138,12 @@ public class TunelCaveFeature extends EndCaveFeature {
 			else if (world.getBlockState(mut).getMaterial().isReplaceable()) {
 				mut.setY(bpos.getY() - 1);
 				if (world.getBlockState(mut).isIn(ModTags.GEN_TERRAIN)) {
-					Set<BlockPos> floorPositions = floorSets.get(bio);
-					if (floorPositions == null) {
-						floorPositions = Sets.newHashSet();
-						floorSets.put(bio, floorPositions);
-					}
+					Set<BlockPos> floorPositions = floorSets.computeIfAbsent(bio, k -> Sets.newHashSet());
 					floorPositions.add(mut.toImmutable());
 				}
 				mut.setY(bpos.getY() + 1);
 				if (world.getBlockState(mut).isIn(ModTags.GEN_TERRAIN)) {
-					Set<BlockPos> ceilPositions = ceilSets.get(bio);
-					if (ceilPositions == null) {
-						ceilPositions = Sets.newHashSet();
-						ceilSets.put(bio, ceilPositions);
-					}
+					Set<BlockPos> ceilPositions = ceilSets.computeIfAbsent(bio, k -> Sets.newHashSet());
 					ceilPositions.add(mut.toImmutable());
 				}
 				setBiome(world, bpos, bio);
@@ -169,9 +162,7 @@ public class TunelCaveFeature extends EndCaveFeature {
 					.getTop();
 			placeFloor(world, biome, floorPositions, random, surfaceBlock);
 		});
-		ceilSets.forEach((biome, ceilPositions) -> {
-			placeCeil(world, biome, ceilPositions, random);
-		});
+		ceilSets.forEach((biome, ceilPositions) -> placeCeil(world, biome, ceilPositions, random));
 		BetterEndCaveBiome biome = ModBiomes.getCaveBiome(random);
 		placeWalls(world, biome, caveBlocks, random);
 		fixBlocks(world, caveBlocks);

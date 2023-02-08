@@ -1,22 +1,22 @@
 package mod.beethoven92.betterendforge.client.model;
 
-import java.util.Collections;
-
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.HandSide;
 
+import javax.annotation.Nonnull;
+import java.util.Collections;
+
 public class CrystaliteChestplateModel extends BipedModel<LivingEntity> {
 
-	public ModelRenderer leftShoulder;
-	public ModelRenderer rightShoulder;
-	private boolean thinArms;
+	public final ModelRenderer leftShoulder;
+	public final ModelRenderer rightShoulder;
+	private final boolean thinArms;
 	
 	public CrystaliteChestplateModel(float scale, boolean thinArms) {
 		super(RenderType::getEntityTranslucent, scale, 0.0F, 64, 48);
@@ -44,25 +44,27 @@ public class CrystaliteChestplateModel extends BipedModel<LivingEntity> {
 	}
 	
 	@Override
-	public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
-			float red, float green, float blue, float alpha) {
+	public void render(@Nonnull MatrixStack matrixStackIn, @Nonnull IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
+					   float red, float green, float blue, float alpha) {
 		this.leftShoulder.copyModelAngles(bipedLeftArm);
 		this.rightShoulder.copyModelAngles(bipedRightArm);
 		super.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
 	}
 	
+	@Nonnull
 	@Override
 	protected Iterable<ModelRenderer> getHeadParts() {
 		return Collections::emptyIterator;
 	}
 	
+	@Nonnull
 	@Override
 	protected Iterable<ModelRenderer> getBodyParts() {
 		return Lists.newArrayList(bipedBody, leftShoulder, rightShoulder);
 	}
 	
 	@Override
-	public void translateHand(HandSide arm, MatrixStack matrices) {
+	public void translateHand(@Nonnull HandSide arm, @Nonnull MatrixStack matrices) {
 		ModelRenderer modelPart = this.getArmForSide(arm);
 		if (this.thinArms) {
 			float f = 0.5F * (float)(arm == HandSide.RIGHT ? 1 : -1);

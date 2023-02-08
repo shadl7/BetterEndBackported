@@ -12,6 +12,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
+import javax.annotation.Nonnull;
+
 public class EndLotusFlowerBlock extends Block
 {
 	private static final VoxelShape SHAPE_OUTLINE = Block.makeCuboidShape(2, 0, 2, 14, 14, 14);
@@ -22,35 +24,39 @@ public class EndLotusFlowerBlock extends Block
 		super(properties);
 	}
 	
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	@Nonnull
+    @Override
+	public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		return SHAPE_OUTLINE;
 	}
 	
-	@Override
-	public VoxelShape getCollisionShape(BlockState state, IBlockReader worldIn, BlockPos pos,
-			ISelectionContext context) 
+	@Nonnull
+    @Override
+	public VoxelShape getCollisionShape(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+                                        @Nonnull ISelectionContext context)
 	{
 		return SHAPE_COLLISION;
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public OffsetType getOffsetType() 
 	{
 		return OffsetType.NONE;
 	}
 	
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
+	public boolean isValidPosition(@Nonnull BlockState state, IWorldReader worldIn, BlockPos pos)
 	{
 		BlockState down = worldIn.getBlockState(pos.down());
 		return down.isIn(ModBlocks.END_LOTUS_STEM.get());
 	}
 	
-	@Override
-	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
-			BlockPos currentPos, BlockPos facingPos) 
+	@Nonnull
+    @Override
+	public BlockState updatePostPlacement(@Nonnull BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn,
+                                          @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos)
 	{
 		if (!isValidPosition(stateIn, worldIn, currentPos)) 
 		{

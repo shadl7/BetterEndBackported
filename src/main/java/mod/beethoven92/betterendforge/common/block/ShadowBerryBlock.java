@@ -9,6 +9,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 
+import javax.annotation.Nonnull;
+
 public class ShadowBerryBlock extends EndCropBlock
 {
 	private static final VoxelShape SHAPE = Block.makeCuboidShape(1, 0, 1, 15, 8, 15);
@@ -18,8 +20,9 @@ public class ShadowBerryBlock extends EndCropBlock
 		super(properties, ModBlocks.SHADOW_GRASS.get());
 	}
 
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	@Nonnull
+    @Override
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		return SHAPE;
 	}

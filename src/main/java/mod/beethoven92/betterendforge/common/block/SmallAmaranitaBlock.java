@@ -1,16 +1,10 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.block.template.PlantBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModFeatures;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -19,6 +13,9 @@ import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class SmallAmaranitaBlock extends PlantBlock {
 
@@ -35,7 +32,7 @@ public class SmallAmaranitaBlock extends PlantBlock {
 	}
 
 	@Override
-	public void grow(ServerWorld world, Random random, BlockPos pos, BlockState state) {
+	public void grow(@Nonnull ServerWorld world, @Nonnull Random random, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		BlockPos bigPos = growBig(world, pos);
 		if (bigPos != null) {
 			if (ModFeatures.GIGANTIC_AMARANITA.generate(world, null, random, bigPos, null)) {
@@ -49,8 +46,9 @@ public class SmallAmaranitaBlock extends PlantBlock {
 		ModFeatures.LARGE_AMARANITA.generate(world, null, random, pos, null);
 	}
 
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+	@Nonnull
+    @Override
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
 		Vector3d vec3d = state.getOffset(worldIn, pos);
 		return SHAPE.withOffset(vec3d.x, vec3d.y, vec3d.z);
 	}
@@ -79,7 +77,7 @@ public class SmallAmaranitaBlock extends PlantBlock {
 	}
 
 	@Override
-	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) {
+	public boolean canUseBonemeal(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state) {
 		return rand.nextInt(8) == 0;
 	}
 }

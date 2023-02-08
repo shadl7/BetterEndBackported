@@ -1,9 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
 import mod.beethoven92.betterendforge.common.tileentity.EndBarrelTileEntity;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BarrelBlock;
@@ -23,19 +19,24 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Random;
+
 public class EndBarrelBlock extends BarrelBlock {
 	public EndBarrelBlock(AbstractBlock.Properties properties) {
 		super(properties);
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader worldIn) {
 		return new EndBarrelTileEntity();
 	}
 
-	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
-			Hand handIn, BlockRayTraceResult hit) {
+	@Nonnull
+    @Override
+	public ActionResultType onBlockActivated(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, @Nonnull PlayerEntity player,
+                                             @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit) {
 		if (world.isRemote) {
 			return ActionResultType.SUCCESS;
 		} else {
@@ -51,21 +52,22 @@ public class EndBarrelBlock extends BarrelBlock {
 	}
 
 	@Override
-	public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+	public void tick(@Nonnull BlockState state, ServerWorld world, @Nonnull BlockPos pos, @Nonnull Random rand) {
 		TileEntity blockEntity = world.getTileEntity(pos);
 		if (blockEntity instanceof EndBarrelTileEntity) {
 			((EndBarrelTileEntity) blockEntity).tick();
 		}
 	}
 
-	@Override
-	public BlockRenderType getRenderType(BlockState state) {
+	@Nonnull
+    @Override
+	public BlockRenderType getRenderType(@Nonnull BlockState state) {
 		return BlockRenderType.MODEL;
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer,
-			ItemStack stack) {
+	public void onBlockPlacedBy(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nullable LivingEntity placer,
+                                ItemStack stack) {
 		if (stack.hasDisplayName()) {
 			TileEntity blockEntity = world.getTileEntity(pos);
 			if (blockEntity instanceof EndBarrelTileEntity) {

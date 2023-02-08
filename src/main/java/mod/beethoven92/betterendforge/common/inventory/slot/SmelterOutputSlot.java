@@ -6,9 +6,11 @@ import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 public class SmelterOutputSlot extends Slot
 {
-	private PlayerEntity player;
+	private final PlayerEntity player;
 	private int amount;
 
 	public SmelterOutputSlot(PlayerEntity player, IInventory inventoryIn, int index, int xPosition, int yPosition) 
@@ -18,12 +20,13 @@ public class SmelterOutputSlot extends Slot
 	}	
 	
 	@Override
-	public boolean isItemValid(ItemStack stack) 
+	public boolean isItemValid(@Nonnull ItemStack stack)
 	{
 		return false;
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public ItemStack decrStackSize(int amount)
 	{
 		if (this.getHasStack()) 
@@ -34,8 +37,9 @@ public class SmelterOutputSlot extends Slot
 		return super.decrStackSize(amount);
 	}
 	
-	@Override
-	public ItemStack onTake(PlayerEntity thePlayer, ItemStack stack) 
+	@Nonnull
+    @Override
+	public ItemStack onTake(@Nonnull PlayerEntity thePlayer, @Nonnull ItemStack stack)
 	{
 		this.onCrafting(stack);
 		super.onTake(player, stack);
@@ -43,7 +47,7 @@ public class SmelterOutputSlot extends Slot
 	}
 	
 	@Override
-	protected void onCrafting(ItemStack stack, int amount) 
+	protected void onCrafting(@Nonnull ItemStack stack, int amount)
 	{
 		this.amount += amount;
 		this.onCrafting(stack);

@@ -1,9 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
-
 import com.google.common.collect.Lists;
 import mod.beethoven92.betterendforge.common.block.BlockProperties;
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
@@ -31,6 +27,11 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
+
 public class TenaneaBushFeature extends Feature<NoFeatureConfig>
 {
 	private static final Function<BlockState, Boolean> REPLACE;
@@ -53,8 +54,8 @@ public class TenaneaBushFeature extends Feature<NoFeatureConfig>
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos,
-			NoFeatureConfig config) 
+	public boolean generate(ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, BlockPos pos,
+                            @Nonnull NoFeatureConfig config)
 	{
 		if (!world.getBlockState(pos.down()).getBlock().isIn(ModTags.END_GROUND)) return false;
 		
@@ -63,8 +64,8 @@ public class TenaneaBushFeature extends Feature<NoFeatureConfig>
 		BlockState leaves = ModBlocks.TENANEA_LEAVES.get().getDefaultState();
 		SDF sphere = new SDFSphere().setRadius(radius).setBlock(leaves);
 		sphere = new SDFScale3D().setScale(1, 0.75F, 1).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> { return (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 3; }).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> { return ModMathHelper.randRange(-2F, 2F, rand); }).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 3).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> ModMathHelper.randRange(-2F, 2F, rand)).setSource(sphere);
 		sphere = new SDFSubtraction().setSourceA(sphere).setSourceB(new SDFTranslate().setTranslate(0, -radius, 0).setSource(sphere));
 		sphere.setReplaceFunction(REPLACE);
 		List<BlockPos> support = Lists.newArrayList();

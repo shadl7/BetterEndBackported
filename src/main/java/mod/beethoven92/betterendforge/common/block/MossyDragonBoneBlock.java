@@ -1,17 +1,14 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.block.SnowBlock;
+import net.minecraft.block.*;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.lighting.LightEngine;
 import net.minecraft.world.server.ServerWorld;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class MossyDragonBoneBlock extends RotatedPillarBlock {
 	public MossyDragonBoneBlock() {
@@ -21,7 +18,7 @@ public class MossyDragonBoneBlock extends RotatedPillarBlock {
 
 	
 	@Override
-	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+	public void randomTick(@Nonnull BlockState state, @Nonnull ServerWorld world, @Nonnull BlockPos pos, Random random) {
 		if (random.nextInt(16) == 0 && !canSurvive(state, world, pos)) {
 			world.setBlockState(pos, Blocks.BONE_BLOCK.getDefaultState().with(AXIS, state.get(AXIS)));
 		}
@@ -30,7 +27,7 @@ public class MossyDragonBoneBlock extends RotatedPillarBlock {
 	public static boolean canSurvive(BlockState state, IWorldReader world, BlockPos pos) {
 		BlockPos blockPos = pos.up();
 		BlockState blockState = world.getBlockState(blockPos);
-		if (blockState.isIn(Blocks.SNOW) && (Integer) blockState.get(SnowBlock.LAYERS) == 1) {
+		if (blockState.isIn(Blocks.SNOW) && blockState.get(SnowBlock.LAYERS) == 1) {
 			return true;
 		} else if (blockState.getFluidState().getLevel() == 8) {
 			return false;

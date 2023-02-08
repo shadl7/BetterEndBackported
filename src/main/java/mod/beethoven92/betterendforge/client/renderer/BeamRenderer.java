@@ -2,7 +2,6 @@ package mod.beethoven92.betterendforge.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -35,31 +34,31 @@ public class BeamRenderer
 		
 		matrices.push();
 		matrices.rotate(Vector3f.YP.rotation(-rotation));
-		renderBeam(matrices, iVertexBuilder, red, green, blue, alpha, minY, maxBY, beamIn, 0.0F, 0.0F, beamIn, 0.0F, xIn, xIn, 0.0F, 0.0F, 1.0F, minV, maxV);
+		renderBeam(matrices, iVertexBuilder, red, green, blue, alpha, minY, maxBY, beamIn, 0.0F, 0.0F, beamIn, 0.0F, xIn, xIn, 0.0F, minV, maxV);
 		
 		float xOut = -beamOut;
 		maxV = (float) maxY + minV;
-		renderBeam(matrices, iVertexBuilder, red, green, blue, alpha, minY, maxBY, xOut, xOut, beamOut, xOut, xOut, beamOut, beamOut, beamOut, 0.0F, 1.0F, minV, maxV);
+		renderBeam(matrices, iVertexBuilder, red, green, blue, alpha, minY, maxBY, xOut, xOut, beamOut, xOut, xOut, beamOut, beamOut, beamOut, minV, maxV);
 		matrices.pop();
 	}
 
-	private static void renderBeam(MatrixStack matrices, IVertexBuilder vertexBuilder, float red, float green, float blue, float alpha, int minY, int maxY, float x1, float d1, float x2, float d2, float x3, float d3, float x4, float d4, float minU, float maxU, float minV, float maxV)
+	private static void renderBeam(MatrixStack matrices, IVertexBuilder vertexBuilder, float red, float green, float blue, float alpha, int minY, int maxY, float x1, float d1, float x2, float d2, float x3, float d3, float x4, float d4, float minV, float maxV)
 	{
 		MatrixStack.Entry entry = matrices.getLast();
 		Matrix4f matrix4f = entry.getMatrix();
 		Matrix3f matrix3f = entry.getNormal();		
-		renderBeam(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxY, minY, x1, d1, x2, d2, minU, maxU, minV, maxV);
-		renderBeam(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxY, minY, x4, d4, x3, d3, minU, maxU, minV, maxV);
-		renderBeam(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxY, minY, x2, d2, x4, d4, minU, maxU, minV, maxV);
-		renderBeam(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxY, minY, x3, d3, x1, d1, minU, maxU, minV, maxV);
+		renderBeam(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxY, minY, x1, d1, x2, d2, minV, maxV);
+		renderBeam(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxY, minY, x4, d4, x3, d3, minV, maxV);
+		renderBeam(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxY, minY, x2, d2, x4, d4, minV, maxV);
+		renderBeam(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxY, minY, x3, d3, x1, d1, minV, maxV);
 	}
 
-	private static void renderBeam(Matrix4f matrix4f, Matrix3f matrix3f, IVertexBuilder vertexBuilder, float red, float green, float blue, float alpha, int minY, int maxY, float minX, float minD, float maxX, float maxD, float minU, float maxU, float minV, float maxV) 
+	private static void renderBeam(Matrix4f matrix4f, Matrix3f matrix3f, IVertexBuilder vertexBuilder, float red, float green, float blue, float alpha, int minY, int maxY, float minX, float minD, float maxX, float maxD, float minV, float maxV)
 	{
-		addVertex(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxX, minY, maxD, maxU, minV);
-		addVertex(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxX, maxY, maxD, maxU, maxV);
-		addVertex(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, minX, maxY, minD, minU, maxV);
-		addVertex(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, minX, minY, minD, minU, minV);
+		addVertex(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxX, minY, maxD, (float) 1.0, minV);
+		addVertex(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxX, maxY, maxD, (float) 1.0, maxV);
+		addVertex(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, minX, maxY, minD, (float) 0.0, maxV);
+		addVertex(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, minX, minY, minD, (float) 0.0, minV);
 	}
 
 	private static void addVertex(Matrix4f matrix4f, Matrix3f matrix3f, IVertexBuilder vertexBuilder, float red, float green, float blue, float alpha, float x, float y, float d, float u, float v) 

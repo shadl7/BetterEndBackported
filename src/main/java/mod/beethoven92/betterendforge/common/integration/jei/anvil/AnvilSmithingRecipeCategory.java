@@ -1,7 +1,6 @@
 package mod.beethoven92.betterendforge.common.integration.jei.anvil;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -22,6 +21,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
 
+import javax.annotation.Nonnull;
+
 public class AnvilSmithingRecipeCategory implements IRecipeCategory<AnvilSmithingRecipe>
 {
 	protected static final int LEFT_INPUT_SLOT = 0;
@@ -41,31 +42,36 @@ public class AnvilSmithingRecipeCategory implements IRecipeCategory<AnvilSmithin
 		icon = guiHelper.createDrawableIngredient(new ItemStack(Blocks.ANVIL));
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public ResourceLocation getUid() 
 	{
 		return UID;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public Class<? extends AnvilSmithingRecipe> getRecipeClass() 
 	{
 		return AnvilSmithingRecipe.class;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public String getTitle()
 	{
 		return new TranslationTextComponent("gui.jei.category.anvil_smithing").getString();
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public IDrawable getBackground()
 	{
 		return background;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public IDrawable getIcon() 
 	{
 		return icon;
@@ -94,7 +100,7 @@ public class AnvilSmithingRecipeCategory implements IRecipeCategory<AnvilSmithin
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, AnvilSmithingRecipe recipe, IIngredients ingredients)
+	public void setRecipe(IRecipeLayout recipeLayout, @Nonnull AnvilSmithingRecipe recipe, @Nonnull IIngredients ingredients)
 	{
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 
@@ -106,7 +112,7 @@ public class AnvilSmithingRecipeCategory implements IRecipeCategory<AnvilSmithin
 		guiItemStacks.set(ingredients);
 	}
 	
-	protected void drawToolDamage(AnvilSmithingRecipe recipe, MatrixStack matrixStack, int y) 
+	protected void drawToolDamage(AnvilSmithingRecipe recipe, MatrixStack matrixStack)
 	{
 		int damage = recipe.damage;
 		if (damage > 0) 
@@ -115,13 +121,13 @@ public class AnvilSmithingRecipeCategory implements IRecipeCategory<AnvilSmithin
 			Minecraft minecraft = Minecraft.getInstance();
 			FontRenderer fontRenderer = minecraft.fontRenderer;
 			int stringWidth = fontRenderer.getStringPropertyWidth(timeString);
-			fontRenderer.func_243248_b(matrixStack, timeString, background.getWidth() - stringWidth, y, 0xFF808080);
+			fontRenderer.func_243248_b(matrixStack, timeString, background.getWidth() - stringWidth, 27, 0xFF808080);
 		}
 	}
 	
 	@Override
-	public void draw(AnvilSmithingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) 
+	public void draw(@Nonnull AnvilSmithingRecipe recipe, @Nonnull MatrixStack matrixStack, double mouseX, double mouseY)
 	{
-		drawToolDamage(recipe, matrixStack, 27);
+		drawToolDamage(recipe, matrixStack);
 	}
 }

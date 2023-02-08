@@ -7,6 +7,8 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+
 public class SilkMothEntityRenderer extends MobRenderer<SilkMothEntity, SilkMothEntityModel> {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(BetterEnd.MOD_ID, "textures/entity/silk_moth.png");
 	
@@ -14,8 +16,9 @@ public class SilkMothEntityRenderer extends MobRenderer<SilkMothEntity, SilkMoth
         super(entityRenderDispatcher, new SilkMothEntityModel(), 0.5f);
     }
  
+    @Nonnull
     @Override
-    public ResourceLocation getEntityTexture(SilkMothEntity entity) {
+    public ResourceLocation getEntityTexture(@Nonnull SilkMothEntity entity) {
         return TEXTURE;
     }
 }

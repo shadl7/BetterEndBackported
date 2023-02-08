@@ -11,6 +11,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
+
 public class PortalSphereParticle extends SimpleAnimatedParticle
 {
 	private int ticks;
@@ -74,8 +76,8 @@ public class PortalSphereParticle extends SimpleAnimatedParticle
 		}
 
 		@Override
-		public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z,
-				double xSpeed, double ySpeed, double zSpeed) 
+		public Particle makeParticle(@Nonnull BasicParticleType typeIn, @Nonnull ClientWorld worldIn, double x, double y, double z,
+                                     double xSpeed, double ySpeed, double zSpeed)
 		{
 			return new PortalSphereParticle(worldIn, x, y, z, this.sprites);
 		}

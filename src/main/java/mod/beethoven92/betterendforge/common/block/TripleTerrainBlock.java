@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -19,6 +17,9 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class TripleTerrainBlock extends TerrainBlock
 {
 	public static final EnumProperty<TripleShape> SHAPE = BlockProperties.TRIPLE_SHAPE;
@@ -29,9 +30,10 @@ public class TripleTerrainBlock extends TerrainBlock
 		this.setDefaultState(this.getDefaultState().with(SHAPE, TripleShape.BOTTOM));
 	}
 	
-	@Override
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
-			Hand handIn, BlockRayTraceResult hit) 
+	@Nonnull
+    @Override
+	public ActionResultType onBlockActivated(@Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull PlayerEntity player,
+											 @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit)
 	{
 		TripleShape shape = state.get(SHAPE);
 		if (shape == TripleShape.BOTTOM) 
@@ -50,13 +52,12 @@ public class TripleTerrainBlock extends TerrainBlock
 	}
 	
 	@Override
-	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) 
+	public void randomTick(@Nonnull BlockState state, @Nonnull ServerWorld world, @Nonnull BlockPos pos, Random random)
 	{
 		TripleShape shape = state.get(SHAPE);
 		if (shape == TripleShape.BOTTOM) 
 		{
 			super.randomTick(state, world, pos, random);
-			return;
 		}
 		else if (random.nextInt(16) == 0) 
 		{
@@ -79,7 +80,7 @@ public class TripleTerrainBlock extends TerrainBlock
 				{
 					world.setBlockState(pos, state.with(SHAPE, TripleShape.BOTTOM));
 				}
-				else if (!top && bottom) 
+				else if (!top)
 				{
 					world.setBlockState(pos, state.with(SHAPE, TripleShape.TOP));
 				}

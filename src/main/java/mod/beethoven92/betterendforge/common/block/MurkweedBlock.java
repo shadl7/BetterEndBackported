@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.block.template.PlantBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import net.minecraft.block.BlockState;
@@ -15,6 +13,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class MurkweedBlock extends PlantBlock
 {
 	public MurkweedBlock(Properties properties)
@@ -23,7 +24,7 @@ public class MurkweedBlock extends PlantBlock
 	}
 
 	@Override
-	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) 
+	public void animateTick(@Nonnull BlockState stateIn, World worldIn, BlockPos pos, Random rand)
 	{
 		double x = pos.getX() + rand.nextDouble();
 		double y = pos.getY() + rand.nextDouble() * 0.5 + 0.5;
@@ -33,7 +34,7 @@ public class MurkweedBlock extends PlantBlock
 	}
 	
 	@Override
-	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) 
+	public void onEntityCollision(@Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Entity entityIn)
 	{
 		if (entityIn instanceof LivingEntity && !((LivingEntity) entityIn).isPotionActive(Effects.BLINDNESS)) 
 		{
@@ -48,7 +49,7 @@ public class MurkweedBlock extends PlantBlock
 	}
 	
 	@Override
-	public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) 
+	public boolean allowsMovement(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull PathType type)
 	{
 		return false;
 	}

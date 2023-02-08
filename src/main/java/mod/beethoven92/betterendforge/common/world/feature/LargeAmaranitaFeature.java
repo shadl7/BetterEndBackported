@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties;
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
@@ -17,6 +15,9 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class LargeAmaranitaFeature extends Feature<NoFeatureConfig> {
 	
 	public LargeAmaranitaFeature() {
@@ -24,8 +25,8 @@ public class LargeAmaranitaFeature extends Feature<NoFeatureConfig> {
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator chunkGenerator, Random random,
-			BlockPos pos, NoFeatureConfig config) {
+	public boolean generate(ISeedReader world, @Nonnull ChunkGenerator chunkGenerator, @Nonnull Random random,
+                            BlockPos pos, @Nonnull NoFeatureConfig config) {
 		if (!world.getBlockState(pos.down()).getBlock().isIn(ModTags.END_GROUND)) return false;
 		
 		Mutable mut = new Mutable().setPos(pos);

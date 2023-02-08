@@ -1,9 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
-
 import mod.beethoven92.betterendforge.common.block.template.AttachedBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTags;
@@ -27,6 +23,11 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
+
 public class GiganticAmaranitaFeature extends Feature<NoFeatureConfig> {
 	
 	public GiganticAmaranitaFeature() {
@@ -38,8 +39,8 @@ public class GiganticAmaranitaFeature extends Feature<NoFeatureConfig> {
 	private static final Function<PosInfo, BlockState> POST;
 	
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator generator, Random random, BlockPos pos,
-			NoFeatureConfig config) {
+	public boolean generate(ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random random, BlockPos pos,
+                            @Nonnull NoFeatureConfig config) {
 		if (!world.getBlockState(pos.down()).getBlock().isIn(ModTags.END_GROUND)) return false;
 		
 		float size = ModMathHelper.randRange(5, 10, random);
@@ -52,9 +53,7 @@ public class GiganticAmaranitaFeature extends Feature<NoFeatureConfig> {
 		BlockHelper.setWithoutUpdate(world, pos, Blocks.AIR.getDefaultState());
 		
 		float radius = size * 0.17F;//MHelper.randRange(0.8F, 1.2F, random);
-		SDF function = SplineHelper.buildSDF(spline, radius, 0.2F, (bpos) -> {
-			return ModBlocks.AMARANITA_STEM.get().getDefaultState();
-		});
+		SDF function = SplineHelper.buildSDF(spline, radius, 0.2F, (bpos) -> ModBlocks.AMARANITA_STEM.get().getDefaultState());
 		
 		Vector3f capPos = spline.get(spline.size() - 1);
 		makeHead(world, pos.add(capPos.getX() + 0.5F, capPos.getY() + 1.5F ,capPos.getZ() + 0.5F), MathHelper.floor(size / 1.6F));
@@ -332,9 +331,7 @@ public class GiganticAmaranitaFeature extends Feature<NoFeatureConfig> {
 			return state.getMaterial().isReplaceable();
 		};
 		
-		IGNORE = (state) -> {
-			return ModBlocks.DRAGON_TREE.isTreeLog(state);
-		};
+		IGNORE = ModBlocks.DRAGON_TREE::isTreeLog;
 		
 		POST = (info) -> {
 			if (!info.getStateUp().isIn(ModBlocks.AMARANITA_STEM.get()) || !info.getStateDown().isIn(ModBlocks.AMARANITA_STEM.get())) {

@@ -7,6 +7,8 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class EternalPedestalTileEntity extends PedestalTileEntity
 {
 	private EternalRitual linkedRitual;
@@ -32,7 +34,7 @@ public class EternalPedestalTileEntity extends PedestalTileEntity
 	}
 	
 	@Override
-	public void setWorldAndPos(World world, BlockPos pos) 
+	public void setWorldAndPos(@Nonnull World world, @Nonnull BlockPos pos)
 	{
 		super.setWorldAndPos(world, pos);
 		if (hasRitual()) 
@@ -42,7 +44,7 @@ public class EternalPedestalTileEntity extends PedestalTileEntity
 	}
 	
 	@Override
-	public void read(BlockState state, CompoundNBT nbt) 
+	public void read(@Nonnull BlockState state, @Nonnull CompoundNBT nbt)
 	{
 		super.read(state, nbt);
 		if (nbt.contains("ritual")) 
@@ -52,8 +54,9 @@ public class EternalPedestalTileEntity extends PedestalTileEntity
 		}
 	}
 	
-	@Override
-	public CompoundNBT write(CompoundNBT compound) 
+	@Nonnull
+    @Override
+	public CompoundNBT write(@Nonnull CompoundNBT compound)
 	{
 		super.write(compound);
 		if (this.hasRitual()) 

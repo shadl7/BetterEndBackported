@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import net.minecraft.block.Block;
@@ -10,6 +8,9 @@ import net.minecraft.state.BooleanProperty;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.server.ServerWorld;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class UmbrellaTreeClusterEmptyBlock extends Block
 {
@@ -28,7 +29,7 @@ public class UmbrellaTreeClusterEmptyBlock extends Block
 	}
 	
 	@Override
-	public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random)
+	public void randomTick(BlockState state, @Nonnull ServerWorld worldIn, @Nonnull BlockPos pos, @Nonnull Random random)
 	{
 		if (state.get(NATURAL) && random.nextInt(16) == 0) 
 		{

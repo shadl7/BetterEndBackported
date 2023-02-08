@@ -15,6 +15,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
+import javax.annotation.Nonnull;
+
 public class AttachedBlock extends Block
 {
 	public static final DirectionProperty FACING = BlockStateProperties.FACING;
@@ -32,22 +34,20 @@ public class AttachedBlock extends Block
 		IWorldReader worldView = context.getWorld();
 		BlockPos blockPos = context.getPos();
 		Direction[] directions = context.getNearestLookingDirections();
-		for (int i = 0; i < directions.length; ++i) 
-		{
-			Direction direction = directions[i];
+		for (Direction direction : directions) {
 			Direction direction2 = direction.getOpposite();
-			blockState = (BlockState) blockState.with(FACING, direction2);
-			if (blockState.isValidPosition(worldView, blockPos)) 
-			{
+			blockState = blockState.with(FACING, direction2);
+			if (blockState.isValidPosition(worldView, blockPos)) {
 				return blockState;
 			}
 		}
 		return null;
 	}
 	
-	@Override
-	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
-			BlockPos currentPos, BlockPos facingPos) 
+	@Nonnull
+    @Override
+	public BlockState updatePostPlacement(@Nonnull BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn,
+                                          @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos)
 	{
 		if (!isValidPosition(stateIn, worldIn, currentPos)) 
 		{
@@ -60,9 +60,9 @@ public class AttachedBlock extends Block
 	}
 	
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos)
+	public boolean isValidPosition(BlockState state, @Nonnull IWorldReader worldIn, BlockPos pos)
 	{
-		Direction direction = (Direction) state.get(FACING);
+		Direction direction = state.get(FACING);
 		BlockPos blockPos = pos.offset(direction.getOpposite());
 		return hasEnoughSolidSide(worldIn, blockPos, direction) || worldIn.getBlockState(blockPos).isIn(BlockTags.LEAVES);
 	}
@@ -73,12 +73,14 @@ public class AttachedBlock extends Block
 		builder.add(FACING);
 	}
 	
-	public BlockState rotate(BlockState state, Rotation rot) 
+	@Nonnull
+    public BlockState rotate(BlockState state, Rotation rot)
 	{
 		return state.with(FACING, rot.rotate(state.get(FACING)));
     }
 
-	public BlockState mirror(BlockState state, Mirror mirrorIn) 
+	@Nonnull
+    public BlockState mirror(BlockState state, Mirror mirrorIn)
 	{
 		return state.rotate(mirrorIn.toRotation(state.get(FACING)));
 	}

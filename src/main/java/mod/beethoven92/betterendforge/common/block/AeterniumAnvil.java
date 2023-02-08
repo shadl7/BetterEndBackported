@@ -7,6 +7,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer.Builder;
 
+import javax.annotation.Nonnull;
+
 public class AeterniumAnvil extends EndAnvilBlock
 {
 	private static final IntegerProperty DESTRUCTION = BlockProperties.DESTRUCTION_LONG;
@@ -23,7 +25,7 @@ public class AeterniumAnvil extends EndAnvilBlock
 	}
 	
 	@Override
-	protected void fillStateContainer(Builder<Block, BlockState> builder)
+	protected void fillStateContainer(@Nonnull Builder<Block, BlockState> builder)
 	{
 		builder.add(DESTRUCTION);
 		builder.add(FACING);

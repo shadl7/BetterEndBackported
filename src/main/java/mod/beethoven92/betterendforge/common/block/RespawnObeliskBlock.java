@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import javax.annotation.Nullable;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
 import mod.beethoven92.betterendforge.common.init.ModItems;
 import mod.beethoven92.betterendforge.common.particles.InfusionParticleData;
@@ -16,11 +14,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -31,6 +25,9 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public class RespawnObeliskBlock extends Block {
 	private static final VoxelShape VOXEL_SHAPE_BOTTOM = Block.makeCuboidShape(1, 0, 1, 15, 16, 15);
@@ -46,8 +43,9 @@ public class RespawnObeliskBlock extends Block {
 		return AuroraCrystalBlock.getBlockColor(pos);
 	}
 
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader view, BlockPos pos, ISelectionContext ePos) {
+	@Nonnull
+    @Override
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader view, @Nonnull BlockPos pos, @Nonnull ISelectionContext ePos) {
 		return (state.get(SHAPE) == TripleShape.BOTTOM) ? VOXEL_SHAPE_BOTTOM : VOXEL_SHAPE_MIDDLE_TOP;
 	}
 
@@ -57,7 +55,7 @@ public class RespawnObeliskBlock extends Block {
 	}
 
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
+	public boolean isValidPosition(@Nonnull BlockState state, @Nonnull IWorldReader world, @Nonnull BlockPos pos) {
 		for (int i = 0; i < 3; i++) {
 			if (!world.getBlockState(pos.up(i)).getMaterial().isReplaceable()) {
 				return false;
@@ -67,17 +65,18 @@ public class RespawnObeliskBlock extends Block {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer,
-			ItemStack stack) {
+	public void onBlockPlacedBy(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nullable LivingEntity placer,
+                                @Nonnull ItemStack stack) {
 		state = this.getDefaultState();
 		BlockHelper.setWithUpdate(world, pos, state.with(SHAPE, TripleShape.BOTTOM));
 		BlockHelper.setWithUpdate(world, pos.up(), state.with(SHAPE, TripleShape.MIDDLE));
 		BlockHelper.setWithUpdate(world, pos.up(2), state.with(SHAPE, TripleShape.TOP));
 	}
 
-	@Override
-	public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world,
-			BlockPos pos, BlockPos facingPos) {
+	@Nonnull
+    @Override
+	public BlockState updatePostPlacement(BlockState state, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld world,
+                                          @Nonnull BlockPos pos, @Nonnull BlockPos facingPos) {
 		TripleShape shape = state.get(SHAPE);
 		if (shape == TripleShape.BOTTOM) {
 			if (world.getBlockState(pos.up()).isIn(this)) {
@@ -101,7 +100,7 @@ public class RespawnObeliskBlock extends Block {
 	}
 
 	@Override
-	public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+	public void onBlockHarvested(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState state, PlayerEntity player) {
 		if (player.isCreative()) {
 			TripleShape shape = state.get(SHAPE);
 			if (shape == TripleShape.MIDDLE) {
@@ -113,18 +112,11 @@ public class RespawnObeliskBlock extends Block {
 		super.onBlockHarvested(world, pos, state, player);
 	}
 
-	/*@Override
-	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-		if (state.get(SHAPE) == TripleShape.BOTTOM) {
-			return Lists.newArrayList(new ItemStack(this));
-		} else {
-			return Lists.newArrayList();
-		}
-	}*/
 
-	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
-			Hand hand, BlockRayTraceResult hit) {
+	@Nonnull
+    @Override
+	public ActionResultType onBlockActivated(@Nonnull BlockState state, @Nonnull World world, @Nonnull BlockPos pos, PlayerEntity player,
+                                             @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
 		ItemStack itemStack = player.getHeldItem(hand);
 		boolean canActivate = itemStack.getItem() == ModItems.AMBER_GEM.get() && itemStack.getCount() > 5;
 		if (hand != Hand.MAIN_HAND || !canActivate) {

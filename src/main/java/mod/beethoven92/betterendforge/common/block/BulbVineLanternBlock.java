@@ -1,10 +1,6 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.LanternBlock;
-import net.minecraft.block.SoundType;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.DyeColor;
@@ -13,6 +9,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.ToolType;
+
+import javax.annotation.Nonnull;
 
 public class BulbVineLanternBlock extends LanternBlock implements IDyedBlock {
 	
@@ -35,8 +33,9 @@ public class BulbVineLanternBlock extends LanternBlock implements IDyedBlock {
 				.hardnessAndResistance(1).harvestTool(ToolType.PICKAXE).setRequiresTool().setLightLevel(s -> 15));
 	}
 	
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+	@Nonnull
+    @Override
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
 		return state.get(LanternBlock.HANGING) ? SHAPE_CEIL : SHAPE_FLOOR;
 	}
 	

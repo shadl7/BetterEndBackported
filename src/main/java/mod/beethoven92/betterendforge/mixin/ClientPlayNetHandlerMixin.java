@@ -1,11 +1,5 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import mod.beethoven92.betterendforge.client.gui.BlockSignEditScreen;
 import mod.beethoven92.betterendforge.common.tileentity.ESignTileEntity;
 import mod.beethoven92.betterendforge.common.tileentity.PedestalTileEntity;
@@ -17,6 +11,13 @@ import net.minecraft.network.play.server.SOpenSignMenuPacket;
 import net.minecraft.network.play.server.SUpdateTileEntityPacket;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Objects;
 
 @Mixin(ClientPlayNetHandler.class)
 public class ClientPlayNetHandlerMixin {
@@ -41,7 +42,7 @@ public class ClientPlayNetHandlerMixin {
 	public void be_onEntityUpdate(SUpdateTileEntityPacket packet, CallbackInfo info) {
 		PacketThreadUtil.checkThreadAndEnqueue(packet, (ClientPlayNetHandler) (Object) this, client);
 		BlockPos blockPos = packet.getPos();
-		TileEntity blockEntity = this.client.world.getTileEntity(blockPos);
+		TileEntity blockEntity = Objects.requireNonNull(this.client.world).getTileEntity(blockPos);
 		if (blockEntity instanceof ESignTileEntity || blockEntity instanceof PedestalTileEntity) {
 			blockEntity.read(this.client.world.getBlockState(blockPos), packet.getNbtCompound());
 			info.cancel();

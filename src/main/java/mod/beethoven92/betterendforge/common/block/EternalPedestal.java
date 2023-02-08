@@ -24,6 +24,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class EternalPedestal extends PedestalBlock
 {
 	public static final BooleanProperty ACTIVATED = BlockProperties.ACTIVATED;
@@ -34,9 +36,10 @@ public class EternalPedestal extends PedestalBlock
 		this.setDefaultState(this.getDefaultState().with(ACTIVATED, false));
 	}
 
-	@Override
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
-			Hand handIn, BlockRayTraceResult hit)
+	@Nonnull
+    @Override
+	public ActionResultType onBlockActivated(@Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos, @Nonnull PlayerEntity player,
+                                             @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit)
 	{
 		ActionResultType result = super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
 		if (result.equals(ActionResultType.SUCCESS)) 
@@ -84,13 +87,14 @@ public class EternalPedestal extends PedestalBlock
 		return result;
 	}
 	
-	@Override
-	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
-			BlockPos currentPos, BlockPos facingPos) 
+	@Nonnull
+    @Override
+	public BlockState updatePostPlacement(@Nonnull BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn,
+                                          @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos)
 	{
 		BlockState updated = super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
 		if (!updated.isIn(this)) return updated;
-		if (!this.isPlaceable(updated)) 
+		if (this.isPlaceable(updated))
 		{
 			return updated.with(ACTIVATED, false);
 		}

@@ -1,9 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
-import com.mojang.serialization.Codec;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties.LumecornShape;
 import mod.beethoven92.betterendforge.common.block.LumecornBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
@@ -19,14 +15,17 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class Lumecorn extends Feature<NoFeatureConfig> {
 	public Lumecorn() {
 		super(NoFeatureConfig.field_236558_a_);
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator chunkGenerator_, Random random,
-			BlockPos pos, NoFeatureConfig config) {
+	public boolean generate(ISeedReader world, @Nonnull ChunkGenerator chunkGenerator_, @Nonnull Random random,
+                            BlockPos pos, @Nonnull NoFeatureConfig config) {
 		if (!world.getBlockState(pos.down()).getBlock().isIn(ModTags.END_GROUND)) return false;
 		
 		int height = ModMathHelper.randRange(4, 7, random);

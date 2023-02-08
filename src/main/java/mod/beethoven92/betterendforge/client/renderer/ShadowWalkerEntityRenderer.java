@@ -8,17 +8,20 @@ import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.entity.model.PlayerModel;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+
 public class ShadowWalkerEntityRenderer extends BipedRenderer<ShadowWalkerEntity, BipedModel<ShadowWalkerEntity>>
 {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(BetterEnd.MOD_ID, "textures/entity/shadow_walker.png");
 	
 	public ShadowWalkerEntityRenderer(EntityRendererManager rendererManager) 
 	{
-		super(rendererManager, new PlayerModel<ShadowWalkerEntity>(0.0F, false), 0.5F);
+		super(rendererManager, new PlayerModel<>(0.0F, false), 0.5F);
 	}
 
-	@Override
-	public ResourceLocation getEntityTexture(ShadowWalkerEntity entity) 
+	@Nonnull
+    @Override
+	public ResourceLocation getEntityTexture(@Nonnull ShadowWalkerEntity entity)
 	{
 		return TEXTURE;
 	}

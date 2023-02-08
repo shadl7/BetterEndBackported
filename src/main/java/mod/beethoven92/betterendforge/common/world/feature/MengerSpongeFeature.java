@@ -1,14 +1,14 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-import java.util.function.Function;
-
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
+
+import java.util.Random;
+import java.util.function.Function;
 
 public class MengerSpongeFeature extends UnderwaterPlantScatter
 {
@@ -21,10 +21,6 @@ public class MengerSpongeFeature extends UnderwaterPlantScatter
 			{
 				return false;
 			}
-			/*if (state.isIn(ModBlocks.END_LILY.get()))
-			{
-				return false;
-			}*/
 			return !state.getFluidState().isEmpty() || state.getMaterial().isReplaceable();
 		};
 	}

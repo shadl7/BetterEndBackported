@@ -1,13 +1,5 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import mod.beethoven92.betterendforge.common.tileentity.ESignTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -19,9 +11,20 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.server.ServerWorld;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Objects;
 
 @Mixin(ServerPlayNetHandler.class)
 public class ServerPlayNetHandlerMixin {
+	@Final
 	@Shadow
 	private static final Logger LOGGER = LogManager.getLogger();
 
@@ -47,7 +50,7 @@ public class ServerPlayNetHandlerMixin {
 				String[] strings = packet.getLines();
 
 				for (int i = 0; i < strings.length; ++i) {
-					signBlockEntity.setTextOnRow(i, new StringTextComponent(TextFormatting.getTextWithoutFormattingCodes(strings[i])));
+					signBlockEntity.setTextOnRow(i, new StringTextComponent(Objects.requireNonNull(TextFormatting.getTextWithoutFormattingCodes(strings[i]))));
 				}
 
 				signBlockEntity.markDirty();

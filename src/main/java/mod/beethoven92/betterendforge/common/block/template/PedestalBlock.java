@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block.template;
 
-import java.util.function.ToIntFunction;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties;
 import mod.beethoven92.betterendforge.common.block.BlockProperties.PedestalState;
 import mod.beethoven92.betterendforge.common.init.ModTileEntityTypes;
@@ -29,6 +27,9 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
+import java.util.function.ToIntFunction;
 
 public class PedestalBlock extends Block
 {
@@ -73,7 +74,7 @@ public class PedestalBlock extends Block
 	}
 	
 	public static ToIntFunction<BlockState> light() {
-		return (state) -> {return state.get(HAS_LIGHT) ? 12 : 0;};
+		return (state) -> state.get(HAS_LIGHT) ? 12 : 0;
 	}
 	
 	public float getHeight(BlockState state) 
@@ -85,8 +86,9 @@ public class PedestalBlock extends Block
 		return this.height;
 	}
 	
+	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		if (state.isIn(this)) 
 		{
@@ -133,12 +135,13 @@ public class PedestalBlock extends Block
 		return ModTileEntityTypes.PEDESTAL.get().create();
 	}
 	
+	@Nonnull
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
-			Hand handIn, BlockRayTraceResult hit) 
+	public ActionResultType onBlockActivated(@Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos, @Nonnull PlayerEntity player,
+											 @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit)
 	{
 		if (worldIn.isRemote|| !state.isIn(this)) return ActionResultType.CONSUME;
-		if (!this.isPlaceable(state)) 
+		if (this.isPlaceable(state))
 		{
 			return ActionResultType.PASS;
 		}
@@ -167,25 +170,10 @@ public class PedestalBlock extends Block
 		}
 		return ActionResultType.PASS;
 	}
-	
-	/*public void checkRitual(World world, BlockPos pos) 
-	{
-		Mutable mut = new Mutable();
-		Point[] points = InfusionRitual.getMap();
-		for (Point p: points) 
-		{
-			mut.setPos(pos).move(p.x, 0, p.y);
-			BlockState state = world.getBlockState(mut);
-			if (state.getBlock() instanceof InfusionPedestal) 
-			{
-				((InfusionPedestal) state.getBlock()).checkRitual(world, mut);
-				break;
-			}
-		}
-	}*/
+
 	
 	@Override
-	public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
+	public void onReplaced(BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos, BlockState newState, boolean isMoving)
 	{
 		if (!state.isIn(newState.getBlock())) 
 		{
@@ -233,13 +221,14 @@ public class PedestalBlock extends Block
 		return this.getDefaultState();
 	}
 	
+	@Nonnull
 	@Override
-	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
-			BlockPos currentPos, BlockPos facingPos)
+	public BlockState updatePostPlacement(@Nonnull BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn,
+										  @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos)
 	{
 		BlockState updated = this.getUpdatedState(stateIn, facing, facingState, worldIn, currentPos, facingPos);
 		if (!updated.isIn(this)) return updated;
-		if (!this.isPlaceable(updated))
+		if (this.isPlaceable(updated))
 		{
 			this.moveStoredStack(worldIn, updated, currentPos);
 		}
@@ -260,8 +249,7 @@ public class PedestalBlock extends Block
 			upSideSolid = newState.isSolidSide(world, posFrom, Direction.DOWN) || newState.isIn(BlockTags.WALLS);
 			hasPedestalOver = newState.getBlock() instanceof PedestalBlock;
 		} 
-		else if (direction == Direction.DOWN) 
-		{
+		else {
 			hasPedestalUnder = newState.getBlock() instanceof PedestalBlock;
 		}
 		if (!hasPedestalOver && hasPedestalUnder && upSideSolid)
@@ -316,7 +304,7 @@ public class PedestalBlock extends Block
 			BlockPos upPos = pos.up();
 			this.moveStoredStack(world, stack, world.getBlockState(upPos), upPos);
 		} 
-		else if (!this.isPlaceable(state)) 
+		else if (this.isPlaceable(state))
 		{
 			this.dropStoredStack(blockEntity, stack, pos);
 		} 
@@ -367,12 +355,12 @@ public class PedestalBlock extends Block
 	
 	protected boolean isPlaceable(BlockState state)
 	{
-		if (!state.isIn(this)) return false;
+		if (!state.isIn(this)) return true;
 		PedestalState currentState = state.get(STATE);
-		return currentState != PedestalState.BOTTOM &&
-			   currentState != PedestalState.COLUMN &&
-			   currentState != PedestalState.PILLAR &&
-			   currentState != PedestalState.COLUMN_TOP;
+		return currentState == PedestalState.BOTTOM ||
+                currentState == PedestalState.COLUMN ||
+                currentState == PedestalState.PILLAR ||
+                currentState == PedestalState.COLUMN_TOP;
 	}
 	
 	@Override
@@ -388,7 +376,7 @@ public class PedestalBlock extends Block
 	}
 	
 	@Override
-	public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) 
+	public int getComparatorInputOverride(BlockState blockState, @Nonnull World worldIn, @Nonnull BlockPos pos)
 	{
 		return blockState.get(HAS_ITEM) ? 15 : 0;
 	}

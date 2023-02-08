@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
@@ -17,6 +15,9 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class BigAuroraCrystalFeature extends Feature<NoFeatureConfig>
 {
 
@@ -26,8 +27,8 @@ public class BigAuroraCrystalFeature extends Feature<NoFeatureConfig>
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos,
-			NoFeatureConfig config) 
+	public boolean generate(@Nonnull ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, BlockPos pos,
+                            @Nonnull NoFeatureConfig config)
 	{
 		int maxY = pos.getY() + BlockHelper.upRay(world, pos, 16);
 		int minY = pos.getY() - BlockHelper.downRay(world, pos, 16);
@@ -44,12 +45,10 @@ public class BigAuroraCrystalFeature extends Feature<NoFeatureConfig>
 		SDF prism = new SDFHexPrism().setHeight(height).setRadius(ModMathHelper.randRange(1.7F, 3F, rand)).setBlock(ModBlocks.AURORA_CRYSTAL.get());
 		Vector3f vec = ModMathHelper.randomHorizontal(rand);
 		prism = new SDFRotation().setRotation(vec, rand.nextFloat()).setSource(prism);
-		prism.setReplaceFunction((bState) -> {
-			return bState.getMaterial().isReplaceable()
-					|| bState.isIn(ModTags.GEN_TERRAIN)
-					|| bState.getMaterial().equals(Material.PLANTS)
-					|| bState.getMaterial().equals(Material.LEAVES);
-		});
+		prism.setReplaceFunction((bState) -> bState.getMaterial().isReplaceable()
+				|| bState.isIn(ModTags.GEN_TERRAIN)
+				|| bState.getMaterial().equals(Material.PLANTS)
+				|| bState.getMaterial().equals(Material.LEAVES));
 		prism.fillRecursive(world, pos);
 		BlockHelper.setWithoutUpdate(world, pos, ModBlocks.AURORA_CRYSTAL.get());
 		

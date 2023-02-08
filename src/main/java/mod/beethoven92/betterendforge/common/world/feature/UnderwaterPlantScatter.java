@@ -1,11 +1,11 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;
 import net.minecraft.world.ISeedReader;
+
+import java.util.Random;
 
 public abstract class UnderwaterPlantScatter extends ScatterFeature
 {
@@ -38,9 +38,9 @@ public abstract class UnderwaterPlantScatter extends ScatterFeature
 	}
 	
 	@Override
-	protected boolean getGroundPlant(ISeedReader world, Mutable pos) 
+	protected boolean getGroundPlant(ISeedReader world)
 	{
-		return getGround(world, pos).getY() < 128;
+		return getGround(world, ScatterFeature.POS).getY() < 128;
 	}
 	
 	@Override

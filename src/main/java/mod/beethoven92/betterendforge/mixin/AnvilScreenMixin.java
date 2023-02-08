@@ -1,16 +1,7 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import java.util.List;
-
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
-
 import mod.beethoven92.betterendforge.common.interfaces.ExtendedRepairContainer;
 import net.minecraft.client.gui.screen.inventory.AbstractRepairScreen;
 import net.minecraft.client.gui.screen.inventory.AnvilScreen;
@@ -24,6 +15,14 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 @Mixin(AnvilScreen.class)
 public class AnvilScreenMixin extends AbstractRepairScreen<RepairContainer>
@@ -52,13 +51,11 @@ public class AnvilScreenMixin extends AbstractRepairScreen<RepairContainer>
 	}
 	
 	@Override
-	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) 
+	public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
 	{
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
 
-		this.be_buttons.forEach(button -> {
-			button.render(matrixStack, mouseX, mouseY, partialTicks);
-		});
+		this.be_buttons.forEach(button -> button.render(matrixStack, mouseX, mouseY, partialTicks));
 	}
 	
 	@Inject(method = "sendSlotContents", at = @At("HEAD"), cancellable = true)

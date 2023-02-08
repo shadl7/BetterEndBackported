@@ -1,12 +1,9 @@
 package mod.beethoven92.betterendforge.client.gui;
 
-import java.util.Arrays;
-
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import mod.beethoven92.betterendforge.client.renderer.EndSignTileEntityRenderer;
 import mod.beethoven92.betterendforge.common.block.EndSignBlock;
 import mod.beethoven92.betterendforge.common.tileentity.ESignTileEntity;
@@ -17,11 +14,7 @@ import net.minecraft.client.gui.fonts.TextInputUtil;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.widget.button.Button;
 import net.minecraft.client.network.play.ClientPlayNetHandler;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldVertexBufferUploader;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.renderer.tileentity.SignTileEntityRenderer;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
@@ -33,6 +26,10 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.Objects;
+
 @OnlyIn(Dist.CLIENT)
 public class BlockSignEditScreen extends Screen {
 	private final SignTileEntityRenderer.SignModel model = new SignTileEntityRenderer.SignModel();
@@ -40,9 +37,7 @@ public class BlockSignEditScreen extends Screen {
 	private int ticksSinceOpened;
 	private int currentRow;
 	private TextInputUtil selectionManager;
-	private final String[] text = (String[]) Util.make(new String[4], (strings) -> {
-		Arrays.fill(strings, "");
-	});
+	private final String[] text = Util.make(new String[4], (strings) -> Arrays.fill(strings, ""));
 
 	public BlockSignEditScreen(ESignTileEntity sign) {
 		super(new TranslationTextComponent("sign.edit"));
@@ -51,26 +46,20 @@ public class BlockSignEditScreen extends Screen {
 
 	@Override
 	protected void init() {
-		this.minecraft.keyboardListener.enableRepeatEvents(true);
+		Objects.requireNonNull(this.minecraft).keyboardListener.enableRepeatEvents(true);
 		this.addButton(new Button(this.width / 2 - 100, this.height / 4 + 120, 200, 20, DialogTexts.GUI_DONE,
-				(buttonWidget) -> {
-					this.finishEditing();
-				}));
+				(buttonWidget) -> this.finishEditing()));
 		this.sign.setEditable(false);
-		this.selectionManager = new TextInputUtil(() -> {
-			return this.text[this.currentRow];
-		}, (string) -> {
+		this.selectionManager = new TextInputUtil(() -> this.text[this.currentRow], (string) -> {
 			this.text[this.currentRow] = string;
 			this.sign.setTextOnRow(this.currentRow, new StringTextComponent(string));
 		}, TextInputUtil.getClipboardTextSupplier(this.minecraft), TextInputUtil.getClipboardTextSetter(this.minecraft),
-				(string) -> {
-					return this.minecraft.fontRenderer.getStringWidth(string) <= 90;
-				});
+				(string) -> this.minecraft.fontRenderer.getStringWidth(string) <= 90);
 	}
 
 	@Override
 	public void onClose() {
-		this.minecraft.keyboardListener.enableRepeatEvents(false);
+		Objects.requireNonNull(this.minecraft).keyboardListener.enableRepeatEvents(false);
 		ClientPlayNetHandler clientPlayNetworkHandler = this.minecraft.getConnection();
 		if (clientPlayNetworkHandler != null) {
 			clientPlayNetworkHandler.sendPacket(new CUpdateSignPacket(this.sign.getPos(), this.text[0], this.text[1],
@@ -90,7 +79,7 @@ public class BlockSignEditScreen extends Screen {
 
 	private void finishEditing() {
 		this.sign.markDirty();
-		this.minecraft.displayGuiScreen((Screen) null);
+		Objects.requireNonNull(this.minecraft).displayGuiScreen(null);
 	}
 
 	@Override
@@ -111,8 +100,7 @@ public class BlockSignEditScreen extends Screen {
 			this.selectionManager.moveCursorToEnd();
 			return true;
 		} else if (keyCode != 264 && keyCode != 257 && keyCode != 335) {
-			return this.selectionManager.specialKeyPressed(keyCode) ? true
-					: super.keyPressed(keyCode, scanCode, modifiers);
+			return this.selectionManager.specialKeyPressed(keyCode) || super.keyPressed(keyCode, scanCode, modifiers);
 		} else {
 			this.currentRow = this.currentRow + 1 & 3;
 			this.selectionManager.moveCursorToEnd();
@@ -121,12 +109,12 @@ public class BlockSignEditScreen extends Screen {
 	}
 
 	@Override
-	public void render(MatrixStack matrices, int mouseX, int mouseY, float delta) {
+	public void render(@Nonnull MatrixStack matrices, int mouseX, int mouseY, float delta) {
 		RenderHelper.setupGuiFlatDiffuseLighting();
 		this.renderBackground(matrices);
 		AbstractGui.drawCenteredString(matrices, this.font, this.title, this.width / 2, 40, 16777215);
 		matrices.push();
-		matrices.translate((double) (this.width / 2), 0.0D, 50.0D);
+		matrices.translate(this.width / 2, 0.0D, 50.0D);
 
 		matrices.scale(93.75F, -93.75F, 93.75F);
 		matrices.translate(0.0D, -1.3125D, 0.0D);
@@ -141,7 +129,7 @@ public class BlockSignEditScreen extends Screen {
 
 		matrices.push();
 		matrices.scale(0.6666667F, -0.6666667F, -0.6666667F);
-		IRenderTypeBuffer.Impl immediate = this.minecraft.getRenderTypeBuffers().getBufferSource();
+		IRenderTypeBuffer.Impl immediate = Objects.requireNonNull(this.minecraft).getRenderTypeBuffers().getBufferSource();
 		IVertexBuilder vertexConsumer = EndSignTileEntityRenderer.getConsumer(immediate, blockState.getBlock());
 		this.model.signBoard.render(matrices, vertexConsumer, 15728880, OverlayTexture.NO_OVERLAY);
 
@@ -175,7 +163,7 @@ public class BlockSignEditScreen extends Screen {
 						immediate, false, 0, 15728880, false);
 				if (m == this.currentRow && j >= 0 && bl2) {
 					s = this.minecraft.fontRenderer
-							.getStringWidth(string2.substring(0, Math.max(Math.min(j, string2.length()), 0)));
+							.getStringWidth(string2.substring(0, Math.min(j, string2.length())));
 					t = s - this.minecraft.fontRenderer.getStringWidth(string2) / 2;
 					if (j >= string2.length()) {
 						this.minecraft.fontRenderer.func_238411_a_("_", (float) t, (float) l, i, false, matrix4f, immediate, false,
@@ -190,7 +178,7 @@ public class BlockSignEditScreen extends Screen {
 		for (m = 0; m < this.text.length; ++m) {
 			string2 = this.text[m];
 			if (string2 != null && m == this.currentRow && j >= 0) {
-				int r = this.minecraft.fontRenderer.getStringWidth(string2.substring(0, Math.max(Math.min(j, string2.length()), 0)));
+				int r = this.minecraft.fontRenderer.getStringWidth(string2.substring(0, Math.min(j, string2.length())));
 				s = r - this.minecraft.fontRenderer.getStringWidth(string2) / 2;
 				if (bl2 && j < string2.length()) {
 					int var31 = l - 1;

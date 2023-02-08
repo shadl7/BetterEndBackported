@@ -1,39 +1,38 @@
 package mod.beethoven92.betterendforge.common.particles;
 
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
-import net.minecraft.client.particle.IAnimatedSprite;
-import net.minecraft.client.particle.IParticleFactory;
-import net.minecraft.client.particle.IParticleRenderType;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.SpriteTexturedParticle;
+import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.util.math.BlockPos.Mutable;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
+
 public class GeyserParticle extends SpriteTexturedParticle
 {
-	private Mutable mut = new Mutable();
+	private final Mutable mut = new Mutable();
 	private boolean changeDir = false;
 	private boolean check = true;
 
-	protected GeyserParticle(ClientWorld world, double x, double y, double z, double vx, 
-			double vy, double vz, IAnimatedSprite spriteWithAge)
+	protected GeyserParticle(ClientWorld world, double x, double y, double z,
+							 IAnimatedSprite spriteWithAge)
 	{
-		super(world, x, y, z, vx, vy, vz);
+		super(world, x, y, z, 0, 0.125, 0);
 		
 		this.selectSpriteWithAge(spriteWithAge);
 		
 		this.maxAge = ModMathHelper.randRange(400, 800, rand);
 		this.particleScale = ModMathHelper.randRange(0.5F, 1.0F, rand);
 		
-		this.motionX = vx;
-		this.motionZ = vz;
+		this.motionX = 0;
+		this.motionZ = 0;
 		this.prevPosY = y - 0.125;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public IParticleRenderType getRenderType() 
 	{
 		return IParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
@@ -84,10 +83,10 @@ public class GeyserParticle extends SpriteTexturedParticle
 	    }
 	    
 	    @Override
-	    public Particle makeParticle(BasicParticleType type, ClientWorld worldIn, double x, double y, double z,
-	    		double xSpeed, double ySpeed, double zSpeed) 
+	    public Particle makeParticle(@Nonnull BasicParticleType type, @Nonnull ClientWorld worldIn, double x, double y, double z,
+                                     double xSpeed, double ySpeed, double zSpeed)
 	    {
-	    	return new GeyserParticle(worldIn, x, y, z, 0, 0.125, 0, sprite);
+	    	return new GeyserParticle(worldIn, x, y, z, sprite);
 	    }
 	}
 }

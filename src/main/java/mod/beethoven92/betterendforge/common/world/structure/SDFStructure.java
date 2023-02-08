@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.structure;
 
-import java.util.Random;
-
 import com.mojang.serialization.Codec;
-
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
 import mod.beethoven92.betterendforge.common.world.structure.piece.VoxelPiece;
 import net.minecraft.util.math.BlockPos;
@@ -18,21 +15,20 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public abstract class SDFStructure extends Structure<NoFeatureConfig>
 {
 	public SDFStructure(Codec<NoFeatureConfig> p_i231997_1_) 
 	{
 		super(p_i231997_1_);
 	}
-	
-	/*public SDFStructure() 
-	{
-		super(NoFeatureConfig.field_236558_a_);
-	}*/
 
 	protected abstract SDF getSDF(BlockPos pos, Random random);
 	
-	@Override
+	@Nonnull
+    @Override
 	public IStartFactory<NoFeatureConfig> getStartFactory() 
 	{
 		return SDFStructureStart::new;
@@ -47,9 +43,9 @@ public abstract class SDFStructure extends Structure<NoFeatureConfig>
 		}
 
 		@Override
-		public void func_230364_a_(DynamicRegistries p_230364_1_, ChunkGenerator chunkGenerator,
-				TemplateManager p_230364_3_, int chunkX, int chunkZ, Biome p_230364_6_,
-				NoFeatureConfig p_230364_7_) 
+		public void func_230364_a_(@Nonnull DynamicRegistries p_230364_1_, ChunkGenerator chunkGenerator,
+                                   @Nonnull TemplateManager p_230364_3_, int chunkX, int chunkZ, @Nonnull Biome p_230364_6_,
+                                   @Nonnull NoFeatureConfig p_230364_7_)
 		{
 			int x = (chunkX << 4) | MathHelper.nextInt(rand, 4, 12);
 			int z = (chunkZ << 4) | MathHelper.nextInt(rand, 4, 12);
@@ -57,7 +53,7 @@ public abstract class SDFStructure extends Structure<NoFeatureConfig>
 			if (y > 5) 
 			{
 				BlockPos start = new BlockPos(x, y, z);
-				VoxelPiece piece = new VoxelPiece((world) -> { ((SDFStructure) this.getStructure()).getSDF(start, this.rand).fillRecursive(world, start); }, rand.nextInt());
+				VoxelPiece piece = new VoxelPiece((world) -> ((SDFStructure) this.getStructure()).getSDF(start, this.rand).fillRecursive(world, start), rand.nextInt());
 				this.components.add(piece);
 			}
 			this.recalculateStructureSize();

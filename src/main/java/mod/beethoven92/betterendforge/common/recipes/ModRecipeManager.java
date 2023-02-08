@@ -1,13 +1,12 @@
 package mod.beethoven92.betterendforge.common.recipes;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.google.common.collect.Maps;
-
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class ModRecipeManager 
 {
@@ -15,12 +14,7 @@ public class ModRecipeManager
 
 	public static void addRecipe(IRecipeType<?> type, IRecipe<?> recipe) 
 	{
-		Map<ResourceLocation, IRecipe<?>> list = RECIPES.get(type);
-		if (list == null) 
-		{
-			list = Maps.newHashMap();
-			RECIPES.put(type, list);
-		}
+		Map<ResourceLocation, IRecipe<?>> list = RECIPES.computeIfAbsent(type, k -> Maps.newHashMap());
 		list.put(recipe.getId(), recipe);
 	}
 	
@@ -40,12 +34,7 @@ public class ModRecipeManager
 			Map<ResourceLocation, IRecipe<?>> list = RECIPES.get(type);
 			if (list != null)
 			{
-				Map<ResourceLocation, IRecipe<?>> typeList = result.get(type);
-				if (typeList == null) 
-				{
-					typeList = Maps.newHashMap();
-					result.put(type, typeList);
-				}
+				Map<ResourceLocation, IRecipe<?>> typeList = result.computeIfAbsent(type, k -> Maps.newHashMap());
 				for (Entry<ResourceLocation, IRecipe<?>> entry : list.entrySet()) {
 					ResourceLocation id = entry.getKey();
 					if (!typeList.containsKey(id))

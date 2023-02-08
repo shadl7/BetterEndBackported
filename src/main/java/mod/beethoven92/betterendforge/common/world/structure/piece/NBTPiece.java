@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.structure.piece;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModStructurePieces;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.StructureHelper;
@@ -21,15 +19,18 @@ import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class NBTPiece extends StructurePiece
 {
-	private ResourceLocation structureID;
-	private Rotation rotation;
-	private Mirror mirror;
-	private Template structure;
-	private BlockPos pos;
-	private int erosion;
-	private boolean cover;
+	private final ResourceLocation structureID;
+	private final Rotation rotation;
+	private final Mirror mirror;
+	private final Template structure;
+	private final BlockPos pos;
+	private final int erosion;
+	private final boolean cover;
 	
 	public NBTPiece(ResourceLocation structureID, Template structure, BlockPos pos, int erosion, boolean cover, Random random)
 	{
@@ -75,8 +76,8 @@ public class NBTPiece extends StructurePiece
 	}
 	
 	@Override
-	public boolean func_230383_a_(ISeedReader world, StructureManager manager, ChunkGenerator chunkGenerator,
-			Random random, MutableBoundingBox box, ChunkPos chunkPos, BlockPos blockPos) 
+	public boolean func_230383_a_(@Nonnull ISeedReader world, @Nonnull StructureManager manager, @Nonnull ChunkGenerator chunkGenerator,
+								  @Nonnull Random random, @Nonnull MutableBoundingBox box, @Nonnull ChunkPos chunkPos, @Nonnull BlockPos blockPos)
 	{
 	    MutableBoundingBox bounds = new MutableBoundingBox(box);
 		bounds.maxY = this.boundingBox.maxY;

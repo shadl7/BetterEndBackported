@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.entity.SilkMothEntity;
 import mod.beethoven92.betterendforge.common.init.ModEntityTypes;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
@@ -17,11 +15,7 @@ import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tags.BlockTags;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -31,6 +25,9 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class SilkMothNestBlock extends Block {
 	public static final BooleanProperty ACTIVE = BlockProperties.ACTIVATED;
@@ -48,8 +45,9 @@ public class SilkMothNestBlock extends Block {
 		builder.add(ACTIVE, FACING, FULLNESS);
 	}
 
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+	@Nonnull
+    @Override
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
 		return state.get(ACTIVE) ? BOTTOM : TOP;
 	}
 
@@ -59,9 +57,10 @@ public class SilkMothNestBlock extends Block {
 		return this.getDefaultState().with(FACING, dir);
 	}
 
-	@Override
-	public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState neighborState, IWorld world,
-			BlockPos pos, BlockPos neighborPos) {
+	@Nonnull
+    @Override
+	public BlockState updatePostPlacement(BlockState state, @Nonnull Direction facing, @Nonnull BlockState neighborState, @Nonnull IWorld world,
+                                          @Nonnull BlockPos pos, @Nonnull BlockPos neighborPos) {
 		if (!state.get(ACTIVE)) {
 			if (hasEnoughSolidSide(world, pos.up(), Direction.DOWN)
 					|| world.getBlockState(pos.up()).isIn(BlockTags.LEAVES)) {
@@ -73,18 +72,20 @@ public class SilkMothNestBlock extends Block {
 		return state;
 	}
 
-	@Override
-	public BlockState rotate(BlockState state, Rotation rotation) {
+	@Nonnull
+    @Override
+	public BlockState rotate(@Nonnull BlockState state, @Nonnull Rotation rotation) {
 		return BlockHelper.rotateHorizontal(state, rotation, FACING);
 	}
 
-	@Override
-	public BlockState mirror(BlockState state, Mirror mirror) {
+	@Nonnull
+    @Override
+	public BlockState mirror(@Nonnull BlockState state, @Nonnull Mirror mirror) {
 		return BlockHelper.mirrorHorizontal(state, mirror, FACING);
 	}
 
 	@Override
-	public void onBlockHarvested(World world, BlockPos pos, BlockState state, PlayerEntity player) {
+	public void onBlockHarvested(@Nonnull World world, @Nonnull BlockPos pos, BlockState state, @Nonnull PlayerEntity player) {
 		if (!state.get(ACTIVE) && player.isCreative()) {
 			BlockHelper.setWithUpdate(world, pos.down(), Blocks.AIR);
 		}
@@ -96,7 +97,7 @@ public class SilkMothNestBlock extends Block {
 	}
 
 	@Override
-	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+	public void randomTick(BlockState state, @Nonnull ServerWorld world, @Nonnull BlockPos pos, @Nonnull Random random) {
 		if (!state.get(ACTIVE)) {
 			return;
 		}
@@ -109,9 +110,7 @@ public class SilkMothNestBlock extends Block {
 			return;
 		}
 		int count = world
-				.getEntitiesWithinAABB(ModEntityTypes.SILK_MOTH.get(), new AxisAlignedBB(pos).grow(16), (entity) -> {
-					return true;
-				}).size();
+				.getEntitiesWithinAABB(ModEntityTypes.SILK_MOTH.get(), new AxisAlignedBB(pos).grow(16), (entity) -> true).size();
 		if (count > 8) {
 			return;
 		}

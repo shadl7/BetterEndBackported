@@ -1,9 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
@@ -18,6 +14,12 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.Random;
 
 public class IceStarFeature extends Feature<NoFeatureConfig>
 {
@@ -37,8 +39,8 @@ public class IceStarFeature extends Feature<NoFeatureConfig>
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos,
-			NoFeatureConfig config) 
+	public boolean generate(@Nonnull ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos,
+                            @Nonnull NoFeatureConfig config)
 	{
 		float size = ModMathHelper.randRange(minSize, maxSize, rand);
 		int count = ModMathHelper.randRange(minCount, maxCount, rand);
@@ -49,7 +51,7 @@ public class IceStarFeature extends Feature<NoFeatureConfig>
 		for (Vector3f point: points) 
 		{
 			SDF rotated = spike;
-			point = ModMathHelper.normalize(point);
+			ModMathHelper.normalize(point);
 			float angle = ModMathHelper.angle(Vector3f.YP, point);
 			if (angle > 0.01F && angle < 3.14F) 
 			{
@@ -78,7 +80,7 @@ public class IceStarFeature extends Feature<NoFeatureConfig>
 		final BlockState ancient = ModBlocks.ANCIENT_EMERALD_ICE.get().getDefaultState();
 		final SDF sdfCopy = sdf;
 		
-		sdf.addPostProcess((info) -> {
+		Objects.requireNonNull(sdf).addPostProcess((info) -> {
 			BlockPos bpos = info.getPos();
 			float px = bpos.getX() - center.getX();
 			float py = bpos.getY() - center.getY();
@@ -105,7 +107,7 @@ public class IceStarFeature extends Feature<NoFeatureConfig>
 	private List<Vector3f> getFibonacciPoints(int count) 
 	{
 		float max = count - 1;
-		List<Vector3f> result = new ArrayList<Vector3f>(count);
+		List<Vector3f> result = new ArrayList<>(count);
 		for (int i = 0; i < count; i++) 
 		{
 			float y = 1F - (i / max) * 2F;

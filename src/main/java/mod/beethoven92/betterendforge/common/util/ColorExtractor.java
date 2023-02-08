@@ -1,18 +1,18 @@
 package mod.beethoven92.betterendforge.common.util;
 
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-
 @OnlyIn(Dist.CLIENT)
 public class ColorExtractor
 {
-	private List<Center> centers = new ArrayList<>();
-	private List<Integer> colors;
+	private final List<Center> centers = new ArrayList<>();
+	private final List<Integer> colors;
 	private Integer result;
 	
 	public ColorExtractor(List<Integer> colors) 
@@ -51,8 +51,7 @@ public class ColorExtractor
 		});
 		if (toClear.size() > 0) 
 		{
-			toClear.forEach(clear ->
-				centers.remove(clear));
+			toClear.forEach(centers::remove);
 		}
 		this.centers.sort(Center.COMPARATOR);
 		
@@ -75,8 +74,8 @@ public class ColorExtractor
 				red += center.r * weight;
 				green += center.g * weight;
 				blue += center.b * weight;
-			};
-			
+			}
+
 			int a = (int) Math.round(alpha / weights);
 			int r = (int) Math.round(red / weights);
 			int g = (int) Math.round(green / weights);
@@ -108,16 +107,9 @@ public class ColorExtractor
 	
 	private static class Center 
 	{
-		static final Comparator<Center> COMPARATOR = new Comparator<Center>() 
-		{
-			@Override
-			public int compare(Center c1, Center c2) 
-			{
-				return Integer.compare(c1.getColor(), c2.getColor());
-			}
-		};
+		static final Comparator<Center> COMPARATOR = Comparator.comparingInt(Center::getColor);
 		
-		List<Integer> colors = new ArrayList<>();
+		final List<Integer> colors = new ArrayList<>();
 		double a, r, g, b;
 		
 		Center(int color) 

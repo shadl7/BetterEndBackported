@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block.template;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -13,6 +11,9 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class EndCropBlock extends PlantBlock
 {
@@ -28,13 +29,15 @@ public class EndCropBlock extends PlantBlock
 		this.setDefaultState(getDefaultState().with(AGE, 0));
 	}
 
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	@Nonnull
+    @Override
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		return SHAPE;
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public OffsetType getOffsetType()
 	{
 		return OffsetType.NONE;
@@ -54,19 +57,19 @@ public class EndCropBlock extends PlantBlock
 	}
 	
 	@Override
-	public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient)
+	public boolean canGrow(@Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean isClient)
 	{
 		return state.get(AGE) < 3;
 	}
 	
 	@Override
-	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) 
+	public boolean canUseBonemeal(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state)
 	{
 		return state.get(AGE) < 3;
 	}
 	
 	@Override
-	public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state)
+	public void grow(@Nonnull ServerWorld worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state)
 	{
 		if (rand.nextInt(8) == 0)
 		{
@@ -79,7 +82,7 @@ public class EndCropBlock extends PlantBlock
 	}
 	
 	@Override
-	public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) 
+	public void randomTick(@Nonnull BlockState state, @Nonnull ServerWorld worldIn, @Nonnull BlockPos pos, @Nonnull Random random)
 	{
 		//super.randomTick(state, worldIn, pos, random);
 		grow(worldIn, random, pos, state);

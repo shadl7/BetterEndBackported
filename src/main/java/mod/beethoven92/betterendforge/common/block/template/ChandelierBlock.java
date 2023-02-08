@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.block.template;
 
-import java.util.EnumMap;
-
 import com.google.common.collect.Maps;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
@@ -12,6 +9,9 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+
+import javax.annotation.Nonnull;
+import java.util.EnumMap;
 
 public class ChandelierBlock extends AttachedBlock
 {
@@ -32,9 +32,10 @@ public class ChandelierBlock extends AttachedBlock
 		super(properties);
 	}
 
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos,
-			ISelectionContext context) 
+	@Nonnull
+    @Override
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos,
+                               @Nonnull ISelectionContext context)
 	{
 		return BOUNDING_SHAPES.get(state.get(FACING));
 	}

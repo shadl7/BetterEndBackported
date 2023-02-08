@@ -1,11 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
-
 import com.google.common.collect.Lists;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties;
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
 import mod.beethoven92.betterendforge.common.block.template.FurBlock;
@@ -15,11 +10,7 @@ import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.SplineHelper;
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFDisplacement;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale3D;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFSubtraction;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFTranslate;
+import mod.beethoven92.betterendforge.common.util.sdf.operator.*;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFSphere;
 import mod.beethoven92.betterendforge.common.world.generator.OpenSimplexNoise;
 import net.minecraft.block.BlockState;
@@ -34,6 +25,11 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
+
 public class LucerniaFeature extends Feature<NoFeatureConfig> {
 	private static final Direction[] DIRECTIONS = Direction.values();
 	private static final Function<BlockState, Boolean> REPLACE;
@@ -46,8 +42,8 @@ public class LucerniaFeature extends Feature<NoFeatureConfig> {
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator chunkGenerator, Random random, BlockPos pos,
-			NoFeatureConfig config) {
+	public boolean generate(ISeedReader world, @Nonnull ChunkGenerator chunkGenerator, @Nonnull Random random, BlockPos pos,
+							@Nonnull NoFeatureConfig config) {
 		if (!world.getBlockState(pos.down()).getBlock().isIn(ModTags.END_GROUND))
 			return false;
 
@@ -65,8 +61,8 @@ public class LucerniaFeature extends Feature<NoFeatureConfig> {
 			Vector3f last = spline.get(spline.size() - 1);
 			float leavesRadius = (size * 0.13F + ModMathHelper.randRange(0.8F, 1.5F, random)) * 1.4F;
 			OpenSimplexNoise noise = new OpenSimplexNoise(random.nextLong());
-			leavesBall(world, pos.add(last.getX(), last.getY(), last.getZ()), leavesRadius, random, noise,
-					config != null);
+			leavesBall(world, pos.add(last.getX(), last.getY(), last.getZ()), leavesRadius, random, noise
+            );
 		}
 
 		makeRoots(world, pos.add(0, ModMathHelper.randRange(3, 5, random), 0), size * 0.35F, random);
@@ -75,19 +71,15 @@ public class LucerniaFeature extends Feature<NoFeatureConfig> {
 	}
 
 	private void leavesBall(ISeedReader world, BlockPos pos, float radius, Random random,
-			OpenSimplexNoise noise, boolean natural) {
+			OpenSimplexNoise noise) {
 		SDF sphere = new SDFSphere().setRadius(radius)
 				.setBlock(ModBlocks.LUCERNIA_LEAVES.get().getDefaultState().with(LeavesBlock.DISTANCE, 6));
 		SDF sub = new SDFScale().setScale(5).setSource(sphere);
 		sub = new SDFTranslate().setTranslate(0, -radius * 5, 0).setSource(sub);
 		sphere = new SDFSubtraction().setSourceA(sphere).setSourceB(sub);
 		sphere = new SDFScale3D().setScale(1, 0.75F, 1).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> {
-			return (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 2F;
-		}).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> {
-			return ModMathHelper.randRange(-1.5F, 1.5F, random);
-		}).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 2F).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> ModMathHelper.randRange(-1.5F, 1.5F, random)).setSource(sphere);
 
 		Mutable mut = new Mutable();
 		for (Direction d1 : BlockHelper.HORIZONTAL_DIRECTIONS) {
@@ -106,7 +98,7 @@ public class LucerniaFeature extends Feature<NoFeatureConfig> {
 
 		List<BlockPos> support = Lists.newArrayList();
 		sphere.addPostProcess((info) -> {
-			if (natural && random.nextInt(6) == 0 && info.getStateDown().isAir()) {
+			if (random.nextInt(6) == 0 && info.getStateDown().isAir()) {
 				BlockPos d = info.getPos().down();
 				support.add(d);
 			}
@@ -207,9 +199,7 @@ public class LucerniaFeature extends Feature<NoFeatureConfig> {
 			return state.getMaterial().isReplaceable();
 		};
 
-		IGNORE = (state) -> {
-			return ModBlocks.LUCERNIA.isTreeLog(state);
-		};
+		IGNORE = ModBlocks.LUCERNIA::isTreeLog;
 
 		SPLINE = Lists.newArrayList(new Vector3f(0.00F, 0.00F, 0.00F), new Vector3f(0.10F, 0.35F, 0.00F),
 				new Vector3f(0.20F, 0.50F, 0.00F), new Vector3f(0.30F, 0.55F, 0.00F), new Vector3f(0.42F, 0.70F, 0.00F),

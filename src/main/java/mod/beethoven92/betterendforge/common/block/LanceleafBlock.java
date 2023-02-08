@@ -14,6 +14,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
+import javax.annotation.Nonnull;
+
 public class LanceleafBlock extends PlantBlock {
 	public static final EnumProperty<PentaShape> SHAPE = BlockProperties.PENTA_SHAPE;
 	public static final IntegerProperty ROTATION = BlockProperties.ROTATION;
@@ -28,7 +30,7 @@ public class LanceleafBlock extends PlantBlock {
 	}
 
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
+	public boolean isValidPosition(@Nonnull BlockState state, IWorldReader world, BlockPos pos) {
 		PentaShape shape = state.get(SHAPE);
 		if (shape == PentaShape.TOP) {
 			return world.getBlockState(pos.down()).isIn(this);
@@ -40,9 +42,10 @@ public class LanceleafBlock extends PlantBlock {
 		}
 	}
 
-	@Override
-	public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world,
-			BlockPos pos, BlockPos facingPos) {
+	@Nonnull
+    @Override
+	public BlockState updatePostPlacement(@Nonnull BlockState state, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld world,
+                                          @Nonnull BlockPos pos, @Nonnull BlockPos facingPos) {
 		if (!isValidPosition(state, world, pos)) {
 			return Blocks.AIR.getDefaultState();
 		}

@@ -2,7 +2,6 @@ package mod.beethoven92.betterendforge.client.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.inventory.EndStoneSmelterContainer;
 import net.minecraft.client.gui.recipebook.IRecipeShownListener;
@@ -16,6 +15,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nonnull;
+import java.util.Objects;
 
 @OnlyIn(Dist.CLIENT)
 public class EndStoneSmelterScreen extends ContainerScreen<EndStoneSmelterContainer> implements IRecipeShownListener
@@ -38,7 +40,7 @@ public class EndStoneSmelterScreen extends ContainerScreen<EndStoneSmelterContai
 	{
 		super.init();
 		this.narrow = this.width < 379;
-		this.recipeBook.init(width, height, minecraft, narrow, container);
+		this.recipeBook.init(width, height, Objects.requireNonNull(minecraft), narrow, container);
 		this.guiLeft = this.recipeBook.updateScreenPosition(narrow, width, xSize);
 		this.addButton(new ImageButton(this.guiLeft + 20, height / 2 - 49, 20, 18, 0, 0, 19, RECIPE_BUTTON_TEXTURE, (buttonWidget) -> {
 			this.recipeBook.initSearchBar(narrow);
@@ -57,7 +59,7 @@ public class EndStoneSmelterScreen extends ContainerScreen<EndStoneSmelterContai
 	}
 	
 	@Override
-	public void render(MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks) 
+	public void render(@Nonnull MatrixStack matrixStack, int mouseX, int mouseY, float partialTicks)
 	{
 		this.renderBackground(matrixStack);
 		if (this.recipeBook.isVisible() && this.narrow) 
@@ -77,10 +79,10 @@ public class EndStoneSmelterScreen extends ContainerScreen<EndStoneSmelterContai
 	}
 	
 	@Override
-	protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) 
+	protected void drawGuiContainerBackgroundLayer(@Nonnull MatrixStack matrixStack, float partialTicks, int x, int y)
 	{		
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		this.minecraft.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
+		Objects.requireNonNull(this.minecraft).getTextureManager().bindTexture(BACKGROUND_TEXTURE);
 	    int i = this.guiLeft;
 	    int j = this.guiTop;
 		this.blit(matrixStack, i, j, 0, 0, this.xSize, this.ySize);
@@ -103,12 +105,12 @@ public class EndStoneSmelterScreen extends ContainerScreen<EndStoneSmelterContai
 		} 
 		else 
 		{
-			return this.narrow && this.recipeBook.isVisible() ? true : super.mouseClicked(mouseX, mouseY, button);
+			return this.narrow && this.recipeBook.isVisible() || super.mouseClicked(mouseX, mouseY, button);
 		}
 	}
 	
 	@Override
-	protected void handleMouseClick(Slot slotIn, int slotId, int mouseButton, ClickType type) 
+	protected void handleMouseClick(@Nonnull Slot slotIn, int slotId, int mouseButton, @Nonnull ClickType type)
 	{
 		super.handleMouseClick(slotIn, slotId, mouseButton, type);
 		this.recipeBook.slotClicked(slotIn);
@@ -117,7 +119,7 @@ public class EndStoneSmelterScreen extends ContainerScreen<EndStoneSmelterContai
 	@Override
 	public boolean keyPressed(int keyCode, int scanCode, int modifiers) 
 	{
-		return this.recipeBook.keyPressed(keyCode, scanCode, modifiers) ? false : super.keyPressed(keyCode, scanCode, modifiers);
+		return !this.recipeBook.keyPressed(keyCode, scanCode, modifiers) && super.keyPressed(keyCode, scanCode, modifiers);
 	}
 	
 	@Override
@@ -130,7 +132,7 @@ public class EndStoneSmelterScreen extends ContainerScreen<EndStoneSmelterContai
 	@Override
 	public boolean charTyped(char codePoint, int modifiers) 
 	{
-		return this.recipeBook.charTyped(codePoint, modifiers) ? true : super.charTyped(codePoint, modifiers);
+		return this.recipeBook.charTyped(codePoint, modifiers) || super.charTyped(codePoint, modifiers);
 	}
 	
 	@Override
@@ -139,7 +141,8 @@ public class EndStoneSmelterScreen extends ContainerScreen<EndStoneSmelterContai
 		this.recipeBook.recipesUpdated();
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public RecipeBookGui getRecipeGui() 
 	{
 		return this.recipeBook;

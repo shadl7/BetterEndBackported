@@ -1,7 +1,6 @@
 package mod.beethoven92.betterendforge.common.world;
 
 import com.mojang.serialization.Lifecycle;
-
 import mod.beethoven92.betterendforge.common.world.generator.BetterEndBiomeProvider;
 import net.minecraft.util.registry.DynamicRegistries;
 import net.minecraft.util.registry.Registry;

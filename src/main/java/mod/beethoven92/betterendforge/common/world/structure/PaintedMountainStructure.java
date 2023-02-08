@@ -1,7 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.structure;
 
 import com.mojang.serialization.Codec;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
@@ -19,6 +18,8 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+
+import javax.annotation.Nonnull;
 
 public class PaintedMountainStructure extends Structure<NoFeatureConfig>
 {
@@ -38,19 +39,22 @@ public class PaintedMountainStructure extends Structure<NoFeatureConfig>
 		super(p_i231997_1_);
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public Decoration getDecorationStage() 
 	{
 		return Decoration.RAW_GENERATION;
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public String getStructureName() 
 	{
 		return BetterEnd.MOD_ID + ":painted_mountain_structure";
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public IStartFactory<NoFeatureConfig> getStartFactory() 
 	{
 		return Start::new;
@@ -65,9 +69,9 @@ public class PaintedMountainStructure extends Structure<NoFeatureConfig>
 		}
 
 		@Override
-		public void func_230364_a_(DynamicRegistries registry, ChunkGenerator chunkGenerator,
-				TemplateManager manager, int chunkX, int chunkZ, Biome biome,
-				NoFeatureConfig config) 
+		public void func_230364_a_(@Nonnull DynamicRegistries registry, ChunkGenerator chunkGenerator,
+                                   @Nonnull TemplateManager manager, int chunkX, int chunkZ, @Nonnull Biome biome,
+                                   @Nonnull NoFeatureConfig config)
 		{
 			int x = (chunkX << 4) | ModMathHelper.randRange(4, 12, rand);
 			int z = (chunkZ << 4) | ModMathHelper.randRange(4, 12, rand);

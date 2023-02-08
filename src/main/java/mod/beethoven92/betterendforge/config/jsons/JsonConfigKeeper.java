@@ -1,19 +1,17 @@
 package mod.beethoven92.betterendforge.config.jsons;
 
-import java.lang.reflect.Type;
-import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
-import javax.annotation.Nullable;
-
 import com.google.common.collect.Maps;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-
 import mod.beethoven92.betterendforge.common.util.JsonFactory;
 import net.minecraft.util.JSONUtils;
+
+import javax.annotation.Nullable;
+import java.lang.reflect.Type;
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public final class JsonConfigKeeper 
 {
@@ -112,7 +110,7 @@ public final class JsonConfigKeeper
 	public <T, E extends Entry<T>> E registerEntry(JsonConfigKey key, E entry) 
 	{
 		entry.setWriter(value -> this.storeValue(entry, value));
-		entry.setReader(() -> { return this.getValue(entry); });
+		entry.setReader(() -> this.getValue(entry));
 		this.initializeEntry(key, entry);
 		this.configEntries.put(key, entry);
 		return entry;

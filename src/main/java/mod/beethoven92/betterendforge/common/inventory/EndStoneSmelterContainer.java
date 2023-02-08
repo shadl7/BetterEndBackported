@@ -22,6 +22,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
+
 public class EndStoneSmelterContainer extends RecipeBookContainer<IInventory>
 {
 	private final IInventory inventory;
@@ -60,7 +62,7 @@ public class EndStoneSmelterContainer extends RecipeBookContainer<IInventory>
 	}
 	
 	@Override
-	public void fillStackedContents(RecipeItemHelper itemHelperIn) 
+	public void fillStackedContents(@Nonnull RecipeItemHelper itemHelperIn)
 	{
 		if (inventory instanceof IRecipeHelperPopulator) 
 		{
@@ -104,6 +106,7 @@ public class EndStoneSmelterContainer extends RecipeBookContainer<IInventory>
 		return 4;
 	}
 
+	@Nonnull
 	@Override
 	public RecipeBookCategory func_241850_m() 
 	{
@@ -111,14 +114,14 @@ public class EndStoneSmelterContainer extends RecipeBookContainer<IInventory>
 	}
 
 	@Override
-	public boolean canInteractWith(PlayerEntity playerIn) 
+	public boolean canInteractWith(@Nonnull PlayerEntity playerIn)
 	{
 		return this.inventory.isUsableByPlayer(playerIn);
 	}
 
 	protected boolean isSmeltable(ItemStack itemStack) 
 	{
-		return this.world.getRecipeManager().getRecipe(AlloyingRecipe.TYPE, new Inventory(new ItemStack[]{itemStack}), this.world).isPresent();
+		return this.world.getRecipeManager().getRecipe(AlloyingRecipe.TYPE, new Inventory(itemStack), this.world).isPresent();
 	}
 
 	public boolean isFuel(ItemStack itemStack) 
@@ -126,8 +129,9 @@ public class EndStoneSmelterContainer extends RecipeBookContainer<IInventory>
 		return EndStoneSmelterTileEntity.isFuel(itemStack);
 	}
 	
+	@Nonnull
 	@Override
-	public ItemStack transferStackInSlot(PlayerEntity playerIn, int index) 
+	public ItemStack transferStackInSlot(@Nonnull PlayerEntity playerIn, int index)
 	{
 		ItemStack itemStack = ItemStack.EMPTY;
 		Slot slot = this.inventorySlots.get(index);
@@ -159,14 +163,14 @@ public class EndStoneSmelterContainer extends RecipeBookContainer<IInventory>
 						return ItemStack.EMPTY;
 					}
 				} 
-				else if (index >= 4 && index < 31) 
+				else if (index < 31)
 				{
 					if (!this.mergeItemStack(itemStack2, 31, 40, false)) 
 					{
 						return ItemStack.EMPTY;
 					}
 				} 
-				else if (index >= 31 && index < 40 && !this.mergeItemStack(itemStack2, 4, 31, false)) 
+				else if (index < 40 && !this.mergeItemStack(itemStack2, 4, 31, false))
 				{
 					return ItemStack.EMPTY;
 				}

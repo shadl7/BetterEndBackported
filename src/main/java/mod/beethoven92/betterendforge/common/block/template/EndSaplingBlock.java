@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block.template;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -18,6 +16,9 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public abstract class EndSaplingBlock extends Block implements IGrowable
 {
 	private static final VoxelShape SHAPE = Block.makeCuboidShape(4, 0, 4, 12, 14, 12);
@@ -30,14 +31,15 @@ public abstract class EndSaplingBlock extends Block implements IGrowable
 	protected abstract Feature<?> getFeature();
 	
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
+	public boolean isValidPosition(@Nonnull BlockState state, IWorldReader worldIn, BlockPos pos)
 	{
 		return worldIn.getBlockState(pos.down()).isIn(ModTags.END_GROUND);
 	}
 	
-	@Override
-	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
-			BlockPos currentPos, BlockPos facingPos) 
+	@Nonnull
+    @Override
+	public BlockState updatePostPlacement(@Nonnull BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn,
+                                          @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos)
 	{
 		if (!isValidPosition(stateIn, worldIn, currentPos))
 			return Blocks.AIR.getDefaultState();
@@ -46,31 +48,32 @@ public abstract class EndSaplingBlock extends Block implements IGrowable
 	}
 	
 	@Override
-	public void randomTick(BlockState state, ServerWorld worldIn, BlockPos pos, Random random) 
+	public void randomTick(@Nonnull BlockState state, @Nonnull ServerWorld worldIn, @Nonnull BlockPos pos, @Nonnull Random random)
 	{
 		grow(worldIn, random, pos, state);
 	}
 	
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	@Nonnull
+    @Override
+	public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		return SHAPE;
 	}
 	
 	@Override
-	public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient)
+	public boolean canGrow(@Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean isClient)
 	{
 		return true;
 	}
 
 	@Override
-	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state)
+	public boolean canUseBonemeal(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state)
 	{
 		return true;
 	}
 
 	@Override
-	public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state)
+	public void grow(@Nonnull ServerWorld worldIn, Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state)
 	{
 		if (rand.nextInt(16) == 0)
 		{

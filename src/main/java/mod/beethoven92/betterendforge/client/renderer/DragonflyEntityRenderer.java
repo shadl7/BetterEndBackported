@@ -9,6 +9,8 @@ import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.entity.MobRenderer;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+
 public class DragonflyEntityRenderer extends MobRenderer<DragonflyEntity, DragonflyEntityModel>
 {
 	private static final ResourceLocation TEXTURE = new ResourceLocation(BetterEnd.MOD_ID, 
@@ -22,7 +24,8 @@ public class DragonflyEntityRenderer extends MobRenderer<DragonflyEntity, Dragon
 		
 		this.addLayer(new EyesLayer<DragonflyEntity, DragonflyEntityModel>(this) 
 	    {
-			@Override
+			@Nonnull
+            @Override
 			public RenderType getRenderType() 
 			{
 				return GLOW;
@@ -30,8 +33,9 @@ public class DragonflyEntityRenderer extends MobRenderer<DragonflyEntity, Dragon
 	    });
 	}
 
-	@Override
-	public ResourceLocation getEntityTexture(DragonflyEntity entity) 
+	@Nonnull
+    @Override
+	public ResourceLocation getEntityTexture(@Nonnull DragonflyEntity entity)
 	{
 		return TEXTURE;
 	}

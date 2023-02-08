@@ -9,29 +9,12 @@ import mod.beethoven92.betterendforge.common.init.ModCreativeTabs;
 import mod.beethoven92.betterendforge.common.init.ModItems;
 import mod.beethoven92.betterendforge.common.item.EndAnvilItem;
 import mod.beethoven92.betterendforge.common.item.HammerItem;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ChainBlock;
-import net.minecraft.block.DoorBlock;
-import net.minecraft.block.PressurePlateBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.PressurePlateBlock.Sensitivity;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.block.TrapDoorBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.ArmorItem;
-import net.minecraft.item.AxeItem;
-import net.minecraft.item.HoeItem;
-import net.minecraft.item.IArmorMaterial;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.Item;
-import net.minecraft.item.PickaxeItem;
-import net.minecraft.item.ShovelItem;
-import net.minecraft.item.SwordItem;
+import net.minecraft.item.*;
 import net.minecraftforge.fml.RegistryObject;
 
 public class MetalMaterial 
@@ -122,7 +105,7 @@ public class MetalMaterial
 		
 		chandelier = ModBlocks.registerBlockWithDefaultItem(name + "_chandelier", () -> new ChandelierBlock(AbstractBlock.Properties.from(block.get()).notSolid().doesNotBlockMovement().setRequiresTool().setLightLevel((state) -> 15)));
 		bulb_lantern = ModBlocks.registerBlockWithDefaultItem(name + "_bulb_lantern", () -> new BulbVineLanternBlock(blockSettings));
-		bulb_lantern_colored = new ColoredMaterial(name + "_bulb_lantern", () -> new BulbVineLanternBlock(), bulb_lantern, false);
+		bulb_lantern_colored = new ColoredMaterial(name + "_bulb_lantern", BulbVineLanternBlock::new, bulb_lantern, false);
 		
 		nugget = ModItems.registerItem(name + "_nugget", () -> new Item(itemSettings));
 		ingot = ModItems.registerItem(name + "_ingot", () -> new Item(itemSettings));

@@ -6,6 +6,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 
+import javax.annotation.Nonnull;
+
 public class GlowingMossBlock extends PlantBlock
 {
 	public GlowingMossBlock(Properties properties) 
@@ -20,7 +22,7 @@ public class GlowingMossBlock extends PlantBlock
 	}
 
 	@Override
-	public float getAmbientOcclusionLightValue(BlockState state, IBlockReader worldIn, BlockPos pos) 
+	public float getAmbientOcclusionLightValue(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos)
 	{
 		return 1F;
 	}

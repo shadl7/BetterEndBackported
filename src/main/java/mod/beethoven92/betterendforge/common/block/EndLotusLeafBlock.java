@@ -17,6 +17,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraftforge.common.IForgeShearable;
 
+import javax.annotation.Nonnull;
+
 public class EndLotusLeafBlock extends Block implements IForgeShearable
 {
 	public static final DirectionProperty HORIZONTAL_FACING = BlockStateProperties.HORIZONTAL_FACING;
@@ -27,30 +29,31 @@ public class EndLotusLeafBlock extends Block implements IForgeShearable
 	public EndLotusLeafBlock(Properties properties) 
 	{
 		super(properties);
-		//this.setDefaultState(this.stateContainer.getBaseState().with(HORIZONTAL_FACING, Direction.NORTH).
-				//with(SHAPE, TripleShape.BOTTOM));
 	}
 
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	@Nonnull
+    @Override
+	public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		return VOXEL_SHAPE;
 	}
 	
 	@Override
-    public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
+    public boolean isValidPosition(@Nonnull BlockState state, IWorldReader worldIn, BlockPos pos)
 	{
 		BlockState down = worldIn.getBlockState(pos.down());
 		return !down.getFluidState().isEmpty() && down.getFluidState().getFluid() instanceof WaterFluid;
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public BlockState rotate(BlockState state, Rotation rot) 
 	{
 		return state.with(HORIZONTAL_FACING, rot.rotate(state.get(HORIZONTAL_FACING)));
     }
 	
-	@Override
+	@Nonnull
+    @Override
 	public BlockState mirror(BlockState state, Mirror mirrorIn) 
 	{
 		return state.rotate(mirrorIn.toRotation(state.get(HORIZONTAL_FACING)));

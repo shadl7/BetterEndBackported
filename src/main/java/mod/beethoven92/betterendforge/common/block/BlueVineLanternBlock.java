@@ -11,6 +11,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
+import javax.annotation.Nonnull;
+
 public class BlueVineLanternBlock extends Block
 {
 	public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
@@ -22,14 +24,15 @@ public class BlueVineLanternBlock extends Block
 	}
 
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
+	public boolean isValidPosition(BlockState state, @Nonnull IWorldReader worldIn, @Nonnull BlockPos pos)
 	{
-		return state.get(NATURAL) ? worldIn.getBlockState(pos.down()).getBlock() == ModBlocks.BLUE_VINE.get() : true;
+		return !state.get(NATURAL) || worldIn.getBlockState(pos.down()).getBlock() == ModBlocks.BLUE_VINE.get();
 	}
 	
-	@Override
-	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
-			BlockPos currentPos, BlockPos facingPos) 
+	@Nonnull
+    @Override
+	public BlockState updatePostPlacement(@Nonnull BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn,
+                                          @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos)
 	{
 		if (!isValidPosition(stateIn, worldIn, currentPos)) 
 		{

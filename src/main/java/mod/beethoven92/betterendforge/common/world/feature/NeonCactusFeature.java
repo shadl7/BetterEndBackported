@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.block.NeonCactusPlantBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import net.minecraft.block.BlockState;
@@ -11,6 +9,9 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class NeonCactusFeature extends Feature<NoFeatureConfig> {
 
 	public NeonCactusFeature() {
@@ -18,8 +19,8 @@ public class NeonCactusFeature extends Feature<NoFeatureConfig> {
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos,
-			NoFeatureConfig config) 
+	public boolean generate(ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, BlockPos pos,
+                            @Nonnull NoFeatureConfig config)
 	{		BlockState ground = world.getBlockState(pos.down());
 		if (!ground.isIn(ModBlocks.ENDSTONE_DUST.get()) && !ground.isIn(ModBlocks.END_MOSS.get())) {
 			return false;

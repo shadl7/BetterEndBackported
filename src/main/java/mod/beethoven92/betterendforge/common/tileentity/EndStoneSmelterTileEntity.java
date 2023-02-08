@@ -1,19 +1,10 @@
 package mod.beethoven92.betterendforge.common.tileentity;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Nullable;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-
 import it.unimi.dsi.fastutil.objects.Object2IntMap.Entry;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
-import it.unimi.dsi.fastutil.objects.ObjectIterator;
 import mod.beethoven92.betterendforge.common.block.EndStoneSmelter;
-import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTileEntityTypes;
 import mod.beethoven92.betterendforge.common.inventory.EndStoneSmelterContainer;
 import mod.beethoven92.betterendforge.common.recipes.AlloyingRecipe;
@@ -38,16 +29,19 @@ import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.ITag;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.LockableTileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.IIntArray;
-import net.minecraft.util.IItemProvider;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 
 public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITickableTileEntity, IRecipeHolder, IRecipeHelperPopulator, ISidedInventory
 {
@@ -69,7 +63,7 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 	{
 		super(ModTileEntityTypes.END_STONE_SMELTER.get());
 		
-		this.recipesUsed = new Object2IntOpenHashMap<ResourceLocation>();
+		this.recipesUsed = new Object2IntOpenHashMap<>();
 		this.items= NonNullList.withSize(4, ItemStack.EMPTY);
 		this.data = new IIntArray() 
 		{
@@ -116,8 +110,9 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 		 this.registerFuels();
 	}
 	
+	@Nonnull
 	@Override
-	public CompoundNBT write(CompoundNBT compound)
+	public CompoundNBT write(@Nonnull CompoundNBT compound)
 	{
 		super.write(compound);
 		compound.putShort("BurnTime", (short) burnTime);
@@ -126,16 +121,14 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 		compound.putShort("SmeltTimeTotal", (short) smeltTimeTotal);
 		ItemStackHelper.saveAllItems(compound, this.items);
 		CompoundNBT usedRecipes = new CompoundNBT();
-		this.recipesUsed.forEach((identifier, integer) -> {
-			usedRecipes.putInt(identifier.toString(), integer);
-		});
+		this.recipesUsed.forEach((identifier, integer) -> usedRecipes.putInt(identifier.toString(), integer));
 		compound.put("RecipesUsed", usedRecipes);
 		
 		return compound;
 	}
 	
 	@Override
-	public void read(BlockState state, CompoundNBT nbt)
+	public void read(@Nonnull BlockState state, @Nonnull CompoundNBT nbt)
 	{	
 		super.read(state, nbt);
 		this.items = NonNullList.withSize(this.getSizeInventory(), ItemStack.EMPTY);
@@ -145,10 +138,7 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 		this.smeltTime = nbt.getShort("SmeltTime");
 		this.smeltTimeTotal = nbt.getShort("SmeltTimeTotal");
 		CompoundNBT compound = nbt.getCompound("RecipesUsed");
-		Iterator<String> recipes = compound.keySet().iterator();
-		while(recipes.hasNext()) 
-		{
-			String id = recipes.next();
+		for (String id : compound.keySet()) {
 			this.recipesUsed.put(new ResourceLocation(id), compound.getInt(id));
 		}
 	}
@@ -168,18 +158,13 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 	public void dropExperience(PlayerEntity player) 
 	{
 		List<IRecipe<?>> list = Lists.newArrayList();
-		ObjectIterator<Entry<ResourceLocation>> usedRecipes = this.recipesUsed.object2IntEntrySet().iterator();
-		while(usedRecipes.hasNext()) 
-		{
-			Entry<ResourceLocation> entry = usedRecipes.next();
-			world.getRecipeManager().getRecipe(entry.getKey()).ifPresent((recipe) -> {
+		for (Entry<ResourceLocation> entry : this.recipesUsed.object2IntEntrySet()) {
+			Objects.requireNonNull(world).getRecipeManager().getRecipe(entry.getKey()).ifPresent((recipe) -> {
 				list.add(recipe);
-				if (recipe instanceof AlloyingRecipe) 
-				{
+				if (recipe instanceof AlloyingRecipe) {
 					AlloyingRecipe alloying = (AlloyingRecipe) recipe;
 					this.dropExperience(player.world, player.getPositionVec(), entry.getIntValue(), alloying.getExperience());
-				} else 
-				{
+				} else {
 					BlastingRecipe blasting = (BlastingRecipe) recipe;
 					this.dropExperience(player.world, player.getPositionVec(), entry.getIntValue(), blasting.getExperience());
 				}
@@ -215,12 +200,12 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 		}
 		
 		boolean burning = this.isBurning();
-		if (!this.world.isRemote) 
+		if (!Objects.requireNonNull(this.world).isRemote)
 		{
 			ItemStack fuel = this.items.get(2);
 			if (!burning && (fuel.isEmpty() || items.get(0).isEmpty() && items.get(1).isEmpty())) 
 			{
-				if (!burning && smeltTime > 0) 
+				if (smeltTime > 0)
 				{
 					this.smeltTime = MathHelper.clamp(smeltTime - 2, 0, smeltTimeTotal);
 				}
@@ -282,7 +267,7 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 	protected boolean canAcceptRecipeOutput(IRecipe<?> recipe) 
 	{
 		if (recipe == null) return false;
-		boolean validInput = false;
+		boolean validInput;
 		if (recipe instanceof AlloyingRecipe) 
 		{
 			validInput = !items.get(0).isEmpty() &&
@@ -342,7 +327,7 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 			output.grow(result.getCount());
 		}
 
-		if (!this.world.isRemote)
+		if (!Objects.requireNonNull(this.world).isRemote)
 		{
 			this.setRecipeUsed(recipe);
 		}
@@ -384,18 +369,21 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 		return true;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getStackInSlot(int index) 
 	{
 		return this.items.get(index);
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack decrStackSize(int index, int count) 
 	{
 		return ItemStackHelper.getAndSplit(this.items, index, count);
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack removeStackFromSlot(int index)
 	{
@@ -422,7 +410,7 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 	
 	protected int getSmeltTime()
 	{
-		int smeltTime = this.world.getRecipeManager().getRecipe(AlloyingRecipe.TYPE, this, world)
+		int smeltTime = Objects.requireNonNull(this.world).getRecipeManager().getRecipe(AlloyingRecipe.TYPE, this, world)
 				.map(AlloyingRecipe::getSmeltTime).orElse(0);
 		if (smeltTime == 0) 
 		{
@@ -433,8 +421,9 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 		return smeltTime;
 	}
 	
+	@Nonnull
 	@Override
-	public int[] getSlotsForFace(Direction side) 
+	public int[] getSlotsForFace(@Nonnull Direction side)
 	{
 		if (side == Direction.DOWN) 
 		{
@@ -447,28 +436,25 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 	}
 
 	@Override
-	public boolean canInsertItem(int index, ItemStack itemStackIn, Direction direction) 
+	public boolean canInsertItem(int index, @Nonnull ItemStack itemStackIn, Direction direction)
 	{
 		return this.isItemValidForSlot(index, itemStackIn);
 	}
 
 	@Override
-	public boolean canExtractItem(int index, ItemStack stack, Direction direction) 
+	public boolean canExtractItem(int index, @Nonnull ItemStack stack, @Nonnull Direction direction)
 	{
 		if (direction == Direction.DOWN && index == 2) 
 		{
-			if (stack.getItem() != Items.BUCKET && stack.getItem() != Items.WATER_BUCKET) 
-			{
-				return false;
-			}
+			return stack.getItem() == Items.BUCKET || stack.getItem() == Items.WATER_BUCKET;
 		}
 		return true;
 	}
 	
 	@Override
-	public boolean isUsableByPlayer(PlayerEntity player) 
+	public boolean isUsableByPlayer(@Nonnull PlayerEntity player)
 	{
-		if (this.world.getTileEntity(this.pos) != this) 
+		if (Objects.requireNonNull(this.world).getTileEntity(this.pos) != this)
 		{
 			return false;
 		} 
@@ -484,20 +470,22 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 		this.items.clear();
 	}
 
+	@Nonnull
 	@Override
 	protected ITextComponent getDefaultName() 
 	{
 		return new TranslationTextComponent("container.betterendforge.end_stone_smelter");
 	}
 
+	@Nonnull
 	@Override
-	protected Container createMenu(int id, PlayerInventory player) 
+	protected Container createMenu(int id, @Nonnull PlayerInventory player)
 	{
 		return new EndStoneSmelterContainer(id, player, this, this.data);
 	}
 
 	@Override
-	public void fillStackedContents(RecipeItemHelper helper) 
+	public void fillStackedContents(@Nonnull RecipeItemHelper helper)
 	{
 		for(ItemStack itemstack : this.items) 
 		{
@@ -523,7 +511,7 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 	}
 	
 	@Override
-	public boolean isItemValidForSlot(int index, ItemStack stack) 
+	public boolean isItemValidForSlot(int index, @Nonnull ItemStack stack)
 	{
 		if (index == 3) 
 		{
@@ -581,11 +569,12 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 		return AVAILABLE_FUELS;
 	}
 	
-	net.minecraftforge.common.util.LazyOptional<? extends net.minecraftforge.items.IItemHandler>[] handlers =
+	final net.minecraftforge.common.util.LazyOptional<? extends net.minecraftforge.items.IItemHandler>[] handlers =
 			net.minecraftforge.items.wrapper.SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
 
+	@Nonnull
 	@Override
-    public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable Direction facing)
+    public <T> net.minecraftforge.common.util.LazyOptional<T> getCapability(@Nonnull net.minecraftforge.common.capabilities.Capability<T> capability, @Nullable Direction facing)
 	{
 		if (!this.removed && facing != null && capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
 		{
@@ -600,6 +589,7 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
     protected void invalidateCaps() 
 	{
 		super.invalidateCaps();
-	    for (int x = 0; x < handlers.length; x++) handlers[x].invalidate();
+		for (net.minecraftforge.common.util.LazyOptional<? extends net.minecraftforge.items.IItemHandler> handler : handlers)
+			handler.invalidate();
 	}
 }

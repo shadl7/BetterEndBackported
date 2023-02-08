@@ -4,6 +4,8 @@ import net.minecraft.block.BlockState;
 import net.minecraft.block.PaneBlock;
 import net.minecraft.util.Direction;
 
+import javax.annotation.Nonnull;
+
 public class MetalPaneBlock extends PaneBlock
 {
 	public MetalPaneBlock(Properties builder)
@@ -12,7 +14,7 @@ public class MetalPaneBlock extends PaneBlock
 	}
 	
 	@Override
-	public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) 
+	public boolean isSideInvisible(@Nonnull BlockState state, @Nonnull BlockState adjacentBlockState, Direction side)
 	{
 		if (side.getAxis().isVertical() && adjacentBlockState.getBlock().equals(this) && !adjacentBlockState.equals(state)) 
 		{

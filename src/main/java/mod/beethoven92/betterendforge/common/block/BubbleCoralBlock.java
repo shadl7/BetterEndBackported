@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.block.template.UnderwaterPlantBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -12,6 +10,9 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class BubbleCoralBlock extends UnderwaterPlantBlock
 {
 	private static final VoxelShape SHAPE = Block.makeCuboidShape(0, 0, 0, 16, 14, 16);
@@ -20,20 +21,22 @@ public class BubbleCoralBlock extends UnderwaterPlantBlock
 	{
 		super(properties);
 	}
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	@Nonnull
+    @Override
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		return SHAPE;
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public OffsetType getOffsetType() 
 	{
 		return OffsetType.NONE;
 	}
 	
 	@Override
-	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) 
+	public void animateTick(@Nonnull BlockState stateIn, World worldIn, BlockPos pos, Random rand)
 	{
 		double x = pos.getX() + rand.nextDouble();
 		double y = pos.getY() + rand.nextDouble() * 0.5F + 0.5F;

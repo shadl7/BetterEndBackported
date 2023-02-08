@@ -5,22 +5,20 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import com.mojang.serialization.JsonOps;
-
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.tags.ITag;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.Tags;
+
+import javax.annotation.Nonnull;
 
 public class InfusionRecipeSerializer extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>>
 		implements IRecipeSerializer<InfusionRecipe> {
-	@Override
-	public InfusionRecipe read(ResourceLocation id, JsonObject json) {
+	@Nonnull
+    @Override
+	public InfusionRecipe read(@Nonnull ResourceLocation id, JsonObject json) {
 		InfusionRecipe recipe = new InfusionRecipe(id);
 		recipe.input = Ingredient.deserialize(json.get("input"));
 		recipe.output = readOutput(json);
@@ -39,10 +37,7 @@ public class InfusionRecipeSerializer extends net.minecraftforge.registries.Forg
 			recipe.ingredientPositions.put(index, item);
 		}
 		for (int i = 0; i < 8; i++) {
-			if (recipe.ingredientPositions.containsKey(i)) {
-				recipe.catalysts[i] = recipe.ingredientPositions.get(i);
-			} else
-				recipe.catalysts[i] = Ingredient.EMPTY;
+			recipe.catalysts[i] = recipe.ingredientPositions.getOrDefault(i, Ingredient.EMPTY);
 		}
 		return recipe;
 	}
@@ -65,7 +60,7 @@ public class InfusionRecipeSerializer extends net.minecraftforge.registries.Forg
 	}
 
 	@Override
-	public InfusionRecipe read(ResourceLocation id, PacketBuffer buffer) {
+	public InfusionRecipe read(@Nonnull ResourceLocation id, @Nonnull PacketBuffer buffer) {
 		InfusionRecipe recipe = new InfusionRecipe(id);
 		recipe.input = Ingredient.read(buffer);
 		recipe.output = buffer.readItemStack();
@@ -88,7 +83,7 @@ public class InfusionRecipeSerializer extends net.minecraftforge.registries.Forg
 	}
 
 	@Override
-	public void write(PacketBuffer buffer, InfusionRecipe recipe) {
+	public void write(@Nonnull PacketBuffer buffer, InfusionRecipe recipe) {
 		recipe.input.write(buffer);
 		buffer.writeItemStack(recipe.output);
 		buffer.writeVarInt(recipe.time);

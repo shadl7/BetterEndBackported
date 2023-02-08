@@ -1,10 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.structure.piece;
 
-import java.util.Map;
-import java.util.Random;
-
 import com.google.common.collect.Maps;
-
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModStructurePieces;
@@ -30,20 +26,24 @@ import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
+import javax.annotation.Nonnull;
+import java.util.Map;
+import java.util.Random;
+
 public class MountainPiece extends StructurePiece
 {
-	private Map<Integer, Integer> heightmap = Maps.newHashMap();
+	private final Map<Integer, Integer> heightmap = Maps.newHashMap();
 	
-	private BlockPos center;
-	private float radius;
-	private float height;
-	private float r2;
-	private OpenSimplexNoise noise1;
-	private OpenSimplexNoise noise2;
-	private BlockState top;
-	private int seed1;
-	private int seed2;
-	private ResourceLocation biomeID;
+	private final BlockPos center;
+	private final float radius;
+	private final float height;
+	private final float r2;
+	private final OpenSimplexNoise noise1;
+	private final OpenSimplexNoise noise2;
+	private final BlockState top;
+	private final int seed1;
+	private final int seed2;
+	private final ResourceLocation biomeID;
 
 	public MountainPiece(BlockPos center, float radius, float height, Random rand, Biome biome) 
 	{
@@ -103,8 +103,8 @@ public class MountainPiece extends StructurePiece
 	}
 
 	@Override
-	public boolean func_230383_a_(ISeedReader world, StructureManager manager, ChunkGenerator chunkGenerator,
-			Random random, MutableBoundingBox box, ChunkPos chunkPos, BlockPos blockPos) 
+	public boolean func_230383_a_(ISeedReader world, @Nonnull StructureManager manager, @Nonnull ChunkGenerator chunkGenerator,
+                                  @Nonnull Random random, @Nonnull MutableBoundingBox box, ChunkPos chunkPos, @Nonnull BlockPos blockPos)
 	{
 		int sx = chunkPos.getXStart();
 		int sz = chunkPos.getZStart();
@@ -144,7 +144,7 @@ public class MountainPiece extends StructurePiece
 						//float maxY = dist * height * getHeightClamp(world, 8, px, pz);
 					if (minY > center.getY() - 8) 
 					{
-						float maxY = dist * height * getHeightClamp(world, 12, px, pz);
+						float maxY = dist * height * getHeightClamp(world, px, pz);
 						if (maxY > 0) 
 						{
 							maxY *= (float) noise1.eval(px * 0.05, pz * 0.05) * 0.3F + 0.7F;
@@ -232,11 +232,6 @@ public class MountainPiece extends StructurePiece
 		}
 		
 		h = world.getHeight(Type.WORLD_SURFACE_WG, pos.getX(), pos.getZ());
-		/*if (h < 57) 
-		{
-			heightmap.put(p, -4);
-			return -4;
-		}*/
 		h = MathHelper.abs(h - center.getY());
 		if (h > 4)
 		{
@@ -257,30 +252,30 @@ public class MountainPiece extends StructurePiece
 		return h;		
 	}
 	
-	private float getHeightClamp(ISeedReader world, int radius, int posX, int posZ) 
+	private float getHeightClamp(ISeedReader world, int posX, int posZ)
 	{
 		Mutable mut = new Mutable();
-		int r2 = radius * radius;
+		int r2 = 12 * 12;
 		float height = 0;
 		float max = 0;
-		for (int x = -radius; x <= radius; x++) 
+		for (int x = -12; x <= 12; x++)
 		{
 			mut.setX(posX + x);
 			int x2 = x * x;
-			for (int z = -radius; z <= radius; z++)
+			for (int z = -12; z <= 12; z++)
 			{
 				mut.setZ(posZ + z);
 				int z2 = z * z;
 				if (x2 + z2 < r2) 
 				{
-					float mult = 1 - (float) Math.sqrt(x2 + z2) / radius;
+					float mult = 1 - (float) Math.sqrt(x2 + z2) / 12;
 					max += mult;
 					height += getHeight(world, mut) * mult;
 				}
 			}
 		}
 		height /= max;
-		return MathHelper.clamp(height / radius, 0, 1);
+		return MathHelper.clamp(height / 12, 0, 1);
 	}
 
 	private void crystal(IChunk chunk, BlockPos pos, int radius, int height, float fill, Random random) 

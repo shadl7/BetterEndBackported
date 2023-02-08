@@ -1,12 +1,7 @@
 package mod.beethoven92.betterendforge.common.init;
 
 import mod.beethoven92.betterendforge.BetterEnd;
-import mod.beethoven92.betterendforge.data.InfusionRecipes;
-import mod.beethoven92.betterendforge.data.ModBlockTagsProvider;
-import mod.beethoven92.betterendforge.data.ModItemTagsProvider;
-import mod.beethoven92.betterendforge.data.ModLootModifierProvider;
-import mod.beethoven92.betterendforge.data.ModLootTableProvider;
-import mod.beethoven92.betterendforge.data.ModRecipes;
+import mod.beethoven92.betterendforge.data.*;
 import mod.beethoven92.betterendforge.data.client.ModBlockStates;
 import mod.beethoven92.betterendforge.data.client.ModItemModels;
 import net.minecraft.data.DataGenerator;

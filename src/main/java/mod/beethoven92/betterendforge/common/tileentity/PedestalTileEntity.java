@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.tileentity;
 
-import javax.annotation.Nullable;
-
 import mod.beethoven92.betterendforge.common.block.template.PedestalBlock;
 import mod.beethoven92.betterendforge.common.init.ModItems;
 import mod.beethoven92.betterendforge.common.init.ModTileEntityTypes;
@@ -16,6 +14,10 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class PedestalTileEntity extends TileEntity implements ITickableTileEntity
 {
@@ -63,7 +65,7 @@ public class PedestalTileEntity extends TileEntity implements ITickableTileEntit
 	{
 		this.activeItem = split;
 		this.markDirty();
-		this.getWorld().notifyBlockUpdate(this.getPos(), this.getBlockState(), this.getBlockState(), 3);
+		Objects.requireNonNull(this.getWorld()).notifyBlockUpdate(this.getPos(), this.getBlockState(), this.getBlockState(), 3);
 	}
 
 	public void removeStack(World world, BlockState state) 
@@ -137,11 +139,12 @@ public class PedestalTileEntity extends TileEntity implements ITickableTileEntit
 	@Override
 	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) 
 	{
-		BlockState blockState = world.getBlockState(pos);
+		BlockState blockState = Objects.requireNonNull(world).getBlockState(pos);
 	    read(blockState, pkt.getNbtCompound());
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public CompoundNBT getUpdateTag()
 	{
 		CompoundNBT nbtTagCompound = new CompoundNBT();
@@ -155,8 +158,9 @@ public class PedestalTileEntity extends TileEntity implements ITickableTileEntit
 		this.read(blockState, parentNBTTagCompound);
 	}
 	
-	@Override
-	public CompoundNBT write(CompoundNBT compound)
+	@Nonnull
+    @Override
+	public CompoundNBT write(@Nonnull CompoundNBT compound)
 	{
 		super.write(compound);
 		CompoundNBT itemStackNBT = new CompoundNBT();
@@ -169,7 +173,7 @@ public class PedestalTileEntity extends TileEntity implements ITickableTileEntit
 	}
 	
 	@Override
-	public void read(BlockState state, CompoundNBT nbt) 
+	public void read(@Nonnull BlockState state, @Nonnull CompoundNBT nbt)
 	{
 		super.read(state, nbt);
         if (nbt.contains("activeItem")) 

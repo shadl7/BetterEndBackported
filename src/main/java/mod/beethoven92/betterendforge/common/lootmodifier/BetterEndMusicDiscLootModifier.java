@@ -1,13 +1,8 @@
 package mod.beethoven92.betterendforge.common.lootmodifier;
 
-import java.util.List;
-import java.util.Random;
-import java.util.function.Supplier;
-
 import com.google.common.collect.ImmutableList;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-
 import mod.beethoven92.betterendforge.common.init.ModItems;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -18,13 +13,19 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.loot.GlobalLootModifierSerializer;
 import net.minecraftforge.common.loot.LootModifier;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Supplier;
+
 public class BetterEndMusicDiscLootModifier extends LootModifier {
 
 	private static final List<Supplier<Item>> DISCS = ImmutableList.of(ModItems.MUSIC_DISC_ENDSEEKER,
 			ModItems.MUSIC_DISC_EO_DRACONA, ModItems.MUSIC_DISC_GRASPING_AT_STARS,
 			ModItems.MUSIC_DISC_STRANGE_AND_ALIEN);
 
-	private int min, max;
+	private final int min;
+    private final int max;
 
 	public BetterEndMusicDiscLootModifier(ILootCondition[] conditionsIn, int min, int max) {
 		super(conditionsIn);
@@ -32,6 +33,7 @@ public class BetterEndMusicDiscLootModifier extends LootModifier {
 		this.max = max;
 	}
 
+	@Nonnull
 	@Override
 	protected List<ItemStack> doApply(List<ItemStack> generatedLoot, LootContext context) {
 		Random rand = context.getRandom();

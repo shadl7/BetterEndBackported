@@ -1,8 +1,5 @@
 package mod.beethoven92.betterendforge.common.entity;
 
-import java.util.List;
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.init.ModItems;
 import net.minecraft.block.Blocks;
@@ -28,6 +25,10 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
+
 public class EndFishEntity extends AbstractGroupFishEntity
 {
 	public static final int VARIANTS_NORMAL = 5;
@@ -43,8 +44,8 @@ public class EndFishEntity extends AbstractGroupFishEntity
 	}
 
 	@Override
-	public ILivingEntityData onInitialSpawn(IServerWorld worldIn, DifficultyInstance difficultyIn, SpawnReason reason,
-			ILivingEntityData spawnDataIn, CompoundNBT dataTag) 
+	public ILivingEntityData onInitialSpawn(@Nonnull IServerWorld worldIn, @Nonnull DifficultyInstance difficultyIn, @Nonnull SpawnReason reason,
+                                            ILivingEntityData spawnDataIn, CompoundNBT dataTag)
 	{
 		ILivingEntityData data = super.onInitialSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
 		
@@ -72,7 +73,7 @@ public class EndFishEntity extends AbstractGroupFishEntity
 	}
 	
 	@Override
-	public void writeAdditional(CompoundNBT compound) 
+	public void writeAdditional(@Nonnull CompoundNBT compound)
 	{
 		super.writeAdditional(compound);
 		compound.putByte("Variant", (byte)this.getVariant());
@@ -80,7 +81,7 @@ public class EndFishEntity extends AbstractGroupFishEntity
 	}
 
 	@Override
-	public void readAdditional(CompoundNBT compound) 
+	public void readAdditional(@Nonnull CompoundNBT compound)
 	{
 		super.readAdditional(compound);
 		if (compound.contains("Variant")) 
@@ -93,7 +94,8 @@ public class EndFishEntity extends AbstractGroupFishEntity
 		}
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	protected ItemStack getFishBucket() 
 	{
 		ItemStack bucket = ModItems.BUCKET_END_FISH.get().getDefaultInstance();
@@ -103,7 +105,8 @@ public class EndFishEntity extends AbstractGroupFishEntity
 		return bucket;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	protected SoundEvent getFlopSound() 
 	{
 		return SoundEvents.ENTITY_TROPICAL_FISH_FLOP;
@@ -116,7 +119,7 @@ public class EndFishEntity extends AbstractGroupFishEntity
 	}
 	
 	@Override
-	protected SoundEvent getHurtSound(DamageSource damageSourceIn) 
+	protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn)
 	{
 		return SoundEvents.ENTITY_SALMON_HURT;
 	}
@@ -134,7 +137,8 @@ public class EndFishEntity extends AbstractGroupFishEntity
 		}
 	}
 
-	public static AttributeModifierMap.MutableAttribute registerAttributes() 
+	@Nonnull
+    public static AttributeModifierMap.MutableAttribute registerAttributes()
 	{
 		return LivingEntity.registerAttributes().createMutableAttribute(Attributes.MAX_HEALTH, 2.0).
 				createMutableAttribute(Attributes.FOLLOW_RANGE, 16.0).
@@ -155,7 +159,7 @@ public class EndFishEntity extends AbstractGroupFishEntity
 			BlockPos pos, Random random) 
 	{
 		AxisAlignedBB box = new AxisAlignedBB(pos).grow(16);
-		List<EndFishEntity> list = world.getEntitiesWithinAABB(EndFishEntity.class, box, (entity) -> { return true; });
+		List<EndFishEntity> list = world.getEntitiesWithinAABB(EndFishEntity.class, box, (entity) -> true);
 		return list.size() < 9;
 	}
 }

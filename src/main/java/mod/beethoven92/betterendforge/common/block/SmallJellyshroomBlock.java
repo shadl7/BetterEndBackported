@@ -1,10 +1,6 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.EnumMap;
-import java.util.Random;
-
 import com.google.common.collect.Maps;
-
 import mod.beethoven92.betterendforge.common.block.template.AttachedBlock;
 import mod.beethoven92.betterendforge.common.init.ModFeatures;
 import mod.beethoven92.betterendforge.common.init.ModTags;
@@ -22,6 +18,10 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
+import javax.annotation.Nonnull;
+import java.util.EnumMap;
+import java.util.Random;
 
 public class SmallJellyshroomBlock extends AttachedBlock implements IGrowable
 {
@@ -42,14 +42,15 @@ public class SmallJellyshroomBlock extends AttachedBlock implements IGrowable
 		super(properties);
 	}
 
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	@Nonnull
+    @Override
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		return BOUNDING_SHAPES.get(state.get(FACING));
 	}
 	
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
+	public boolean isValidPosition(BlockState state, @Nonnull IWorldReader worldIn, BlockPos pos)
 	{
 		Direction direction = state.get(FACING);
 		BlockPos blockPos = pos.offset(direction.getOpposite());
@@ -58,19 +59,19 @@ public class SmallJellyshroomBlock extends AttachedBlock implements IGrowable
 	}
 	
 	@Override
-	public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) 
+	public boolean canGrow(@Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, BlockState state, boolean isClient)
 	{
 		return state.get(FACING) == Direction.UP && worldIn.getBlockState(pos.down()).isIn(ModTags.END_GROUND);
 	}
 
 	@Override
-	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) 
+	public boolean canUseBonemeal(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, BlockState state)
 	{
 		return state.get(FACING) == Direction.UP && worldIn.getBlockState(pos.down()).isIn(ModTags.END_GROUND);
 	}
 
 	@Override
-	public void grow(ServerWorld worldIn, Random rand, BlockPos pos, BlockState state) 
+	public void grow(@Nonnull ServerWorld worldIn, Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state)
 	{
 		if(rand.nextInt(16) == 0)
 		{

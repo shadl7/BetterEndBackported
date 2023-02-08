@@ -1,15 +1,11 @@
 package mod.beethoven92.betterendforge.common.world.generator;
 
-import java.util.List;
-
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.world.biome.BetterEndBiome;
-import mod.beethoven92.betterendforge.config.CommonConfig;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.registry.Registry;
@@ -20,22 +16,24 @@ import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.biome.provider.EndBiomeProvider;
 import net.minecraft.world.gen.SimplexNoiseGenerator;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+
 public class BetterEndBiomeProvider extends BiomeProvider
 {
 	public static final Codec<BetterEndBiomeProvider> BETTER_END_CODEC = RecordCodecBuilder.create(
-			(builder) -> {return builder.group(RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).forGetter(
-					(provider) -> {return provider.lookupRegistry;}), Codec.LONG.fieldOf("seed").stable().forGetter(
-							(provider) -> {return provider.seed;})).
-					apply(builder, builder.stable(BetterEndBiomeProvider::new));
-		   });
+			(builder) -> builder.group(RegistryLookupCodec.getLookUpCodec(Registry.BIOME_KEY).forGetter(
+					(provider) -> provider.lookupRegistry), Codec.LONG.fieldOf("seed").stable().forGetter(
+							(provider) -> provider.seed)).
+					apply(builder, builder.stable(BetterEndBiomeProvider::new)));
 	
 	private static final OpenSimplexNoise SMALL_NOISE = new OpenSimplexNoise(8324);
 	private final SimplexNoiseGenerator generator;
 	private final Registry<Biome> lookupRegistry;
 	private final Biome centerBiome;
 	private final Biome barrens;
-	private BiomeMap mapLand;
-	private BiomeMap mapVoid;
+	private final BiomeMap mapLand;
+	private final BiomeMap mapVoid;
 	private final long seed;
 
 	
@@ -65,14 +63,11 @@ public class BetterEndBiomeProvider extends BiomeProvider
 			{
 				list.add(biome);
 			}
-			/*if (biome.getCategory() == Category.THEEND) 
-			{
-				list.add(biome);
-			}*/
 		});
 		return list;
 	}
 
+	@Nonnull
 	@Override
 	public Biome getNoiseBiome(int x, int y, int z) 
 	{
@@ -113,12 +108,14 @@ public class BetterEndBiomeProvider extends BiomeProvider
 		}
 	}
 
+	@Nonnull
 	@Override
 	protected Codec<? extends BiomeProvider> getBiomeProviderCodec() 
 	{
 		return BETTER_END_CODEC;
 	}
 
+	@Nonnull
 	@Override
 	public BiomeProvider getBiomeProvider(long seed) 
 	{

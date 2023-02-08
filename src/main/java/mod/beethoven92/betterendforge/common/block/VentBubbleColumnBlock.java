@@ -1,14 +1,8 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockRenderType;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.IBucketPickupHandler;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.fluid.FluidState;
@@ -27,6 +21,9 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class VentBubbleColumnBlock extends Block implements IBucketPickupHandler
 {
 	public VentBubbleColumnBlock(Properties properties) 
@@ -34,22 +31,24 @@ public class VentBubbleColumnBlock extends Block implements IBucketPickupHandler
 		super(properties);
 	}
 
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	@Nonnull
+    @Override
+	public VoxelShape getShape(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		return VoxelShapes.empty();
 	}
 	
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
+	public boolean isValidPosition(@Nonnull BlockState state, IWorldReader worldIn, BlockPos pos)
 	{
 		BlockState blockState = worldIn.getBlockState(pos.down());
 		return blockState.isIn(this) || blockState.isIn(ModBlocks.HYDROTHERMAL_VENT.get());
 	}
 	
-	@Override
-	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
-			BlockPos currentPos, BlockPos facingPos) 
+	@Nonnull
+    @Override
+	public BlockState updatePostPlacement(BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn,
+                                          @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos)
 	{
 		if (!stateIn.isValidPosition(worldIn, currentPos)) 
 		{
@@ -68,7 +67,7 @@ public class VentBubbleColumnBlock extends Block implements IBucketPickupHandler
 	}
 	
 	@Override
-	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn)
+	public void onEntityCollision(@Nonnull BlockState state, World worldIn, BlockPos pos, @Nonnull Entity entityIn)
 	{
 		BlockState blockState = worldIn.getBlockState(pos.up());
 		if (blockState.isAir())
@@ -80,8 +79,8 @@ public class VentBubbleColumnBlock extends Block implements IBucketPickupHandler
 
 				for (int i = 0; i < 2; ++i) 
 				{
-					serverWorld.spawnParticle(ParticleTypes.SPLASH, (double) pos.getX() + worldIn.rand.nextDouble(), (double) (pos.getY() + 1), (double) pos.getZ() + worldIn.rand.nextDouble(), 1, 0.0D, 0.0D, 0.0D, 1.0D);
-					serverWorld.spawnParticle(ParticleTypes.BUBBLE, (double) pos.getX() + worldIn.rand.nextDouble(), (double) (pos.getY() + 1), (double) pos.getZ() + worldIn.rand.nextDouble(), 1, 0.0D, 0.01D, 0.0D, 0.2D);
+					serverWorld.spawnParticle(ParticleTypes.SPLASH, (double) pos.getX() + worldIn.rand.nextDouble(), pos.getY() + 1, (double) pos.getZ() + worldIn.rand.nextDouble(), 1, 0.0D, 0.0D, 0.0D, 1.0D);
+					serverWorld.spawnParticle(ParticleTypes.BUBBLE, (double) pos.getX() + worldIn.rand.nextDouble(), pos.getY() + 1, (double) pos.getZ() + worldIn.rand.nextDouble(), 1, 0.0D, 0.01D, 0.0D, 0.2D);
 				}
 			}
 		}
@@ -92,7 +91,7 @@ public class VentBubbleColumnBlock extends Block implements IBucketPickupHandler
 	}
 	
 	@Override
-	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) 
+	public void animateTick(@Nonnull BlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos, Random rand)
 	{
 		if (rand.nextInt(4) == 0) 
 		{
@@ -108,20 +107,23 @@ public class VentBubbleColumnBlock extends Block implements IBucketPickupHandler
 		}
 	}
 	
-	@Override
-	public BlockRenderType getRenderType(BlockState state) 
+	@Nonnull
+    @Override
+	public BlockRenderType getRenderType(@Nonnull BlockState state)
 	{
 		return BlockRenderType.INVISIBLE;
 	}
 	
-	@Override
-	public FluidState getFluidState(BlockState state) 
+	@Nonnull
+    @Override
+	public FluidState getFluidState(@Nonnull BlockState state)
 	{
 		return Fluids.WATER.getStillFluidState(false);
 	}
 
-	@Override
-	public Fluid pickupFluid(IWorld worldIn, BlockPos pos, BlockState state) 
+	@Nonnull
+    @Override
+	public Fluid pickupFluid(IWorld worldIn, @Nonnull BlockPos pos, @Nonnull BlockState state)
 	{
 		worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 11);
 		return Fluids.WATER;

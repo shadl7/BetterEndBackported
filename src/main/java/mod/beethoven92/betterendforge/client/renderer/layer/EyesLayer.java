@@ -8,6 +8,8 @@ import net.minecraft.entity.Entity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
+
 @OnlyIn(Dist.CLIENT)
 public class EyesLayer<T extends Entity, M extends EntityModel<T>> extends AbstractEyesLayer<T, M>
 {
@@ -16,7 +18,8 @@ public class EyesLayer<T extends Entity, M extends EntityModel<T>> extends Abstr
 		super(p_i226039_1_);
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public RenderType getRenderType() 
 	{
 		return null;

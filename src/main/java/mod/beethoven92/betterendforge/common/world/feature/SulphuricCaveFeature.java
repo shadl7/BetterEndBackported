@@ -1,8 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-import java.util.Set;
-
 import com.google.common.collect.Sets;
 import mod.beethoven92.betterendforge.common.block.BlockProperties;
 import mod.beethoven92.betterendforge.common.block.SulphurCrystalBlock;
@@ -24,6 +21,10 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+import java.util.Set;
+
 public class SulphuricCaveFeature extends Feature<NoFeatureConfig>
 {
 	private static final BlockState CAVE_AIR = Blocks.CAVE_AIR.getDefaultState();
@@ -36,8 +37,8 @@ public class SulphuricCaveFeature extends Feature<NoFeatureConfig>
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos,
-			NoFeatureConfig config) 
+	public boolean generate(ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, BlockPos pos,
+                            @Nonnull NoFeatureConfig config)
 	{
 		int radius = ModMathHelper.randRange(10, 30, rand);
 		
@@ -135,9 +136,7 @@ public class SulphuricCaveFeature extends Feature<NoFeatureConfig>
 				}
 			}
 		}
-		brimstone.forEach((blockPos) -> {
-			placeBrimstone(world, blockPos, rand);
-		});
+		brimstone.forEach((blockPos) -> placeBrimstone(world, blockPos, rand));
 		
 		if (rand.nextInt(4) == 0) 
 		{

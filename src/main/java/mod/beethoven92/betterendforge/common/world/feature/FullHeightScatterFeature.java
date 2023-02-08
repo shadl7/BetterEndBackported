@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import net.minecraft.util.math.BlockPos;
@@ -11,6 +9,9 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public abstract class FullHeightScatterFeature extends Feature<NoFeatureConfig>
 {
@@ -28,8 +29,8 @@ public abstract class FullHeightScatterFeature extends Feature<NoFeatureConfig>
 	public abstract void generate(ISeedReader world, Random random, BlockPos blockPos);
 	
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator chunkGenerator, Random random,
-			BlockPos center, NoFeatureConfig config)
+	public boolean generate(ISeedReader world, @Nonnull ChunkGenerator chunkGenerator, @Nonnull Random random,
+                            BlockPos center, @Nonnull NoFeatureConfig config)
 	{
 		int maxY = world.getHeight(Heightmap.Type.WORLD_SURFACE_WG, center.getX(), center.getZ());
 		int minY = BlockHelper.upRay(world, new BlockPos(center.getX(), 0, center.getZ()), maxY);

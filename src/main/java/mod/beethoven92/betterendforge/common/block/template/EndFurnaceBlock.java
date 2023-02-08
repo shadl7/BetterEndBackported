@@ -11,6 +11,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class EndFurnaceBlock extends FurnaceBlock
 {
 	public EndFurnaceBlock(Properties builder) 
@@ -31,7 +33,7 @@ public class EndFurnaceBlock extends FurnaceBlock
 	}
 	
 	@Override
-	protected void interactWith(World worldIn, BlockPos pos, PlayerEntity player) 
+	protected void interactWith(World worldIn, @Nonnull BlockPos pos, @Nonnull PlayerEntity player)
 	{
 		TileEntity tileentity = worldIn.getTileEntity(pos);
 	    if (tileentity instanceof EndFurnaceTileEntity) 

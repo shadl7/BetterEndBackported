@@ -4,15 +4,6 @@ import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.config.jsons.JsonEntryConfig;
 import mod.beethoven92.betterendforge.config.jsons.JsonIdConfig;
 import mod.beethoven92.betterendforge.config.jsons.JsonPathConfig;
-//import net.fabricmc.api.EnvType;
-//import net.fabricmc.api.Environment;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
-//import ru.bclib.BCLib;
-//import ru.bclib.config.EntryConfig;
-//import ru.bclib.config.IdConfig;
-//import ru.bclib.config.PathConfig;
-//import ru.betterend.BetterEnd;
 
 public class Configs {
 	public static final JsonPathConfig ENTITY_CONFIG = new JsonPathConfig(BetterEnd.MOD_ID, "entities");

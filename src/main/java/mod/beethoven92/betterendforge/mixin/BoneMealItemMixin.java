@@ -1,12 +1,5 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import java.util.Random;
-
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTags;
@@ -23,6 +16,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome.Category;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Objects;
+import java.util.Random;
 
 // TO DO: consider replacing the mixin with events and block behaviours(see grass block grow method for example)
 @Mixin(BoneMealItem.class)
@@ -38,7 +38,7 @@ public abstract class BoneMealItemMixin
 		BlockPos blockPos = context.getPos();
 		
 		// FIX underwater seeds not being able to grow when using bonemeal on them
-		if (BoneMealItem.applyBonemeal(context.getItem(), world, blockPos, context.getPlayer())) 
+		if (BoneMealItem.applyBonemeal(context.getItem(), world, blockPos, Objects.requireNonNull(context.getPlayer())))
 		{
 	          if (!world.isRemote) 
 	          {
@@ -172,7 +172,7 @@ public abstract class BoneMealItemMixin
 		Block block = state.getBlock();
 		if (block == ModBlocks.END_MOSS.get() || block == ModBlocks.END_MYCELIUM.get()) 
 		{				
-			if (world.getBiome(pos).getRegistryName().equals(ModBiomes.GLOWING_GRASSLANDS.getID())) {
+			if (Objects.requireNonNull(world.getBiome(pos).getRegistryName()).equals(ModBiomes.GLOWING_GRASSLANDS.getID())) {
 				Block[] grasses = glowingGrasslandsGrass();
 				return grasses[world.rand.nextInt(grasses.length)].getDefaultState();
 			} else {

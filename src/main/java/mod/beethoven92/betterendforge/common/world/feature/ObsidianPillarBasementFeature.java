@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
@@ -24,14 +22,17 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class ObsidianPillarBasementFeature extends Feature<NoFeatureConfig> {
 	public ObsidianPillarBasementFeature() {
 		super(NoFeatureConfig.field_236558_a_);
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator chunkGenerator, Random random,
-			BlockPos pos, NoFeatureConfig config) {
+	public boolean generate(ISeedReader world, @Nonnull ChunkGenerator chunkGenerator, Random random,
+                            @Nonnull BlockPos pos, @Nonnull NoFeatureConfig config) {
 		pos = world.getHeight(Heightmap.Type.WORLD_SURFACE, new BlockPos(pos.getX() + random.nextInt(16), pos.getY(), pos.getZ() + random.nextInt(16)));
 		if (!world.getBlockState(pos.down(5)).isIn(ModTags.GEN_TERRAIN)) {
 			return false;
@@ -43,9 +44,7 @@ public class ObsidianPillarBasementFeature extends Feature<NoFeatureConfig> {
 		pillar = new SDFTranslate().setTranslate(0, height * 0.5F - 3, 0).setSource(pillar);
 		SDF cut = new SDFFlatland().setBlock(Blocks.OBSIDIAN);
 		OpenSimplexNoise noise = new OpenSimplexNoise(random.nextLong());
-		cut = new SDFDisplacement().setFunction((vec) -> {
-			return (float) (noise.eval(vec.getX() * 0.2, vec.getZ() * 0.2) * 3);
-		}).setSource(cut);
+		cut = new SDFDisplacement().setFunction((vec) -> (float) (noise.eval(vec.getX() * 0.2, vec.getZ() * 0.2) * 3)).setSource(cut);
 		Vector3f vec = ModMathHelper.randomHorizontal(random);
 		float angle = random.nextFloat() * 0.5F + (float) Math.PI;
 		cut = new SDFRotation().setRotation(vec, angle).setSource(cut);
@@ -61,9 +60,7 @@ public class ObsidianPillarBasementFeature extends Feature<NoFeatureConfig> {
 				return mossy;
 			}
 			return info.getState();
-		}).setReplaceFunction((state) -> {
-			return state.getMaterial().isReplaceable() || state.isIn(ModTags.GEN_TERRAIN) || state.getMaterial().equals(Material.PLANTS);
-		}).fillRecursive(world, pos);
+		}).setReplaceFunction((state) -> state.getMaterial().isReplaceable() || state.isIn(ModTags.GEN_TERRAIN) || state.getMaterial().equals(Material.PLANTS)).fillRecursive(world, pos);
 		
 		return true;
 	}

@@ -1,10 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
-
 import mod.beethoven92.betterendforge.common.block.HelixTreeLeavesBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTags;
@@ -13,11 +8,7 @@ import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.SplineHelper;
 import mod.beethoven92.betterendforge.common.util.sdf.PosInfo;
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFRotation;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFSmoothUnion;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFTranslate;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFUnion;
+import mod.beethoven92.betterendforge.common.util.sdf.operator.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -30,6 +21,12 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
+
 public class HelixTreeFeature extends Feature<NoFeatureConfig> {
 	private static final Function<PosInfo, BlockState> POST;
 	
@@ -39,8 +36,8 @@ public class HelixTreeFeature extends Feature<NoFeatureConfig> {
 	}
 	
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos,
-			NoFeatureConfig config) {
+	public boolean generate(ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, BlockPos pos,
+                            @Nonnull NoFeatureConfig config) {
 		if (!world.getBlockState(pos.down()).getBlock().isIn(ModTags.END_GROUND)) return false;
 		BlockHelper.setWithoutUpdate(world, pos, Blocks.AIR.getDefaultState());
 		
@@ -50,20 +47,20 @@ public class HelixTreeFeature extends Feature<NoFeatureConfig> {
 		
 		float dx;
 		float dz;
-		List<Vector3f> spline = new ArrayList<Vector3f>(10);
+		List<Vector3f> spline = new ArrayList<>(10);
 		for (int i = 0; i < 10; i++) {
 			float radius = (0.9F - i * 0.1F) * radiusRange;
 			dx = (float) Math.sin(i + angle) * radius;
 			dz = (float) Math.cos(i + angle) * radius;
 			spline.add(new Vector3f(dx, i * 2, dz));
 		}
-		SDF sdf = SplineHelper.buildSDF(spline, 1.7F, 0.5F, (p) -> { return ModBlocks.HELIX_TREE.bark.get().getDefaultState(); });
+		SDF sdf = SplineHelper.buildSDF(spline, 1.7F, 0.5F, (p) -> ModBlocks.HELIX_TREE.bark.get().getDefaultState());
 		SDF rotated = new SDFRotation().setRotation(Vector3f.YP, (float) Math.PI).setSource(sdf);
 		sdf = new SDFUnion().setSourceA(rotated).setSourceB(sdf);
 		
 		Vector3f lastPoint = spline.get(spline.size() - 1);
 		List<Vector3f> spline2 = SplineHelper.makeSpline(0, 0, 0, 0, 20, 0, 5);
-		SDF stem = SplineHelper.buildSDF(spline2, 1.0F, 0.5F, (p) -> { return ModBlocks.HELIX_TREE.bark.get().getDefaultState(); });
+		SDF stem = SplineHelper.buildSDF(spline2, 1.0F, 0.5F, (p) -> ModBlocks.HELIX_TREE.bark.get().getDefaultState());
 		stem = new SDFTranslate().setTranslate(lastPoint.getX(), lastPoint.getY(), lastPoint.getZ()).setSource(stem);
 		sdf = new SDFSmoothUnion().setRadius(3).setSourceA(sdf).setSourceB(stem);
 		
@@ -73,18 +70,12 @@ public class HelixTreeFeature extends Feature<NoFeatureConfig> {
 		float dy2 = 100 * scale;
 		sdf.addPostProcess(POST).fillArea(world, pos, new AxisAlignedBB(pos.add(-dx, dy1, -dx), pos.add(dx, dy2, dx)));
 		SplineHelper.scale(spline, scale);
-		SplineHelper.fillSplineForce(spline, world, ModBlocks.HELIX_TREE.bark.get().getDefaultState(), pos, (state) -> {
-			return state.getMaterial().isReplaceable();
-		});
+		SplineHelper.fillSplineForce(spline, world, ModBlocks.HELIX_TREE.bark.get().getDefaultState(), pos, (state) -> state.getMaterial().isReplaceable());
 		SplineHelper.rotateSpline(spline, (float) Math.PI);
-		SplineHelper.fillSplineForce(spline, world, ModBlocks.HELIX_TREE.bark.get().getDefaultState(), pos, (state) -> {
-			return state.getMaterial().isReplaceable();
-		});
+		SplineHelper.fillSplineForce(spline, world, ModBlocks.HELIX_TREE.bark.get().getDefaultState(), pos, (state) -> state.getMaterial().isReplaceable());
 		SplineHelper.scale(spline2, scale);
 		BlockPos leafStart = pos.add(lastPoint.getX() + 0.5, lastPoint.getY() + 0.5, lastPoint.getZ() + 0.5);
-		SplineHelper.fillSplineForce(spline2, world, ModBlocks.HELIX_TREE.log.get().getDefaultState(), leafStart, (state) -> {
-			return state.getMaterial().isReplaceable();
-		});
+		SplineHelper.fillSplineForce(spline2, world, ModBlocks.HELIX_TREE.log.get().getDefaultState(), leafStart, (state) -> state.getMaterial().isReplaceable());
 		
 		spline.clear();
 		//for (int i = 0; i <= 20; i++) {
@@ -118,7 +109,7 @@ public class HelixTreeFeature extends Feature<NoFeatureConfig> {
 			float div = point.getY() - lastPoint.getY();
 			for (float py = minY; py <= maxY; py += 0.2F) {
 				start.set(0, py, 0);
-				float delta = (float) (py - minY) / div;
+				float delta = (py - minY) / div;
 				float px = MathHelper.lerp(delta, lastPoint.getX(), point.getX());
 				float pz = MathHelper.lerp(delta, lastPoint.getZ(), point.getZ());
 				end.set(px, py, pz);

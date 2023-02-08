@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
@@ -18,6 +16,9 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap.Type;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class DesertLakeFeature extends Feature<NoFeatureConfig> {
 	private static final BlockState END_STONE = Blocks.END_STONE.getDefaultState();
@@ -42,8 +43,8 @@ public class DesertLakeFeature extends Feature<NoFeatureConfig> {
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator chunkGenerator_, Random random, BlockPos blockPos,
-			NoFeatureConfig config) {
+	public boolean generate(@Nonnull ISeedReader world, @Nonnull ChunkGenerator chunkGenerator_, @Nonnull Random random, @Nonnull BlockPos blockPos,
+                            @Nonnull NoFeatureConfig config) {
 		double radius = ModMathHelper.randRange(8.0, 15.0, random);
 		double depth = radius * 0.5 * ModMathHelper.randRange(0.8, 1.2, random);
 		int dist = ModMathHelper.floor(radius);
@@ -160,7 +161,7 @@ public class DesertLakeFeature extends Feature<NoFeatureConfig> {
 			}
 		}
 
-		double aspect = ((double) radius / (double) depth);
+		double aspect = (radius / depth);
 
 		for (int x = blockPos.getX() - dist; x <= blockPos.getX() + dist; x++) {
 			POS.setX(x);

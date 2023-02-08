@@ -1,11 +1,12 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class ShadowGrassBlock extends TerrainBlock
 {
@@ -15,7 +16,7 @@ public class ShadowGrassBlock extends TerrainBlock
 	}
 	
 	@Override
-	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand)
+	public void animateTick(@Nonnull BlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos, Random rand)
 	{
 		if (rand.nextInt(32) == 0) 
 		{

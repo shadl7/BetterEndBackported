@@ -17,6 +17,8 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class InfusionPedestal extends PedestalBlock
 {
 	private static final VoxelShape SHAPE_DEFAULT;
@@ -42,8 +44,9 @@ public class InfusionPedestal extends PedestalBlock
 		this.height = 1.08F;
 	}
 
+	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		if (state.isIn(this)) 
 		{
@@ -66,9 +69,10 @@ public class InfusionPedestal extends PedestalBlock
 		return super.getShape(state, worldIn, pos, context);
 	}
 	
+	@Nonnull
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
-			Hand handIn, BlockRayTraceResult hit) 
+	public ActionResultType onBlockActivated(@Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos, @Nonnull PlayerEntity player,
+											 @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit)
 	{
 		if (worldIn.isRemote || !state.isIn(this)) return ActionResultType.CONSUME;
 		TileEntity tileEntity = worldIn.getTileEntity(pos);
@@ -91,12 +95,9 @@ public class InfusionPedestal extends PedestalBlock
 		}
 		
 		ActionResultType result = ActionResultType.FAIL;
-		if (handIn != null) 
-		{
-			result = super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
-		}
-		
-		if (result == ActionResultType.SUCCESS) 
+        result = super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+
+        if (result == ActionResultType.SUCCESS)
 		{
 			if (pedestal != null) 
 			{
@@ -114,27 +115,7 @@ public class InfusionPedestal extends PedestalBlock
 		}
 		return result;
 	}
-	
-	/*@Override
-	public void checkRitual(World world, BlockPos pos) 
-	{
-		TileEntity blockEntity = world.getTileEntity(pos);
-		if (blockEntity instanceof InfusionPedestalTileEntity) 
-		{
-			InfusionPedestalTileEntity pedestal = (InfusionPedestalTileEntity) blockEntity;
-			if (pedestal.hasRitual()) 
-			{
-				pedestal.getRitual().checkRecipe();
-			} 
-			else 
-			{
-				InfusionRitual ritual = new InfusionRitual(world, pos);
-				pedestal.linkRitual(ritual);
-				ritual.checkRecipe();
-			}
-		}
-	}*/
-	
+
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) 
 	{

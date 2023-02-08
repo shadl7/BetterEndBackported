@@ -1,14 +1,8 @@
 package mod.beethoven92.betterendforge.common.world.biome;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
-
 import com.google.common.collect.Lists;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
-import mod.beethoven92.betterendforge.common.world.surfacebuilder.DoubleBlockSurfaceBuilder;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.client.audio.BackgroundMusicSelector;
@@ -18,16 +12,10 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.particles.IParticleData;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.*;
 import net.minecraft.world.biome.Biome.Category;
 import net.minecraft.world.biome.Biome.RainType;
 import net.minecraft.world.biome.Biome.TemperatureModifier;
-import net.minecraft.world.biome.BiomeAmbience;
-import net.minecraft.world.biome.BiomeGenerationSettings;
-import net.minecraft.world.biome.MobSpawnInfo;
-import net.minecraft.world.biome.MoodSoundAmbience;
-import net.minecraft.world.biome.ParticleEffectAmbience;
-import net.minecraft.world.biome.SoundAdditionsAmbience;
 import net.minecraft.world.gen.GenerationStage.Carving;
 import net.minecraft.world.gen.GenerationStage.Decoration;
 import net.minecraft.world.gen.carver.ConfiguredCarver;
@@ -38,6 +26,10 @@ import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilders;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
 
 public class BiomeTemplate 
 {
@@ -55,9 +47,9 @@ public class BiomeTemplate
     private float temperature = 2.0F;
     private float downfall = 0.0F;
     
-	private float fogDensity = 1F;;
-	private int fogColor = 10518688;;
-	private int waterColor = 4159204;;
+	private float fogDensity = 1F;
+	private int fogColor = 10518688;
+	private int waterColor = 4159204;
 	private int waterFogColor = 329011;
 	private int foliageColor = DEFAULT_FOLIAGE;
 	private int grassColor = DEFAULT_FOLIAGE;
@@ -289,9 +281,7 @@ public class BiomeTemplate
 					new MobSpawnInfo.Spawners(info.entity, info.weight, info.minGroupSize, info.maxGroupSize));
 		}
 		
-		spawns.forEach((entry) -> {
-			spawnSettings.withSpawner(entry.type.getClassification(), entry);
-		});
+		spawns.forEach((entry) -> spawnSettings.withSpawner(entry.type.getClassification(), entry));
 		
 		// Set biome general features
 		if (surface != null)

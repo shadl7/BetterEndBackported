@@ -1,21 +1,13 @@
 package mod.beethoven92.betterendforge.client.renderer;
 
-import java.util.HashMap;
-
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
-import it.unimi.dsi.fastutil.floats.Float2FloatFunction;
 import it.unimi.dsi.fastutil.ints.Int2IntFunction;
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.init.ModItems;
 import mod.beethoven92.betterendforge.common.tileentity.EChestTileEntity;
-import net.minecraft.block.AbstractChestBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ChestBlock;
+import net.minecraft.block.*;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.model.ModelRenderer;
@@ -25,16 +17,19 @@ import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.item.BlockItem;
 import net.minecraft.state.properties.ChestType;
 import net.minecraft.tileentity.ChestTileEntity;
-import net.minecraft.tileentity.IChestLid;
 import net.minecraft.tileentity.TileEntityMerger;
 import net.minecraft.util.Direction;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Objects;
+
 public class EndChestTileEntityRenderer extends TileEntityRenderer<EChestTileEntity> {
 	private static final HashMap<Block, RenderType[]> LAYERS = Maps.newHashMap();
-	private static RenderType[] defaultLayer;
+	private static final RenderType[] defaultLayer;
 
 	private static final int ID_NORMAL = 0;
 	private static final int ID_LEFT = 1;
@@ -82,18 +77,18 @@ public class EndChestTileEntityRenderer extends TileEntityRenderer<EChestTileEnt
 		this.partLeftB.rotationPointY = 8.0F;
 	}
 
-	public void render(EChestTileEntity entity, float tickDelta, MatrixStack matrices, IRenderTypeBuffer vertexConsumers, int light, int overlay) {
+	public void render(EChestTileEntity entity, float tickDelta, @Nonnull MatrixStack matrices, @Nonnull IRenderTypeBuffer vertexConsumers, int light, int overlay) {
 		World world = entity.getWorld();
 		boolean worldExists = world != null;
-		BlockState blockState = worldExists ? entity.getBlockState() : (BlockState) Blocks.CHEST.getDefaultState().with(ChestBlock.FACING, Direction.SOUTH);
-		ChestType chestType = blockState.hasProperty(ChestBlock.TYPE) ? (ChestType) blockState.get(ChestBlock.TYPE) : ChestType.SINGLE;
+		BlockState blockState = worldExists ? entity.getBlockState() : Blocks.CHEST.getDefaultState().with(ChestBlock.FACING, Direction.SOUTH);
+		ChestType chestType = blockState.hasProperty(ChestBlock.TYPE) ? blockState.get(ChestBlock.TYPE) : ChestType.SINGLE;
 		Block block = blockState.getBlock();
 		if (entity.hasChest())
 			block = entity.getChest();
 		if (block instanceof AbstractChestBlock) {
 			AbstractChestBlock<?> abstractChestBlock = (AbstractChestBlock<?>) block;
 			boolean isDouble = chestType != ChestType.SINGLE;
-			float f = ((Direction) blockState.get(ChestBlock.FACING)).getHorizontalAngle();
+			float f = blockState.get(ChestBlock.FACING).getHorizontalAngle();
 			TileEntityMerger.ICallbackWrapper<? extends ChestTileEntity> propertySource;
 
 			matrices.push();
@@ -107,7 +102,7 @@ public class EndChestTileEntityRenderer extends TileEntityRenderer<EChestTileEnt
 				propertySource = TileEntityMerger.ICallback::func_225537_b_;
 			}
 
-			float pitch = ((Float2FloatFunction) propertySource.apply(ChestBlock.getLidRotationCallback((IChestLid) entity))).get(tickDelta);
+			float pitch = propertySource.apply(ChestBlock.getLidRotationCallback(entity)).get(tickDelta);
 			pitch = 1.0F - pitch;
 			pitch = 1.0F - pitch * pitch * pitch;
 			@SuppressWarnings({ "unchecked", "rawtypes" })
@@ -165,7 +160,7 @@ public class EndChestTileEntityRenderer extends TileEntityRenderer<EChestTileEnt
 			if (item.get() instanceof BlockItem) {
 				Block block = ((BlockItem) item.get()).getBlock();
 				if (block instanceof ChestBlock) {
-					String name = block.getRegistryName().getPath();
+					String name = Objects.requireNonNull(block.getRegistryName()).getPath();
 					LAYERS.put(block, new RenderType[] {
 							RenderType.getEntityCutout(new ResourceLocation(BetterEnd.MOD_ID, "textures/entity/chest/" + name + ".png")),
 							RenderType.getEntityCutout(new ResourceLocation(BetterEnd.MOD_ID, "textures/entity/chest/" + name + "_left.png")),

@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.block.template;
 
-import java.util.EnumMap;
-
 import com.google.common.collect.Maps;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -12,6 +9,9 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.IForgeShearable;
+
+import javax.annotation.Nonnull;
+import java.util.EnumMap;
 
 public class FurBlock extends AttachedBlock implements IForgeShearable
 {
@@ -31,8 +31,9 @@ public class FurBlock extends AttachedBlock implements IForgeShearable
 		super(properties);
 	}
 	
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	@Nonnull
+    @Override
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		return BOUNDING_SHAPES.get(state.get(FACING));
 	}

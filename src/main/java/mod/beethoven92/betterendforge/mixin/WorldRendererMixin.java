@@ -1,29 +1,13 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import java.util.Random;
-
-import mod.beethoven92.betterendforge.client.ClientOptions;
-import org.lwjgl.opengl.GL11;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import mod.beethoven92.betterendforge.BetterEnd;
+import mod.beethoven92.betterendforge.client.ClientOptions;
 import mod.beethoven92.betterendforge.common.util.BackgroundInfo;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
-import mod.beethoven92.betterendforge.config.ClientConfig;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.FogRenderer;
-import net.minecraft.client.renderer.RenderTypeBuffers;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
@@ -33,6 +17,15 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
+import org.lwjgl.opengl.GL11;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Random;
 
 @Mixin(WorldRenderer.class)
 public abstract class WorldRendererMixin 
@@ -55,12 +48,7 @@ public abstract class WorldRendererMixin
 	private static Vector3f axis2;
 	private static Vector3f axis3;
 	private static Vector3f axis4;
-	private static float time;
-	private static float time2;
-	private static float time3;
-	private static float blind02;
-	private static float blind06;
-	private static boolean directOpenGL = false; // Unused
+	private static final boolean directOpenGL = false; // Unused
 	
 	@Shadow
 	@Final
@@ -98,9 +86,9 @@ public abstract class WorldRendererMixin
 	{
 		if (ClientOptions.isCustomSky())
 		{
-			time = (ticks % 360000) * 0.000017453292F;
-			time2 = time * 2;
-			time3 = time * 3;
+			float time = (ticks % 360000) * 0.000017453292F;
+			float time2 = time * 2;
+			float time3 = time * 3;
 			
 			FogRenderer.resetFog();
 			RenderSystem.enableTexture();
@@ -120,8 +108,8 @@ public abstract class WorldRendererMixin
 			}*/
 			
 			float blindA = 1F - BackgroundInfo.blindness;
-			blind02 = blindA * 0.2F;
-			blind06 = blindA * 0.6F;
+			float blind02 = blindA * 0.2F;
+			float blind06 = blindA * 0.6F;
 			
 			if (blindA > 0) 
 			{
@@ -189,7 +177,7 @@ public abstract class WorldRendererMixin
 	private void renderBuffer(MatrixStack matrixStackIn, VertexBuffer buffer, VertexFormat format, float r, float g, float b, float a) 
 	{
 		RenderSystem.color4f(r, g, b, a);
-		buffer.bindBuffer();;
+		buffer.bindBuffer();
 		format.setupBufferState(0L);
         buffer.draw(matrixStackIn.getLast().getMatrix(), 7);
         VertexBuffer.unbindBuffer();
@@ -199,17 +187,17 @@ public abstract class WorldRendererMixin
 	private void initStars() 
 	{
 		BufferBuilder buffer = Tessellator.getInstance().getBuffer();
-		stars1 = buildBufferStars(buffer, stars1, 0.1, 0.30, 3500, 41315);
-		stars2 = buildBufferStars(buffer, stars2, 0.1, 0.35, 2000, 35151);
-		stars3 = buildBufferUVStars(buffer, stars3, 0.4, 1.2, 1000, 61354);
-		stars4 = buildBufferUVStars(buffer, stars4, 0.4, 1.2, 1000, 61355);
-		nebulas1 = buildBufferFarFog(buffer, nebulas1, 40, 60, 30, 11515);
-		nebulas2 = buildBufferFarFog(buffer, nebulas2, 40, 60, 10, 14151);
+		stars1 = buildBufferStars(buffer, stars1, 0.30, 3500, 41315);
+		stars2 = buildBufferStars(buffer, stars2, 0.35, 2000, 35151);
+		stars3 = buildBufferUVStars(buffer, stars3, 61354);
+		stars4 = buildBufferUVStars(buffer, stars4, 61355);
+		nebulas1 = buildBufferFarFog(buffer, nebulas1, 30, 11515);
+		nebulas2 = buildBufferFarFog(buffer, nebulas2, 10, 14151);
 		horizon = buildBufferHorizon(buffer, horizon);
 		fog = buildBufferFog(buffer, fog);
 	}
 	
-	private VertexBuffer buildBufferStars(BufferBuilder bufferBuilder, VertexBuffer buffer, double minSize, double maxSize, int count, long seed)
+	private VertexBuffer buildBufferStars(BufferBuilder bufferBuilder, VertexBuffer buffer, double maxSize, int count, long seed)
 	{
 		if (buffer != null) 
 		{
@@ -217,14 +205,14 @@ public abstract class WorldRendererMixin
 		}
 
 		buffer = new VertexBuffer(DefaultVertexFormats.POSITION);
-		makeStars(bufferBuilder, minSize, maxSize, count, seed);
+		makeStars(bufferBuilder, maxSize, count, seed);
 		bufferBuilder.finishDrawing();
 		buffer.upload(bufferBuilder);
 
 		return buffer;
 	}
 	
-	private VertexBuffer buildBufferUVStars(BufferBuilder bufferBuilder, VertexBuffer buffer, double minSize, double maxSize, int count, long seed) 
+	private VertexBuffer buildBufferUVStars(BufferBuilder bufferBuilder, VertexBuffer buffer, long seed)
 	{
 		if (buffer != null) 
 		{
@@ -232,14 +220,14 @@ public abstract class WorldRendererMixin
 		}
 
 		buffer = new VertexBuffer(DefaultVertexFormats.POSITION_TEX);
-		makeUVStars(bufferBuilder, minSize, maxSize, count, seed);
+		makeUVStars(bufferBuilder, seed);
 		bufferBuilder.finishDrawing();
 		buffer.upload(bufferBuilder);
 
 		return buffer;
 	}
 	
-	private VertexBuffer buildBufferFarFog(BufferBuilder bufferBuilder, VertexBuffer buffer, double minSize, double maxSize, int count, long seed)
+	private VertexBuffer buildBufferFarFog(BufferBuilder bufferBuilder, VertexBuffer buffer, int count, long seed)
 	{
 		if (buffer != null) 
 		{
@@ -247,7 +235,7 @@ public abstract class WorldRendererMixin
 		}
 
 		buffer = new VertexBuffer(DefaultVertexFormats.POSITION_TEX);
-		makeFarFog(bufferBuilder, minSize, maxSize, count, seed);
+		makeFarFog(bufferBuilder, count, seed);
 		bufferBuilder.finishDrawing();
 		buffer.upload(bufferBuilder);
 
@@ -262,7 +250,7 @@ public abstract class WorldRendererMixin
 		}
 
 		buffer = new VertexBuffer(DefaultVertexFormats.POSITION_TEX);
-		makeCylinder(bufferBuilder, 16, 50, 100);
+		makeCylinder(bufferBuilder, 100);
 		bufferBuilder.finishDrawing();
 		buffer.upload(bufferBuilder);
 
@@ -276,14 +264,14 @@ public abstract class WorldRendererMixin
 		}
 
 		buffer = new VertexBuffer(DefaultVertexFormats.POSITION_TEX);
-		makeCylinder(bufferBuilder, 16, 50, 70);
+		makeCylinder(bufferBuilder, 70);
 		bufferBuilder.finishDrawing();
 		buffer.upload(bufferBuilder);
 
 		return buffer;
 	}
 	
-	private void makeStars(BufferBuilder buffer, double minSize, double maxSize, int count, long seed) 
+	private void makeStars(BufferBuilder buffer, double maxSize, int count, long seed)
 	{
 		Random random = new Random(seed);
 		buffer.begin(7, DefaultVertexFormats.POSITION);
@@ -292,7 +280,7 @@ public abstract class WorldRendererMixin
 			double posX = random.nextDouble() * 2.0 - 1.0;
 			double posY = random.nextDouble() * 2.0 - 1.0;
 			double posZ = random.nextDouble() * 2.0 - 1.0;
-			double size = MathHelper.nextDouble(random, minSize, maxSize);
+			double size = MathHelper.nextDouble(random, 0.1, maxSize);
 			double length = posX * posX + posY * posY + posZ * posZ;
 			if (length < 1.0 && length > 0.001) {
 				length = 1.0 / Math.sqrt(length);
@@ -327,17 +315,17 @@ public abstract class WorldRendererMixin
 		}
 	}
 	
-	private void makeUVStars(BufferBuilder buffer, double minSize, double maxSize, int count, long seed) 
+	private void makeUVStars(BufferBuilder buffer, long seed)
 	{
 		Random random = new Random(seed);
 		buffer.begin(7, DefaultVertexFormats.POSITION_TEX);
 
-		for (int i = 0; i < count; ++i) 
+		for (int i = 0; i < 1000; ++i)
 		{
 			double posX = random.nextDouble() * 2.0 - 1.0;
 			double posY = random.nextDouble() * 2.0 - 1.0;
 			double posZ = random.nextDouble() * 2.0 - 1.0;
-			double size = ModMathHelper.randRange(minSize, maxSize, random);
+			double size = ModMathHelper.randRange(0.4, 1.2, random);
 			double length = posX * posX + posY * posY + posZ * posZ;
 			if (length < 1.0 && length > 0.001) 
 			{
@@ -379,7 +367,7 @@ public abstract class WorldRendererMixin
 		}
 	}
 	
-	private void makeFarFog(BufferBuilder buffer, double minSize, double maxSize, int count, long seed) 
+	private void makeFarFog(BufferBuilder buffer, int count, long seed)
 	{
 		Random random = new Random(seed);
 		buffer.begin(7, DefaultVertexFormats.POSITION_TEX);
@@ -388,14 +376,13 @@ public abstract class WorldRendererMixin
 			double posX = random.nextDouble() * 2.0 - 1.0;
 			double posY = random.nextDouble() - 0.5;
 			double posZ = random.nextDouble() * 2.0 - 1.0;
-			double size = MathHelper.nextDouble(random, minSize, maxSize);
+			double size = MathHelper.nextDouble(random, 40, 60);
 			double length = posX * posX + posY * posY + posZ * posZ;
 			double distance = 2.0;
 			double delta = 1.0 / count;
 			if (length < 1.0 && length > 0.001) {
 				length = distance / Math.sqrt(length);
 				size *= distance;
-				distance -= delta;
 				posX *= length;
 				posY *= length;
 				posZ *= length;
@@ -431,25 +418,25 @@ public abstract class WorldRendererMixin
 		}
 	}
 	
-	private void makeCylinder(BufferBuilder buffer, int segments, double height, double radius) 
+	private void makeCylinder(BufferBuilder buffer, double radius)
 	{
 		buffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		for (int i = 0; i < segments; i ++)
+		for (int i = 0; i < 16; i ++)
 		{
-			double a1 = (double) i * Math.PI * 2.0 / (double) segments;
-			double a2 = (double) (i + 1) * Math.PI * 2.0 / (double) segments;
+			double a1 = (double) i * Math.PI * 2.0 / (double) 16;
+			double a2 = (double) (i + 1) * Math.PI * 2.0 / (double) 16;
 			double px1 = Math.sin(a1) * radius;
 			double pz1 = Math.cos(a1) * radius;
 			double px2 = Math.sin(a2) * radius;
 			double pz2 = Math.cos(a2) * radius;
 			
-			float u0 = (float) i / (float) segments;
-			float u1 = (float) (i + 1) / (float) segments;
+			float u0 = (float) i / (float) 16;
+			float u1 = (float) (i + 1) / (float) 16;
 			
-			buffer.pos(px1, -height, pz1).tex(u0, 0).endVertex();
-			buffer.pos(px1, height, pz1).tex(u0, 1).endVertex();
-			buffer.pos(px2, height, pz2).tex(u1, 1).endVertex();
-			buffer.pos(px2, -height, pz2).tex(u1, 0).endVertex();
+			buffer.pos(px1, -(double) 50, pz1).tex(u0, 0).endVertex();
+			buffer.pos(px1, 50, pz1).tex(u0, 1).endVertex();
+			buffer.pos(px2, 50, pz2).tex(u1, 1).endVertex();
+			buffer.pos(px2, -(double) 50, pz2).tex(u1, 0).endVertex();
 		}
 	}
 }

@@ -1,17 +1,9 @@
 package mod.beethoven92.betterendforge.config.jsons;
 
-import javax.annotation.Nullable;
-
 import mod.beethoven92.betterendforge.BetterEnd;
-import mod.beethoven92.betterendforge.config.jsons.JsonConfigKeeper.BooleanEntry;
-import mod.beethoven92.betterendforge.config.jsons.JsonConfigKeeper.Entry;
-import mod.beethoven92.betterendforge.config.jsons.JsonConfigKeeper.FloatEntry;
-import mod.beethoven92.betterendforge.config.jsons.JsonConfigKeeper.IntegerEntry;
-import mod.beethoven92.betterendforge.config.jsons.JsonConfigKeeper.RangeEntry;
-import mod.beethoven92.betterendforge.config.jsons.JsonConfigKeeper.StringEntry;
+import mod.beethoven92.betterendforge.config.jsons.JsonConfigKeeper.*;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.annotation.Nullable;
 
 public abstract class JsonConfig 
 {
@@ -77,7 +69,7 @@ public abstract class JsonConfig
 			StringEntry entry = keeper.registerEntry(key, new StringEntry(defaultValue));
 			return entry.getValue();
 		}
-		return str != null ? str : defaultValue;
+		return str;
 	}
 	
 	protected String getString(JsonConfigKey key)
@@ -110,7 +102,7 @@ public abstract class JsonConfig
 			IntegerEntry entry = keeper.registerEntry(key, new IntegerEntry(defaultValue));
 			return entry.getValue();
 		}
-		return val != null ? val : defaultValue;
+		return val;
 	}
 
 	public int getInt(JsonConfigKey key)

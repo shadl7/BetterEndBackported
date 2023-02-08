@@ -10,6 +10,8 @@ import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 
+import javax.annotation.Nonnull;
+
 public class HydraluxBlock extends UnderwaterPlantBlock
 {
 	public static final EnumProperty<HydraluxShape> SHAPE = BlockProperties.HYDRALUX_SHAPE;
@@ -20,7 +22,7 @@ public class HydraluxBlock extends UnderwaterPlantBlock
 	}
 
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
+	public boolean isValidPosition(@Nonnull BlockState state, IWorldReader worldIn, BlockPos pos)
 	{
 		BlockState down = worldIn.getBlockState(pos.down());
 		HydraluxShape shape = state.get(SHAPE);

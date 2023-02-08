@@ -12,6 +12,8 @@ import net.minecraft.util.registry.Registry;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.fml.ModList;
 
+import javax.annotation.Nonnull;
+
 public class EndAnvilBlock extends AnvilBlock
 {
 	public static final IntegerProperty DESTRUCTION = BlockProperties.DESTRUCTION;
@@ -26,9 +28,8 @@ public class EndAnvilBlock extends AnvilBlock
 	@Override
 	public boolean hasTileEntity(BlockState state) 
 	{
-		if (ModList.get().isLoaded("apotheosis") && Registry.BLOCK_ENTITY_TYPE.getOptional(new ResourceLocation("apotheosis", "anvil")).isPresent()) return true;
-		return false;
-	}
+        return ModList.get().isLoaded("apotheosis") && Registry.BLOCK_ENTITY_TYPE.getOptional(new ResourceLocation("apotheosis", "anvil")).isPresent();
+    }
 	
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) 
@@ -54,7 +55,7 @@ public class EndAnvilBlock extends AnvilBlock
 	}
 	
 	@Override
-	protected void fillStateContainer(Builder<Block, BlockState> builder) 
+	protected void fillStateContainer(@Nonnull Builder<Block, BlockState> builder)
 	{
 		super.fillStateContainer(builder);
 		builder.add(DESTRUCTION);

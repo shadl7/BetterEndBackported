@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Map;
-
 import com.google.common.collect.Maps;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -17,15 +14,18 @@ import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
-import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
+import java.util.Map;
 
 public class EndLotusStemBlock extends Block implements IWaterLoggable
 {
@@ -55,8 +55,9 @@ public class EndLotusStemBlock extends Block implements IWaterLoggable
 		builder.add(FACING, LEAF, WATERLOGGED, SHAPE);
 	}
 	
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	@Nonnull
+    @Override
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		return state.get(LEAF) ? SHAPES.get(Axis.Y) : SHAPES.get(state.get(FACING).getAxis());
 	}
@@ -70,15 +71,17 @@ public class EndLotusStemBlock extends Block implements IWaterLoggable
 				with(FACING, context.getFace());
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public FluidState getFluidState(BlockState state) 
 	{
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
 	}
 	
-	@Override
-	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
-			BlockPos currentPos, BlockPos facingPos) 
+	@Nonnull
+    @Override
+	public BlockState updatePostPlacement(BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn,
+                                          @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos)
 	{
 		if (stateIn.get(WATERLOGGED)) 
 		{
@@ -88,13 +91,15 @@ public class EndLotusStemBlock extends Block implements IWaterLoggable
 		return stateIn;
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public BlockState rotate(BlockState state, Rotation rot)
 	{
 		return state.with(FACING, rot.rotate(state.get(FACING)));
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public BlockState mirror(BlockState state, Mirror mirrorIn) 
 	{
 		return state.rotate(mirrorIn.toRotation(state.get(FACING)));

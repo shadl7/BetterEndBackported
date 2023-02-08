@@ -1,23 +1,14 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.EnumMap;
-import java.util.List;
-import java.util.Random;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties.CactusBottom;
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.IWaterLoggable;
+import net.minecraft.block.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -37,12 +28,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
+import net.minecraft.world.*;
 import net.minecraft.world.server.ServerWorld;
+
+import javax.annotation.Nonnull;
+import java.util.EnumMap;
+import java.util.List;
+import java.util.Random;
 
 public class NeonCactusPlantBlock extends Block implements IWaterLoggable {
 	public static final EnumProperty<TripleShape> SHAPE = BlockProperties.TRIPLE_SHAPE;
@@ -87,26 +79,30 @@ public class NeonCactusPlantBlock extends Block implements IWaterLoggable {
 		return state;
 	}
 
-	@Override
-	public BlockState rotate(BlockState state, Rotation rotation) {
+	@Nonnull
+    @Override
+	public BlockState rotate(@Nonnull BlockState state, @Nonnull Rotation rotation) {
 		return BlockHelper.rotateHorizontal(state, rotation, FACING);
 	}
 
-	@Override
-	public BlockState mirror(BlockState state, Mirror mirror) {
+	@Nonnull
+    @Override
+	public BlockState mirror(@Nonnull BlockState state, @Nonnull Mirror mirror) {
 		return BlockHelper.mirrorHorizontal(state, mirror, FACING);
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public FluidState getFluidState(BlockState state) {
-		return (Boolean) state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
+		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : super.getFluidState(state);
 	}
 
-	@Override
-	public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world,
-			BlockPos pos, BlockPos facingPos) {
+	@Nonnull
+    @Override
+	public BlockState updatePostPlacement(BlockState state, @Nonnull Direction facing, @Nonnull BlockState facingState, IWorld world,
+                                          @Nonnull BlockPos pos, @Nonnull BlockPos facingPos) {
 		world.getPendingBlockTicks().scheduleTick(pos, this, 2);
-		if ((Boolean) state.get(WATERLOGGED)) {
+		if (state.get(WATERLOGGED)) {
 			world.getPendingFluidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
 		Direction dir = state.get(FACING);
@@ -122,14 +118,15 @@ public class NeonCactusPlantBlock extends Block implements IWaterLoggable {
 	}
 
 	@Override
-	public void tick(BlockState state, ServerWorld worldIn, BlockPos pos, Random rand) {
+	public void tick(BlockState state, @Nonnull ServerWorld worldIn, @Nonnull BlockPos pos, @Nonnull Random rand) {
 		if (!state.isValidPosition(worldIn, pos)) {
 			worldIn.destroyBlock(pos, true, null, 1);
 		}
 	}
 
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader view, BlockPos pos, ISelectionContext context) {
+	@Nonnull
+    @Override
+	public VoxelShape getShape(BlockState state, IBlockReader view, BlockPos pos, @Nonnull ISelectionContext context) {
 		TripleShape shape = state.get(SHAPE);
 		Direction dir = state.get(FACING);
 		BlockState next = view.getBlockState(pos.offset(dir));
@@ -156,7 +153,7 @@ public class NeonCactusPlantBlock extends Block implements IWaterLoggable {
 	}
 
 	@Override
-	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+	public void randomTick(@Nonnull BlockState state, @Nonnull ServerWorld world, @Nonnull BlockPos pos, @Nonnull Random random) {
 		if (!this.isValidPosition(state, world, pos) || random.nextInt(8) > 0) {
 			return;
 		}
@@ -164,12 +161,12 @@ public class NeonCactusPlantBlock extends Block implements IWaterLoggable {
 		if (!world.isAirBlock(pos.offset(dir))) {
 			return;
 		}
-		int length = getLength(state, world, pos, MAX_LENGTH);
+		int length = getLength(state, world, pos);
 		if (length < 0 || length > MAX_LENGTH - 1) {
 			return;
 		}
 		if (dir.getAxis().isHorizontal()) {
-			int horizontal = getHorizontal(state, world, pos, 2);
+			int horizontal = getHorizontal(state, world, pos);
 			if (horizontal > random.nextInt(2)) {
 				dir = Direction.UP;
 				if (!world.getBlockState(pos.up()).isAir()) {
@@ -188,7 +185,7 @@ public class NeonCactusPlantBlock extends Block implements IWaterLoggable {
 		BlockState placement = state.with(SHAPE, TripleShape.TOP).with(CACTUS_BOTTOM, CactusBottom.EMPTY)
 				.with(WATERLOGGED, false).with(FACING, dir);
 		BlockHelper.setWithoutUpdate(world, pos.offset(dir), placement);
-		mutateStem(placement, world, pos, MAX_LENGTH);
+		mutateStem(placement, world, pos);
 	}
 
 	public void growPlant(ISeedReader world, BlockPos pos, Random random) {
@@ -229,7 +226,7 @@ public class NeonCactusPlantBlock extends Block implements IWaterLoggable {
 			return false;
 		}
 		if (dir.getAxis().isHorizontal()) {
-			int horizontal = getHorizontal(state, world, pos, 2);
+			int horizontal = getHorizontal(state, world, pos);
 			if (horizontal > random.nextInt(2)) {
 				dir = Direction.UP;
 				if (!world.getBlockState(pos.up()).isAir()) {
@@ -249,7 +246,7 @@ public class NeonCactusPlantBlock extends Block implements IWaterLoggable {
 		BlockState placement = state.with(SHAPE, TripleShape.TOP).with(CACTUS_BOTTOM, CactusBottom.EMPTY)
 				.with(WATERLOGGED, false).with(FACING, dir);
 		BlockHelper.setWithoutUpdate(world, pos.offset(dir), placement);
-		mutateStem(placement, world, pos, MAX_LENGTH);
+		mutateStem(placement, world, pos);
 		pos.move(dir);
 		return true;
 	}
@@ -285,20 +282,20 @@ public class NeonCactusPlantBlock extends Block implements IWaterLoggable {
 	}
 
 	@Override
-	public boolean allowsMovement(BlockState state, IBlockReader worldIn, BlockPos pos, PathType type) {
+	public boolean allowsMovement(@Nonnull BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull PathType type) {
 		return false;
 	}
 
 	@Override
-	public void onEntityCollision(BlockState state, World worldIn, BlockPos pos, Entity entityIn) {
+	public void onEntityCollision(@Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos, Entity entityIn) {
 		entityIn.attackEntityFrom(DamageSource.CACTUS, 1.0F);
 	}
 
-	private int getLength(BlockState state, ServerWorld world, BlockPos pos, int max) {
+	private int getLength(BlockState state, ServerWorld world, BlockPos pos) {
 		int length = 0;
 		Direction dir = state.get(FACING).getOpposite();
 		Mutable mut = new Mutable().setPos(pos);
-		for (int i = 0; i < max; i++) {
+		for (int i = 0; i < NeonCactusPlantBlock.MAX_LENGTH; i++) {
 			mut.move(dir);
 			state = world.getBlockState(mut);
 			if (!state.isIn(this)) {
@@ -313,11 +310,11 @@ public class NeonCactusPlantBlock extends Block implements IWaterLoggable {
 		return length;
 	}
 
-	private int getHorizontal(BlockState state, ISeedReader world, BlockPos pos, int max) {
+	private int getHorizontal(BlockState state, ISeedReader world, BlockPos pos) {
 		int count = 0;
 		Direction dir = state.get(FACING).getOpposite();
 		Mutable mut = new Mutable().setPos(pos);
-		for (int i = 0; i < max; i++) {
+		for (int i = 0; i < 2; i++) {
 			mut.move(dir);
 			state = world.getBlockState(mut);
 			if (!state.isIn(this)) {
@@ -332,16 +329,16 @@ public class NeonCactusPlantBlock extends Block implements IWaterLoggable {
 		return count;
 	}
 
-	private void mutateStem(BlockState state, ISeedReader world, BlockPos pos, int max) {
+	private void mutateStem(BlockState state, ISeedReader world, BlockPos pos) {
 		Direction dir = state.get(FACING).getOpposite();
 		Mutable mut = new Mutable().setPos(pos);
-		for (int i = 0; i < max; i++) {
+		for (int i = 0; i < NeonCactusPlantBlock.MAX_LENGTH; i++) {
 			mut.move(dir);
 			state = world.getBlockState(mut);
 			if (!state.isIn(this)) {
 				return;
 			}
-			int size = (i + 2) * 3 / max;
+			int size = (i + 2) * 3 / NeonCactusPlantBlock.MAX_LENGTH;
 			int src = state.get(SHAPE).getIndex();
 			dir = state.get(FACING).getOpposite();
 			if (src < size) {

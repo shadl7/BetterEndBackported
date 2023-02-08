@@ -1,7 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
 import com.google.common.collect.Lists;
-import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.FeatureHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
@@ -20,14 +19,14 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
-
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
 
 public class ArchFeature extends Feature<NoFeatureConfig> {
-	private Function<BlockPos, BlockState> surfaceFunction;
-	private Block block;
+	private final Function<BlockPos, BlockState> surfaceFunction;
+	private final Block block;
 	
 	public ArchFeature(Block block, Function<BlockPos, BlockState> surfaceFunction) {
         super(NoFeatureConfig.field_236558_a_);
@@ -36,16 +35,15 @@ public class ArchFeature extends Feature<NoFeatureConfig> {
 	}
 	
 	@Override
-	public boolean generate(ISeedReader level, ChunkGenerator generator, Random random, BlockPos origin,
-                            NoFeatureConfig config) {
-		final ISeedReader world = level;
+	public boolean generate(@Nonnull ISeedReader level, @Nonnull ChunkGenerator generator, @Nonnull Random random, BlockPos origin,
+							@Nonnull NoFeatureConfig config) {
 
-		
+
 		BlockPos pos = FeatureHelper.getPosOnSurfaceWG(
-			world,
+				level,
 			new BlockPos((origin.getX() & 0xFFFFFFF0) | 7, 0, (origin.getZ() & 0xFFFFFFF0) | 7)
 		);
-		if (!world.getBlockState(pos.down(5)).isIn(ModTags.GEN_TERRAIN)) {
+		if (!level.getBlockState(pos.down(5)).isIn(ModTags.GEN_TERRAIN)) {
 			return false;
 		}
 		
@@ -59,16 +57,14 @@ public class ArchFeature extends Feature<NoFeatureConfig> {
 		
 		final float smallRadiusF = smallRadius;
 		OpenSimplexNoise noise = new OpenSimplexNoise(random.nextLong());
-		arch = new SDFDisplacement().setFunction((vec) -> {
-			return (float) (Math.abs(noise.eval(vec.getX() * 0.1,
-				vec.getY() * 0.1,
-				vec.getZ() * 0.1
-			)) * 3F + Math.abs(noise.eval(
-				vec.getX() * 0.3,
-				vec.getY() * 0.3 + 100,
-				vec.getZ() * 0.3
-			)) * 1.3F) - smallRadiusF * Math.abs(1 - vec.getY() / bigRadius);
-		}).setSource(arch);
+		arch = new SDFDisplacement().setFunction((vec) -> (float) (Math.abs(noise.eval(vec.getX() * 0.1,
+			vec.getY() * 0.1,
+			vec.getZ() * 0.1
+		)) * 3F + Math.abs(noise.eval(
+			vec.getX() * 0.3,
+			vec.getY() * 0.3 + 100,
+			vec.getZ() * 0.3
+		)) * 1.3F) - smallRadiusF * Math.abs(1 - vec.getY() / bigRadius)).setSource(arch);
 		
 		List<BlockPos> surface = Lists.newArrayList();
 		arch.addPostProcess((info) -> {
@@ -82,7 +78,7 @@ public class ArchFeature extends Feature<NoFeatureConfig> {
 		if (side > 47) {
 			side = 47;
 		}
-		arch.fillArea(world, pos, AABBAcc.ofSize(Vector3d.copyCentered(pos), side, side, side));
+		arch.fillArea(level, pos, AABBAcc.ofSize(Vector3d.copyCentered(pos), side, side, side));
 		
 		return true;
 	}

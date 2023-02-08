@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.rituals;
 
-import java.awt.Point;
-
 import mod.beethoven92.betterendforge.common.particles.InfusionParticleData;
 import mod.beethoven92.betterendforge.common.recipes.InfusionRecipe;
 import mod.beethoven92.betterendforge.common.tileentity.InfusionPedestalTileEntity;
@@ -16,6 +14,9 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
+import javax.annotation.Nonnull;
+import java.awt.*;
 
 public class InfusionRitual implements IInventory
 {
@@ -33,7 +34,7 @@ public class InfusionRitual implements IInventory
 	private int time = 0;
 		
 	private InfusionPedestalTileEntity input;
-	private PedestalTileEntity[] catalysts = new PedestalTileEntity[8];
+	private final PedestalTileEntity[] catalysts = new PedestalTileEntity[8];
 	
 	public InfusionRitual(World world, BlockPos pos) 
 	{
@@ -161,7 +162,7 @@ public class InfusionRitual implements IInventory
 	}
 	
 	@Override
-	public boolean isItemValidForSlot(int index, ItemStack stack) 
+	public boolean isItemValidForSlot(int index, @Nonnull ItemStack stack)
 	{
 		return this.isValid();
 	}
@@ -211,7 +212,8 @@ public class InfusionRitual implements IInventory
 		return false;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public ItemStack getStackInSlot(int index) 
 	{
 		if (index > 8) return ItemStack.EMPTY;
@@ -225,13 +227,15 @@ public class InfusionRitual implements IInventory
 		}
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public ItemStack decrStackSize(int index, int count) 
 	{
 		return this.removeStackFromSlot(index);
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public ItemStack removeStackFromSlot(int index)
 	{
 		if (index > 8) return ItemStack.EMPTY;
@@ -246,7 +250,7 @@ public class InfusionRitual implements IInventory
 	}
 
 	@Override
-	public void setInventorySlotContents(int index, ItemStack stack) 
+	public void setInventorySlotContents(int index, @Nonnull ItemStack stack)
 	{
 		if (index > 8) return;
 		if (index == 0) 
@@ -273,7 +277,7 @@ public class InfusionRitual implements IInventory
 	}
 
 	@Override
-	public boolean isUsableByPlayer(PlayerEntity player) 
+	public boolean isUsableByPlayer(@Nonnull PlayerEntity player)
 	{
 		return true;
 	}

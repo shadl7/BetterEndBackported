@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.data;
 
-import java.util.function.Consumer;
-
 import com.google.common.collect.ImmutableMap;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModItems;
@@ -19,6 +16,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+import java.util.function.Consumer;
+
 public class InfusionRecipes extends RecipeProvider {
 	public InfusionRecipes(DataGenerator generatorIn) {
 		super(generatorIn);
@@ -29,10 +29,10 @@ public class InfusionRecipes extends RecipeProvider {
 	}
 
 	@Override
-	protected void registerRecipes(Consumer<IFinishedRecipe> consumer) {
+	protected void registerRecipes(@Nonnull Consumer<IFinishedRecipe> consumer) {
 		InfusionRecipe.Builder.create().
         setInput(Items.BOOK).
-        setOutput(enchBook(Enchantments.PROTECTION, 1)).
+        setOutput(enchBook(Enchantments.PROTECTION)).
         setTime(300).
         addCatalyst(0, ModItems.ENCHANTED_PETAL.get()).
         addCatalyst(4, Items.TURTLE_HELMET).
@@ -44,7 +44,7 @@ public class InfusionRecipes extends RecipeProvider {
 		
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.FIRE_PROTECTION, 1))
+		.setOutput(enchBook(Enchantments.FIRE_PROTECTION))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.BLAZE_ROD)
 		.addCatalyst(4, Items.BLAZE_ROD)
@@ -59,7 +59,7 @@ public class InfusionRecipes extends RecipeProvider {
 	     
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.FEATHER_FALLING, 1))
+		.setOutput(enchBook(Enchantments.FEATHER_FALLING))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.FEATHER)
 		.addCatalyst(4, Items.FEATHER)
@@ -74,7 +74,7 @@ public class InfusionRecipes extends RecipeProvider {
 	     
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.BLAST_PROTECTION, 1))
+		.setOutput(enchBook(Enchantments.BLAST_PROTECTION))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Blocks.OBSIDIAN)
 		.addCatalyst(4, Blocks.OBSIDIAN)
@@ -89,7 +89,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.PROJECTILE_PROTECTION, 1))
+		.setOutput(enchBook(Enchantments.PROJECTILE_PROTECTION))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.SCUTE)
 		.addCatalyst(4, Items.SHIELD)
@@ -104,7 +104,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.RESPIRATION, 1))
+		.setOutput(enchBook(Enchantments.RESPIRATION))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.NAUTILUS_SHELL)
 		.addCatalyst(4, Items.NAUTILUS_SHELL)
@@ -119,7 +119,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.AQUA_AFFINITY, 1))
+		.setOutput(enchBook(Enchantments.AQUA_AFFINITY))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.PRISMARINE_CRYSTALS)
 		.addCatalyst(4, Items.PRISMARINE_CRYSTALS)
@@ -134,7 +134,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.THORNS, 1))
+		.setOutput(enchBook(Enchantments.THORNS))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Blocks.CACTUS)
 		.addCatalyst(4, Blocks.CACTUS)
@@ -149,7 +149,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.DEPTH_STRIDER, 1))
+		.setOutput(enchBook(Enchantments.DEPTH_STRIDER))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Blocks.LILY_PAD)
 		.addCatalyst(4, ModBlocks.END_LILY_SEED.get())
@@ -164,7 +164,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.FROST_WALKER, 1))
+		.setOutput(enchBook(Enchantments.FROST_WALKER))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(4, ModBlocks.ANCIENT_EMERALD_ICE.get())
 		.addCatalyst(1, Items.LAPIS_LAZULI)
@@ -177,7 +177,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.SOUL_SPEED, 1))
+		.setOutput(enchBook(Enchantments.SOUL_SPEED))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Blocks.SOUL_SAND, Blocks.SOUL_SOIL)
 		.addCatalyst(4, Blocks.SOUL_SAND, Blocks.SOUL_SOIL)
@@ -192,7 +192,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.SHARPNESS, 1))
+		.setOutput(enchBook(Enchantments.SHARPNESS))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(4, Items.NETHERITE_SCRAP)
 		.addCatalyst(1, Items.LAPIS_LAZULI)
@@ -205,7 +205,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.SMITE, 1))
+		.setOutput(enchBook(Enchantments.SMITE))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Blocks.SUNFLOWER)
 		.addCatalyst(4, Items.GOLD_INGOT)
@@ -220,7 +220,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.BANE_OF_ARTHROPODS, 1))
+		.setOutput(enchBook(Enchantments.BANE_OF_ARTHROPODS))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.FERMENTED_SPIDER_EYE)
 		.addCatalyst(4, Items.IRON_INGOT)
@@ -235,7 +235,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.KNOCKBACK, 1))
+		.setOutput(enchBook(Enchantments.KNOCKBACK))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.REDSTONE)
 		.addCatalyst(4, Blocks.PISTON)
@@ -250,7 +250,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.FIRE_ASPECT, 1))
+		.setOutput(enchBook(Enchantments.FIRE_ASPECT))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.BLAZE_POWDER)
 		.addCatalyst(4, Items.MAGMA_CREAM)
@@ -265,7 +265,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.LOOTING, 1))
+		.setOutput(enchBook(Enchantments.LOOTING))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.EMERALD)
 		.addCatalyst(4, Items.GOLD_INGOT)
@@ -280,7 +280,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.SWEEPING, 1))
+		.setOutput(enchBook(Enchantments.SWEEPING))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.GOLDEN_SWORD)
 		.addCatalyst(4, Items.IRON_SWORD)
@@ -295,7 +295,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.EFFICIENCY, 1))
+		.setOutput(enchBook(Enchantments.EFFICIENCY))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, ModItems.AMBER_GEM.get())
 		.addCatalyst(4, ModItems.AMBER_GEM.get())
@@ -310,7 +310,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.SILK_TOUCH, 1))
+		.setOutput(enchBook(Enchantments.SILK_TOUCH))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Blocks.COBWEB)
 		.addCatalyst(4, ModItems.ETERNAL_CRYSTAL.get())
@@ -325,7 +325,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.UNBREAKING, 1))
+		.setOutput(enchBook(Enchantments.UNBREAKING))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.DIAMOND)
 		.addCatalyst(4, Items.DIAMOND)
@@ -340,7 +340,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.FORTUNE, 1))
+		.setOutput(enchBook(Enchantments.FORTUNE))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.EMERALD)
 		.addCatalyst(4, Items.RABBIT_FOOT)
@@ -355,7 +355,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.POWER, 1))
+		.setOutput(enchBook(Enchantments.POWER))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, ModItems.AMBER_GEM.get())
 		.addCatalyst(4, Items.DIAMOND_SWORD)
@@ -370,7 +370,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.PUNCH, 1))
+		.setOutput(enchBook(Enchantments.PUNCH))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.POPPED_CHORUS_FRUIT)
 		.addCatalyst(4, Items.SPECTRAL_ARROW)
@@ -385,7 +385,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.FLAME, 1))
+		.setOutput(enchBook(Enchantments.FLAME))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.BLAZE_POWDER)
 		.addCatalyst(4, Items.SPECTRAL_ARROW)
@@ -400,7 +400,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.INFINITY, 1))
+		.setOutput(enchBook(Enchantments.INFINITY))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.SPECTRAL_ARROW)
 		.addCatalyst(4, ModItems.ETERNAL_CRYSTAL.get())
@@ -415,7 +415,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.LUCK_OF_THE_SEA, 1))
+		.setOutput(enchBook(Enchantments.LUCK_OF_THE_SEA))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.EMERALD)
 		.addCatalyst(4, Items.FISHING_ROD)
@@ -430,7 +430,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.LURE, 1))
+		.setOutput(enchBook(Enchantments.LURE))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.GOLD_NUGGET)
 		.addCatalyst(4, Items.FISHING_ROD)
@@ -445,7 +445,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.LOYALTY, 1))
+		.setOutput(enchBook(Enchantments.LOYALTY))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.ENDER_EYE)
 		.addCatalyst(4, Items.HEART_OF_THE_SEA)
@@ -460,7 +460,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.IMPALING, 1))
+		.setOutput(enchBook(Enchantments.IMPALING))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.PRISMARINE_SHARD)
 		.addCatalyst(4, Items.IRON_SWORD)
@@ -475,7 +475,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.RIPTIDE, 1))
+		.setOutput(enchBook(Enchantments.RIPTIDE))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.LEAD)
 		.addCatalyst(4, Items.HEART_OF_THE_SEA)
@@ -490,7 +490,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.CHANNELING, 1))
+		.setOutput(enchBook(Enchantments.CHANNELING))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.CHAIN)
 		.addCatalyst(4, Items.HEART_OF_THE_SEA)
@@ -505,7 +505,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.MULTISHOT, 1))
+		.setOutput(enchBook(Enchantments.MULTISHOT))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.ARROW)
 		.addCatalyst(4, Items.SPECTRAL_ARROW)
@@ -520,7 +520,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.QUICK_CHARGE, 1))
+		.setOutput(enchBook(Enchantments.QUICK_CHARGE))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.QUARTZ)
 		.addCatalyst(4, Items.GLOWSTONE_DUST)
@@ -535,7 +535,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.PIERCING, 1))
+		.setOutput(enchBook(Enchantments.PIERCING))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.GLOWSTONE_DUST)
 		.addCatalyst(4, Items.SPECTRAL_ARROW)
@@ -550,7 +550,7 @@ public class InfusionRecipes extends RecipeProvider {
 	    
 		InfusionRecipe.Builder.create()
 		.setInput(Items.BOOK)
-		.setOutput(enchBook(Enchantments.MENDING, 1))
+		.setOutput(enchBook(Enchantments.MENDING))
 		.addCatalyst(0, ModItems.ENCHANTED_PETAL.get())
 		.addCatalyst(2, Items.EXPERIENCE_BOTTLE)
 		.addCatalyst(4, Blocks.ANVIL)
@@ -564,13 +564,14 @@ public class InfusionRecipes extends RecipeProvider {
 		.build(consumer, rl("mending_book"));
 	}
 	
-	private ItemStack enchBook(Enchantment enchantment, int level) {
+	private ItemStack enchBook(Enchantment enchantment) {
 		ItemStack book = new ItemStack(Items.ENCHANTED_BOOK);
-		EnchantmentHelper.setEnchantments(ImmutableMap.of(enchantment, level), book);
+		EnchantmentHelper.setEnchantments(ImmutableMap.of(enchantment, 1), book);
 		return book;
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public String getName() {
 		return "Infusion " + super.getName();
 	}

@@ -1,11 +1,11 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
+
+import java.util.Random;
 
 public class CavePlantFeature extends FullHeightScatterFeature
 {

@@ -1,16 +1,16 @@
 package mod.beethoven92.betterendforge.common.world.biome;
 
-import java.util.Random;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.util.WeightedList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.feature.Feature;
 
+import java.util.Random;
+
 public class BetterEndCaveBiome extends BetterEndBiome
 {
-	private WeightedList<Feature<?>> floorFeatures = new WeightedList<Feature<?>>();
-	private WeightedList<Feature<?>> ceilFeatures = new WeightedList<Feature<?>>();
+	private final WeightedList<Feature<?>> floorFeatures = new WeightedList<>();
+	private final WeightedList<Feature<?>> ceilFeatures = new WeightedList<>();
 
 	public BetterEndCaveBiome(BiomeTemplate definition)
 	{

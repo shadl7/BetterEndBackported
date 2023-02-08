@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.structure;
 
-import java.util.Map;
-
 import com.google.common.collect.Maps;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
@@ -15,9 +12,11 @@ import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.chunk.IChunk;
 
+import java.util.Map;
+
 public class StructureWorld 
 {
-	private Map<ChunkPos, Part> parts = Maps.newHashMap();
+	private final Map<ChunkPos, Part> parts = Maps.newHashMap();
 	private ChunkPos lastPos;
 	private Part lastPart;
 	private int minX = Integer.MAX_VALUE;
@@ -78,15 +77,13 @@ public class StructureWorld
 		lastPart = part;
 	}
 	
-	public boolean placeChunk(ISeedReader world, ChunkPos chunkPos) 
+	public void placeChunk(ISeedReader world, ChunkPos chunkPos)
 	{
 		Part part = parts.get(chunkPos);
 		if (part != null) {
 			IChunk chunk = world.getChunk(chunkPos.x, chunkPos.z);
 			part.placeChunk(chunk);
-			return true;
 		}
-		return false;
 	}
 	
 	public CompoundNBT toNBT() 
@@ -100,9 +97,7 @@ public class StructureWorld
 		tag.putInt("maxZ", maxZ);
 		ListNBT map = new ListNBT();
 		tag.put("parts", map);
-		parts.forEach((pos, part) -> {
-			map.add(part.toNBT(pos.x, pos.z));
-		});
+		parts.forEach((pos, part) -> map.add(part.toNBT(pos.x, pos.z)));
 		return tag;
 	}
 	
@@ -118,7 +113,7 @@ public class StructureWorld
 	
 	private static final class Part 
 	{
-		Map<BlockPos, BlockState> blocks = Maps.newHashMap();
+		final Map<BlockPos, BlockState> blocks = Maps.newHashMap();
 		
 		public Part() {}
 		
@@ -149,9 +144,7 @@ public class StructureWorld
 		
 		void placeChunk(IChunk chunk) 
 		{
-			blocks.forEach((pos, state) -> {
-				chunk.setBlockState(pos, state, false);
-			});
+			blocks.forEach((pos, state) -> chunk.setBlockState(pos, state, false));
 		}
 		
 		CompoundNBT toNBT(int x, int z) 

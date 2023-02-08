@@ -1,9 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
-
 import com.google.common.collect.Lists;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTags;
@@ -12,11 +8,7 @@ import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.SplineHelper;
 import mod.beethoven92.betterendforge.common.util.sdf.PosInfo;
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFDisplacement;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale3D;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFSubtraction;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFTranslate;
+import mod.beethoven92.betterendforge.common.util.sdf.operator.*;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFSphere;
 import mod.beethoven92.betterendforge.common.world.generator.OpenSimplexNoise;
 import net.minecraft.block.BlockState;
@@ -31,6 +23,11 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
 
 public class DragonTreeFeature extends Feature<NoFeatureConfig>
 {
@@ -60,9 +57,7 @@ public class DragonTreeFeature extends Feature<NoFeatureConfig>
 			return state.getMaterial().isReplaceable();
 		};
 		
-		IGNORE = (state) -> {
-			return ModBlocks.DRAGON_TREE.isTreeLog(state);
-		};
+		IGNORE = ModBlocks.DRAGON_TREE::isTreeLog;
 		
 		POST = (info) -> {
 			if (ModBlocks.DRAGON_TREE.isTreeLog(info.getStateUp()) && ModBlocks.DRAGON_TREE.isTreeLog(info.getStateDown())) 
@@ -106,8 +101,8 @@ public class DragonTreeFeature extends Feature<NoFeatureConfig>
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos,
-			NoFeatureConfig config) 
+	public boolean generate(ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, BlockPos pos,
+                            @Nonnull NoFeatureConfig config)
 	{
 		if (!world.getBlockState(pos.down()).getBlock().isIn(ModTags.END_GROUND)) return false;
 		
@@ -131,9 +126,7 @@ public class DragonTreeFeature extends Feature<NoFeatureConfig>
 		makeRoots(world, pos.add(last.getX(), last.getY(), last.getZ()), radius, rand);
 		
 		radius = ModMathHelper.randRange(1.2F, 2.3F, rand);
-		SDF function = SplineHelper.buildSDF(spline, radius, 1.2F, (bpos) -> {
-			return ModBlocks.DRAGON_TREE.bark.get().getDefaultState();
-		});
+		SDF function = SplineHelper.buildSDF(spline, radius, 1.2F, (bpos) -> ModBlocks.DRAGON_TREE.bark.get().getDefaultState());
 		
 		function.setReplaceFunction(REPLACE);
 		function.addPostProcess(POST);
@@ -195,8 +188,8 @@ public class DragonTreeFeature extends Feature<NoFeatureConfig>
 		sub = new SDFTranslate().setTranslate(0, -radius * 5, 0).setSource(sub);
 		sphere = new SDFSubtraction().setSourceA(sphere).setSourceB(sub);
 		sphere = new SDFScale3D().setScale(1, 0.5F, 1).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> { return (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 1.5F; }).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> { return random.nextFloat() * 3F - 1.5F; }).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 1.5F).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> random.nextFloat() * 3F - 1.5F).setSource(sphere);
 		Mutable mut = new Mutable();
 		sphere.addPostProcess((info) -> {
 			if (random.nextInt(5) == 0) 

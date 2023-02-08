@@ -19,6 +19,8 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.network.NetworkHooks;
 
+import javax.annotation.Nonnull;
+
 public class ModCraftingTableBlock extends CraftingTableBlock {
 	private static final ITextComponent CONTAINER_NAME = new TranslationTextComponent("container.crafting");
 
@@ -26,9 +28,10 @@ public class ModCraftingTableBlock extends CraftingTableBlock {
 		super(properties);
 	}
 
-	@Override
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
-			Hand handIn, BlockRayTraceResult hit) {
+	@Nonnull
+    @Override
+	public ActionResultType onBlockActivated(@Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos, @Nonnull PlayerEntity player,
+                                             @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit) {
 		if (worldIn.isRemote) {
 			return ActionResultType.SUCCESS;
 		} else {
@@ -42,15 +45,13 @@ public class ModCraftingTableBlock extends CraftingTableBlock {
 	}
 
 	@Override
-	public INamedContainerProvider getContainer(BlockState state, World worldIn, BlockPos pos) {
-		return new SimpleNamedContainerProvider((id, inventory, player) -> {
-			return new WorkbenchContainer(id, inventory, IWorldPosCallable.of(worldIn, pos));
-		}, CONTAINER_NAME);
+	public INamedContainerProvider getContainer(@Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos) {
+		return new SimpleNamedContainerProvider((id, inventory, player) -> new WorkbenchContainer(id, inventory, IWorldPosCallable.of(worldIn, pos)), CONTAINER_NAME);
 	}
 
 	private static class ModCraftingContainer extends WorkbenchContainer {
 
-		private IWorldPosCallable worldPosCallable;
+		private final IWorldPosCallable worldPosCallable;
 
 		public ModCraftingContainer(int syncid, PlayerInventory playerInv, IWorldPosCallable posCallable) {
 			super(syncid, playerInv, posCallable);
@@ -58,11 +59,8 @@ public class ModCraftingTableBlock extends CraftingTableBlock {
 		}
 
 		@Override
-		public boolean canInteractWith(PlayerEntity playerIn) {
-			return worldPosCallable.applyOrElse((world, pos) -> {
-				return !(world.getBlockState(pos).getBlock() instanceof ModCraftingTableBlock) ? false
-						: playerIn.getDistanceSq(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) <= 64d;
-			}, true);
+		public boolean canInteractWith(@Nonnull PlayerEntity playerIn) {
+			return worldPosCallable.applyOrElse((world, pos) -> world.getBlockState(pos).getBlock() instanceof ModCraftingTableBlock && playerIn.getDistanceSq(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) <= 64d, true);
 		}
 
 	}

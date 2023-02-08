@@ -9,6 +9,8 @@ import net.minecraft.util.DrinkHelper;
 import net.minecraft.util.Hand;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class UmbrellaClusterJuiceItem extends Item
 {
 	public UmbrellaClusterJuiceItem(Properties properties) 
@@ -16,17 +18,19 @@ public class UmbrellaClusterJuiceItem extends Item
 		super(properties);
 	}
 
-	public int getUseDuration(ItemStack stack) 
+	public int getUseDuration(@Nonnull ItemStack stack)
 	{
 		return 32;
 	}
 
-	public UseAction getUseAction(ItemStack stack) 
+	@Nonnull
+    public UseAction getUseAction(@Nonnull ItemStack stack)
 	{
 		return UseAction.DRINK;
 	}
 
-	public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) 
+	@Nonnull
+    public ActionResult<ItemStack> onItemRightClick(@Nonnull World worldIn, @Nonnull PlayerEntity playerIn, @Nonnull Hand handIn)
 	{
 		return DrinkHelper.startDrinking(worldIn, playerIn, handIn);
 	}

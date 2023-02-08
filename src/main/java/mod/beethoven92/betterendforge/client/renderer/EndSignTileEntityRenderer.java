@@ -1,21 +1,13 @@
 package mod.beethoven92.betterendforge.client.renderer;
 
-import java.util.HashMap;
-import java.util.List;
-
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.block.EndSignBlock;
 import mod.beethoven92.betterendforge.common.init.ModItems;
 import mod.beethoven92.betterendforge.common.tileentity.ESignTileEntity;
-import net.minecraft.block.AbstractSignBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.StandingSignBlock;
-import net.minecraft.block.WoodType;
+import net.minecraft.block.*;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -31,9 +23,14 @@ import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3f;
 
+import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
+
 public class EndSignTileEntityRenderer extends TileEntityRenderer<ESignTileEntity> {
 	private static final HashMap<Block, RenderType> LAYERS = Maps.newHashMap();
-	private static RenderType defaultLayer;
+	private static final RenderType defaultLayer;
 	private final SignModel model = new SignTileEntityRenderer.SignModel();
 
 	public EndSignTileEntityRenderer(TileEntityRendererDispatcher dispatcher) {
@@ -41,12 +38,12 @@ public class EndSignTileEntityRenderer extends TileEntityRenderer<ESignTileEntit
 	}
 
 	public void render(ESignTileEntity signBlockEntity, float tickDelta, MatrixStack matrixStack,
-			IRenderTypeBuffer provider, int light, int overlay) {
+                       @Nonnull IRenderTypeBuffer provider, int light, int overlay) {
 		BlockState state = signBlockEntity.getBlockState();
 		matrixStack.push();
 
 		matrixStack.translate(0.5D, 0.5D, 0.5D);
-		float angle = -((float) ((Integer) state.get(StandingSignBlock.ROTATION) * 360) / 16.0F);
+		float angle = -((float) (state.get(StandingSignBlock.ROTATION) * 360) / 16.0F);
 
 		BlockState blockState = signBlockEntity.getBlockState();
 		if (blockState.get(EndSignBlock.FLOOR)) {
@@ -76,11 +73,11 @@ public class EndSignTileEntityRenderer extends TileEntityRenderer<ESignTileEntit
 		for (int s = 0; s < 4; ++s) {
 			IReorderingProcessor orderedText = signBlockEntity.getTextBeingEditedOnRow(s, (text) -> {
 				List<IReorderingProcessor> list = textRenderer.trimStringToWidth(text, 90);
-				return list.isEmpty() ? IReorderingProcessor.field_242232_a : (IReorderingProcessor) list.get(0);
+				return list.isEmpty() ? IReorderingProcessor.field_242232_a : list.get(0);
 			});
 			if (orderedText != null) {
 				float t = (float) (-textRenderer.func_243245_a(orderedText) / 2);
-				textRenderer.func_238416_a_((IReorderingProcessor) orderedText, t, (float) (s * 10 - 20), q, false,
+				textRenderer.func_238416_a_(orderedText, t, (float) (s * 10 - 20), q, false,
 						matrixStack.getLast().getMatrix(), provider, false, 0, light);
 			}
 		}
@@ -110,7 +107,7 @@ public class EndSignTileEntityRenderer extends TileEntityRenderer<ESignTileEntit
 			if (item.get() instanceof BlockItem) {
 				Block block = ((BlockItem) item.get()).getBlock();
 				if (block instanceof EndSignBlock) {
-					String name = block.getRegistryName().getPath();
+					String name = Objects.requireNonNull(block.getRegistryName()).getPath();
 					RenderType layer = RenderType.getEntitySolid(
 							new ResourceLocation(BetterEnd.MOD_ID, "textures/entity/sign/" + name + ".png"));
 					LAYERS.put(block, layer);

@@ -1,15 +1,10 @@
 package mod.beethoven92.betterendforge.common.world.biome;
 
-import mod.beethoven92.betterendforge.common.init.*;
+import mod.beethoven92.betterendforge.common.init.ModConfiguredFeatures;
+import mod.beethoven92.betterendforge.common.init.ModConfiguredSurfaceBuilders;
+import mod.beethoven92.betterendforge.common.init.ModParticleTypes;
+import mod.beethoven92.betterendforge.common.init.ModSoundEvents;
 import net.minecraft.world.gen.GenerationStage;
-//import ru.bclib.world.biomes.BCLBiomeDef;
-//import ru.betterend.BetterEnd;
-//import ru.betterend.registry.EndFeatures;
-//import ru.betterend.registry.EndParticles;
-//import ru.betterend.registry.EndSounds;
-//import ru.betterend.world.biome.EndBiome;
-//import ru.betterend.world.surface.SurfaceBuilders;
-
 public class UmbraValleyBiome extends BetterEndBiome
 {
 

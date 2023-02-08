@@ -2,7 +2,6 @@ package mod.beethoven92.betterendforge.common.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
@@ -11,6 +10,8 @@ import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
+
+import javax.annotation.Nonnull;
 
 public class AlloyingRecipeSerializer<T extends AlloyingRecipe> extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<T>
 {
@@ -21,8 +22,9 @@ public class AlloyingRecipeSerializer<T extends AlloyingRecipe> extends net.mine
 		this.factory = factory;
 	}
 	
-	@Override
-	public T read(ResourceLocation id, JsonObject json) 
+	@Nonnull
+    @Override
+	public T read(@Nonnull ResourceLocation id, @Nonnull JsonObject json)
 	{
 		String group = JSONUtils.getString(json, "group", "");
 		JsonArray ingredients = JSONUtils.getJsonArray(json, "ingredients");
@@ -38,9 +40,7 @@ public class AlloyingRecipeSerializer<T extends AlloyingRecipe> extends net.mine
 	    {
 	    	String result = JSONUtils.getString(json, "result");
 	    	ResourceLocation resourcelocation = new ResourceLocation(result);
-	        output = new ItemStack(Registry.ITEM.getOptional(resourcelocation).orElseThrow(() -> {
-	        	return new IllegalStateException("Item: " + result + " does not exist");
-	      }));
+	        output = new ItemStack(Registry.ITEM.getOptional(resourcelocation).orElseThrow(() -> new IllegalStateException("Item: " + result + " does not exist")));
 	    }
 		float experience = JSONUtils.getFloat(json, "experience", 0.0F);
 		int smeltTime = JSONUtils.getInt(json, "smelttime", 350);
@@ -49,7 +49,7 @@ public class AlloyingRecipeSerializer<T extends AlloyingRecipe> extends net.mine
 	}
 
 	@Override
-	public T read(ResourceLocation id, PacketBuffer buffer) 
+	public T read(@Nonnull ResourceLocation id, PacketBuffer buffer)
 	{
 		String group = buffer.readString(32767);
 		Ingredient primary = Ingredient.read(buffer);

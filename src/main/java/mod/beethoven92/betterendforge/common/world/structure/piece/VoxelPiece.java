@@ -1,8 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.structure.piece;
 
-import java.util.Random;
-import java.util.function.Consumer;
-
 import mod.beethoven92.betterendforge.common.init.ModStructurePieces;
 import mod.beethoven92.betterendforge.common.world.structure.StructureWorld;
 import net.minecraft.nbt.CompoundNBT;
@@ -15,9 +12,13 @@ import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+import java.util.function.Consumer;
+
 public class VoxelPiece extends StructurePiece
 {
-	private StructureWorld world;
+	private final StructureWorld world;
 	
 	public VoxelPiece(Consumer<StructureWorld> function, int id) 
 	{
@@ -41,8 +42,8 @@ public class VoxelPiece extends StructurePiece
 	}
 
 	@Override
-	public boolean func_230383_a_(ISeedReader worldIn, StructureManager p_230383_2_, ChunkGenerator p_230383_3_,
-			Random p_230383_4_, MutableBoundingBox p_230383_5_, ChunkPos chunkPos, BlockPos p_230383_7_) 
+	public boolean func_230383_a_(@Nonnull ISeedReader worldIn, @Nonnull StructureManager p_230383_2_, @Nonnull ChunkGenerator p_230383_3_,
+								  @Nonnull Random p_230383_4_, @Nonnull MutableBoundingBox p_230383_5_, @Nonnull ChunkPos chunkPos, @Nonnull BlockPos p_230383_7_)
 	{
 		this.world.placeChunk(worldIn, chunkPos);
 		return true;

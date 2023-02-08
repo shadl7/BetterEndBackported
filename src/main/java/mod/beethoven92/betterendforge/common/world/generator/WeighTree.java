@@ -1,8 +1,8 @@
 package mod.beethoven92.betterendforge.common.world.generator;
 
-import java.util.List;
-
 import mod.beethoven92.betterendforge.common.world.biome.BetterEndBiome;
+
+import java.util.List;
 
 public class WeighTree 
 {
@@ -40,12 +40,12 @@ public class WeighTree
 		}
 	}
 	
-	private abstract class Node 
+	private abstract static class Node
 	{
 		abstract BetterEndBiome getBiome(float value);
 	}
 	
-	private class Branch extends Node 
+	private static class Branch extends Node
 	{
 		final float separator;
 		final Node min;
@@ -65,7 +65,7 @@ public class WeighTree
 		}
 	}
 	
-	private class Leaf extends Node 
+	private static class Leaf extends Node
 	{
 		final BetterEndBiome biome;
 		

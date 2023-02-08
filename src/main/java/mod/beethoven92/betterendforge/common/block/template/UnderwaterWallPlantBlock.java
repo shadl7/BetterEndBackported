@@ -10,6 +10,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
+import javax.annotation.Nonnull;
+
 public class UnderwaterWallPlantBlock extends WallPlantBlock implements ILiquidContainer
 {
 	public UnderwaterWallPlantBlock(Properties properties) 
@@ -18,25 +20,26 @@ public class UnderwaterWallPlantBlock extends WallPlantBlock implements ILiquidC
 	}
 
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
+	public boolean isValidPosition(@Nonnull BlockState state, IWorldReader worldIn, BlockPos pos)
 	{
 		return worldIn.getFluidState(pos).getFluid() == Fluids.WATER && super.isValidPosition(state, worldIn, pos);
 	}
 	
 	@Override
-	public boolean canContainFluid(IBlockReader worldIn, BlockPos pos, BlockState state, Fluid fluidIn) 
+	public boolean canContainFluid(@Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull Fluid fluidIn)
 	{
 		return false;
 	}
 
 	@Override
-	public boolean receiveFluid(IWorld worldIn, BlockPos pos, BlockState state, FluidState fluidStateIn) 
+	public boolean receiveFluid(@Nonnull IWorld worldIn, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nonnull FluidState fluidStateIn)
 	{
 		return false;
 	}
 
-	@Override
-	public FluidState getFluidState(BlockState state) 
+	@Nonnull
+    @Override
+	public FluidState getFluidState(@Nonnull BlockState state)
 	{
 		return Fluids.WATER.getStillFluidState(false);
 	}

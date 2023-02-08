@@ -1,17 +1,17 @@
 package mod.beethoven92.betterendforge.common.world.generator;
 
-import java.util.HashMap;
-
 import mod.beethoven92.betterendforge.common.world.biome.BetterEndBiome;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
 
+import java.util.HashMap;
+
 public class BiomeMap 
 {
 	private static final SharedSeedRandom RANDOM = new SharedSeedRandom();
 	
-	private final HashMap<ChunkPos, BiomeChunk> maps = new HashMap<ChunkPos, BiomeChunk>();
+	private final HashMap<ChunkPos, BiomeChunk> maps = new HashMap<>();
 	private final int size;
 	private final int sizeXZ;
 	private final int depth;
@@ -22,7 +22,6 @@ public class BiomeMap
 	
 	public BiomeMap(long seed, int size, BiomePicker picker)
 	{
-		maps.clear();
 		RANDOM.setSeed(seed);
 		noiseX = new OpenSimplexNoise(RANDOM.nextLong());
 		noiseZ = new OpenSimplexNoise(RANDOM.nextLong());
@@ -49,8 +48,8 @@ public class BiomeMap
 	{
 		double x = (double) bx * size / sizeXZ;
 		double z = (double) bz * size / sizeXZ;
-		double nx = x;
-		double nz = z;
+		double nx;
+		double nz;
 		
 		double px = bx * 0.2;
 		double pz = bz * 0.2;
@@ -103,14 +102,14 @@ public class BiomeMap
 				search = biome.getParentBiome();
 			int d = (int) Math.ceil(search.getEdgeSize() / 4F) << 2;
 			
-			boolean edge = !search.isSame(getRawBiome(x + d, z));
-			edge = edge || !search.isSame(getRawBiome(x - d, z));
-			edge = edge || !search.isSame(getRawBiome(x, z + d));
-			edge = edge || !search.isSame(getRawBiome(x, z - d));
-			edge = edge || !search.isSame(getRawBiome(x - 1, z - 1));
-			edge = edge || !search.isSame(getRawBiome(x - 1, z + 1));
-			edge = edge || !search.isSame(getRawBiome(x + 1, z - 1));
-			edge = edge || !search.isSame(getRawBiome(x + 1, z + 1));
+			boolean edge = search.isSame(getRawBiome(x + d, z));
+			edge = edge || search.isSame(getRawBiome(x - d, z));
+			edge = edge || search.isSame(getRawBiome(x, z + d));
+			edge = edge || search.isSame(getRawBiome(x, z - d));
+			edge = edge || search.isSame(getRawBiome(x - 1, z - 1));
+			edge = edge || search.isSame(getRawBiome(x - 1, z + 1));
+			edge = edge || search.isSame(getRawBiome(x + 1, z - 1));
+			edge = edge || search.isSame(getRawBiome(x + 1, z + 1));
 			
 			if (edge)
 			{

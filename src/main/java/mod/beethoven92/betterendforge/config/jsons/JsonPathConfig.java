@@ -1,10 +1,5 @@
 package mod.beethoven92.betterendforge.config.jsons;
 
-//import org.jetbrains.annotations.Nullable;
-//import ru.bclib.config.ConfigKeeper.Entry;
-//import ru.bclib.config.ConfigKeeper.FloatRange;
-//import ru.bclib.config.ConfigKeeper.IntegerRange;
-
 import javax.annotation.Nullable;
 
 public class JsonPathConfig extends JsonConfig {

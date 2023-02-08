@@ -1,20 +1,20 @@
 package mod.beethoven92.betterendforge.client.model;
 
-import java.util.Collections;
-
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 
+import javax.annotation.Nonnull;
+import java.util.Collections;
+
 public class CrystaliteBootsModel extends BipedModel<LivingEntity> {
 
-	public ModelRenderer leftBoot;
-	public ModelRenderer rightBoot;
+	public final ModelRenderer leftBoot;
+	public final ModelRenderer rightBoot;
 	
 	public CrystaliteBootsModel(float scale) {
 		super(RenderType::getEntityTranslucent, scale, 0.0F, 64, 48);
@@ -27,18 +27,20 @@ public class CrystaliteBootsModel extends BipedModel<LivingEntity> {
 	}
 	
 	@Override
-	public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
-			float red, float green, float blue, float alpha) {
+	public void render(@Nonnull MatrixStack matrixStackIn, @Nonnull IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
+					   float red, float green, float blue, float alpha) {
 		this.leftBoot.copyModelAngles(bipedLeftLeg);
 		this.rightBoot.copyModelAngles(bipedRightLeg);
 		super.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn, red, green, blue, alpha);
 	}
 
+	@Nonnull
 	@Override
 	protected Iterable<ModelRenderer> getHeadParts() {
 		return Collections::emptyIterator;
 	}
 	
+	@Nonnull
 	@Override
 	protected Iterable<ModelRenderer> getBodyParts() {
 		return Lists.newArrayList(leftBoot, rightBoot);

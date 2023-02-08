@@ -1,16 +1,8 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Queue;
-
 import com.google.common.collect.Lists;
-
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowingFluidBlock;
-import net.minecraft.block.IBucketPickupHandler;
-import net.minecraft.block.SpongeBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.fluid.FluidState;
 import net.minecraft.fluid.Fluids;
@@ -21,6 +13,9 @@ import net.minecraft.util.Tuple;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import java.util.Queue;
+
 public class MengerSpongeBlock extends SpongeBlock
 {
 	public MengerSpongeBlock(Properties properties) 
@@ -29,7 +24,7 @@ public class MengerSpongeBlock extends SpongeBlock
 	}
 	
 	@Override
-	protected void tryAbsorb(World worldIn, BlockPos pos) 
+	protected void tryAbsorb(@Nonnull World worldIn, @Nonnull BlockPos pos)
 	{
 		if (this.absorb(worldIn, pos)) 
 		{

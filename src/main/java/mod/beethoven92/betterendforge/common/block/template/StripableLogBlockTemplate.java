@@ -16,6 +16,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class StripableLogBlockTemplate extends PillarBlockTemplate 
 {
 	private final Block striped;
@@ -28,15 +30,17 @@ public class StripableLogBlockTemplate extends PillarBlockTemplate
 		this.color = color;
 	}
 
+	@Nonnull
 	@Override
 	public MaterialColor getMaterialColor() 
 	{
 		return color;
 	}
 	
+	@Nonnull
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
-			Hand handIn, BlockRayTraceResult hit) 
+	public ActionResultType onBlockActivated(@Nonnull BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos, PlayerEntity player,
+											 @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit)
 	{
 		if (player.getHeldItemMainhand().getItem() instanceof AxeItem) 
 		{
@@ -44,7 +48,7 @@ public class StripableLogBlockTemplate extends PillarBlockTemplate
 			if (!worldIn.isRemote()) 
 			{
 				worldIn.setBlockState(pos, striped.getDefaultState().with(RotatedPillarBlock.AXIS, state.get(RotatedPillarBlock.AXIS)), 11);
-				if (player != null && !player.isCreative()) 
+				if (!player.isCreative())
 				{
 					player.getHeldItemMainhand().attemptDamageItem(1, worldIn.rand, (ServerPlayerEntity) player);
 				}

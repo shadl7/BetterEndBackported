@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.surfacebuilder;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.world.generator.OpenSimplexNoise;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -9,9 +7,11 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class DoubleBlockSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig>
 {
@@ -28,23 +28,21 @@ public class DoubleBlockSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConf
 
 
 	
-	public DoubleBlockSurfaceBuilder setBlock1(Block block) 
+	public void setBlock1(Block block)
 	{
 		BlockState stone = Blocks.END_STONE.getDefaultState();
 		config1 = new SurfaceBuilderConfig(block.getDefaultState(), stone, stone);
-		return this;
-	}
+    }
 	
-	public DoubleBlockSurfaceBuilder setBlock2(Block block) 
+	public void setBlock2(Block block)
 	{
 		BlockState stone = Blocks.END_STONE.getDefaultState();
 		config2 = new SurfaceBuilderConfig(block.getDefaultState(), stone, stone);
-		return this;
-	}
+    }
 	
 	@Override
-	public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise,
-			BlockState defaultBlock, BlockState defaultFluid, int seaLevel, long seed, SurfaceBuilderConfig config) 
+	public void buildSurface(@Nonnull Random random, @Nonnull IChunk chunkIn, @Nonnull Biome biomeIn, int x, int z, int startHeight, double noise,
+							 @Nonnull BlockState defaultBlock, @Nonnull BlockState defaultFluid, int seaLevel, long seed, @Nonnull SurfaceBuilderConfig config)
 	{
 		noise = NOISE.eval(x * 0.1, z * 0.1) + MathHelper.nextDouble(random, -0.4, 0.4);
 		SurfaceBuilder.DEFAULT.buildSurface(random, chunkIn, biomeIn, x, z, startHeight, noise, defaultBlock, defaultFluid, seaLevel, seed, noise > 0 ? config1 : config2);

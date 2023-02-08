@@ -1,9 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
-
 import mod.beethoven92.betterendforge.common.block.MossyGlowshroomCapBlock;
 import mod.beethoven92.betterendforge.common.block.template.FurBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
@@ -12,15 +8,7 @@ import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.SplineHelper;
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFBinary;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFCoordModify;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFFlatWave;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale3D;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFSmoothUnion;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFSubtraction;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFTranslate;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFUnion;
+import mod.beethoven92.betterendforge.common.util.sdf.operator.*;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFCappedCone;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFPrimitive;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFSphere;
@@ -36,6 +24,11 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
 
 public class MossyGlowshroomFeature extends Feature<NoFeatureConfig>
 {
@@ -109,8 +102,8 @@ public class MossyGlowshroomFeature extends Feature<NoFeatureConfig>
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator chunkGenerator, Random random,
-			BlockPos blockPos, NoFeatureConfig config) 
+	public boolean generate(ISeedReader world, @Nonnull ChunkGenerator chunkGenerator, @Nonnull Random random,
+                            BlockPos blockPos, @Nonnull NoFeatureConfig config)
 	{
 		BlockState down = world.getBlockState(blockPos.down());
 		if (!down.isIn(ModBlocks.END_MYCELIUM.get()) && !down.isIn(ModBlocks.END_MOSS.get()))
@@ -127,9 +120,7 @@ public class MossyGlowshroomFeature extends Feature<NoFeatureConfig>
 		int count = MathHelper.floor(height / 4);
 		List<Vector3f> spline = SplineHelper.makeSpline(0, 0, 0, 0, height, 0, count);
 		SplineHelper.offsetParts(spline, random, 1F, 0, 1F);
-		SDF sdf = SplineHelper.buildSDF(spline, 2.1F, 1.5F, (pos) -> {
-			return ModBlocks.MOSSY_GLOWSHROOM.log.get().getDefaultState();
-		});
+		SDF sdf = SplineHelper.buildSDF(spline, 2.1F, 1.5F, (pos) -> ModBlocks.MOSSY_GLOWSHROOM.log.get().getDefaultState());
 		Vector3f pos = spline.get(spline.size() - 1);
 		float scale = ModMathHelper.randRange(0.75F, 1.1F, random);
 		

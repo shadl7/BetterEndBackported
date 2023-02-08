@@ -4,7 +4,6 @@ import com.google.common.cache.CacheBuilder;
 import com.google.common.cache.CacheLoader;
 import com.google.common.cache.LoadingCache;
 import com.mojang.blaze3d.matrix.MatrixStack;
-
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;
@@ -26,6 +25,8 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TranslationTextComponent;
+
+import javax.annotation.Nonnull;
 
 public class AlloyingRecipeCategory implements IRecipeCategory<AlloyingRecipe>
 {	
@@ -55,38 +56,43 @@ public class AlloyingRecipeCategory implements IRecipeCategory<AlloyingRecipe>
 				.build(new CacheLoader<Integer, IDrawableAnimated>() 
 				{
 					@Override
-					public IDrawableAnimated load(Integer cookTime) {
+					public IDrawableAnimated load(@Nonnull Integer cookTime) {
 						return guiHelper.drawableBuilder(GUI_TEXTURE, 106, 14, 24, 17)
 							.buildAnimated(cookTime, IDrawableAnimated.StartDirection.LEFT, false);
 					}
 				});
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public ResourceLocation getUid() 
 	{
 		return UID;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public Class<? extends AlloyingRecipe> getRecipeClass() 
 	{
 		return AlloyingRecipe.class;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public String getTitle() 
 	{
 		return new TranslationTextComponent("gui.jei.category.alloying").getString();
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public IDrawable getBackground()
 	{
 		return background;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public IDrawable getIcon() 
 	{
 		return icon;
@@ -108,7 +114,7 @@ public class AlloyingRecipeCategory implements IRecipeCategory<AlloyingRecipe>
 	}
 
 	@Override
-	public void setRecipe(IRecipeLayout recipeLayout, AlloyingRecipe recipe, IIngredients ingredients) 
+	public void setRecipe(IRecipeLayout recipeLayout, @Nonnull AlloyingRecipe recipe, @Nonnull IIngredients ingredients)
 	{
 		IGuiItemStackGroup guiItemStacks = recipeLayout.getItemStacks();
 
@@ -128,7 +134,7 @@ public class AlloyingRecipeCategory implements IRecipeCategory<AlloyingRecipe>
 		return this.cachedArrows.getUnchecked(smeltTime);
 	}
 	
-	protected void drawSmeltTime(AlloyingRecipe recipe, MatrixStack matrixStack, int y) 
+	protected void drawSmeltTime(AlloyingRecipe recipe, MatrixStack matrixStack)
 	{
 		int smeltTime = recipe.getSmeltTime();
 		if (smeltTime > 0) 
@@ -138,11 +144,11 @@ public class AlloyingRecipeCategory implements IRecipeCategory<AlloyingRecipe>
 			Minecraft minecraft = Minecraft.getInstance();
 			FontRenderer fontRenderer = minecraft.fontRenderer;
 			int stringWidth = fontRenderer.getStringPropertyWidth(timeString);
-			fontRenderer.func_243248_b(matrixStack, timeString, background.getWidth() - stringWidth, y, 0xFF808080);
+			fontRenderer.func_243248_b(matrixStack, timeString, background.getWidth() - stringWidth, 45, 0xFF808080);
 		}
 	}
 	
-	protected void drawExperience(AlloyingRecipe recipe, MatrixStack matrixStack, int y) 
+	protected void drawExperience(AlloyingRecipe recipe, MatrixStack matrixStack)
 	{
 		float experience = recipe.getExperience();
 		if (experience > 0) 
@@ -151,19 +157,19 @@ public class AlloyingRecipeCategory implements IRecipeCategory<AlloyingRecipe>
 			Minecraft minecraft = Minecraft.getInstance();
 			FontRenderer fontRenderer = minecraft.fontRenderer;
 			int stringWidth = fontRenderer.getStringPropertyWidth(experienceString);
-			fontRenderer.func_243248_b(matrixStack, experienceString, background.getWidth() - stringWidth, y, 0xFF808080);
+			fontRenderer.func_243248_b(matrixStack, experienceString, background.getWidth() - stringWidth, 0, 0xFF808080);
 		}
 	}
 	
 	@Override
-	public void draw(AlloyingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) 
+	public void draw(@Nonnull AlloyingRecipe recipe, @Nonnull MatrixStack matrixStack, double mouseX, double mouseY)
 	{
 		animatedFlame.draw(matrixStack, 12, 20);
 
 		IDrawableAnimated arrow = getArrow(recipe);
 		arrow.draw(matrixStack, 47, 18);
 
-	    drawExperience(recipe, matrixStack, 0);
-		drawSmeltTime(recipe, matrixStack, 45);
+	    drawExperience(recipe, matrixStack);
+		drawSmeltTime(recipe, matrixStack);
 	}
 }

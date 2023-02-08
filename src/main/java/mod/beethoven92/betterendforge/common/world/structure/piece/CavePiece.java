@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.structure.piece;
 
-import mod.beethoven92.betterendforge.common.init.ModStructurePieces;
-import mod.beethoven92.betterendforge.common.init.ModStructures;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
@@ -9,17 +7,15 @@ import mod.beethoven92.betterendforge.common.world.generator.OpenSimplexNoise;
 import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
-import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.structure.StructureManager;
-import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class CavePiece extends BasePiece {
@@ -28,7 +24,7 @@ public class CavePiece extends BasePiece {
 	private float radius;
 	
 	public CavePiece(BlockPos center, float radius, Random random) {
-		super(ModStructurePieces.CAVE_PIECE, random.nextInt());
+		super(random.nextInt());
 		this.center = center;
 		this.radius = radius;
 		this.noise = new OpenSimplexNoise(ModMathHelper.getSeed(534, center.getX(), center.getZ()));
@@ -36,7 +32,7 @@ public class CavePiece extends BasePiece {
 	}
 
 	public CavePiece(TemplateManager templateManager, CompoundNBT tag) {
-		super(ModStructurePieces.CAVE_PIECE, tag);
+		super(tag);
 		makeBoundingBox();
 	}
 
@@ -44,7 +40,7 @@ public class CavePiece extends BasePiece {
 
 
     @Override
-	public boolean func_230383_a_(ISeedReader world, StructureManager arg, ChunkGenerator chunkGenerator, Random random, MutableBoundingBox blockBox, ChunkPos chunkPos, BlockPos blockPos) {
+	public boolean func_230383_a_(@Nonnull ISeedReader world, @Nonnull StructureManager arg, @Nonnull ChunkGenerator chunkGenerator, @Nonnull Random random, MutableBoundingBox blockBox, @Nonnull ChunkPos chunkPos, @Nonnull BlockPos blockPos) {
 		int x1 = ModMathHelper.max(this.getBoundingBox().minX, blockBox.minX);
 		int z1 = ModMathHelper.max(this.getBoundingBox().minZ, blockBox.minZ);
 		int x2 = ModMathHelper.min(this.getBoundingBox().maxX, blockBox.maxX);
@@ -116,10 +112,10 @@ public class CavePiece extends BasePiece {
 	}
 
 
-	/**
-	 * (abstract) Helper method to read subclass data from NBT
-	 *
-	 * @param tagCompound
+	/*
+	  (abstract) Helper method to read subclass data from NBT
+
+	  @param tagCompound
 	 */
 
 

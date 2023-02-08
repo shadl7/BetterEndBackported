@@ -1,10 +1,7 @@
 package mod.beethoven92.betterendforge.common.block.template;
 
-import java.util.EnumMap;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Maps;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -22,6 +19,9 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
+import javax.annotation.Nonnull;
+import java.util.EnumMap;
+
 public class WallPlantBlock extends PlantBlock
 {
 	private static final EnumMap<Direction, VoxelShape> SHAPES = Maps.newEnumMap(ImmutableMap.of(
@@ -37,22 +37,24 @@ public class WallPlantBlock extends PlantBlock
 		super(properties);
 	}
 	
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	@Nonnull
+    @Override
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		return SHAPES.get(state.get(FACING));
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public OffsetType getOffsetType() 
 	{
 		return OffsetType.NONE;
 	}
 	
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
+	public boolean isValidPosition(@Nonnull BlockState state, IWorldReader worldIn, BlockPos pos)
 	{
-		Direction direction = (Direction)state.get(FACING);
+		Direction direction = state.get(FACING);
 		BlockPos blockPos = pos.offset(direction.getOpposite());
 		BlockState blockState = worldIn.getBlockState(blockPos);
 		return isValidSupport(worldIn, blockPos, blockState, direction);
@@ -70,15 +72,11 @@ public class WallPlantBlock extends PlantBlock
 		IWorldReader worldView = context.getWorld();
 		BlockPos blockPos = context.getPos();
 		Direction[] directions = context.getNearestLookingDirections();
-		for (int i = 0; i < directions.length; ++i) 
-		{
-			Direction direction = directions[i];
-			if (direction.getAxis().isHorizontal()) 
-			{
+		for (Direction direction : directions) {
+			if (direction.getAxis().isHorizontal()) {
 				Direction direction2 = direction.getOpposite();
 				blockState = blockState.with(FACING, direction2);
-				if (blockState.isValidPosition(worldView, blockPos)) 
-				{
+				if (blockState.isValidPosition(worldView, blockPos)) {
 					return blockState;
 				}
 			}
@@ -86,9 +84,10 @@ public class WallPlantBlock extends PlantBlock
 		return null;
 	}
 	
-	@Override
-	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
-			BlockPos currentPos, BlockPos facingPos) 
+	@Nonnull
+    @Override
+	public BlockState updatePostPlacement(@Nonnull BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn,
+                                          @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos)
 	{
 		if (!isValidPosition(stateIn, worldIn, currentPos))
 		{
@@ -106,12 +105,14 @@ public class WallPlantBlock extends PlantBlock
 		builder.add(FACING);
 	}
 	
-	public BlockState rotate(BlockState state, Rotation rot) 
+	@Nonnull
+    public BlockState rotate(BlockState state, Rotation rot)
 	{
 		return state.with(FACING, rot.rotate(state.get(FACING)));
     }
 
-	public BlockState mirror(BlockState state, Mirror mirrorIn) 
+	@Nonnull
+    public BlockState mirror(BlockState state, Mirror mirrorIn)
 	{
 		return state.rotate(mirrorIn.toRotation(state.get(FACING)));
 	}

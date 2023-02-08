@@ -15,6 +15,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class AnvilSmithingRecipe implements IRecipe<IInventory>
 {
 	public final static String GROUP = "anvil_smithing";
@@ -41,7 +43,7 @@ public class AnvilSmithingRecipe implements IRecipe<IInventory>
 	}
 	
 	@Override
-	public boolean matches(IInventory inv, World worldIn) 
+	public boolean matches(IInventory inv, @Nonnull World worldIn)
 	{
 		ItemStack hammer = inv.getStackInSlot(0);
 		if (hammer.isEmpty() || !ModTags.HAMMERS.contains(hammer.getItem())) 
@@ -63,14 +65,13 @@ public class AnvilSmithingRecipe implements IRecipe<IInventory>
 		return damage < hammer.getMaxDamage();
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public NonNullList<Ingredient> getIngredients() 
 	{
 		NonNullList<Ingredient> defaultedList = NonNullList.create();
 
-		defaultedList.add(Ingredient.fromStacks(ModTags.HAMMERS.getAllElements().stream().filter(hammer -> {
-			return ((ToolItem) hammer).getTier().getHarvestLevel() >= level;
-		}).map(ItemStack::new)));
+		defaultedList.add(Ingredient.fromStacks(ModTags.HAMMERS.getAllElements().stream().filter(hammer -> ((ToolItem) hammer).getTier().getHarvestLevel() >= level).map(ItemStack::new)));
 
 		// Needed for JEI to display the amount of input items required by this recipe
 		ItemStack amount = new ItemStack(input.getMatchingStacks()[0].getItem(), inputCount);
@@ -79,8 +80,9 @@ public class AnvilSmithingRecipe implements IRecipe<IInventory>
 		return defaultedList;
 	}
 	
-	@Override
-	public ItemStack getCraftingResult(IInventory inv) 
+	@Nonnull
+    @Override
+	public ItemStack getCraftingResult(@Nonnull IInventory inv)
 	{
 		return this.output.copy();
 	}
@@ -92,9 +94,7 @@ public class AnvilSmithingRecipe implements IRecipe<IInventory>
 			if (!checkHammerDurability(craftingInventory, player)) return ItemStack.EMPTY;
 			
 			ItemStack hammer = craftingInventory.getStackInSlot(0);
-			hammer.damageItem(this.damage, player, entity -> {
-				entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
-			});
+			hammer.damageItem(this.damage, player, entity -> entity.sendBreakAnimation(EquipmentSlotType.MAINHAND));
 		}
 		return this.getCraftingResult(craftingInventory);
 	}
@@ -105,25 +105,29 @@ public class AnvilSmithingRecipe implements IRecipe<IInventory>
 		return true;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public ItemStack getRecipeOutput() 
 	{
 		return this.output;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public ResourceLocation getId()
 	{
 		return this.id;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public IRecipeSerializer<?> getSerializer() 
 	{
 		return ModRecipeSerializers.ANVIL_SMITHING.get();
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public IRecipeType<?> getType() 
 	{
 		return TYPE;

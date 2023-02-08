@@ -7,6 +7,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 
+import javax.annotation.Nonnull;
+
 public class CharniaBlock extends UnderwaterPlantBlock
 {
 	public CharniaBlock(Properties properties) 
@@ -15,7 +17,7 @@ public class CharniaBlock extends UnderwaterPlantBlock
 	}
 
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
+	public boolean isValidPosition(@Nonnull BlockState state, IWorldReader worldIn, BlockPos pos)
 	{
 		return hasEnoughSolidSide(worldIn, pos.down(), Direction.UP) 
 				&& worldIn.getFluidState(pos).getFluid() == Fluids.WATER;

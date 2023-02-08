@@ -2,7 +2,6 @@ package mod.beethoven92.betterendforge.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.client.model.EndFishEntityModel;
 import mod.beethoven92.betterendforge.client.renderer.layer.EyesLayer;
@@ -16,6 +15,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
+
 @OnlyIn(Dist.CLIENT)
 public class EndFishEntityRenderer extends MobRenderer<EndFishEntity, EndFishEntityModel> 
 {
@@ -28,16 +29,17 @@ public class EndFishEntityRenderer extends MobRenderer<EndFishEntity, EndFishEnt
 	    
 		this.addLayer(new EyesLayer<EndFishEntity, EndFishEntityModel>(this) 
 	    {
-			@Override
+			@Nonnull
+            @Override
 			public RenderType getRenderType() 
 			{
 				return GLOW[0];
 			}
 
 			@Override
-			public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
-					EndFishEntity entityIn, float limbSwing, float limbSwingAmount, float partialTicks,
-					float ageInTicks, float netHeadYaw, float headPitch) 
+			public void render(@Nonnull MatrixStack matrixStackIn, @Nonnull IRenderTypeBuffer bufferIn, int packedLightIn,
+                               @Nonnull EndFishEntity entityIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                               float ageInTicks, float netHeadYaw, float headPitch)
 			{
 				IVertexBuilder iVertexBuilder = bufferIn.getBuffer(GLOW[entityIn.getVariant()]);
 
@@ -54,7 +56,8 @@ public class EndFishEntityRenderer extends MobRenderer<EndFishEntity, EndFishEnt
 		matrixStack.scale(scale, scale, scale);
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public ResourceLocation getEntityTexture(EndFishEntity entity) 
 	{
 		return TEXTURE[entity.getVariant()];

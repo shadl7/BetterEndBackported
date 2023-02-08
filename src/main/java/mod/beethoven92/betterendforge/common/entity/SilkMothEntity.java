@@ -1,10 +1,5 @@
 package mod.beethoven92.betterendforge.common.entity;
 
-import java.util.EnumSet;
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.block.BlockProperties;
 import mod.beethoven92.betterendforge.common.block.SilkMothNestBlock;
@@ -12,11 +7,7 @@ import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModEntityTypes;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import net.minecraft.block.BlockState;
-import net.minecraft.entity.AgeableEntity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.MobEntity;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -45,6 +36,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.server.ServerWorld;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.EnumSet;
+import java.util.Objects;
+import java.util.Random;
+
 public class SilkMothEntity extends AnimalEntity implements IFlyingAnimal {
 	private BlockPos hivePos;
 	private BlockPos entrance;
@@ -59,6 +56,7 @@ public class SilkMothEntity extends AnimalEntity implements IFlyingAnimal {
 		this.experienceValue = 1;
 	}
 
+	@Nonnull
 	public static AttributeModifierMap.MutableAttribute registerAttributes() {
 		return LivingEntity.registerAttributes().createMutableAttribute(Attributes.MAX_HEALTH, 2.0D)
 				.createMutableAttribute(Attributes.FOLLOW_RANGE, 16.0D)
@@ -72,7 +70,7 @@ public class SilkMothEntity extends AnimalEntity implements IFlyingAnimal {
 	}
 
 	@Override
-	public void writeAdditional(CompoundNBT tag) {
+	public void writeAdditional(@Nonnull CompoundNBT tag) {
 		super.writeAdditional(tag);
 		if (hivePos != null) {
 			tag.put("HivePos", NBTUtil.writeBlockPos(hivePos));
@@ -81,13 +79,13 @@ public class SilkMothEntity extends AnimalEntity implements IFlyingAnimal {
 	}
 
 	@Override
-	public void readAdditional(CompoundNBT tag) {
+	public void readAdditional(@Nonnull CompoundNBT tag) {
 		super.readAdditional(tag);
 		if (tag.contains("HivePos")) {
 			hivePos = NBTUtil.readBlockPos(tag.getCompound("HivePos"));
 			ResourceLocation worldID = new ResourceLocation(tag.getString("HiveWorld"));
 			try {
-				hiveWorld = world.getServer().getWorld(RegistryKey.getOrCreateKey(Registry.WORLD_KEY, worldID));
+				hiveWorld = Objects.requireNonNull(world.getServer()).getWorld(RegistryKey.getOrCreateKey(Registry.WORLD_KEY, worldID));
 			} catch (Exception e) {
 				BetterEnd.LOGGER.warn("Silk Moth Hive World {} is missing!", worldID);
 				hivePos = null;
@@ -104,11 +102,12 @@ public class SilkMothEntity extends AnimalEntity implements IFlyingAnimal {
 		this.goalSelector.addGoal(9, new SwimGoal(this));
 	}
 
+	@Nonnull
 	@Override
-	protected PathNavigator createNavigator(World world) {
+	protected PathNavigator createNavigator(@Nonnull World world) {
 		FlyingPathNavigator birdNavigation = new FlyingPathNavigator(this, world) {
 			@Override
-			public boolean canEntityStandOnPos(BlockPos pos) {
+			public boolean canEntityStandOnPos(@Nonnull BlockPos pos) {
 				BlockState state = this.world.getBlockState(pos);
 				return state.isAir() || !state.getMaterial().blocksMovement();
 			}
@@ -150,7 +149,7 @@ public class SilkMothEntity extends AnimalEntity implements IFlyingAnimal {
 	}
 
 	@Override
-	public AgeableEntity func_241840_a(ServerWorld world, AgeableEntity entity) {
+	public AgeableEntity func_241840_a(@Nonnull ServerWorld world, @Nonnull AgeableEntity entity) {
 		return ModEntityTypes.SILK_MOTH.get().create(world);
 	}
 
@@ -160,7 +159,7 @@ public class SilkMothEntity extends AnimalEntity implements IFlyingAnimal {
 		return y > 0 && pos.getY() >= y;
 	}
 
-	class MothLookControl extends LookController {
+	static class MothLookControl extends LookController {
 		MothLookControl(MobEntity entity) {
 			super(entity);
 		}
@@ -193,7 +192,7 @@ public class SilkMothEntity extends AnimalEntity implements IFlyingAnimal {
 				try {
 					SilkMothEntity.this.navigator
 							.setPath(SilkMothEntity.this.navigator.getPathToPos(new BlockPos(vec3d), 1), 1.0D);
-				} catch (Exception e) {
+				} catch (Exception ignored) {
 				}
 			}
 		}

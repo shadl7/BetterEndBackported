@@ -1,10 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.structure;
 
-import java.util.List;
-import java.util.Random;
-
 import com.mojang.serialization.Codec;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.block.MossyGlowshroomCapBlock;
 import mod.beethoven92.betterendforge.common.block.template.FurBlock;
@@ -13,16 +9,7 @@ import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.SplineHelper;
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFBinary;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFCoordModify;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFFlatWave;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFRound;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale3D;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFSmoothUnion;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFSubtraction;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFTranslate;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFUnion;
+import mod.beethoven92.betterendforge.common.util.sdf.operator.*;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFCappedCone;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFPrimitive;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFSphere;
@@ -35,6 +22,10 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.gen.GenerationStage.Decoration;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
+
 public class GiantMossyGlowshroomStructure extends SDFStructure
 {
 	public GiantMossyGlowshroomStructure(Codec<NoFeatureConfig> p_i231997_1_)
@@ -42,13 +33,15 @@ public class GiantMossyGlowshroomStructure extends SDFStructure
 		super(p_i231997_1_);
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public Decoration getDecorationStage() 
 	{
 		return Decoration.SURFACE_STRUCTURES;
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public String getStructureName() 
 	{
 		return BetterEnd.MOD_ID + ":giant_mossy_glowshroom_structure";
@@ -101,9 +94,7 @@ public class GiantMossyGlowshroomStructure extends SDFStructure
 		int count = MathHelper.floor(height / 4);
 		List<Vector3f> spline = SplineHelper.makeSpline(0, 0, 0, 0, height, 0, count);
 		SplineHelper.offsetParts(spline, random, 1F, 0, 1F);
-		SDF sdf = SplineHelper.buildSDF(spline, 2.1F, 1.5F, (pos) -> {
-			return ModBlocks.MOSSY_GLOWSHROOM.log.get().getDefaultState();
-		});
+		SDF sdf = SplineHelper.buildSDF(spline, 2.1F, 1.5F, (pos) -> ModBlocks.MOSSY_GLOWSHROOM.log.get().getDefaultState());
 		Vector3f pos = spline.get(spline.size() - 1);
 		float scale = MathHelper.nextFloat(random, 2F, 3.5F);
 		

@@ -6,6 +6,8 @@ import net.minecraft.inventory.container.FurnaceFuelSlot;
 import net.minecraft.inventory.container.Slot;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
+
 public class SmelterFuelSlot extends Slot
 {
 	private final EndStoneSmelterContainer handler;
@@ -18,13 +20,13 @@ public class SmelterFuelSlot extends Slot
 	}
 
 	@Override
-	public boolean isItemValid(ItemStack stack)
+	public boolean isItemValid(@Nonnull ItemStack stack)
 	{
 		return this.handler.isFuel(stack) || FurnaceFuelSlot.isBucket(stack);
 	}
 	
 	@Override
-	public int getItemStackLimit(ItemStack stack)
+	public int getItemStackLimit(@Nonnull ItemStack stack)
 	{
 		return FurnaceFuelSlot.isBucket(stack) ? 1 : super.getItemStackLimit(stack);
 	}

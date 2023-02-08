@@ -1,13 +1,11 @@
 package mod.beethoven92.betterendforge.common.particles;
 
-import net.minecraft.client.particle.IAnimatedSprite;
-import net.minecraft.client.particle.IParticleFactory;
-import net.minecraft.client.particle.IParticleRenderType;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.SpriteTexturedParticle;
+import net.minecraft.client.particle.*;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nonnull;
 
 public class InfusionParticle extends SpriteTexturedParticle
 {
@@ -28,7 +26,8 @@ public class InfusionParticle extends SpriteTexturedParticle
 		this.particleScale *= 0.9F;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public IParticleRenderType getRenderType() 
 	{
 		return IParticleRenderType.PARTICLE_SHEET_TRANSLUCENT;
@@ -65,8 +64,8 @@ public class InfusionParticle extends SpriteTexturedParticle
 	    }
 	    
 	    @Override
-	    public Particle makeParticle(InfusionParticleData data, ClientWorld worldIn, double x, double y, double z,
-	    		double xSpeed, double ySpeed, double zSpeed) 
+	    public Particle makeParticle(InfusionParticleData data, @Nonnull ClientWorld worldIn, double x, double y, double z,
+                                     double xSpeed, double ySpeed, double zSpeed)
 	    {
 	    	return new InfusionParticle(worldIn, x, y, z, xSpeed, ySpeed, zSpeed, data.getPalette(), this.sprite);
 	    }

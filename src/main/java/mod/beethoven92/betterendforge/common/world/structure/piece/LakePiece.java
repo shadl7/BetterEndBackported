@@ -1,10 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.structure.piece;
 
-import java.util.Map;
-import java.util.Random;
-
 import com.google.common.collect.Maps;
-
 import mod.beethoven92.betterendforge.common.block.template.PlantBlock;
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
@@ -35,22 +31,26 @@ import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
+import javax.annotation.Nonnull;
+import java.util.Map;
+import java.util.Random;
+
 public class LakePiece extends StructurePiece
 {
 	private static final BlockState ENDSTONE = Blocks.END_STONE.getDefaultState();
 	private static final BlockState AIR = Blocks.AIR.getDefaultState();
 	private static final BlockState WATER = Blocks.WATER.getDefaultState();
 	
-	private Map<Integer, Byte> heightmap = Maps.newHashMap();
+	private final Map<Integer, Byte> heightmap = Maps.newHashMap();
 	
-	private OpenSimplexNoise noise;
-	private BlockPos center;
-	private float radius;
-	private float aspect;
-	private float depth;
-	private int seed;
+	private final OpenSimplexNoise noise;
+	private final BlockPos center;
+	private final float radius;
+	private final float aspect;
+	private final float depth;
+	private final int seed;
 	
-	private ResourceLocation biomeID;
+	private final ResourceLocation biomeID;
 
 	
 	public LakePiece(BlockPos center, float radius, float depth, Random random, Biome biome) 
@@ -104,8 +104,8 @@ public class LakePiece extends StructurePiece
 	}
 	
 	@Override
-	public boolean func_230383_a_(ISeedReader world, StructureManager manager, ChunkGenerator chunkGenerator,
-			Random random, MutableBoundingBox box, ChunkPos chunkPos, BlockPos blockPos) 
+	public boolean func_230383_a_(ISeedReader world, @Nonnull StructureManager manager, @Nonnull ChunkGenerator chunkGenerator,
+                                  @Nonnull Random random, @Nonnull MutableBoundingBox box, ChunkPos chunkPos, @Nonnull BlockPos blockPos)
 	{
 		int minY = this.boundingBox.minY;
 		int maxY = this.boundingBox.maxY;
@@ -125,7 +125,7 @@ public class LakePiece extends StructurePiece
 				int wz = z | sz;
 				double nz = wz * 0.1;
 				int z2 = wz - center.getZ();
-				float clamp = getHeightClamp(world, 8, wx, wz);
+				float clamp = getHeightClamp(world, wx, wz);
 				if (clamp < 0.01) continue;
 				
 				double n = noise.eval(nx, nz) * 1.5 + 1.5;
@@ -280,23 +280,23 @@ public class LakePiece extends StructurePiece
 		}
 	}
 	
-	private float getHeightClamp(ISeedReader world, int radius, int posX, int posZ) 
+	private float getHeightClamp(ISeedReader world, int posX, int posZ)
 	{
 		Mutable mut = new Mutable();
-		int r2 = radius * radius;
+		int r2 = 8 * 8;
 		float height = 0;
 		float max = 0;
-		for (int x = -radius; x <= radius; x++) 
+		for (int x = -8; x <= 8; x++)
 		{
 			mut.setX(posX + x);
 			int x2 = x * x;
-			for (int z = -radius; z <= radius; z++)
+			for (int z = -8; z <= 8; z++)
 			{
 				mut.setZ(posZ + z);
 				int z2 = z * z;
 				if (x2 + z2 < r2) 
 				{
-					float mult = 1 - (float) Math.sqrt(x2 + z2) / radius;
+					float mult = 1 - (float) Math.sqrt(x2 + z2) / 8;
 					max += mult;
 					height += getHeight(world, mut) * mult;
 				}

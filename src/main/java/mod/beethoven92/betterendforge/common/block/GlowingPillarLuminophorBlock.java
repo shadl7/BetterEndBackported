@@ -11,6 +11,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
+import javax.annotation.Nonnull;
+
 public class GlowingPillarLuminophorBlock extends Block {
 	public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
 
@@ -20,13 +22,14 @@ public class GlowingPillarLuminophorBlock extends Block {
 	}
 
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-		return state.get(NATURAL) ? world.getBlockState(pos.down()).isIn(ModBlocks.GLOWING_PILLAR_ROOTS.get()) : true;
+	public boolean isValidPosition(BlockState state, @Nonnull IWorldReader world, @Nonnull BlockPos pos) {
+		return !state.get(NATURAL) || world.getBlockState(pos.down()).isIn(ModBlocks.GLOWING_PILLAR_ROOTS.get());
 	}
 
-	@Override
-	public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState facingState, IWorld world,
-			BlockPos pos, BlockPos facingPos) {
+	@Nonnull
+    @Override
+	public BlockState updatePostPlacement(@Nonnull BlockState state, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld world,
+                                          @Nonnull BlockPos pos, @Nonnull BlockPos facingPos) {
 		if (!isValidPosition(state, world, pos)) {
 			return Blocks.AIR.getDefaultState();
 		} else {

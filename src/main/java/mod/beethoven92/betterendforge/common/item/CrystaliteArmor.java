@@ -1,11 +1,8 @@
 package mod.beethoven92.betterendforge.common.item;
 
-import java.util.UUID;
-
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.client.model.CrystaliteBootsModel;
 import mod.beethoven92.betterendforge.client.model.CrystaliteChestplateModel;
@@ -31,6 +28,8 @@ import net.minecraft.potion.Effects;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.UUID;
 
 public class CrystaliteArmor extends ArmorItem {
 

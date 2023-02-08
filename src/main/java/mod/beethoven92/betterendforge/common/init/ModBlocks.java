@@ -1,39 +1,18 @@
 package mod.beethoven92.betterendforge.common.init;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
-
 import com.google.common.collect.ImmutableList;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.block.*;
+import mod.beethoven92.betterendforge.common.block.EndPortalBlock;
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
 import mod.beethoven92.betterendforge.common.block.material.ColoredMaterial;
 import mod.beethoven92.betterendforge.common.block.material.MetalMaterial;
 import mod.beethoven92.betterendforge.common.block.material.StoneMaterial;
 import mod.beethoven92.betterendforge.common.block.material.WoodenMaterial;
-import mod.beethoven92.betterendforge.common.block.template.ChandelierBlock;
-import mod.beethoven92.betterendforge.common.block.template.EndCropBlock;
-import mod.beethoven92.betterendforge.common.block.template.EndFurnaceBlock;
-import mod.beethoven92.betterendforge.common.block.template.EndVineBlock;
-import mod.beethoven92.betterendforge.common.block.template.FurBlock;
-import mod.beethoven92.betterendforge.common.block.template.PedestalBlock;
-import mod.beethoven92.betterendforge.common.block.template.PlantBlockWithAge;
-import mod.beethoven92.betterendforge.common.block.template.UnderwaterWallPlantBlock;
-import mod.beethoven92.betterendforge.common.block.template.WallMushroomBlock;
-import mod.beethoven92.betterendforge.common.block.template.WallPlantBlock;
+import mod.beethoven92.betterendforge.common.block.template.*;
 import mod.beethoven92.betterendforge.common.item.ModArmorMaterial;
 import mod.beethoven92.betterendforge.common.item.ModItemTier;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowerPotBlock;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.StairsBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.*;
@@ -42,6 +21,10 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
 
 public class ModBlocks 
 {
@@ -139,7 +122,7 @@ public class ModBlocks
 
 
 	public static final RegistryObject<Block> FLAMMALIX = registerBlockWithDefaultItem("flammalix",
-			() -> new FlammalixBlock());
+			FlammalixBlock::new);
 
 
 	public static final RegistryObject<Block> ENDSTONE_DUST = registerBlockWithDefaultItem("endstone_dust", 
@@ -185,8 +168,8 @@ public class ModBlocks
 			() -> new PathBlock(RUTISCUS.get()));
 	
 	
-	public static final RegistryObject<Block> MOSSY_OBSIDIAN = registerBlockWithDefaultItem("mossy_obsidian", 
-			() -> new MossyObsidianBlock());
+	public static final RegistryObject<Block> MOSSY_OBSIDIAN = registerBlockWithDefaultItem("mossy_obsidian",
+			MossyObsidianBlock::new);
 	
 	public static final RegistryObject<RotatedPillarBlock> DRAGON_BONE_BLOCK = registerBlockWithDefaultItem("dragon_bone_block", 
 			() -> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.SAND).setRequiresTool().hardnessAndResistance(2.0F).sound(SoundType.BONE)));
@@ -197,8 +180,8 @@ public class ModBlocks
 	public static final RegistryObject<SlabBlock> DRAGON_BONE_SLAB = registerBlockWithDefaultItem("dragon_bone_slab", 
 			() -> new SlabBlock(AbstractBlock.Properties.from(DRAGON_BONE_BLOCK.get())));
 
-	public static final RegistryObject<Block> MOSSY_DRAGON_BONE = registerBlockWithDefaultItem("mossy_dragon_bone", 
-			() -> new MossyDragonBoneBlock());
+	public static final RegistryObject<Block> MOSSY_DRAGON_BONE = registerBlockWithDefaultItem("mossy_dragon_bone",
+			MossyDragonBoneBlock::new);
 
 	// MATERIALS
 	public static final RegistryObject<Block> AETERNIUM_BLOCK = registerBlockWithDefaultItem("aeternium_block",
@@ -218,9 +201,9 @@ public class ModBlocks
 					                                              harvestTool(ToolType.PICKAXE).
 					                                              hardnessAndResistance(1F).
 					                                              sound(SoundType.GLASS).
-					                                              setLightLevel((value) -> {return 15;}).
-					                                              setSuffocates((state, world, pos) -> { return false; }).
-					                                              setOpaque((state, world, pos) -> { return false; }).
+					                                              setLightLevel((value) -> 15).
+					                                              setSuffocates((state, world, pos) -> false).
+					                                              setOpaque((state, world, pos) -> false).
 					                                              notSolid()));
 	
 	public static final RegistryObject<Block> AMBER_BLOCK = registerBlockWithDefaultItem("amber_block", 
@@ -233,14 +216,14 @@ public class ModBlocks
 			() -> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.GREEN).
 					                                 harvestTool(ToolType.PICKAXE).
 					                                 hardnessAndResistance(1F).
-					                                 setLightLevel((value) -> {return 15;}).
+					                                 setLightLevel((value) -> 15).
 					                                 sound(SoundType.GLASS)));
 	
 	public static final RegistryObject<Block> SMARAGDANT_CRYSTAL_SHARD = registerBlockWithDefaultItem("smaragdant_crystal_shard", 
 			() -> new SmaragdantCrystalShardBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.GREEN).
 					                                                       harvestTool(ToolType.PICKAXE).
 					                                                       setRequiresTool().
-					                                                       setLightLevel((value) -> {return 15;}).
+					                                                       setLightLevel((value) -> 15).
 					                                                       doesNotBlockMovement().     
 					                                                       sound(SoundType.GLASS)));
 	
@@ -267,8 +250,8 @@ public class ModBlocks
 			() -> new ModLanternBlock(AbstractBlock.Properties.from(Blocks.BLACKSTONE).
                     setLightLevel(s -> 15)));  
 	  
-    public static final RegistryObject<Block> IRON_BULB_LANTERN = registerBlockWithDefaultItem("iron_bulb_lantern", 
-    		() -> new BulbVineLanternBlock());
+    public static final RegistryObject<Block> IRON_BULB_LANTERN = registerBlockWithDefaultItem("iron_bulb_lantern",
+			BulbVineLanternBlock::new);
     
 	public static final RegistryObject<Block> IRON_CHANDELIER = registerBlockWithDefaultItem("iron_chandelier", 
 			() -> new ChandelierBlock(AbstractBlock.Properties.from(Blocks.IRON_BLOCK).
@@ -350,25 +333,25 @@ public class ModBlocks
 	public static final RegistryObject<Block> UMBRELLA_MOSS = registerBlockWithDefaultItem("umbrella_moss", 
 			() -> new UmbrellaMossBlock(AbstractBlock.Properties.create(Material.PLANTS).
 					                                             zeroHardnessAndResistance().
-					                                             setLightLevel((value) -> {return 11;}).
+					                                             setLightLevel((value) -> 11).
 					                                             doesNotBlockMovement().
 					                                             sound(SoundType.PLANT).
-					                                             setEmmisiveRendering((state, reader, pos) -> {return true;})));
+					                                             setEmmisiveRendering((state, reader, pos) -> true)));
 			
 	public static final RegistryObject<Block> UMBRELLA_MOSS_TALL = registerBlockWithDefaultItem("umbrella_moss_tall", 
 			() -> new UmbrellaMossTallBlock(AbstractBlock.Properties.create(Material.PLANTS).
 					                                                 zeroHardnessAndResistance().
-                                                                     setLightLevel((state) -> { return state.get(UmbrellaMossTallBlock.TOP) ? 12 : 0; }).
+                                                                     setLightLevel((state) -> state.get(UmbrellaMossTallBlock.TOP) ? 12 : 0).
                                                                      doesNotBlockMovement().
                                                                      sound(SoundType.PLANT)));
 	
 	public static final RegistryObject<Block> CREEPING_MOSS = registerBlockWithDefaultItem("creeping_moss",
 			() -> new GlowingMossBlock(AbstractBlock.Properties.create(Material.PLANTS).
                                                                 zeroHardnessAndResistance().
-                                                                setLightLevel((value) -> {return 11;}).
+                                                                setLightLevel((value) -> 11).
                                                                 doesNotBlockMovement().
                                                                 sound(SoundType.PLANT).
-                                                                setEmmisiveRendering((state, reader, pos) -> {return true;})));
+                                                                setEmmisiveRendering((state, reader, pos) -> true)));
 	
 	public static final RegistryObject<Block> CHORUS_GRASS = registerBlockWithDefaultItem("chorus_grass", 
 			() -> new ChorusGrassBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).
@@ -432,8 +415,8 @@ public class ModBlocks
 	public static final RegistryObject<Block> LAMELLARIUM = registerBlockWithDefaultItem("lamellarium", 
 			() -> new TerrainPlantBlock(RUTISCUS.get()));
 	
-	public static final RegistryObject<Block> BOLUX_MUSHROOM = registerBlockWithDefaultItem("bolux_mushroom", 
-			() -> new BoluxMushroomBlock());
+	public static final RegistryObject<Block> BOLUX_MUSHROOM = registerBlockWithDefaultItem("bolux_mushroom",
+			BoluxMushroomBlock::new);
 
 
 	
@@ -455,13 +438,13 @@ public class ModBlocks
                                                                     zeroHardnessAndResistance().
                                                                     harvestTool(ToolType.AXE).
                                                                     setRequiresTool().
-                                                                    setLightLevel((value) -> {return 15;}).
+                                                                    setLightLevel((value) -> 15).
                                                                     sound(SoundType.WART)));
 	
 	public static final RegistryObject<Block> BLUE_VINE_FUR = registerBlockWithDefaultItem("blue_vine_fur", 
 			() -> new FurBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).
                                                                zeroHardnessAndResistance().
-                                                               setLightLevel((value) -> {return 15;}).
+                                                               setLightLevel((value) -> 15).
                                                                doesNotBlockMovement().
                                                                sound(SoundType.WET_GRASS)));
 	
@@ -470,9 +453,9 @@ public class ModBlocks
                                                            hardnessAndResistance(0.2F).tickRandomly().
                                                            sound(SoundType.PLANT).
                                                            notSolid().
-                                                           setSuffocates((state, world, pos) -> { return false;}).
-                                                           setAllowsSpawn((state, reader, pos, entity) -> {return false;}).
-                                                           setBlocksVision((state, reader, pos) -> {return false;})));
+                                                           setSuffocates((state, world, pos) -> false).
+                                                           setAllowsSpawn((state, reader, pos, entity) -> false).
+                                                           setBlocksVision((state, reader, pos) -> false)));
 	
 	public static final RegistryObject<Block> END_LILY_SEED = registerBlockWithDefaultItem("end_lily_seed",
 			() -> new EndLilySeedBlock(AbstractBlock.Properties.create(Material.OCEAN_PLANT).
@@ -485,7 +468,7 @@ public class ModBlocks
 			() -> new EndLilyBlock(AbstractBlock.Properties.create(Material.OCEAN_PLANT).
 					                                        sound(SoundType.WET_GRASS).
 					                                        doesNotBlockMovement().
-					                                        setLightLevel((state) -> {return state.get(EndLilyBlock.SHAPE) == TripleShape.TOP ? 13 : 0;}).
+					                                        setLightLevel((state) -> state.get(EndLilyBlock.SHAPE) == TripleShape.TOP ? 13 : 0).
 					                                        zeroHardnessAndResistance()));
 	
 	public static final RegistryObject<Block> END_LOTUS_SEED = registerBlockWithDefaultItem("end_lotus_seed",
@@ -500,14 +483,14 @@ public class ModBlocks
 	
 	public static final RegistryObject<Block> END_LOTUS_LEAF = registerBlock("end_lotus_leaf",
 			() -> new EndLotusLeafBlock(AbstractBlock.Properties.create(Material.PLANTS).
-					                                             setOpaque((state, world, pos) -> { return false; }).
+					                                             setOpaque((state, world, pos) -> false).
 					                                             notSolid().
 					                                             sound(SoundType.WET_GRASS)));
 		
 	public static final RegistryObject<Block> END_LOTUS_FLOWER = registerBlock("end_lotus_flower",
 			() -> new EndLotusFlowerBlock(AbstractBlock.Properties.create(Material.PLANTS).
-					                                               setOpaque((state, world, pos) -> { return false; }).
-					                                               setLightLevel((value) -> {return 15;})));
+					                                               setOpaque((state, world, pos) -> false).
+					                                               setLightLevel((value) -> 15)));
 	
 	public static final RegistryObject<Block> BUBBLE_CORAL = registerBlockWithDefaultItem("bubble_coral",
 			() -> new BubbleCoralBlock(AbstractBlock.Properties.create(Material.OCEAN_PLANT).
@@ -570,7 +553,7 @@ public class ModBlocks
 					                                        doesNotBlockMovement()));
 	
 	public static final RegistryObject<Block> FLAMAEA = registerBlock("flamaea",
-			() -> new FlamaeaBlock());
+			FlamaeaBlock::new);
 	
 	public static final RegistryObject<Block> HYDRALUX_SAPLING = registerBlockWithDefaultItem("hydralux_sapling",
 			() -> new HydraluxSaplingBlock(AbstractBlock.Properties.create(Material.OCEAN_PLANT).
@@ -583,7 +566,7 @@ public class ModBlocks
 			() -> new HydraluxBlock(AbstractBlock.Properties.create(Material.OCEAN_PLANT).
 					                                                zeroHardnessAndResistance().
 					                                                sound(SoundType.WET_GRASS).
-					                                                setLightLevel((state) -> {return (state.get(HydraluxBlock.SHAPE).hasGlow()) ? 15 : 0;}).
+					                                                setLightLevel((state) -> (state.get(HydraluxBlock.SHAPE).hasGlow()) ? 15 : 0).
 					                                                doesNotBlockMovement()));
 	
 	public static final RegistryObject<Block> HYDRALUX_PETAL_BLOCK = registerBlockWithDefaultItem("hydralux_petal_block",
@@ -649,15 +632,15 @@ public class ModBlocks
 	public static final RegistryObject<Block> TWISTED_UMBRELLA_MOSS = registerBlockWithDefaultItem("twisted_umbrella_moss", 
 			() -> new TwistedUmbrellaMossBlock(AbstractBlock.Properties.create(Material.PLANTS).
 					                                             zeroHardnessAndResistance().
-					                                             setLightLevel((value) -> {return 11;}).
+					                                             setLightLevel((value) -> 11).
 					                                             doesNotBlockMovement().
 					                                             sound(SoundType.PLANT).
-					                                             setEmmisiveRendering((state, reader, pos) -> {return true;})));
+					                                             setEmmisiveRendering((state, reader, pos) -> true)));
 	
 	public static final RegistryObject<Block> TWISTED_UMBRELLA_MOSS_TALL = registerBlockWithDefaultItem("twisted_umbrella_moss_tall", 
 			() -> new TwistedUmbrellaMossTallBlock(AbstractBlock.Properties.create(Material.PLANTS).
 					                                                 zeroHardnessAndResistance().
-                                                                     setLightLevel((state) -> { return state.get(TwistedUmbrellaMossTallBlock.TOP) ? 12 : 0; }).
+                                                                     setLightLevel((state) -> state.get(TwistedUmbrellaMossTallBlock.TOP) ? 12 : 0).
                                                                      doesNotBlockMovement().
                                                                      sound(SoundType.PLANT)));
 	
@@ -667,17 +650,17 @@ public class ModBlocks
                                                                      doesNotBlockMovement().
                                                                      sound(SoundType.NETHER_WART)));
 	
-	public static final RegistryObject<Block> NEON_CACTUS = registerBlockWithDefaultItem("neon_cactus", 
-			() -> new NeonCactusPlantBlock());
+	public static final RegistryObject<Block> NEON_CACTUS = registerBlockWithDefaultItem("neon_cactus",
+			NeonCactusPlantBlock::new);
 	
 	public static final RegistryObject<Block> NEON_CACTUS_BLOCK = registerBlockWithDefaultItem("neon_cactus_block", 
-			() -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.CACTUS).setLightLevel(s -> { return 15; } )));
+			() -> new RotatedPillarBlock(AbstractBlock.Properties.from(Blocks.CACTUS).setLightLevel(s -> 15)));
 	
 	public static final RegistryObject<Block> NEON_CACTUS_BLOCK_STAIRS = registerBlockWithDefaultItem("neon_cactus_stairs", 
-			() -> new StairsBlock(() -> NEON_CACTUS_BLOCK.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.CACTUS).setLightLevel(s -> { return 15; })));
+			() -> new StairsBlock(() -> NEON_CACTUS_BLOCK.get().getDefaultState(), AbstractBlock.Properties.from(Blocks.CACTUS).setLightLevel(s -> 15)));
 	
 	public static final RegistryObject<Block> NEON_CACTUS_BLOCK_SLAB = registerBlockWithDefaultItem("neon_cactus_slab", 
-			() -> new SlabBlock(AbstractBlock.Properties.from(Blocks.CACTUS).setLightLevel(s -> { return 15; })));	
+			() -> new SlabBlock(AbstractBlock.Properties.from(Blocks.CACTUS).setLightLevel(s -> 15)));
 	// CROPS
 	public static final RegistryObject<Block> SHADOW_BERRY = registerBlockWithDefaultItem("shadow_berry", 
 			() -> new ShadowBerryBlock(AbstractBlock.Properties.create(Material.PLANTS).
@@ -711,15 +694,6 @@ public class ModBlocks
                                                             tickRandomly().
                                                             sound(SoundType.PLANT),
                                                             CHORUS_NYLIUM.get()));
-	
-//	public static final RegistryObject<Block> PEARLBERRY = registerBlockWithDefaultItem("pearlberry_seed",
-//			() -> new EndCropBlock(AbstractBlock.Properties.create(Material.PLANTS).
-//                                                            zeroHardnessAndResistance().
-//                                                            doesNotBlockMovement().
-//                                                            tickRandomly().
-//                                                            sound(SoundType.PLANT),
-//                                                            END_MOSS.get(), END_MYCELIUM.get()));
-
 
 
 	// WALL PLANTS
@@ -729,7 +703,7 @@ public class ModBlocks
 					                                             hardnessAndResistance(0.2F).
                                                                  doesNotBlockMovement().
                                                                  sound(SoundType.WOOD).
-                                                                 setLightLevel((value) -> {return 13;})));
+                                                                 setLightLevel((value) -> 13)));
 	
 	public static final RegistryObject<Block> AURANT_POLYPORE = registerBlockWithDefaultItem("aurant_polypore", 
 			() -> new WallMushroomBlock(AbstractBlock.Properties.create(Material.PLANTS).
@@ -737,7 +711,7 @@ public class ModBlocks
 					                                             hardnessAndResistance(0.2F).
                                                                  doesNotBlockMovement().
                                                                  sound(SoundType.WOOD).
-                                                                 setLightLevel((value) -> {return 13;})));
+                                                                 setLightLevel((value) -> 13)));
 	
 	public static final RegistryObject<Block> TAIL_MOSS = registerBlockWithDefaultItem("tail_moss", 
 			() -> new WallPlantBlock(AbstractBlock.Properties.create(Material.PLANTS).
@@ -783,15 +757,15 @@ public class ModBlocks
                                                               sound(SoundType.PLANT)));
 
 	
-	public static final RegistryObject<Block> POND_ANEMONE = registerBlockWithDefaultItem("pond_anemone", 
-			() -> new PondAnemoneBlock());
+	public static final RegistryObject<Block> POND_ANEMONE = registerBlockWithDefaultItem("pond_anemone",
+			PondAnemoneBlock::new);
 	
 	// VINES
 	public static final RegistryObject<Block> DENSE_VINE = registerBlockWithDefaultItem("dense_vine",
 			() -> new EndVineBlock(AbstractBlock.Properties.create(Material.PLANTS).
 					                                        zeroHardnessAndResistance().
 					                                        doesNotBlockMovement().
-					                                        setLightLevel((state) -> {return state.get(EndVineBlock.SHAPE) == TripleShape.BOTTOM ? 15 : 0;}).
+					                                        setLightLevel((state) -> state.get(EndVineBlock.SHAPE) == TripleShape.BOTTOM ? 15 : 0).
 					                                        sound(SoundType.PLANT)));
 	
 	public static final RegistryObject<Block> TWISTED_VINE = registerBlockWithDefaultItem("twisted_vine",
@@ -804,7 +778,7 @@ public class ModBlocks
 			() -> new BulbVineBlock(AbstractBlock.Properties.create(Material.PLANTS).
 					                                        zeroHardnessAndResistance().
 					                                        doesNotBlockMovement().
-					                                        setLightLevel((state) -> {return state.get(EndVineBlock.SHAPE) == TripleShape.BOTTOM ? 15 : 0;}).
+					                                        setLightLevel((state) -> state.get(EndVineBlock.SHAPE) == TripleShape.BOTTOM ? 15 : 0).
 					                                        sound(SoundType.PLANT)));
 	
 	public static final RegistryObject<Block> BULB_VINE_SEED = registerBlockWithDefaultItem("bulb_vine_seed",
@@ -832,7 +806,7 @@ public class ModBlocks
 					                                                       zeroHardnessAndResistance().
 					                                                       doesNotBlockMovement().
 					                                                       sound(SoundType.PLANT).
-					                                                       setLightLevel((value) -> {return 7;}).
+					                                                       setLightLevel((value) -> 7).
 					                                                       tickRandomly()));
 	
 	public static final RegistryObject<Block> MOSSY_GLOWSHROOM_CAP = registerBlockWithDefaultItem("mossy_glowshroom_cap", 
@@ -846,12 +820,12 @@ public class ModBlocks
                                                      harvestTool(ToolType.AXE).
                                                      setRequiresTool().
                                                      sound(SoundType.WART).
-                                                     setLightLevel((value) -> {return 15;})));
+                                                     setLightLevel((value) -> 15)));
 	
 	public static final RegistryObject<Block> MOSSY_GLOWSHROOM_FUR = registerBlockWithDefaultItem("mossy_glowshroom_fur", 
 			() -> new FurBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).
 					                                           zeroHardnessAndResistance().
-					                                           setLightLevel((value) -> {return 15;}).
+					                                           setLightLevel((value) -> 15).
 					                                           doesNotBlockMovement().
 					                                           sound(SoundType.WET_GRASS)));
 		
@@ -867,9 +841,9 @@ public class ModBlocks
                                                            hardnessAndResistance(0.2F).tickRandomly().
 					                                       sound(SoundType.PLANT).
 					                                       notSolid().
-					                                       setSuffocates((state, world, pos) -> { return false; }).
-					                                       setAllowsSpawn((state, reader, pos, entity) -> {return false;}).
-					                                       setBlocksVision((state, reader, pos) -> {return false;})));
+					                                       setSuffocates((state, world, pos) -> false).
+					                                       setAllowsSpawn((state, reader, pos, entity) -> false).
+					                                       setBlocksVision((state, reader, pos) -> false)));
 	
 	public static final RegistryObject<Block> PYTHADENDRON_SAPLING = registerBlockWithDefaultItem("pythadendron_sapling", 
 			() -> new PythadendronSaplingBlock(AbstractBlock.Properties.create(Material.PLANTS).
@@ -884,9 +858,9 @@ public class ModBlocks
 					                                       tickRandomly().
                                                            sound(SoundType.PLANT).
                                                            notSolid().
-                                                           setSuffocates((state, world, pos) -> { return false; }).
-                                                           setAllowsSpawn((state, reader, pos, entity) -> {return false;}).
-                                                           setBlocksVision((state, reader, pos) -> {return false;})));
+                                                           setSuffocates((state, world, pos) -> false).
+                                                           setAllowsSpawn((state, reader, pos, entity) -> false).
+                                                           setBlocksVision((state, reader, pos) -> false)));
 	
 	public static final RegistryObject<Block> DRAGON_TREE_SAPLING = registerBlockWithDefaultItem("dragon_tree_sapling", 
 			() -> new DragonTreeSaplingBlock(AbstractBlock.Properties.create(Material.PLANTS).
@@ -901,9 +875,9 @@ public class ModBlocks
 					                                       tickRandomly().
                                                            sound(SoundType.PLANT).
                                                            notSolid().
-                                                           setSuffocates((state, world, pos) -> { return false; }).
-                                                           setAllowsSpawn((state, reader, pos, entity) -> {return false;}).
-                                                           setBlocksVision((state, reader, pos) -> {return false;})));
+                                                           setSuffocates((state, world, pos) -> false).
+                                                           setAllowsSpawn((state, reader, pos, entity) -> false).
+                                                           setBlocksVision((state, reader, pos) -> false)));
 	
 	public static final RegistryObject<Block> TENANEA_SAPLING = registerBlockWithDefaultItem("tenanea_sapling", 
 			() -> new TenaneaSaplingBlock(AbstractBlock.Properties.create(Material.PLANTS).
@@ -918,15 +892,15 @@ public class ModBlocks
 					                                       tickRandomly().
                                                            sound(SoundType.PLANT).
                                                            notSolid().
-                                                           setSuffocates((state, world, pos) -> { return false; }).
-                                                           setAllowsSpawn((state, reader, pos, entity) -> {return false;}).
-                                                           setBlocksVision((state, reader, pos) -> {return false;})));
+                                                           setSuffocates((state, world, pos) -> false).
+                                                           setAllowsSpawn((state, reader, pos, entity) -> false).
+                                                           setBlocksVision((state, reader, pos) -> false)));
 	
 	public static final RegistryObject<Block> TENANEA_FLOWERS = registerBlockWithDefaultItem("tenanea_flowers",
 			() -> new TenaneaFlowersBlock(AbstractBlock.Properties.create(Material.PLANTS).
 					                                               zeroHardnessAndResistance().
 					                                               doesNotBlockMovement().
-					                                               setLightLevel((state) -> {return 15;}).
+					                                               setLightLevel((state) -> 15).
 					                                               sound(SoundType.PLANT)));
 	
 	public static final RegistryObject<Block> TENANEA_OUTER_LEAVES = registerBlockWithDefaultItem("tenanea_outer_leaves", 
@@ -948,9 +922,9 @@ public class ModBlocks
 					                                       tickRandomly().
                                                            sound(SoundType.NETHER_WART).
                                                            notSolid().
-                                                           setSuffocates((state, world, pos) -> { return false; }).
-                                                           setAllowsSpawn((state, reader, pos, entity) -> {return false;}).
-                                                           setBlocksVision((state, reader, pos) -> {return false;})));
+                                                           setSuffocates((state, world, pos) -> false).
+                                                           setAllowsSpawn((state, reader, pos, entity) -> false).
+                                                           setBlocksVision((state, reader, pos) -> false)));
 	
 	public static final RegistryObject<Block> UMBRELLA_TREE_SAPLING = registerBlockWithDefaultItem("umbrella_tree_sapling",
 			() -> new UmbrellaTreeSaplingBlock(AbstractBlock.Properties.create(Material.PLANTS).
@@ -965,7 +939,7 @@ public class ModBlocks
 	public static final RegistryObject<Block> UMBRELLA_TREE_CLUSTER = registerBlockWithDefaultItem("umbrella_tree_cluster",
 			() -> new UmbrellaTreeClusterBlock(AbstractBlock.Properties.create(Material.ORGANIC, MaterialColor.PURPLE).
 					                                                    hardnessAndResistance(1.0F).
-					                                                    setLightLevel((value) -> {return 15;}).
+					                                                    setLightLevel((value) -> 15).
 					                                                    sound(SoundType.WART)));
 	
 	public static final RegistryObject<Block> UMBRELLA_TREE_CLUSTER_EMPTY = registerBlockWithDefaultItem("umbrella_tree_cluster_empty",
@@ -975,10 +949,10 @@ public class ModBlocks
 					                                                    sound(SoundType.WART)));
 	
 	public static final RegistryObject<Block> SMALL_AMARANITA_MUSHROOM = registerBlockWithDefaultItem("small_amaranita_mushroom",
-			() -> new SmallAmaranitaBlock());
+			SmallAmaranitaBlock::new);
 	
 	public static final RegistryObject<Block> LARGE_AMARANITA_MUSHROOM = registerBlock("large_amaranita_mushroom",
-			() -> new LargeAmaranitaBlock());
+			LargeAmaranitaBlock::new);
 	
 	public static final RegistryObject<Block> AMARANITA_STEM = registerBlockWithDefaultItem("amaranita_stem",
 			() -> new RotatedPillarBlock(AbstractBlock.Properties.create(Material.WOOD, MaterialColor.LIME).hardnessAndResistance(2.0F, 3.0F).sound(SoundType.WOOD)));
@@ -995,7 +969,7 @@ public class ModBlocks
 	public static final RegistryObject<Block> AMARANITA_FUR = registerBlockWithDefaultItem("amaranita_fur",
 			() -> new FurBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS).
                     zeroHardnessAndResistance().
-                    setLightLevel((value) -> {return 15;}).
+                    setLightLevel((value) -> 15).
                     doesNotBlockMovement().
                     sound(SoundType.WET_GRASS)));
 	
@@ -1020,14 +994,12 @@ public class ModBlocks
 					                                           hardnessAndResistance(4F, 100F).
 					                                           setRequiresTool().
 					                                           sound(SoundType.STONE).
-					                                           setLightLevel((state) -> {
-					                                        	   return state.get(BlockStateProperties.LIT) ? 13 : 0;}
+					                                           setLightLevel((state) -> state.get(BlockStateProperties.LIT) ? 13 : 0
 					                                           )));
 	
 	public static final RegistryObject<Block> END_STONE_FURNACE = registerBlockWithDefaultItem("end_stone_furnace", 
 			() -> new EndFurnaceBlock(AbstractBlock.Properties.from(Blocks.END_STONE).
-					                                           setLightLevel((state) -> {
-					                                        	   return state.get(BlockStateProperties.LIT) ? 13 : 0;}
+					                                           setLightLevel((state) -> state.get(BlockStateProperties.LIT) ? 13 : 0
 					                                           )));
 	
 	// MISC
@@ -1055,21 +1027,19 @@ public class ModBlocks
 					                                          tickRandomly().
 					                                          hardnessAndResistance(-1.0F).
 					                                          sound(SoundType.GLASS).
-					                                          setLightLevel((state) -> {return 12;}).
+					                                          setLightLevel((state) -> 12).
 					                                          noDrops()));
 	
 	public static final RegistryObject<Block> RESPAWN_OBELISK = registerBlockWithDefaultItem("respawn_obelisk",
 			() -> new RespawnObeliskBlock(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.SAND).
 					setRequiresTool().
 					hardnessAndResistance(3.0F, 9.0F).
-					setLightLevel((state) -> {
-						return (state.get(RespawnObeliskBlock.SHAPE) == TripleShape.BOTTOM) ? 0 : 15;
-					})));
+					setLightLevel((state) -> (state.get(RespawnObeliskBlock.SHAPE) == TripleShape.BOTTOM) ? 0 : 15)));
 	
 	public static final RegistryObject<Block> VENT_BUBBLE_COLUMN = registerBlock("vent_bubble_column",
 			() -> new VentBubbleColumnBlock(AbstractBlock.Properties.create(Material.BUBBLE_COLUMN).
                                                                      doesNotBlockMovement().
-                                                                     setOpaque((state, world, pos) -> { return false; }).
+                                                                     setOpaque((state, world, pos) -> false).
                                                                      noDrops()));
 	
 	public static final RegistryObject<Block> MISSING_TILE = registerBlockWithDefaultItem("missing_tile",
@@ -1112,21 +1082,21 @@ public class ModBlocks
                     hardnessAndResistance(0.2F).tickRandomly().
                     sound(SoundType.PLANT).
                     notSolid().
-                    setSuffocates((state, world, pos) -> { return false; }).
-                    setAllowsSpawn((state, reader, pos, entity) -> {return false;}).
-                    setBlocksVision((state, reader, pos) -> {return false;})));
+                    setSuffocates((state, world, pos) -> false).
+                    setAllowsSpawn((state, reader, pos, entity) -> false).
+                    setBlocksVision((state, reader, pos) -> false)));
 	
 	public static final RegistryObject<Block> LUCERNIA_OUTER_LEAVES = registerBlockWithDefaultItem("lucernia_outer_leaves",
 			() -> new FurBlock(AbstractBlock.Properties.create(Material.TALL_PLANTS, MaterialColor.ADOBE).
                     zeroHardnessAndResistance().
-                    setLightLevel((value) -> {return 15;}).
+                    setLightLevel((value) -> 15).
                     doesNotBlockMovement().
                     sound(SoundType.WET_GRASS)));
 	
 	public static final RegistryObject<Block> FILALUX = registerBlockWithDefaultItem("filalux",
-			() -> new FilaluxBlock());
+			FilaluxBlock::new);
 	public static final RegistryObject<Block> FILALUX_WINGS = registerBlockWithDefaultItem("filalux_wings",
-			() -> new FilaluxWingsBlock());
+			FilaluxWingsBlock::new);
 	public static final RegistryObject<Block> FILALUX_LANTERN = registerBlockWithDefaultItem("filalux_lantern",
 			() -> new Block(AbstractBlock.Properties.create(Material.WOOD).setLightLevel(b -> 15).sound(SoundType.WOOD).harvestTool(ToolType.AXE)));
 
@@ -1155,11 +1125,11 @@ public class ModBlocks
 
     
     // COLORED MATERIALS
-    public static final ColoredMaterial HYDRALUX_PETAL_BLOCK_COLORED = new ColoredMaterial("hydralux_petal_block", 
-    		() -> new HydraluxPetalBlockColored(), HYDRALUX_PETAL_BLOCK, true);
+    public static final ColoredMaterial HYDRALUX_PETAL_BLOCK_COLORED = new ColoredMaterial("hydralux_petal_block",
+			HydraluxPetalBlockColored::new, HYDRALUX_PETAL_BLOCK, true);
    
-    public static final ColoredMaterial IRON_BULB_LANTERN_COLORED = new ColoredMaterial("iron_bulb_lantern", 
-    		() -> new BulbVineLanternBlock(), IRON_BULB_LANTERN, false);
+    public static final ColoredMaterial IRON_BULB_LANTERN_COLORED = new ColoredMaterial("iron_bulb_lantern",
+			BulbVineLanternBlock::new, IRON_BULB_LANTERN, false);
     
 	
 	//////////////////////////////////////////////////////
@@ -1182,8 +1152,7 @@ public class ModBlocks
 
 	public static <T extends Block> RegistryObject<T> registerBlockWithNoItem(String name, Supplier<? extends T> blockSupplier)
 	{
-		RegistryObject<T> block = BLOCKS.register(name, blockSupplier);
-		return block;
+        return BLOCKS.register(name, blockSupplier);
 	}
 
 
@@ -1198,8 +1167,7 @@ public class ModBlocks
 	
 	public static RegistryObject<Block> registerFlowerPotBlock(String name, Supplier<? extends Block> plant)
 	{
-		RegistryObject<Block> flowerPot = BLOCKS.register(name, () -> new FlowerPotBlock(plant.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
-		return flowerPot;
+        return BLOCKS.register(name, () -> new FlowerPotBlock(plant.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
 	}
 	
 	public static WoodenMaterial createWoodenMaterial(String name, MaterialColor woodColor, MaterialColor planksColor) {

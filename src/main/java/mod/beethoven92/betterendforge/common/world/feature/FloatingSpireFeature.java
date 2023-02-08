@@ -1,10 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.List;
-import java.util.Random;
-
 import com.google.common.collect.Lists;
-
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.init.ModFeatures;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
@@ -20,11 +16,15 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap.Type;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
+
 public class FloatingSpireFeature extends SpireFeature
 {
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos,
-		NoFeatureConfig config) 
+	public boolean generate(@Nonnull ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos pos,
+							@Nonnull NoFeatureConfig config)
 	{
 		int minY = world.getHeight(Type.WORLD_SURFACE, pos.getX(), pos.getZ());
 		int y = minY > 57 ? ModMathHelper.floor(ModMathHelper.randRange(minY, minY * 2, rand) * 0.5F + 32) : ModMathHelper.randRange(64, 192, rand);
@@ -45,9 +45,7 @@ public class FloatingSpireFeature extends SpireFeature
 		}
 		
 		OpenSimplexNoise noise = new OpenSimplexNoise(rand.nextLong());
-		sdf = new SDFDisplacement().setFunction((vec) -> {
-			return (float) (Math.abs(noise.eval(vec.getX() * 0.1, vec.getY() * 0.1, vec.getZ() * 0.1)) * 3F + Math.abs(noise.eval(vec.getX() * 0.3, vec.getY() * 0.3 + 100, vec.getZ() * 0.3)) * 1.3F);
-		}).setSource(sdf);
+		sdf = new SDFDisplacement().setFunction((vec) -> (float) (Math.abs(noise.eval(vec.getX() * 0.1, vec.getY() * 0.1, vec.getZ() * 0.1)) * 3F + Math.abs(noise.eval(vec.getX() * 0.3, vec.getY() * 0.3 + 100, vec.getZ() * 0.3)) * 1.3F)).setSource(sdf);
 		final BlockPos center = pos;
 		List<BlockPos> support = Lists.newArrayList();
 		sdf.setReplaceFunction(REPLACE).addPostProcess((info) -> {

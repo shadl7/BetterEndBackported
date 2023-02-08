@@ -1,10 +1,11 @@
 package mod.beethoven92.betterendforge.common.init;
 
-import java.util.function.Supplier;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+
+import javax.annotation.Nonnull;
+import java.util.function.Supplier;
 
 
 public class ModCreativeTabs 
@@ -22,7 +23,8 @@ public class ModCreativeTabs
 			icon = iconSupplier;
 		}
 
-		@Override
+		@Nonnull
+        @Override
 		public ItemStack createIcon() 
 		{
 			return icon.get();

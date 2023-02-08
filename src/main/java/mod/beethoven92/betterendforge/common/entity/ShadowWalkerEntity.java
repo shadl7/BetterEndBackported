@@ -1,8 +1,5 @@
 package mod.beethoven92.betterendforge.common.entity;
 
-import java.util.List;
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModSoundEvents;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import net.minecraft.block.BlockState;
@@ -12,11 +9,7 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SpawnReason;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.ai.goal.LookAtGoal;
-import net.minecraft.entity.ai.goal.LookRandomlyGoal;
-import net.minecraft.entity.ai.goal.MeleeAttackGoal;
-import net.minecraft.entity.ai.goal.NearestAttackableTargetGoal;
-import net.minecraft.entity.ai.goal.RandomWalkingGoal;
+import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.monster.MonsterEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particles.ParticleTypes;
@@ -28,6 +21,10 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
 
 public class ShadowWalkerEntity extends MonsterEntity
 {
@@ -46,7 +43,8 @@ public class ShadowWalkerEntity extends MonsterEntity
 		this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, true));
 	}
 	
-	public static AttributeModifierMap.MutableAttribute registerAttributes() 
+	@Nonnull
+    public static AttributeModifierMap.MutableAttribute registerAttributes()
 	{
 		return MonsterEntity.func_234295_eP_().
 				//createMutableAttribute(Attributes.MAX_HEALTH, 8.0).
@@ -85,7 +83,7 @@ public class ShadowWalkerEntity extends MonsterEntity
 	}
 	
 	@Override
-	protected SoundEvent getHurtSound(DamageSource damageSourceIn) 
+	protected SoundEvent getHurtSound(@Nonnull DamageSource damageSourceIn)
 	{
 		return ModSoundEvents.ENTITY_SHADOW_WALKER_DAMAGE.get();
 	}
@@ -96,7 +94,7 @@ public class ShadowWalkerEntity extends MonsterEntity
 		return ModSoundEvents.ENTITY_SHADOW_WALKER_DEATH.get();
 	}
 	@Override
-	protected void playStepSound(BlockPos pos, BlockState blockIn)
+	protected void playStepSound(@Nonnull BlockPos pos, @Nonnull BlockState blockIn)
 	{
 	}
 	
@@ -118,14 +116,14 @@ public class ShadowWalkerEntity extends MonsterEntity
 		if (MonsterEntity.canMonsterSpawnInLight(type, world, spawnReason, pos, random)) 
 		{
 			AxisAlignedBB box = new AxisAlignedBB(pos).grow(16);
-			List<ShadowWalkerEntity> entities = world.getEntitiesWithinAABB(ShadowWalkerEntity.class, box, (entity) -> { return true; });
+			List<ShadowWalkerEntity> entities = world.getEntitiesWithinAABB(ShadowWalkerEntity.class, box, (entity) -> true);
 			return entities.size() < 6;
 		}
 		return false;
 	}
 	
 	@Override
-	public boolean attackEntityAsMob(Entity entityIn) 
+	public boolean attackEntityAsMob(@Nonnull Entity entityIn)
 	{
 		boolean attack = super.attackEntityAsMob(entityIn);
 		if (attack && entityIn instanceof LivingEntity) 
@@ -139,7 +137,7 @@ public class ShadowWalkerEntity extends MonsterEntity
 		return attack;
 	}
 	
-	private final class AttackGoal extends MeleeAttackGoal 
+	private static final class AttackGoal extends MeleeAttackGoal
 	{
 		private final ShadowWalkerEntity walker;
 		private int ticks;
@@ -169,14 +167,7 @@ public class ShadowWalkerEntity extends MonsterEntity
 		{
 			super.tick();
 			++this.ticks;
-			if (this.ticks >= 5 && this.func_234041_j_() < this.func_234042_k_() / 2) 
-			{
-				this.walker.setAggroed(true);
-			}
-			else 
-			{
-				this.walker.setAggroed(false);
-			}
+            this.walker.setAggroed(this.ticks >= 5 && this.func_234041_j_() < this.func_234042_k_() / 2);
 		}
 	}
 }

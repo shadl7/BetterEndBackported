@@ -1,9 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
-
 import com.google.common.collect.Lists;
 import mod.beethoven92.betterendforge.common.block.UmbrellaTreeClusterBlock;
 import mod.beethoven92.betterendforge.common.block.UmbrellaTreeMembraneBlock;
@@ -13,13 +9,7 @@ import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.SplineHelper;
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFFlatWave;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale3D;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFSmoothUnion;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFSubtraction;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFTranslate;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFUnion;
+import mod.beethoven92.betterendforge.common.util.sdf.operator.*;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFSphere;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
@@ -32,6 +22,11 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import javax.annotation.Nonnull;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
 
 public class UmbrellaTreeFeature extends Feature<NoFeatureConfig>
 {
@@ -73,8 +68,8 @@ public class UmbrellaTreeFeature extends Feature<NoFeatureConfig>
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos pos,
-			NoFeatureConfig config) 
+	public boolean generate(ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, BlockPos pos,
+							@Nonnull NoFeatureConfig config)
 	{
 		if (!world.getBlockState(pos.down()).getBlock().isIn(ModTags.END_GROUND)) return false;
 		
@@ -91,11 +86,8 @@ public class UmbrellaTreeFeature extends Feature<NoFeatureConfig>
 		List<Center> centers = Lists.newArrayList();
 		
 		float scale = 1;
-		if (config != null) 
-		{
-			scale = ModMathHelper.randRange(1F, 1.7F, rand);
-		}
-		
+		scale = ModMathHelper.randRange(1F, 1.7F, rand);
+
 		for (int i = 0; i < count; i++)
 		{
 			float angle = (float) i / (float) count * ModMathHelper.PI2 + ModMathHelper.randRange(0, var, rand) + start;
@@ -109,9 +101,7 @@ public class UmbrellaTreeFeature extends Feature<NoFeatureConfig>
 			if (SplineHelper.canGenerate(spline, pos, world, REPLACE)) 
 			{
 				float rScale = (scale - 1) * 0.4F + 1;
-				SDF branch = SplineHelper.buildSDF(spline, 1.2F * rScale, 0.8F * rScale, (bpos) -> {
-					return wood;
-				});
+				SDF branch = SplineHelper.buildSDF(spline, 1.2F * rScale, 0.8F * rScale, (bpos) -> wood);
 	
 				Vector3f vec = spline.get(spline.size() - 1);
 				float radius = (size + ModMathHelper.randRange(0, size * 0.5F, rand)) * 0.4F;
@@ -125,8 +115,7 @@ public class UmbrellaTreeFeature extends Feature<NoFeatureConfig>
 				mem = new SDFTranslate().setTranslate(px, py, pz).setSource(mem);
 				sdf = new SDFSmoothUnion().setRadius(2).setSourceA(sdf).setSourceB(mem);
 				centers.add(new Center(pos.getX() + (double) (px * scale), pos.getY() + (double) (py * scale), pos.getZ() + (double) (pz * scale), radius * scale));
-				
-				vec = spline.get(0);
+
 			}
 		}
 		
@@ -242,7 +231,7 @@ public class UmbrellaTreeFeature extends Feature<NoFeatureConfig>
 		}
 	}
 	
-	private class Center 
+	private static class Center
 	{
 		final double px;
 		final double py;

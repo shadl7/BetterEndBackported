@@ -2,11 +2,12 @@ package mod.beethoven92.betterendforge.client.model;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import mod.beethoven92.betterendforge.common.entity.DragonflyEntity;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.EntityModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+
+import javax.annotation.Nonnull;
 
 public class DragonflyEntityModel extends EntityModel<DragonflyEntity>
 {
@@ -18,10 +19,8 @@ public class DragonflyEntityModel extends EntityModel<DragonflyEntity>
 	private final ModelRenderer wing_2;
 	private final ModelRenderer wing_3;
 	private final ModelRenderer wing_4;
-	private final ModelRenderer legs_1;
-	private final ModelRenderer legs_2;
-	
-	public DragonflyEntityModel()
+
+    public DragonflyEntityModel()
 	{
 		super(RenderType::getEntityCutout);
 		
@@ -71,14 +70,14 @@ public class DragonflyEntityModel extends EntityModel<DragonflyEntity>
 		wing_4.mirror = true;
 		wing_4.setTextureOffset(4, 17).addBox(0.0F, 0.0F, -2.5F, 12.0F, 0.0F, 3.0F, 0.0F);
 
-		legs_1 = new ModelRenderer(this);
+        ModelRenderer legs_1 = new ModelRenderer(this);
 		legs_1.setRotationPoint(-1.0F, 0.0F, 1.0F);
 		model.addChild(legs_1);
 		//setRotationAngle(legs_1, 0.0F, 0.0F, -0.5236F);
 		legs_1.rotateAngleZ = -0.5236F;
 		legs_1.setTextureOffset(50, 1).addBox(0.0F, 0.0F, 0.0F, 0.0F, 3.0F, 6.0F, 0.0F);
 
-		legs_2 = new ModelRenderer(this);
+        ModelRenderer legs_2 = new ModelRenderer(this);
 		legs_2.setRotationPoint(-3.0F, 0.0F, 1.0F);
 		model.addChild(legs_2);
 		//setRotationAngle(legs_2, 0.0F, 0.0F, 0.5236F);
@@ -87,8 +86,8 @@ public class DragonflyEntityModel extends EntityModel<DragonflyEntity>
 	}
 	
 	@Override
-	public void setRotationAngles(DragonflyEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
-			float netHeadYaw, float headPitch) 
+	public void setRotationAngles(@Nonnull DragonflyEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks,
+                                  float netHeadYaw, float headPitch)
 	{
 		float progress = ageInTicks * 2F;
 		
@@ -106,8 +105,8 @@ public class DragonflyEntityModel extends EntityModel<DragonflyEntity>
 	}
 
 	@Override
-	public void render(MatrixStack matrixStackIn, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
-			float red, float green, float blue, float alpha) 
+	public void render(@Nonnull MatrixStack matrixStackIn, @Nonnull IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn,
+                       float red, float green, float blue, float alpha)
 	{
 		model.render(matrixStackIn, bufferIn, packedLightIn, packedOverlayIn);
 	}

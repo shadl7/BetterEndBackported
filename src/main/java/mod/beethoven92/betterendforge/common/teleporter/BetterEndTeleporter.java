@@ -1,18 +1,18 @@
 package mod.beethoven92.betterendforge.common.teleporter;
 
-import java.util.function.Function;
-
 import net.minecraft.block.PortalInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.server.ServerWorld;
 
+import java.util.function.Function;
+
 // Needed when calling ServerPlayerEntity#changeDimension, in order to
 // avoid "Player moved wrongly" situations which results in teleporting player position being misplaced
 public class BetterEndTeleporter implements net.minecraftforge.common.util.ITeleporter
 {
-	BlockPos exitPos;
+	final BlockPos exitPos;
 	
 	public BetterEndTeleporter(BlockPos exitPos)
 	{

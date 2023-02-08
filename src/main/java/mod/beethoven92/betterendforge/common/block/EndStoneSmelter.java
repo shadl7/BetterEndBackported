@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModTileEntityTypes;
 import mod.beethoven92.betterendforge.common.tileentity.EndStoneSmelterTileEntity;
 import net.minecraft.block.Block;
@@ -18,13 +16,7 @@ import net.minecraft.state.DirectionProperty;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
@@ -32,6 +24,9 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.fml.network.NetworkHooks;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class EndStoneSmelter extends Block
 {
@@ -52,7 +47,7 @@ public class EndStoneSmelter extends Block
 	
 	@OnlyIn(Dist.CLIENT)
 	@Override
-	public void animateTick(BlockState stateIn, World worldIn, BlockPos pos, Random rand) 
+	public void animateTick(BlockState stateIn, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull Random rand)
 	{
 		if (stateIn.get(LIT)) 
 		{
@@ -64,7 +59,7 @@ public class EndStoneSmelter extends Block
 			   worldIn.playSound(x, y, z, SoundEvents.BLOCK_BLASTFURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
 			}
 
-			Direction direction = (Direction)stateIn.get(FACING);
+			Direction direction = stateIn.get(FACING);
 			Direction.Axis axis = direction.getAxis();
 			double defOffset = rand.nextDouble() * 0.6D - 0.3D;
 			double offX = axis == Direction.Axis.X ? direction.getXOffset() * 0.52D : defOffset;
@@ -74,9 +69,10 @@ public class EndStoneSmelter extends Block
 		}
 	}
 	
-	@Override
-	public ActionResultType onBlockActivated(BlockState state, World worldIn, BlockPos pos, PlayerEntity player,
-			Hand handIn, BlockRayTraceResult hit)
+	@Nonnull
+    @Override
+	public ActionResultType onBlockActivated(@Nonnull BlockState state, World worldIn, @Nonnull BlockPos pos, @Nonnull PlayerEntity player,
+                                             @Nonnull Hand handIn, @Nonnull BlockRayTraceResult hit)
 	{
 		if (worldIn.isRemote) 
 		{
@@ -99,7 +95,7 @@ public class EndStoneSmelter extends Block
 	}
 	
 	@Override
-	public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving) 
+	public void onReplaced(BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos, BlockState newState, boolean isMoving)
 	{
 		if (!state.isIn(newState.getBlock())) 
 		{
@@ -128,24 +124,26 @@ public class EndStoneSmelter extends Block
 	}
 	
 	@Override
-	public boolean hasComparatorInputOverride(BlockState state) 
+	public boolean hasComparatorInputOverride(@Nonnull BlockState state)
 	{
 		return true;
 	}
 	
 	@Override
-	public int getComparatorInputOverride(BlockState blockState, World worldIn, BlockPos pos) 
+	public int getComparatorInputOverride(@Nonnull BlockState blockState, World worldIn, @Nonnull BlockPos pos)
 	{
 		return Container.calcRedstone(worldIn.getTileEntity(pos));
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public BlockState rotate(BlockState state, Rotation rot) 
 	{
 		return state.with(FACING, rot.rotate(state.get(FACING)));
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public BlockState mirror(BlockState state, Mirror mirrorIn) 
 	{
 		return state.rotate(mirrorIn.toRotation(state.get(FACING)));

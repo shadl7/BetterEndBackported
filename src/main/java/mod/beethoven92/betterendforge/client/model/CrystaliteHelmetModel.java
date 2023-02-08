@@ -1,13 +1,13 @@
 package mod.beethoven92.betterendforge.client.model;
 
-import java.util.Collections;
-
 import com.google.common.collect.Lists;
-
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
+
+import javax.annotation.Nonnull;
+import java.util.Collections;
 
 public class CrystaliteHelmetModel extends BipedModel<LivingEntity> {
 
@@ -18,12 +18,14 @@ public class CrystaliteHelmetModel extends BipedModel<LivingEntity> {
 		this.bipedHead.setRotationPoint(0.0F, 0.0F, 0.0F);
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	protected Iterable<ModelRenderer> getHeadParts() {
 		return Collections::emptyIterator;
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	protected Iterable<ModelRenderer> getBodyParts() {
 		return Lists.newArrayList(bipedHead);
 	}

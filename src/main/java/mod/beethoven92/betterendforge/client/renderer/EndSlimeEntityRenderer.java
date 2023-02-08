@@ -2,7 +2,6 @@ package mod.beethoven92.betterendforge.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.client.model.EndSlimeEntityModel;
 import mod.beethoven92.betterendforge.common.entity.EndSlimeEntity;
@@ -18,23 +17,26 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
+import javax.annotation.Nonnull;
+
 public class EndSlimeEntityRenderer extends MobRenderer<EndSlimeEntity, EndSlimeEntityModel<EndSlimeEntity>> {
-	private static final ResourceLocation TEXTURE[] = new ResourceLocation[4];
-	private static final RenderType GLOW[] = new RenderType[4];
+	private static final ResourceLocation[] TEXTURE = new ResourceLocation[4];
+	private static final RenderType[] GLOW = new RenderType[4];
 
 	public EndSlimeEntityRenderer(EntityRendererManager entityRenderDispatcher) {
-		super(entityRenderDispatcher, new EndSlimeEntityModel<EndSlimeEntity>(false), 0.25F);
-		this.addLayer(new OverlayFeatureRenderer<EndSlimeEntity>(this));
+		super(entityRenderDispatcher, new EndSlimeEntityModel<>(false), 0.25F);
+		this.addLayer(new OverlayFeatureRenderer<>(this));
 		this.addLayer(new AbstractEyesLayer<EndSlimeEntity, EndSlimeEntityModel<EndSlimeEntity>>(this) {
-			@Override
+			@Nonnull
+            @Override
 			public RenderType getRenderType() {
 				return GLOW[0];
 			}
 
 			@Override
-			public void render(MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn,
-					EndSlimeEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
-					float ageInTicks, float netHeadYaw, float headPitch) {
+			public void render(@Nonnull MatrixStack matrixStackIn, @Nonnull IRenderTypeBuffer bufferIn, int packedLightIn,
+                               @Nonnull EndSlimeEntity entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTicks,
+                               float ageInTicks, float netHeadYaw, float headPitch) {
 				IVertexBuilder vertexConsumer = bufferIn.getBuffer(GLOW[entitylivingbaseIn.getSlimeType()]);
 				this.getEntityModel().render(matrixStackIn, vertexConsumer, 15728640, OverlayTexture.NO_OVERLAY, 1.0F,
 						1.0F, 1.0F, 1.0F);
@@ -46,14 +48,15 @@ public class EndSlimeEntityRenderer extends MobRenderer<EndSlimeEntity, EndSlime
 		});
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public ResourceLocation getEntityTexture(EndSlimeEntity entity) {
 		return TEXTURE[entity.getSlimeType()];
 	}
 
 	@Override
-	public void render(EndSlimeEntity slimeEntity, float f, float g, MatrixStack matrixStack,
-			IRenderTypeBuffer vertexConsumerProvider, int i) {
+	public void render(EndSlimeEntity slimeEntity, float f, float g, @Nonnull MatrixStack matrixStack,
+                       @Nonnull IRenderTypeBuffer vertexConsumerProvider, int i) {
 		this.shadowSize = 0.25F * (float) slimeEntity.getSlimeSize();
 		super.render(slimeEntity, f, g, matrixStack, vertexConsumerProvider, i);
 	}
@@ -69,18 +72,18 @@ public class EndSlimeEntityRenderer extends MobRenderer<EndSlimeEntity, EndSlime
 		matrixStack.scale(j * h, 1.0F / j * h, j * h);
 	}
 
-	private final class OverlayFeatureRenderer<T extends EndSlimeEntity>
+	private static final class OverlayFeatureRenderer<T extends EndSlimeEntity>
 			extends LayerRenderer<T, EndSlimeEntityModel<T>> {
-		private final EndSlimeEntityModel<T> modelOrdinal = new EndSlimeEntityModel<T>(true);
-		private final EndSlimeEntityModel<T> modelLake = new EndSlimeEntityModel<T>(true);
+		private final EndSlimeEntityModel<T> modelOrdinal = new EndSlimeEntityModel<>(true);
+		private final EndSlimeEntityModel<T> modelLake = new EndSlimeEntityModel<>(true);
 
 		public OverlayFeatureRenderer(IEntityRenderer<T, EndSlimeEntityModel<T>> featureRendererContext) {
 			super(featureRendererContext);
 		}
 
 		@Override
-		public void render(MatrixStack matrixStack, IRenderTypeBuffer vertexConsumerProvider, int packedLightIn,
-				T livingEntity, float f, float g, float h, float j, float k, float l) {
+		public void render(@Nonnull MatrixStack matrixStack, @Nonnull IRenderTypeBuffer vertexConsumerProvider, int packedLightIn,
+                           T livingEntity, float f, float g, float h, float j, float k, float l) {
 			if (!livingEntity.isInvisible()) {
 				if (livingEntity.isLake()) {
 					IVertexBuilder vertexConsumer = vertexConsumerProvider

@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
 import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFCoordModify;
@@ -15,6 +13,9 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import javax.annotation.Nonnull;
+import java.util.Random;
 
 public class OreLayerFeature extends Feature<NoFeatureConfig>
 {
@@ -36,9 +37,7 @@ public class OreLayerFeature extends Feature<NoFeatureConfig>
 		SDF body = SPHERE;
 		body = new SDFScale3D().setScale(1, 0.2F, 1).setSource(body);
 		body = NOISE.setSource(body);
-		body.setReplaceFunction((state) -> {
-			return state.isIn(Blocks.END_STONE);
-		});
+		body.setReplaceFunction((state) -> state.isIn(Blocks.END_STONE));
 		
 		FUNCTION = body;
 	}
@@ -53,8 +52,8 @@ public class OreLayerFeature extends Feature<NoFeatureConfig>
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator chunkGenerator, Random random,
-			BlockPos blockPos, NoFeatureConfig config) 
+	public boolean generate(@Nonnull ISeedReader world, @Nonnull ChunkGenerator chunkGenerator, @Nonnull Random random,
+                            BlockPos blockPos, @Nonnull NoFeatureConfig config)
 	{
 		float radius = this.radius * 0.5F;
 		int r = ModMathHelper.floor(radius + 1);

@@ -1,14 +1,10 @@
 package mod.beethoven92.betterendforge.common.tileentity;
 
-import java.util.function.Function;
-
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-
 import mod.beethoven92.betterendforge.common.init.ModTileEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.command.CommandSource;
 import net.minecraft.command.ICommandSource;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.DyeColor;
@@ -27,6 +23,10 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
+import java.util.Objects;
+import java.util.function.Function;
+
 public class ESignTileEntity extends TileEntity {
 	private final ITextComponent[] text = new ITextComponent[] { StringTextComponent.EMPTY, StringTextComponent.EMPTY,
 			StringTextComponent.EMPTY, StringTextComponent.EMPTY };
@@ -39,8 +39,9 @@ public class ESignTileEntity extends TileEntity {
 		super(ModTileEntityTypes.SIGN.get());
 	}
 
-	@Override
-	public CompoundNBT write(CompoundNBT tag) {
+	@Nonnull
+    @Override
+	public CompoundNBT write(@Nonnull CompoundNBT tag) {
 		super.write(tag);
 
 		for (int i = 0; i < 4; ++i) {
@@ -53,7 +54,7 @@ public class ESignTileEntity extends TileEntity {
 	}
 
 	@Override
-	public void read(BlockState state, CompoundNBT tag) {
+	public void read(@Nonnull BlockState state, @Nonnull CompoundNBT tag) {
 		this.editable = false;
 		super.read(state, tag);
 		this.textColor = DyeColor.byTranslationKey(tag.getString("Color"), DyeColor.BLACK);
@@ -63,8 +64,8 @@ public class ESignTileEntity extends TileEntity {
 			ITextComponent text = ITextComponent.Serializer.getComponentFromJson(string.isEmpty() ? "\"\"" : string);
 			if (this.world instanceof ServerWorld) {
 				try {
-					this.text[i] = TextComponentUtils.func_240645_a_(this.getCommandSource((ServerPlayerEntity) null),
-							text, (Entity) null, 0);
+					this.text[i] = TextComponentUtils.func_240645_a_(this.getCommandSource(null),
+							Objects.requireNonNull(text), null, 0);
 				} catch (CommandSyntaxException var7) {
 					this.text[i] = text;
 				}
@@ -85,7 +86,7 @@ public class ESignTileEntity extends TileEntity {
 	@OnlyIn(Dist.CLIENT)
 	public IReorderingProcessor getTextBeingEditedOnRow(int row, Function<ITextComponent, IReorderingProcessor> function) {
 		if (this.textBeingEdited[row] == null && this.text[row] != null) {
-			this.textBeingEdited[row] = (IReorderingProcessor) function.apply(this.text[row]);
+			this.textBeingEdited[row] = function.apply(this.text[row]);
 		}
 
 		return this.textBeingEdited[row];
@@ -96,7 +97,8 @@ public class ESignTileEntity extends TileEntity {
 		return new SUpdateTileEntityPacket(this.pos, 9, this.getUpdateTag());
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public CompoundNBT getUpdateTag() {
 		return this.write(new CompoundNBT());
 	}
@@ -131,13 +133,12 @@ public class ESignTileEntity extends TileEntity {
 		ITextComponent[] var2 = this.text;
 		int var3 = var2.length;
 
-		for (int var4 = 0; var4 < var3; ++var4) {
-			ITextComponent text = var2[var4];
+		for (ITextComponent text : var2) {
 			Style style = text == null ? null : text.getStyle();
 			if (style != null && style.getClickEvent() != null) {
 				ClickEvent clickEvent = style.getClickEvent();
 				if (clickEvent.getAction() == ClickEvent.Action.RUN_COMMAND) {
-					player.getServer().getCommandManager()
+					Objects.requireNonNull(player.getServer()).getCommandManager()
 							.handleCommand(this.getCommandSource((ServerPlayerEntity) player), clickEvent.getValue());
 				}
 			}
@@ -150,7 +151,7 @@ public class ESignTileEntity extends TileEntity {
 		String string = player == null ? "Sign" : player.getName().getString();
 		ITextComponent text = player == null ? new StringTextComponent("Sign") : player.getDisplayName();
 		return new CommandSource(ICommandSource.DUMMY, Vector3d.copyCentered(this.pos), Vector2f.ZERO,
-				(ServerWorld) this.world, 2, string, (ITextComponent) text, this.world.getServer(), player);
+				(ServerWorld) Objects.requireNonNull(this.world), 2, string, text, this.world.getServer(), player);
 	}
 
 	public DyeColor getTextColor() {
@@ -161,7 +162,7 @@ public class ESignTileEntity extends TileEntity {
 		if (value != this.getTextColor()) {
 			this.textColor = value;
 			this.markDirty();
-			this.world.notifyBlockUpdate(this.getPos(), this.getBlockState(), this.getBlockState(), 3);
+			Objects.requireNonNull(this.world).notifyBlockUpdate(this.getPos(), this.getBlockState(), this.getBlockState(), 3);
 			return true;
 		} else {
 			return false;

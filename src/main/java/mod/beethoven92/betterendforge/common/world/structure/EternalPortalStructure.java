@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.structure;
 
-import java.util.Random;
-
 import com.mojang.serialization.Codec;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.StructureHelper;
@@ -27,6 +24,9 @@ import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class EternalPortalStructure extends Structure<NoFeatureConfig>
 {
 	private static final ResourceLocation STRUCTURE_ID = new ResourceLocation(BetterEnd.MOD_ID, "portal/eternal_portal");
@@ -37,25 +37,27 @@ public class EternalPortalStructure extends Structure<NoFeatureConfig>
 		super(p_i231997_1_);
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public Decoration getDecorationStage() 
 	{
 		return Decoration.SURFACE_STRUCTURES;
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public String getStructureName() 
 	{
 		return BetterEnd.MOD_ID + ":eternal_portal_structure";
 	}
 	
 	@Override
-	protected boolean func_230363_a_(ChunkGenerator chunkGenerator, BiomeProvider provider, long seed,
-			SharedSeedRandom sharedSeedRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos,
-			NoFeatureConfig config) 
+	protected boolean func_230363_a_(@Nonnull ChunkGenerator chunkGenerator, @Nonnull BiomeProvider provider, long seed,
+                                     @Nonnull SharedSeedRandom sharedSeedRandom, int chunkX, int chunkZ, @Nonnull Biome biome, ChunkPos chunkPos,
+                                     @Nonnull NoFeatureConfig config)
 	{
-		long x = chunkPos.x * chunkPos.x;
-		long z = chunkPos.z * chunkPos.z;
+		long x = (long) chunkPos.x * chunkPos.x;
+		long z = (long) chunkPos.z * chunkPos.z;
 		long d = x * x + z * z;
 		if (d < 1024) 
 		{
@@ -70,7 +72,7 @@ public class EternalPortalStructure extends Structure<NoFeatureConfig>
 
 	private static int getGenerationHeight(int chunkX, int chunkZ, ChunkGenerator chunkGenerator) 
 	{
-		Random random = new Random((long) (chunkX + chunkZ * 10387313));
+		Random random = new Random(chunkX + chunkZ * 10387313L);
 		Rotation blockRotation = Rotation.randomRotation(random);
 		int i = 5;
 		int j = 5;
@@ -97,7 +99,8 @@ public class EternalPortalStructure extends Structure<NoFeatureConfig>
 		return Math.min(Math.min(m, n), Math.min(o, p));
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public IStartFactory<NoFeatureConfig> getStartFactory() 
 	{
 		return Start::new;
@@ -112,9 +115,9 @@ public class EternalPortalStructure extends Structure<NoFeatureConfig>
 		}
 
 		@Override
-		public void func_230364_a_(DynamicRegistries registry, ChunkGenerator chunkGenerator,
-				TemplateManager manager, int chunkX, int chunkZ, Biome biome,
-				NoFeatureConfig config)
+		public void func_230364_a_(@Nonnull DynamicRegistries registry, ChunkGenerator chunkGenerator,
+                                   @Nonnull TemplateManager manager, int chunkX, int chunkZ, @Nonnull Biome biome,
+                                   @Nonnull NoFeatureConfig config)
 		{
 			int x = (chunkX << 4) | ModMathHelper.randRange(4, 12, rand);
 			int z = (chunkZ << 4) | ModMathHelper.randRange(4, 12, rand);

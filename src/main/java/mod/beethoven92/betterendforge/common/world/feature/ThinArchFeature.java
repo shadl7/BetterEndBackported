@@ -1,6 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.FeatureHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
@@ -11,7 +10,6 @@ import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFRotation;
 import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFUnion;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFTorus;
 import mod.beethoven92.betterendforge.common.world.generator.OpenSimplexNoise;
-import mod.beethoven92.betterendforge.data.AABBAcc;
 import net.minecraft.block.Block;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -24,10 +22,11 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class ThinArchFeature extends Feature<NoFeatureConfig> {
-    private Block block;
+    private final Block block;
 
     public ThinArchFeature(Block block)
     {
@@ -44,13 +43,12 @@ public class ThinArchFeature extends Feature<NoFeatureConfig> {
     }
 
     @Override
-    public boolean generate(ISeedReader level, ChunkGenerator generator, Random random, BlockPos origin,
-                            NoFeatureConfig config)
+    public boolean generate(@Nonnull ISeedReader level, @Nonnull ChunkGenerator generator, @Nonnull Random random, BlockPos origin,
+                            @Nonnull NoFeatureConfig config)
     {
-        final ISeedReader world = level;
 
-        BlockPos pos = FeatureHelper.getPosOnSurface(world, new BlockPos((origin.getX() & 0xFFFFFFF0) | 7, 0, (origin.getZ() & 0xFFFFFFF0) | 7));
-        if (!world.getBlockState(pos.down(5)).isIn(ModTags.GEN_TERRAIN)) {
+        BlockPos pos = FeatureHelper.getPosOnSurface(level, new BlockPos((origin.getX() & 0xFFFFFFF0) | 7, 0, (origin.getZ() & 0xFFFFFFF0) | 7));
+        if (!level.getBlockState(pos.down(5)).isIn(ModTags.GEN_TERRAIN)) {
             return false;
         }
 
@@ -86,7 +84,7 @@ public class ThinArchFeature extends Feature<NoFeatureConfig> {
             side = 47;
         }
 
-        sdf.fillArea(world, pos, ofSize(atCenterOf(pos), side, side, side));
+        sdf.fillArea(level, pos, ofSize(atCenterOf(pos), side, side, side));
         return true;
 
     }

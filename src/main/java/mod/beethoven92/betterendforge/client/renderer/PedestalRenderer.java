@@ -1,7 +1,6 @@
 package mod.beethoven92.betterendforge.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-
 import mod.beethoven92.betterendforge.common.block.EternalPedestal;
 import mod.beethoven92.betterendforge.common.block.template.PedestalBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
@@ -22,6 +21,9 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
+import java.util.Objects;
+
 @OnlyIn(Dist.CLIENT)
 public class PedestalRenderer<T extends PedestalTileEntity> extends TileEntityRenderer<T>
 {
@@ -31,15 +33,15 @@ public class PedestalRenderer<T extends PedestalTileEntity> extends TileEntityRe
 	}
 
 	@Override
-	public void render(T tileEntityIn, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn,
-			int combinedLightIn, int combinedOverlayIn) 
+	public void render(T tileEntityIn, float partialTicks, @Nonnull MatrixStack matrixStackIn, @Nonnull IRenderTypeBuffer bufferIn,
+                       int combinedLightIn, int combinedOverlayIn)
 	{
 		if (tileEntityIn.isEmpty())
 		{
 			return;
 		}
 		
-		BlockState state = tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos());
+		BlockState state = Objects.requireNonNull(tileEntityIn.getWorld()).getBlockState(tileEntityIn.getPos());
 		if (!(state.getBlock() instanceof PedestalBlock)) 
 		{
 			return;
@@ -90,7 +92,7 @@ public class PedestalRenderer<T extends PedestalTileEntity> extends TileEntityRe
 	}
 	
 	@Override
-	public boolean isGlobalRenderer(T te) 
+	public boolean isGlobalRenderer(@Nonnull T te)
 	{
 		return true;
 	}

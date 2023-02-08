@@ -1,14 +1,13 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-
 import mod.beethoven92.betterendforge.common.interfaces.IBiomeArray;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeContainer;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(BiomeContainer.class)
 public class BiomeContainerMixin implements IBiomeArray
@@ -19,7 +18,7 @@ public class BiomeContainerMixin implements IBiomeArray
 
 	@Final
 	@Shadow
-	private static int BIOMES_SIZE;
+	public static int BIOMES_SIZE;
 
 	@Final
 	@Shadow

@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.init;
 
-import java.util.function.Supplier;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
@@ -15,15 +13,17 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 
+import java.util.function.Supplier;
+
 // NEEDS RE-WRITE
 public class ModConfiguredSurfaceBuilders 
 {
-	public static RegistryKey<ConfiguredSurfaceBuilder<?>> CRYSTAL_SURFACE = makeKey("crystal_surface");
-	public static RegistryKey<ConfiguredSurfaceBuilder<?>> MEGALAKE_SURFACE = makeKey("megalake_surface");
-	public static RegistryKey<ConfiguredSurfaceBuilder<?>> MUSHROOMLAND_SURFACE = makeKey("mushroomland_surface");
-	public static RegistryKey<ConfiguredSurfaceBuilder<?>> SULPHURIC_SURFACE = makeKey("sulphuric_surface");
-	public static RegistryKey<ConfiguredSurfaceBuilder<?>> NEON_OASUS_SURFACE = makeKey("neon_oasis_surface");
-	public static RegistryKey<ConfiguredSurfaceBuilder<?>> UMBRA_SURFACE = makeKey("umbra_surface");
+	public static final RegistryKey<ConfiguredSurfaceBuilder<?>> CRYSTAL_SURFACE = makeKey("crystal_surface");
+	public static final RegistryKey<ConfiguredSurfaceBuilder<?>> MEGALAKE_SURFACE = makeKey("megalake_surface");
+	public static final RegistryKey<ConfiguredSurfaceBuilder<?>> MUSHROOMLAND_SURFACE = makeKey("mushroomland_surface");
+	public static final RegistryKey<ConfiguredSurfaceBuilder<?>> SULPHURIC_SURFACE = makeKey("sulphuric_surface");
+	public static final RegistryKey<ConfiguredSurfaceBuilder<?>> NEON_OASUS_SURFACE = makeKey("neon_oasis_surface");
+	public static final RegistryKey<ConfiguredSurfaceBuilder<?>> UMBRA_SURFACE = makeKey("umbra_surface");
 	
 	private static RegistryKey<ConfiguredSurfaceBuilder<?>> makeKey(final String name) 
 	{

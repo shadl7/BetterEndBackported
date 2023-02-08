@@ -1,8 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-import java.util.function.Function;
-
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
@@ -26,6 +23,10 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+import java.util.function.Function;
+
 public class BushWithOuterFeature extends Feature<NoFeatureConfig> {
 	private static final Direction[] DIRECTIONS = Direction.values();
 	private static final Function<BlockState, Boolean> REPLACE;
@@ -41,8 +42,8 @@ public class BushWithOuterFeature extends Feature<NoFeatureConfig> {
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator chunkGenerator_, Random random, BlockPos pos,
-			NoFeatureConfig config) {
+	public boolean generate(ISeedReader world, @Nonnull ChunkGenerator chunkGenerator_, @Nonnull Random random, BlockPos pos,
+                            @Nonnull NoFeatureConfig config) {
 		if (!world.getBlockState(pos.down()).getBlock().isIn(ModTags.END_GROUND)
 				&& !world.getBlockState(pos.up()).getBlock().isIn(ModTags.END_GROUND))
 			return false;
@@ -51,12 +52,8 @@ public class BushWithOuterFeature extends Feature<NoFeatureConfig> {
 		OpenSimplexNoise noise = new OpenSimplexNoise(random.nextInt());
 		SDF sphere = new SDFSphere().setRadius(radius).setBlock(this.leaves);
 		sphere = new SDFScale3D().setScale(1, 0.5F, 1).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> {
-			return (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 3;
-		}).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> {
-			return ModMathHelper.randRange(-2F, 2F, random);
-		}).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 3).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> ModMathHelper.randRange(-2F, 2F, random)).setSource(sphere);
 		sphere = new SDFSubtraction().setSourceA(sphere)
 				.setSourceB(new SDFTranslate().setTranslate(0, -radius, 0).setSource(sphere));
 		sphere.setReplaceFunction(REPLACE);

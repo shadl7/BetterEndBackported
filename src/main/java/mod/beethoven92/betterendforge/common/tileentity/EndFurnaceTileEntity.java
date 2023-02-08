@@ -9,6 +9,8 @@ import net.minecraft.tileentity.AbstractFurnaceTileEntity;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
+import javax.annotation.Nonnull;
+
 public class EndFurnaceTileEntity extends AbstractFurnaceTileEntity
 {
 	public EndFurnaceTileEntity()
@@ -16,14 +18,16 @@ public class EndFurnaceTileEntity extends AbstractFurnaceTileEntity
 		super(ModTileEntityTypes.FURNACE.get(), IRecipeType.SMELTING);
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	protected ITextComponent getDefaultName() 
 	{
 		return new TranslationTextComponent("container.furnace");
 	}
 
-	@Override
-	protected Container createMenu(int id, PlayerInventory player)
+	@Nonnull
+    @Override
+	protected Container createMenu(int id, @Nonnull PlayerInventory player)
 	{
 		return new FurnaceContainer(id, player, this, this.furnaceData);
 	}

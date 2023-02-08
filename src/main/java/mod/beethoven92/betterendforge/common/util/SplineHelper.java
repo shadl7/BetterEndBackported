@@ -1,12 +1,6 @@
 package mod.beethoven92.betterendforge.common.util;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
-
 import com.google.common.collect.Lists;
-
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
 import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFUnion;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFLine;
@@ -17,6 +11,11 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
 
 public class SplineHelper 
 {
@@ -290,7 +289,7 @@ public class SplineHelper
 	
 	public static List<Vector3f> copySpline(List<Vector3f> spline) 
 	{
-		List<Vector3f> result = new ArrayList<Vector3f>(spline.size());
+		List<Vector3f> result = new ArrayList<>(spline.size());
 		for (Vector3f v: spline) 
 		{
 			result.add(new Vector3f(v.getX(), v.getY(), v.getZ()));

@@ -12,6 +12,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class AlloyingRecipe implements IRecipe<IInventory>
 {
 	public final static String GROUP = "alloying";
@@ -49,7 +51,8 @@ public class AlloyingRecipe implements IRecipe<IInventory>
 		return this.smeltTime;
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public NonNullList<Ingredient> getIngredients() 
 	{
 		NonNullList<Ingredient> defaultedList = NonNullList.create();
@@ -60,14 +63,15 @@ public class AlloyingRecipe implements IRecipe<IInventory>
 	}
 	
 	@Override
-	public boolean matches(IInventory inv, World worldIn) 
+	public boolean matches(IInventory inv, @Nonnull World worldIn)
 	{
 		return this.primaryInput.test(inv.getStackInSlot(0)) && this.secondaryInput.test(inv.getStackInSlot(1)) ||
 				this.primaryInput.test(inv.getStackInSlot(1)) && this.secondaryInput.test(inv.getStackInSlot(0));
 	}
 
-	@Override
-	public ItemStack getCraftingResult(IInventory inv) 
+	@Nonnull
+    @Override
+	public ItemStack getCraftingResult(@Nonnull IInventory inv)
 	{
 		return this.output.copy();
 	}
@@ -78,37 +82,43 @@ public class AlloyingRecipe implements IRecipe<IInventory>
 		return true;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public ItemStack getRecipeOutput() 
 	{
 		return this.output;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public ResourceLocation getId() 
 	{
 		return this.id;
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public IRecipeSerializer<?> getSerializer() 
 	{
 		return ModRecipeSerializers.ALLOYING.get();
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public IRecipeType<?> getType() 
 	{
 		return this.type;
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public String getGroup() 
 	{
 		return this.group;
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public ItemStack getIcon() 
 	{
 		return new ItemStack(ModBlocks.END_STONE_SMELTER.get());

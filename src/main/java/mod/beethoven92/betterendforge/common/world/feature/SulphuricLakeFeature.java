@@ -1,10 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-import java.util.Set;
-
 import com.google.common.collect.Sets;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties;
 import mod.beethoven92.betterendforge.common.block.SulphurCrystalBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
@@ -24,6 +20,10 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+import java.util.Set;
+
 public class SulphuricLakeFeature extends Feature<NoFeatureConfig>
 {
 	private static final OpenSimplexNoise NOISE = new OpenSimplexNoise(15152);
@@ -35,8 +35,8 @@ public class SulphuricLakeFeature extends Feature<NoFeatureConfig>
 	}
 
 	@Override
-	public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand, BlockPos blockPos,
-			NoFeatureConfig config) 
+	public boolean generate(@Nonnull ISeedReader world, @Nonnull ChunkGenerator generator, @Nonnull Random rand, @Nonnull BlockPos blockPos,
+                            @Nonnull NoFeatureConfig config)
 	{
 		blockPos = FeatureHelper.getPosOnSurfaceWG(world, blockPos);
 		
@@ -74,7 +74,7 @@ public class SulphuricLakeFeature extends Feature<NoFeatureConfig>
 					POS.setY(FeatureHelper.getYOnSurface(world, x, z) - 1);
 					if (world.getBlockState(POS).isIn(ModTags.GEN_TERRAIN)) 
 					{
-						if (isBorder(world, POS)) 
+						if (isBorder(world))
 						{
 							if (rand.nextInt(8) > 0) 
 							{
@@ -90,7 +90,7 @@ public class SulphuricLakeFeature extends Feature<NoFeatureConfig>
 							}
 							else 
 							{
-								if (!isAbsoluteBorder(world, POS)) 
+								if (!isAbsoluteBorder(world))
 								{
 									BlockHelper.setWithoutUpdate(world, POS, Blocks.WATER);
 									world.getPendingFluidTicks().scheduleTick(POS, Fluids.WATER, 0);
@@ -126,7 +126,7 @@ public class SulphuricLakeFeature extends Feature<NoFeatureConfig>
 									brimstone.add(offseted);
 								}
 							}
-							if (isDeepWater(world, POS)) 
+							if (isDeepWater(world))
 							{
 								BlockHelper.setWithoutUpdate(world, POS.move(Direction.DOWN), Blocks.WATER);
 								brimstone.remove(POS);
@@ -170,19 +170,17 @@ public class SulphuricLakeFeature extends Feature<NoFeatureConfig>
 			}
 		}
 		
-		brimstone.forEach((bpos) -> {
-			placeBrimstone(world, bpos, rand);
-		});
+		brimstone.forEach((bpos) -> placeBrimstone(world, bpos, rand));
 		
 		return true;
 	}
 
-	private boolean isBorder(ISeedReader world, BlockPos pos) 
+	private boolean isBorder(ISeedReader world)
 	{
-		int y = pos.getY() + 1;
+		int y = SulphuricLakeFeature.POS.getY() + 1;
 		for (Direction dir: BlockHelper.DIRECTIONS) 
 		{
-			if (FeatureHelper.getYOnSurface(world, pos.getX() + dir.getXOffset(), pos.getZ() + dir.getZOffset()) < y) 
+			if (FeatureHelper.getYOnSurface(world, SulphuricLakeFeature.POS.getX() + dir.getXOffset(), SulphuricLakeFeature.POS.getZ() + dir.getZOffset()) < y)
 			{
 				return true;
 			}
@@ -190,12 +188,12 @@ public class SulphuricLakeFeature extends Feature<NoFeatureConfig>
 		return false;
 	}
 	
-	private boolean isAbsoluteBorder(ISeedReader world, BlockPos pos) 
+	private boolean isAbsoluteBorder(ISeedReader world)
 	{
-		int y = pos.getY() - 2;
+		int y = SulphuricLakeFeature.POS.getY() - 2;
 		for (Direction dir: BlockHelper.DIRECTIONS) 
 		{
-			if (FeatureHelper.getYOnSurface(world, pos.getX() + dir.getXOffset() * 3, pos.getZ() + dir.getZOffset() * 3) < y) 
+			if (FeatureHelper.getYOnSurface(world, SulphuricLakeFeature.POS.getX() + dir.getXOffset() * 3, SulphuricLakeFeature.POS.getZ() + dir.getZOffset() * 3) < y)
 			{
 				return true;
 			}
@@ -203,13 +201,13 @@ public class SulphuricLakeFeature extends Feature<NoFeatureConfig>
 		return false;
 	}
 	
-	private boolean isDeepWater(ISeedReader world, BlockPos pos) 
+	private boolean isDeepWater(ISeedReader world)
 	{
-		int y = pos.getY() + 1;
+		int y = SulphuricLakeFeature.POS.getY() + 1;
 		for (Direction dir: BlockHelper.DIRECTIONS) {
-			if (FeatureHelper.getYOnSurface(world, pos.getX() + dir.getXOffset(), pos.getZ() + dir.getZOffset()) < y
-					|| FeatureHelper.getYOnSurface(world, pos.getX() + dir.getXOffset() * 2, pos.getZ() + dir.getZOffset() * 2) < y
-					|| FeatureHelper.getYOnSurface(world, pos.getX() + dir.getXOffset() * 3, pos.getZ() + dir.getZOffset() * 3) < y) {
+			if (FeatureHelper.getYOnSurface(world, SulphuricLakeFeature.POS.getX() + dir.getXOffset(), SulphuricLakeFeature.POS.getZ() + dir.getZOffset()) < y
+					|| FeatureHelper.getYOnSurface(world, SulphuricLakeFeature.POS.getX() + dir.getXOffset() * 2, SulphuricLakeFeature.POS.getZ() + dir.getZOffset() * 2) < y
+					|| FeatureHelper.getYOnSurface(world, SulphuricLakeFeature.POS.getX() + dir.getXOffset() * 3, SulphuricLakeFeature.POS.getZ() + dir.getZOffset() * 3) < y) {
 				return false;
 			}
 		}

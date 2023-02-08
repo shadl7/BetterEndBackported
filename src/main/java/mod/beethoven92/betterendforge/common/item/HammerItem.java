@@ -1,12 +1,9 @@
 package mod.beethoven92.betterendforge.common.item;
 
-import java.util.UUID;
-
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
-
 import io.netty.util.internal.ThreadLocalRandom;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -24,6 +21,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
+
+import javax.annotation.Nonnull;
+import java.util.UUID;
 
 public class HammerItem extends ToolItem
 {
@@ -43,7 +43,7 @@ public class HammerItem extends ToolItem
 	}
 
 	@Override
-	public boolean canPlayerBreakBlockWhileHolding(BlockState state, World worldIn, BlockPos pos, PlayerEntity player) 
+	public boolean canPlayerBreakBlockWhileHolding(BlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull PlayerEntity player)
 	{
 		return state.getMaterial().equals(Material.ROCK) ||
 				   state.getMaterial().equals(Material.GLASS) ||
@@ -54,31 +54,27 @@ public class HammerItem extends ToolItem
 	}
 	
 	@Override
-	public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) 
+	public boolean hitEntity(ItemStack stack, @Nonnull LivingEntity target, @Nonnull LivingEntity attacker)
 	{
-		stack.damageItem(1, attacker, ((entity) -> {
-			entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
-		}));
+		stack.damageItem(1, attacker, ((entity) -> entity.sendBreakAnimation(EquipmentSlotType.MAINHAND)));
 		
 		return true;
 	}
 	
 	@Override
-	public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos,
-			LivingEntity entityLiving) 
+	public boolean onBlockDestroyed(@Nonnull ItemStack stack, World worldIn, @Nonnull BlockState state, @Nonnull BlockPos pos,
+                                    @Nonnull LivingEntity entityLiving)
 	{
 		if (!worldIn.isRemote && state.getBlockHardness(worldIn, pos) != 0.0F) 
 		{
-			stack.damageItem(1, entityLiving, ((entity) -> {
-				entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
-			}));
+			stack.damageItem(1, entityLiving, ((entity) -> entity.sendBreakAnimation(EquipmentSlotType.MAINHAND)));
 		}
 
 		return true;
 	}
 	
 	@Override
-	public float getDestroySpeed(ItemStack stack, BlockState state) 
+	public float getDestroySpeed(@Nonnull ItemStack stack, BlockState state)
 	{
 		if (state.getMaterial().equals(Material.GLASS)) 
 		{
@@ -86,7 +82,7 @@ public class HammerItem extends ToolItem
 		}
 		if (this.canHarvestBlock(state))
 		{
-			float mult = 1.0F;
+			float mult;
 			if (state.isIn(Blocks.DIAMOND_BLOCK) || state.isIn(Blocks.EMERALD_BLOCK) || state.isIn(Blocks.LAPIS_BLOCK) 
 					|| state.isIn(Blocks.REDSTONE_BLOCK)) 
 			{
@@ -96,7 +92,7 @@ public class HammerItem extends ToolItem
 			{
 				mult = this.getTier().getEfficiency() / 2.0F;
 			}
-			return mult > 1.0F ? mult : 1.0F;
+			return Math.max(mult, 1.0F);
 		}
 		return 1.0F;
 	}
@@ -128,8 +124,9 @@ public class HammerItem extends ToolItem
 		return true;
 	}
 	
-	@Override
-	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType equipmentSlot) 
+	@Nonnull
+    @Override
+	public Multimap<Attribute, AttributeModifier> getAttributeModifiers(@Nonnull EquipmentSlotType equipmentSlot)
 	{
 		return equipmentSlot == EquipmentSlotType.MAINHAND ? this.attributeModifiers : super.getAttributeModifiers(equipmentSlot);
 	}

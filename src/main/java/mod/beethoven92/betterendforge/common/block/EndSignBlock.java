@@ -1,13 +1,7 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import javax.annotation.Nullable;
-
 import mod.beethoven92.betterendforge.common.tileentity.ESignTileEntity;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.AbstractSignBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.WoodType;
+import net.minecraft.block.*;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -22,11 +16,7 @@ import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.Mirror;
-import net.minecraft.util.Rotation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.MathHelper;
@@ -35,6 +25,10 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class EndSignBlock extends AbstractSignBlock {
 	public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_0_15;
@@ -56,19 +50,21 @@ public class EndSignBlock extends AbstractSignBlock {
 		builder.add(ROTATION, FLOOR, WATERLOGGED);
 	}
 
+	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader view, BlockPos pos, ISelectionContext ePos) {
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader view, @Nonnull BlockPos pos, @Nonnull ISelectionContext ePos) {
 		return state.get(FLOOR) ? SHAPE : WALL_SHAPES[state.get(ROTATION) >> 2];
 	}
 
 	@Override
-	public TileEntity createNewTileEntity(IBlockReader worldIn) {
+	public TileEntity createNewTileEntity(@Nonnull IBlockReader worldIn) {
 		return new ESignTileEntity();
 	}
 
+	@Nonnull
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
-			Hand hand, BlockRayTraceResult hit) {
+	public ActionResultType onBlockActivated(@Nonnull BlockState state, World world, @Nonnull BlockPos pos, PlayerEntity player,
+											 @Nonnull Hand hand, @Nonnull BlockRayTraceResult hit) {
 		ItemStack itemStack = player.getHeldItem(hand);
 		boolean bl = itemStack.getItem() instanceof DyeItem && player.abilities.allowEdit;
 		if (world.isRemote) {
@@ -91,21 +87,22 @@ public class EndSignBlock extends AbstractSignBlock {
 	}
 
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-		if (placer != null && placer instanceof PlayerEntity) {
+	public void onBlockPlacedBy(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull BlockState state, @Nullable LivingEntity placer, @Nonnull ItemStack stack) {
+		if (placer instanceof PlayerEntity) {
 			ESignTileEntity sign = (ESignTileEntity) world.getTileEntity(pos);
 			if (!world.isRemote) {
-				sign.setEditor((PlayerEntity) placer);
+				Objects.requireNonNull(sign).setEditor((PlayerEntity) placer);
 				((ServerPlayerEntity) placer).connection.sendPacket(new SOpenSignMenuPacket(pos));
 			} else
-				sign.setEditable(true);
+				Objects.requireNonNull(sign).setEditable(true);
 		}
 	}
 
+	@Nonnull
 	@Override
-	public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState neighborState,
-			IWorld world, BlockPos pos, BlockPos neighborPos) {
-		if ((Boolean) state.get(WATERLOGGED)) {
+	public BlockState updatePostPlacement(BlockState state, @Nonnull Direction facing, @Nonnull BlockState neighborState,
+										  @Nonnull IWorld world, @Nonnull BlockPos pos, @Nonnull BlockPos neighborPos) {
+		if (state.get(WATERLOGGED)) {
 			world.getPendingFluidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
 
@@ -125,11 +122,9 @@ public class EndSignBlock extends AbstractSignBlock {
 			IWorld worldView = ctx.getWorld();
 			BlockPos blockPos = ctx.getPos();
 			Direction[] directions = ctx.getNearestLookingDirections();
-			Direction[] var7 = directions;
-			int var8 = directions.length;
+            int var8 = directions.length;
 
-			for (int var9 = 0; var9 < var8; ++var9) {
-				Direction direction = var7[var9];
+			for (Direction direction : directions) {
 				if (direction.getAxis().isHorizontal()) {
 					Direction direction2 = direction.getOpposite();
 					int rot = MathHelper.floor((180.0 + direction2.getHorizontalAngle() * 16.0 / 360.0) + 0.5 + 4) & 15;
@@ -144,13 +139,15 @@ public class EndSignBlock extends AbstractSignBlock {
 		return null;
 	}
 
+	@Nonnull
 	@Override
 	public BlockState rotate(BlockState state, Rotation rotation) {
-		return (BlockState) state.with(ROTATION, rotation.rotate((Integer) state.get(ROTATION), 16));
+		return state.with(ROTATION, rotation.rotate(state.get(ROTATION), 16));
 	}
 
+	@Nonnull
 	@Override
 	public BlockState mirror(BlockState state, Mirror mirror) {
-		return (BlockState) state.with(ROTATION, mirror.mirrorRotation((Integer) state.get(ROTATION), 16));
+		return state.with(ROTATION, mirror.mirrorRotation(state.get(ROTATION), 16));
 	}
 }

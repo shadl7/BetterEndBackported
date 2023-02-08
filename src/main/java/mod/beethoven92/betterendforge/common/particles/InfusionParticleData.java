@@ -3,7 +3,6 @@ package mod.beethoven92.betterendforge.common.particles;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
-
 import mod.beethoven92.betterendforge.common.init.ModParticleTypes;
 import mod.beethoven92.betterendforge.common.util.ColorHelper;
 import net.minecraft.command.arguments.ItemInput;
@@ -16,12 +15,16 @@ import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import javax.annotation.Nonnull;
+import java.util.Objects;
+
 public class InfusionParticleData implements IParticleData
 {
 	public static final IParticleData.IDeserializer<InfusionParticleData> DESERIALIZER = 
 			new IParticleData.IDeserializer<InfusionParticleData>()
 	{
-		public InfusionParticleData deserialize(ParticleType<InfusionParticleData> particleTypeIn, StringReader reader) throws CommandSyntaxException
+		@Nonnull
+        public InfusionParticleData deserialize(@Nonnull ParticleType<InfusionParticleData> particleTypeIn, StringReader reader) throws CommandSyntaxException
 		{
 			reader.expect(' ');
 		    ItemParser itemparser = (new ItemParser(reader, false)).parse();
@@ -29,20 +32,17 @@ public class InfusionParticleData implements IParticleData
 		    return new InfusionParticleData(itemstack);
 		}
 
-		public InfusionParticleData read(ParticleType<InfusionParticleData> particleTypeIn, PacketBuffer buffer) 
+		@Nonnull
+        public InfusionParticleData read(@Nonnull ParticleType<InfusionParticleData> particleTypeIn, PacketBuffer buffer)
 		{
 			return new InfusionParticleData(buffer.readItemStack());
 		}
 	};
 
-	public static final Codec<InfusionParticleData> CODEC = ItemStack.CODEC.xmap(itemStack -> {
-		return new InfusionParticleData(itemStack);
-	}, infusionParticleType -> {
-		return infusionParticleType.itemStack;
-	});
+	public static final Codec<InfusionParticleData> CODEC = ItemStack.CODEC.xmap(InfusionParticleData::new, infusionParticleType -> infusionParticleType.itemStack);
 	
-	private ParticleType<InfusionParticleData> type;
-	private ItemStack itemStack;
+	private final ParticleType<InfusionParticleData> type;
+	private final ItemStack itemStack;
 	
 	public InfusionParticleData(ItemStack stack) 
 	{
@@ -57,7 +57,8 @@ public class InfusionParticleData implements IParticleData
 		return ColorHelper.toFloatArray(color);
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public ParticleType<?> getType() 
 	{
 		return this.type;
@@ -69,10 +70,11 @@ public class InfusionParticleData implements IParticleData
 		buffer.writeItemStack(itemStack);
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public String getParameters() 
 	{
-		return Registry.PARTICLE_TYPE.getKey(this.getType()).toString();
+		return Objects.requireNonNull(Registry.PARTICLE_TYPE.getKey(this.getType())).toString();
 	}
 
 }

@@ -47,20 +47,20 @@ public class EndDragonFightMixin {
 	@Final
 	@Shadow
 	private ServerWorld world;
-	
+
 	@Shadow
 	private BlockPattern.PatternHelper findExitPortal() {
 		return null;
 	}
-	
+
 	@Shadow
 	private void generatePortal(boolean bl) {
 	}
-	
+
 	@Shadow
 	private void respawnDragon(List<EnderCrystalEntity> list) {
 	}
-	
+
 	@Inject(method = "tryRespawnDragon", at = @At("HEAD"), cancellable = true)
 	private void be_tryRespawnDragon(CallbackInfo info) {
 		if (GeneratorOptions.replacePortal() && GeneratorOptions.hasDragonFights() && this.dragonKilled && this.respawnState == null) {
@@ -75,19 +75,18 @@ public class EndDragonFightMixin {
 				else {
 					LOGGER.debug("Found the exit portal & temporarily using it.");
 				}
-				
-				blockPos = exitPortalLocation;
+
 			}
-			
+
 			List<EnderCrystalEntity> crystals = Lists.newArrayList();
 			BlockPos center = GeneratorOptions.getPortalPos().up(5);
 			for (Direction dir : BlockHelper.HORIZONTAL_DIRECTIONS) {
 				BlockPos central = center.offset(dir, 4);
 				List<EnderCrystalEntity> crystalList = world.getEntitiesWithinAABB(
-					EnderCrystalEntity.class,
-					new AxisAlignedBB(central.down(255).south().west(), central.up(255).north().east())
+						EnderCrystalEntity.class,
+						new AxisAlignedBB(central.down(255).south().west(), central.up(255).north().east())
 				);
-				
+
 				int count = crystalList.size();
 				for (int n = 0; n < count; n++) {
 					EnderCrystalEntity crystal = crystalList.get(n);
@@ -97,15 +96,15 @@ public class EndDragonFightMixin {
 						n--;
 					}
 				}
-				
+
 				if (crystalList.isEmpty()) {
 					info.cancel();
 					return;
 				}
-				
+
 				crystals.addAll(crystalList);
 			}
-			
+
 			LOGGER.debug("Found all crystals, respawning dragon.");
 			respawnDragon(crystals);
 			info.cancel();

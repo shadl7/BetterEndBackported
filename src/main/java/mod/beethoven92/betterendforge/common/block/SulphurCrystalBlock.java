@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.EnumMap;
-
 import com.google.common.collect.Maps;
-
 import mod.beethoven92.betterendforge.common.block.template.AttachedBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import net.minecraft.block.Block;
@@ -23,6 +20,9 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
+
+import javax.annotation.Nonnull;
+import java.util.EnumMap;
 
 public class SulphurCrystalBlock extends AttachedBlock implements IWaterLoggable
 {
@@ -45,16 +45,17 @@ public class SulphurCrystalBlock extends AttachedBlock implements IWaterLoggable
 		super(properties);
 	}
 	
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	@Nonnull
+    @Override
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		return BOUNDING_SHAPES.get(state.get(FACING));
 	}
 	
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
+	public boolean isValidPosition(BlockState state, @Nonnull IWorldReader worldIn, BlockPos pos)
 	{
-		Direction direction = (Direction) state.get(FACING);
+		Direction direction = state.get(FACING);
 		BlockPos blockPos = pos.offset(direction.getOpposite());
 		return worldIn.getBlockState(blockPos).isIn(ModBlocks.BRIMSTONE.get());
 	}
@@ -73,7 +74,8 @@ public class SulphurCrystalBlock extends AttachedBlock implements IWaterLoggable
 		return null;
 	}
 	
-	@Override
+	@Nonnull
+    @Override
 	public FluidState getFluidState(BlockState state) 
 	{
 		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();

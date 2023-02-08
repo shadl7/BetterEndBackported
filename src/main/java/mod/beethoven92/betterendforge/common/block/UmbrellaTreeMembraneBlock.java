@@ -10,6 +10,8 @@ import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.util.Direction;
 
+import javax.annotation.Nonnull;
+
 public class UmbrellaTreeMembraneBlock extends SlimeBlock
 {
 	public static final IntegerProperty COLOR = IntegerProperty.create("color", 0, 7);
@@ -36,7 +38,7 @@ public class UmbrellaTreeMembraneBlock extends SlimeBlock
 	}
 	
 	@Override
-	public boolean isSideInvisible(BlockState state, BlockState adjacentBlockState, Direction side) 
+	public boolean isSideInvisible(BlockState state, @Nonnull BlockState adjacentBlockState, @Nonnull Direction side)
 	{
 		if (state.get(COLOR) > 0) 
 		{

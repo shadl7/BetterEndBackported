@@ -13,6 +13,8 @@ import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.IBlockDisplayReader;
 import net.minecraft.world.IBlockReader;
 
+import javax.annotation.Nonnull;
+
 public class ModLanternBlock extends LanternBlock {
 	private static final VoxelShape SHAPE_CEIL = Block.makeCuboidShape(3, 1, 3, 13, 16, 13);
 	private static final VoxelShape SHAPE_FLOOR = Block.makeCuboidShape(3, 0, 3, 13, 15, 13);
@@ -22,8 +24,9 @@ public class ModLanternBlock extends LanternBlock {
 		super(properties);
 	}
 
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) {
+	@Nonnull
+    @Override
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context) {
 		return state.get(LanternBlock.HANGING) ? SHAPE_CEIL : SHAPE_FLOOR;
 	}
 

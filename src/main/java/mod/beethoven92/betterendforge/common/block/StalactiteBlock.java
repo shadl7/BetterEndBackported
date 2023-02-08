@@ -24,6 +24,8 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class StalactiteBlock extends Block implements IWaterLoggable
 {
 	public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
@@ -49,8 +51,9 @@ public class StalactiteBlock extends Block implements IWaterLoggable
 		this.setDefaultState(getStateContainer().getBaseState().with(SIZE, 0).with(IS_FLOOR, true).with(WATERLOGGED, false));
 	}
 	
+	@Nonnull
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		return SHAPES[state.get(SIZE)];
 	}
@@ -66,7 +69,7 @@ public class StalactiteBlock extends Block implements IWaterLoggable
 		if (dir == Direction.DOWN) 
 		{
 			System.out.println("Check up!");
-			if (isThis(world, pos.up()) || this.hasEnoughSolidSide(world, pos.up(), Direction.DOWN)) 
+			if (isThis(world, pos.up()) || hasEnoughSolidSide(world, pos.up(), Direction.DOWN))
 			{
 				System.out.println("Up true!");
 				return getDefaultState().with(IS_FLOOR, false).with(WATERLOGGED, water);
@@ -102,7 +105,7 @@ public class StalactiteBlock extends Block implements IWaterLoggable
 	}
 	
 	@Override
-	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) 
+	public void onBlockPlacedBy(@Nonnull World world, BlockPos pos, @Nonnull BlockState state, LivingEntity placer, @Nonnull ItemStack stack)
 	{
 		boolean hasUp = isThis(world, pos.up());
 		boolean hasDown = isThis(world, pos.down());
@@ -189,9 +192,10 @@ public class StalactiteBlock extends Block implements IWaterLoggable
 		}
 	}
 	
+	@Nonnull
 	@Override
-	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
-			BlockPos currentPos, BlockPos facingPos) 
+	public BlockState updatePostPlacement(@Nonnull BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn,
+										  @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos)
 	{
 		if (!isValidPosition(stateIn, worldIn, currentPos)) 
 		{
@@ -201,7 +205,7 @@ public class StalactiteBlock extends Block implements IWaterLoggable
 	}
 	
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
+	public boolean isValidPosition(BlockState state, @Nonnull IWorldReader worldIn, @Nonnull BlockPos pos)
 	{
 		int size = state.get(SIZE);
 		return checkUp(worldIn, pos, size) || checkDown(worldIn, pos, size);
@@ -231,6 +235,7 @@ public class StalactiteBlock extends Block implements IWaterLoggable
 		return (isThis(state) && state.get(SIZE) >= size) || state.isNormalCube(world, p);
 	}
 	
+	@Nonnull
 	@Override
 	public FluidState getFluidState(BlockState state) 
 	{

@@ -8,6 +8,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.gen.feature.Feature;
 
+import javax.annotation.Nonnull;
+
 public class UmbrellaTreeSaplingBlock extends EndSaplingBlock
 {
 	public UmbrellaTreeSaplingBlock(Properties properties) 
@@ -22,7 +24,7 @@ public class UmbrellaTreeSaplingBlock extends EndSaplingBlock
 	}
 
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
+	public boolean isValidPosition(@Nonnull BlockState state, IWorldReader worldIn, BlockPos pos)
 	{
 		return worldIn.getBlockState(pos.down()).isIn(ModBlocks.JUNGLE_MOSS.get());
 	}

@@ -2,9 +2,11 @@ package mod.beethoven92.betterendforge.config.jsons;
 
 import net.minecraft.util.ResourceLocation;
 
+import java.util.Arrays;
+
 public class JsonConfigKey 
 {
-	private final String path[];
+	private final String[] path;
 	private final String entry;
 	private final boolean root;
 	
@@ -41,7 +43,7 @@ public class JsonConfigKey
 	{
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + path.hashCode();
+		result = prime * result + Arrays.hashCode(path);
 		result = prime * result + entry.hashCode();
 		return result;
 	}
@@ -69,12 +71,8 @@ public class JsonConfigKey
 				return false;
 			}
 		}
-		if (!entry.equals(other.entry))
-		{
-			return false;
-		}
-		return true;
-	}
+        return entry.equals(other.entry);
+    }
 	
 	@Override
 	public String toString() 
@@ -83,10 +81,10 @@ public class JsonConfigKey
 		{
 			return String.format("[root]:%s", entry);
 		}
-		String p = path[0];
+		StringBuilder p = new StringBuilder(path[0]);
 		for (int i = 1; i < path.length; i++) 
 		{
-			p += "." + path[i];
+			p.append(".").append(path[i]);
 		}
 		return String.format("%s:%s", p, entry);
 	}

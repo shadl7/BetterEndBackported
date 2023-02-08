@@ -9,6 +9,8 @@ import net.minecraft.client.world.ClientWorld;
 import net.minecraft.particles.BasicParticleType;
 import net.minecraft.util.math.MathHelper;
 
+import javax.annotation.Nonnull;
+
 public class FireflyParticle extends SimpleAnimatedParticle {
 	private double preVX;
 	private double preVY;
@@ -17,7 +19,7 @@ public class FireflyParticle extends SimpleAnimatedParticle {
 	private double nextVY;
 	private double nextVZ;
 	
-	protected FireflyParticle(ClientWorld world, double x, double y, double z, IAnimatedSprite sprites, double r, double g, double b) {
+	protected FireflyParticle(ClientWorld world, double x, double y, double z, IAnimatedSprite sprites) {
 		super(world, x, y, z, sprites, 0);
 		setSprite(sprites.get(rand));
 		this.maxAge = ModMathHelper.randRange(150, 300, rand);
@@ -70,9 +72,9 @@ public class FireflyParticle extends SimpleAnimatedParticle {
 		}
 
 		@Override
-		public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z,
-				double xSpeed, double ySpeed, double zSpeed) {
-			return new FireflyParticle(worldIn, x, y, z, sprites, 1, 1, 1);
+		public Particle makeParticle(@Nonnull BasicParticleType typeIn, @Nonnull ClientWorld worldIn, double x, double y, double z,
+                                     double xSpeed, double ySpeed, double zSpeed) {
+			return new FireflyParticle(worldIn, x, y, z, sprites);
 		}
 	}
 }

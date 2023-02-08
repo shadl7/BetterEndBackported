@@ -3,7 +3,6 @@ package mod.beethoven92.betterendforge.common.block;
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
 import mod.beethoven92.betterendforge.common.block.template.UnderwaterPlantBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
-import mod.beethoven92.betterendforge.common.init.ModItems;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -23,6 +22,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 
+import javax.annotation.Nonnull;
+
 public class EndLilyBlock extends UnderwaterPlantBlock
 {
 	public static final EnumProperty<TripleShape> SHAPE = BlockProperties.TRIPLE_SHAPE;
@@ -34,8 +35,9 @@ public class EndLilyBlock extends UnderwaterPlantBlock
 		super(properties);
 	}
 	
-	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	@Nonnull
+    @Override
+	public VoxelShape getShape(BlockState state, @Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull ISelectionContext context)
 	{
 		Vector3d vec3d = state.getOffset(worldIn, pos);
 		VoxelShape shape = state.get(SHAPE) == TripleShape.TOP ? SHAPE_TOP : SHAPE_BOTTOM;
@@ -43,7 +45,7 @@ public class EndLilyBlock extends UnderwaterPlantBlock
 	}
 	
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
+	public boolean isValidPosition(@Nonnull BlockState state, IWorldReader worldIn, BlockPos pos)
 	{
 		if (state.get(SHAPE) == TripleShape.TOP) 
 		{
@@ -61,9 +63,10 @@ public class EndLilyBlock extends UnderwaterPlantBlock
 		}
 	}
 	
-	@Override
-	public BlockState updatePostPlacement(BlockState stateIn, Direction facing, BlockState facingState, IWorld worldIn,
-			BlockPos currentPos, BlockPos facingPos) 
+	@Nonnull
+    @Override
+	public BlockState updatePostPlacement(@Nonnull BlockState stateIn, @Nonnull Direction facing, @Nonnull BlockState facingState, @Nonnull IWorld worldIn,
+                                          @Nonnull BlockPos currentPos, @Nonnull BlockPos facingPos)
 	{
 		if (!isValidPosition(stateIn, worldIn, currentPos)) 
 		{
@@ -81,8 +84,9 @@ public class EndLilyBlock extends UnderwaterPlantBlock
 		builder.add(SHAPE);
 	}
 	
-	@Override
-	public FluidState getFluidState(BlockState state) 
+	@Nonnull
+    @Override
+	public FluidState getFluidState(@Nonnull BlockState state)
 	{
 		return state.get(SHAPE) == TripleShape.TOP ? Fluids.EMPTY.getDefaultState() : Fluids.WATER.getStillFluidState(false);
 	}

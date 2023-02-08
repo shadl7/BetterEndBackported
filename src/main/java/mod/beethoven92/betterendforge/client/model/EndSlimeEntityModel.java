@@ -3,12 +3,13 @@ package mod.beethoven92.betterendforge.client.model;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import mod.beethoven92.betterendforge.common.entity.EndSlimeEntity;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.SegmentedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
+
+import javax.annotation.Nonnull;
 
 public class EndSlimeEntityModel<T extends EndSlimeEntity> extends SegmentedModel<T> {
 	private final ModelRenderer flower;
@@ -65,7 +66,7 @@ public class EndSlimeEntityModel<T extends EndSlimeEntity> extends SegmentedMode
 	}
 	
 	@Override
-	public void setRotationAngles(T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {}
+	public void setRotationAngles(@Nonnull T entity, float limbAngle, float limbDistance, float animationProgress, float headYaw, float headPitch) {}
 	
 	public void renderFlower(MatrixStack matrices, IVertexBuilder vertices, int light, int overlay) {
 		flower.render(matrices, vertices, light, overlay);
@@ -75,7 +76,8 @@ public class EndSlimeEntityModel<T extends EndSlimeEntity> extends SegmentedMode
 		crop.render(matrices, vertices, light, overlay);
 	}
 
-	@Override
+	@Nonnull
+    @Override
 	public Iterable<ModelRenderer> getParts() {
 		return ImmutableList.of(this.innerCube, this.rightEye, this.leftEye, this.mouth);
 	}

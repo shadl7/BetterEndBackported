@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
 import mod.beethoven92.betterendforge.common.block.template.PlantBlockWithAge;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
@@ -15,6 +13,9 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import java.util.Random;
+
 public class BulbVineSeedBlock extends PlantBlockWithAge
 {
 	public BulbVineSeedBlock(Properties properties) 
@@ -23,7 +24,7 @@ public class BulbVineSeedBlock extends PlantBlockWithAge
 	}
 
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos)
+	public boolean isValidPosition(@Nonnull BlockState state, IWorldReader worldIn, BlockPos pos)
 	{
 		BlockState up = worldIn.getBlockState(pos.up());
 		return up.isIn(ModTags.GEN_TERRAIN) || up.isIn(BlockTags.LOGS) || up.isIn(BlockTags.LEAVES);
@@ -45,13 +46,13 @@ public class BulbVineSeedBlock extends PlantBlockWithAge
 	}
 	
 	@Override
-	public boolean canGrow(IBlockReader worldIn, BlockPos pos, BlockState state, boolean isClient) 
+	public boolean canGrow(@Nonnull IBlockReader worldIn, @Nonnull BlockPos pos, @Nonnull BlockState state, boolean isClient)
 	{
 		return true;
 	}
 	
 	@Override
-	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, BlockState state) 
+	public boolean canUseBonemeal(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull BlockState state)
 	{
 		return true;
 	}

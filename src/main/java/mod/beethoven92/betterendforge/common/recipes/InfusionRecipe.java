@@ -1,14 +1,9 @@
 package mod.beethoven92.betterendforge.common.recipes;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.function.Consumer;
-
 import com.google.common.collect.Maps;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
-
 import mod.beethoven92.betterendforge.common.init.ModRecipeSerializers;
 import mod.beethoven92.betterendforge.common.rituals.InfusionRitual;
 import net.minecraft.data.IFinishedRecipe;
@@ -22,6 +17,11 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Consumer;
+
 public class InfusionRecipe implements IRecipe<InfusionRitual> {
 	public final static String GROUP = "infusion";
 	public final static IRecipeType<InfusionRecipe> TYPE = ModRecipeSerializers.registerRecipeType(GROUP);
@@ -30,8 +30,8 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 	public Ingredient input;
 	public ItemStack output;
 	public int time = 1;
-	public Ingredient[] catalysts = new Ingredient[8];
-	public Map<Integer, Ingredient> ingredientPositions = Maps.newHashMap();
+	public final Ingredient[] catalysts = new Ingredient[8];
+	public final Map<Integer, Ingredient> ingredientPositions = Maps.newHashMap();
 
 	public InfusionRecipe(ResourceLocation id) {
 		this(id, null, null);
@@ -48,18 +48,17 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 		return this.time;
 	}
 
+	@Nonnull
 	@Override
 	public NonNullList<Ingredient> getIngredients() {
 		NonNullList<Ingredient> list = NonNullList.create();
 		list.add(input);
-		for (Ingredient catalyst : catalysts) {
-			list.add(catalyst);
-		}
+		list.addAll(Arrays.asList(catalysts));
 		return list;
 	}
 
 	@Override
-	public boolean matches(InfusionRitual inv, World worldIn) {
+	public boolean matches(InfusionRitual inv, @Nonnull World worldIn) {
 		boolean valid = this.input.test(inv.getStackInSlot(0));
 		if (!valid)
 			return false;
@@ -69,8 +68,9 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 		return valid;
 	}
 
+	@Nonnull
 	@Override
-	public ItemStack getCraftingResult(InfusionRitual inv) {
+	public ItemStack getCraftingResult(@Nonnull InfusionRitual inv) {
 		return this.output.copy();
 	}
 
@@ -79,21 +79,25 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 		return true;
 	}
 
+	@Nonnull
 	@Override
 	public ItemStack getRecipeOutput() {
 		return this.output;
 	}
 
+	@Nonnull
 	@Override
 	public ResourceLocation getId() {
 		return this.id;
 	}
 
+	@Nonnull
 	@Override
 	public IRecipeSerializer<?> getSerializer() {
 		return ModRecipeSerializers.INFUSION.get();
 	}
 
+	@Nonnull
 	@Override
 	public IRecipeType<?> getType() {
 		return TYPE;
@@ -108,7 +112,7 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 		private Ingredient input;
 		private ItemStack output;
 		private int time = 1;
-		private Ingredient[] catalysts = new Ingredient[8];
+		private final Ingredient[] catalysts = new Ingredient[8];
 
 		private Builder() {
 			Arrays.fill(catalysts, Ingredient.EMPTY);
@@ -158,8 +162,8 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 			if (output == null)
 				Illegal("Output for Infusion recipe can't be null, recipe %s", id);
 			int empty = 0;
-			for (int i = 0; i < catalysts.length; i++) {
-				if (catalysts[i].hasNoMatchingItems())
+			for (Ingredient catalyst : catalysts) {
+				if (catalyst.hasNoMatchingItems())
 					empty++;
 			}
 			if (empty == catalysts.length) {
@@ -172,11 +176,11 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 		}
 
 		public static class Result implements IFinishedRecipe {
-			private ResourceLocation id;
-			private Ingredient input;
-			private ItemStack output;
-			private int time;
-			private Ingredient[] catalysts = new Ingredient[8];
+			private final ResourceLocation id;
+			private final Ingredient input;
+			private final ItemStack output;
+			private final int time;
+			private final Ingredient[] catalysts;
 			
 			private Result(ResourceLocation id, Ingredient input, ItemStack output, int time, Ingredient[] catalysts) {
 				this.id = id;
@@ -203,11 +207,13 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 				json.add("catalysts", jsonCatalysts);
 			}
 
+			@Nonnull
 			@Override
 			public ResourceLocation getID() {
 				return id;
 			}
 
+			@Nonnull
 			@Override
 			public IRecipeSerializer<?> getSerializer() {
 				return ModRecipeSerializers.INFUSION.get();

@@ -1,11 +1,7 @@
 package mod.beethoven92.betterendforge.common.teleporter;
 
-import java.io.File;
-import java.util.Iterator;
-
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.util.JsonFactory;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
@@ -13,6 +9,8 @@ import mod.beethoven92.betterendforge.config.jsons.JsonConfigWriter;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.server.ServerWorld;
+
+import java.io.File;
 
 
 public class EndPortals 
@@ -82,9 +80,8 @@ public class EndPortals
 	
 	public static boolean isAvailableItem(ResourceLocation item) 
 	{
-		for (int i = 0; i < portals.length; i++) 
-		{
-			if (portals[i].item.equals(item)) {
+		for (PortalInfo portal : portals) {
+			if (portal.item.equals(item)) {
 				return true;
 			}
 		}
@@ -138,12 +135,8 @@ public class EndPortals
 			{
 				return world;
 			}
-			Iterator<ServerWorld> iterator = server.getWorlds().iterator();
-			while (iterator.hasNext()) 
-			{
-				ServerWorld world = iterator.next();
-				if (world.getDimensionKey().getLocation().equals(dimension)) 
-				{
+			for (ServerWorld world : server.getWorlds()) {
+				if (world.getDimensionKey().getLocation().equals(dimension)) {
 					this.world = world;
 					return world;
 				}
