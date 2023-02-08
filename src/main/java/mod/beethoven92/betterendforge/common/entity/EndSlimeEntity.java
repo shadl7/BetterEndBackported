@@ -2,7 +2,6 @@ package mod.beethoven92.betterendforge.common.entity;
 
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
@@ -54,12 +53,12 @@ public class EndSlimeEntity extends SlimeEntity {
 		this.goalSelector.addGoal(2, new FaceTowardTargetGoal());
 		this.goalSelector.addGoal(3, new RandomLookGoal());
 		this.goalSelector.addGoal(5, new MoveGoal());
-		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, PlayerEntity.class, 10, true,
-                false, (livingEntity) -> {
-            return Math.abs(livingEntity.getPosY() - this.getPosY()) <= 4.0D;
-        }));
+		this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<PlayerEntity>(this, PlayerEntity.class, 10, true,
+				false, (livingEntity) -> {
+					return Math.abs(livingEntity.getPosY() - this.getPosY()) <= 4.0D;
+				}));
 		this.targetSelector.addGoal(3,
-                new NearestAttackableTargetGoal<>(this, IronGolemEntity.class, true));
+				new NearestAttackableTargetGoal<IronGolemEntity>(this, IronGolemEntity.class, true));
 	}
 
 	public static AttributeModifierMap.MutableAttribute registerAttributes() {
@@ -81,7 +80,7 @@ public class EndSlimeEntity extends SlimeEntity {
 			this.setLake();
 		}
 		else if (biome == ModBiomes.AMBER_LAND) {
-			this.setAmber();
+			this.setAmber(true);
 		}
 		this.recalculateSize();
 		return data;
@@ -127,10 +126,10 @@ public class EndSlimeEntity extends SlimeEntity {
 				float h = ((float) (l / 2) - 0.5F) * f;
 				EndSlimeEntity slimeEntity = (EndSlimeEntity) this.getType().create(this.world);
 				if (this.isNoDespawnRequired()) {
-					Objects.requireNonNull(slimeEntity).enablePersistence();
+					slimeEntity.enablePersistence();
 				}
 
-				Objects.requireNonNull(slimeEntity).setSlimeType(type);
+				slimeEntity.setSlimeType(type);
 				slimeEntity.setCustomName(text);
 				slimeEntity.setNoAI(bl);
 				slimeEntity.setInvulnerable(this.isInvulnerable());
@@ -181,7 +180,7 @@ public class EndSlimeEntity extends SlimeEntity {
 		return getSlimeType() == 2;
 	}
 
-	protected void setAmber() {
+	protected void setAmber(boolean mossy) {
 		this.dataManager.set(VARIANT, (byte) 3);
 	}
 
@@ -195,7 +194,7 @@ public class EndSlimeEntity extends SlimeEntity {
 
 	public static boolean canSpawn(EntityType<EndSlimeEntity> type, IServerWorld world, SpawnReason spawnReason,
 			BlockPos pos, Random random) {
-		return isPermanentBiome(world, pos) || (notManyEntities(world, pos) && isWaterNear(world, pos));
+		return isPermanentBiome(world, pos) || (notManyEntities(world, pos, 32, 3) && isWaterNear(world, pos, 32, 8));
 	}
 
 	private static boolean isPermanentBiome(IServerWorld world, BlockPos pos) {
@@ -203,20 +202,20 @@ public class EndSlimeEntity extends SlimeEntity {
 		return ModBiomes.getFromBiome(biome) == ModBiomes.CHORUS_FOREST;
 	}
 
-	private static boolean notManyEntities(IServerWorld world, BlockPos pos) {
-		AxisAlignedBB box = new AxisAlignedBB(pos).grow(32);
+	private static boolean notManyEntities(IServerWorld world, BlockPos pos, int radius, int maxCount) {
+		AxisAlignedBB box = new AxisAlignedBB(pos).grow(radius);
 		List<EndSlimeEntity> list = world.getEntitiesWithinAABB(EndSlimeEntity.class, box, (entity) -> {
 			return true;
 		});
-		return list.size() <= 3;
+		return list.size() <= maxCount;
 	}
 
-	private static boolean isWaterNear(IServerWorld world, BlockPos pos) {
-		for (int x = pos.getX() - 32; x <= pos.getX() + 32; x++) {
+	private static boolean isWaterNear(IServerWorld world, BlockPos pos, int radius, int radius2) {
+		for (int x = pos.getX() - radius; x <= pos.getX() + radius; x++) {
 			POS.setX(x);
-			for (int z = pos.getZ() - 32; z <= pos.getZ() + 32; z++) {
+			for (int z = pos.getZ() - radius; z <= pos.getZ() + radius; z++) {
 				POS.setZ(z);
-				for (int y = pos.getY() - 8; y <= pos.getY() + 8; y++) {
+				for (int y = pos.getY() - radius2; y <= pos.getY() + radius2; y++) {
 					POS.setY(y);
 					if (world.getBlockState(POS).getBlock() == Blocks.WATER) {
 						return true;
@@ -273,6 +272,7 @@ public class EndSlimeEntity extends SlimeEntity {
 		public void tick() {
 			if (EndSlimeEntity.this.getRNG().nextFloat() < 0.8F) {
 				EndSlimeEntity.this.getJumpController().setJumping();
+				;
 			}
 
 			((EndSlimeMoveControl) EndSlimeEntity.this.getMoveHelper()).move(1.2D);
@@ -321,7 +321,9 @@ public class EndSlimeEntity extends SlimeEntity {
 			} else if (!livingEntity.isAlive()) {
 				return false;
 			} else {
-				return (!(livingEntity instanceof PlayerEntity) || !((PlayerEntity) livingEntity).abilities.disableDamage) && EndSlimeEntity.this.getMoveHelper() instanceof EndSlimeMoveControl;
+				return livingEntity instanceof PlayerEntity && ((PlayerEntity) livingEntity).abilities.disableDamage
+						? false
+						: EndSlimeEntity.this.getMoveHelper() instanceof EndSlimeMoveControl;
 			}
 		}
 
@@ -347,7 +349,7 @@ public class EndSlimeEntity extends SlimeEntity {
 
 		@Override
 		public void tick() {
-			EndSlimeEntity.this.faceEntity(Objects.requireNonNull(EndSlimeEntity.this.getAttackTarget()), 10.0F, 10.0F);
+			EndSlimeEntity.this.faceEntity(EndSlimeEntity.this.getAttackTarget(), 10.0F, 10.0F);
 			((EndSlimeMoveControl) EndSlimeEntity.this.getMoveHelper()).look(EndSlimeEntity.this.rotationYaw,
 					EndSlimeEntity.this.canDamagePlayer());
 		}

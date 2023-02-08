@@ -113,7 +113,16 @@ public class RespawnObeliskBlock extends Block {
 		super.onBlockHarvested(world, pos, state, player);
 	}
 
-    @Override
+	/*@Override
+	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
+		if (state.get(SHAPE) == TripleShape.BOTTOM) {
+			return Lists.newArrayList(new ItemStack(this));
+		} else {
+			return Lists.newArrayList();
+		}
+	}*/
+
+	@Override
 	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
 			Hand hand, BlockRayTraceResult hit) {
 		ItemStack itemStack = player.getHeldItem(hand);

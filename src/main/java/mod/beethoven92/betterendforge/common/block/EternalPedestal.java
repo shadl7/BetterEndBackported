@@ -90,7 +90,7 @@ public class EternalPedestal extends PedestalBlock
 	{
 		BlockState updated = super.updatePostPlacement(stateIn, facing, facingState, worldIn, currentPos, facingPos);
 		if (!updated.isIn(this)) return updated;
-		if (this.isPlaceable(updated))
+		if (!this.isPlaceable(updated)) 
 		{
 			return updated.with(ACTIVATED, false);
 		}

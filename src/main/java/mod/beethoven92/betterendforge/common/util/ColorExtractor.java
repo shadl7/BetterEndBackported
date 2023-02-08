@@ -11,8 +11,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class ColorExtractor
 {
-	private final List<Center> centers = new ArrayList<>();
-	private final List<Integer> colors;
+	private List<Center> centers = new ArrayList<>();
+	private List<Integer> colors;
 	private Integer result;
 	
 	public ColorExtractor(List<Integer> colors) 
@@ -75,9 +75,9 @@ public class ColorExtractor
 				red += center.r * weight;
 				green += center.g * weight;
 				blue += center.b * weight;
-			}
-
-            int a = (int) Math.round(alpha / weights);
+			};
+			
+			int a = (int) Math.round(alpha / weights);
 			int r = (int) Math.round(red / weights);
 			int g = (int) Math.round(green / weights);
 			int b = (int) Math.round(blue / weights);
@@ -108,9 +108,16 @@ public class ColorExtractor
 	
 	private static class Center 
 	{
-		static final Comparator<Center> COMPARATOR = (c1, c2) -> Integer.compare(c1.getColor(), c2.getColor());
+		static final Comparator<Center> COMPARATOR = new Comparator<Center>() 
+		{
+			@Override
+			public int compare(Center c1, Center c2) 
+			{
+				return Integer.compare(c1.getColor(), c2.getColor());
+			}
+		};
 		
-		final List<Integer> colors = new ArrayList<>();
+		List<Integer> colors = new ArrayList<>();
 		double a, r, g, b;
 		
 		Center(int color) 

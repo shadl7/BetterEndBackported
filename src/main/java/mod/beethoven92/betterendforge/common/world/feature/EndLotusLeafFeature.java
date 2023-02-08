@@ -71,7 +71,11 @@ public class EndLotusLeafFeature extends ScatterFeature
 			Direction d2 = BlockHelper.HORIZONTAL_DIRECTIONS[(i + 1) & 3];
 			BlockHelper.setWithoutUpdate(world, p.setPos(pos).move(d1).move(d2), leaf.with(EndLotusLeafBlock.HORIZONTAL_FACING, d1).with(EndLotusLeafBlock.SHAPE, TripleShape.TOP));
 		}
-    }
+		//BlockHelper.setWithoutUpdate(world, p.setPos(pos).move(Direction.NORTH).move(Direction.EAST), leaf.with(EndLotusLeafBlock.HORIZONTAL_FACING, Direction.NORTH).with(EndLotusLeafBlock.SHAPE, TripleShape.TOP));
+		//BlockHelper.setWithoutUpdate(world, p.setPos(pos).move(Direction.EAST).move(Direction.SOUTH), leaf.with(EndLotusLeafBlock.HORIZONTAL_FACING, Direction.EAST).with(EndLotusLeafBlock.SHAPE, TripleShape.TOP));
+		//BlockHelper.setWithoutUpdate(world, p.setPos(pos).move(Direction.SOUTH).move(Direction.WEST), leaf.with(EndLotusLeafBlock.HORIZONTAL_FACING, Direction.SOUTH).with(EndLotusLeafBlock.SHAPE, TripleShape.TOP));
+		//BlockHelper.setWithoutUpdate(world, p.setPos(pos).move(Direction.WEST).move(Direction.NORTH), leaf.with(EndLotusLeafBlock.HORIZONTAL_FACING, Direction.WEST).with(EndLotusLeafBlock.SHAPE, TripleShape.TOP));
+	}
 	
 	@Override
 	protected int getChance() 

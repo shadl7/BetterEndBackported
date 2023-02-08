@@ -41,16 +41,16 @@ public class LakePiece extends StructurePiece
 	private static final BlockState AIR = Blocks.AIR.getDefaultState();
 	private static final BlockState WATER = Blocks.WATER.getDefaultState();
 	
-	private final Map<Integer, Byte> heightmap = Maps.newHashMap();
+	private Map<Integer, Byte> heightmap = Maps.newHashMap();
 	
-	private final OpenSimplexNoise noise;
-	private final BlockPos center;
-	private final float radius;
-	private final float aspect;
-	private final float depth;
-	private final int seed;
+	private OpenSimplexNoise noise;
+	private BlockPos center;
+	private float radius;
+	private float aspect;
+	private float depth;
+	private int seed;
 	
-	private final ResourceLocation biomeID;
+	private ResourceLocation biomeID;
 
 	
 	public LakePiece(BlockPos center, float radius, float depth, Random random, Biome biome) 
@@ -125,7 +125,7 @@ public class LakePiece extends StructurePiece
 				int wz = z | sz;
 				double nz = wz * 0.1;
 				int z2 = wz - center.getZ();
-				float clamp = getHeightClamp(world, wx, wz);
+				float clamp = getHeightClamp(world, 8, wx, wz);
 				if (clamp < 0.01) continue;
 				
 				double n = noise.eval(nx, nz) * 1.5 + 1.5;
@@ -280,23 +280,23 @@ public class LakePiece extends StructurePiece
 		}
 	}
 	
-	private float getHeightClamp(ISeedReader world, int posX, int posZ)
+	private float getHeightClamp(ISeedReader world, int radius, int posX, int posZ) 
 	{
 		Mutable mut = new Mutable();
-		int r2 = 8 * 8;
+		int r2 = radius * radius;
 		float height = 0;
 		float max = 0;
-		for (int x = -8; x <= 8; x++)
+		for (int x = -radius; x <= radius; x++) 
 		{
 			mut.setX(posX + x);
 			int x2 = x * x;
-			for (int z = -8; z <= 8; z++)
+			for (int z = -radius; z <= radius; z++)
 			{
 				mut.setZ(posZ + z);
 				int z2 = z * z;
 				if (x2 + z2 < r2) 
 				{
-					float mult = 1 - (float) Math.sqrt(x2 + z2) / 8;
+					float mult = 1 - (float) Math.sqrt(x2 + z2) / radius;
 					max += mult;
 					height += getHeight(world, mut) * mult;
 				}

@@ -13,6 +13,7 @@ import mod.beethoven92.betterendforge.common.item.ModItemTier;
 import mod.beethoven92.betterendforge.common.item.ModSpawnEggItem;
 import mod.beethoven92.betterendforge.common.item.UmbrellaClusterJuiceItem;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
+import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
@@ -101,8 +102,8 @@ public class ModItems
 	public final static RegistryObject<Item> UMBRELLA_CLUSTER_JUICE = ITEMS.register("umbrella_cluster_juice", () -> new UmbrellaClusterJuiceItem(new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB).maxStackSize(1).food(new Food.Builder().hunger(5).saturation(0.7F).build())));
 	
 	// MISC ITEMS
-	public final static RegistryObject<Item> BUCKET_END_FISH = ITEMS.register("bucket_end_fish", () -> new FishBucketItem(ModEntityTypes.END_FISH, () -> Fluids.WATER, new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB).maxStackSize(1)));
-	public final static RegistryObject<Item> BUCKET_CUBOZOA = ITEMS.register("bucket_cubozoa", () -> new FishBucketItem(ModEntityTypes.CUBOZOA, () -> Fluids.WATER, new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB).maxStackSize(1)));
+	public final static RegistryObject<Item> BUCKET_END_FISH = ITEMS.register("bucket_end_fish", () -> new FishBucketItem(() -> ModEntityTypes.END_FISH.get(), () -> Fluids.WATER, new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB).maxStackSize(1)));
+	public final static RegistryObject<Item> BUCKET_CUBOZOA = ITEMS.register("bucket_cubozoa", () -> new FishBucketItem(() -> ModEntityTypes.CUBOZOA.get(), () -> Fluids.WATER, new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB).maxStackSize(1)));
 	public final static RegistryObject<Item> GUIDE_BOOK = ITEMS.register("guidebook", () -> new GuideBookItem(new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB).maxStackSize(1)));
 	public final static RegistryObject<Item> FLAMAEA = ITEMS.register("flamaea", () -> new LilyPadItem(ModBlocks.FLAMAEA.get(), new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB)));
 	

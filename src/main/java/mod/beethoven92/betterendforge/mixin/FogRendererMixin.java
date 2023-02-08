@@ -13,6 +13,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.util.BackgroundInfo;
 import mod.beethoven92.betterendforge.common.world.biome.BetterEndBiome;
+import mod.beethoven92.betterendforge.config.ClientConfig;
 import net.minecraft.client.renderer.ActiveRenderInfo;
 import net.minecraft.client.renderer.FogRenderer;
 import net.minecraft.client.world.ClientWorld;

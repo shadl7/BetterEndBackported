@@ -28,11 +28,18 @@ public class MengerSpongeWetBlock extends WetSpongeBlock
 		{
 			worldIn.setBlockState(pos, ModBlocks.MENGER_SPONGE.get().getDefaultState(), 3);
 	        worldIn.playEvent(2009, pos, 0);
-	        worldIn.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, (1.0F + worldIn.getRandom().nextFloat() * 0.2F) * 0.7F);
+	        worldIn.playSound((PlayerEntity)null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1.0F, (1.0F + worldIn.getRandom().nextFloat() * 0.2F) * 0.7F);
 	    }
 	}
 
-    @Override
+	/*@Override
+	public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) 
+	{
+		worldIn.destroyBlock(pos, !player.isCreative());
+		BlockHelper.setWithUpdate(worldIn, pos, Blocks.AIR);
+	}*/
+	
+	@Override
 	public void onPlayerDestroy(IWorld worldIn, BlockPos pos, BlockState state) 
 	{
 		BlockHelper.setWithUpdate(worldIn, pos, Blocks.AIR);

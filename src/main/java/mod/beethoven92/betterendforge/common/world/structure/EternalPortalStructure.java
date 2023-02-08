@@ -54,8 +54,8 @@ public class EternalPortalStructure extends Structure<NoFeatureConfig>
 			SharedSeedRandom sharedSeedRandom, int chunkX, int chunkZ, Biome biome, ChunkPos chunkPos,
 			NoFeatureConfig config) 
 	{
-		long x = (long) chunkPos.x * chunkPos.x;
-		long z = (long) chunkPos.z * chunkPos.z;
+		long x = chunkPos.x * chunkPos.x;
+		long z = chunkPos.z * chunkPos.z;
 		long d = x * x + z * z;
 		if (d < 1024) 
 		{
@@ -70,7 +70,7 @@ public class EternalPortalStructure extends Structure<NoFeatureConfig>
 
 	private static int getGenerationHeight(int chunkX, int chunkZ, ChunkGenerator chunkGenerator) 
 	{
-		Random random = new Random(chunkX + chunkZ * 10387313);
+		Random random = new Random((long) (chunkX + chunkZ * 10387313));
 		Rotation blockRotation = Rotation.randomRotation(random);
 		int i = 5;
 		int j = 5;

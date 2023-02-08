@@ -144,7 +144,7 @@ public class DragonflyEntity extends AnimalEntity implements IFlyingAnimal
 		return y > 0 && pos.getY() >= y && list.size() < 9;
 	}
 	
-	public static class DragonflyLookControl extends LookController
+	public class DragonflyLookControl extends LookController 
 	{
 		DragonflyLookControl(MobEntity entity) 
 		{

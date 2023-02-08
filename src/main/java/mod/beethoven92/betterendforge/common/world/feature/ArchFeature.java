@@ -1,6 +1,7 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
 import com.google.common.collect.Lists;
+import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.FeatureHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
@@ -25,8 +26,8 @@ import java.util.Random;
 import java.util.function.Function;
 
 public class ArchFeature extends Feature<NoFeatureConfig> {
-	private final Function<BlockPos, BlockState> surfaceFunction;
-	private final Block block;
+	private Function<BlockPos, BlockState> surfaceFunction;
+	private Block block;
 	
 	public ArchFeature(Block block, Function<BlockPos, BlockState> surfaceFunction) {
         super(NoFeatureConfig.field_236558_a_);
@@ -37,13 +38,14 @@ public class ArchFeature extends Feature<NoFeatureConfig> {
 	@Override
 	public boolean generate(ISeedReader level, ChunkGenerator generator, Random random, BlockPos origin,
                             NoFeatureConfig config) {
+		final ISeedReader world = level;
 
-
-        BlockPos pos = FeatureHelper.getPosOnSurfaceWG(
-                level,
+		
+		BlockPos pos = FeatureHelper.getPosOnSurfaceWG(
+			world,
 			new BlockPos((origin.getX() & 0xFFFFFFF0) | 7, 0, (origin.getZ() & 0xFFFFFFF0) | 7)
 		);
-		if (!level.getBlockState(pos.down(5)).isIn(ModTags.GEN_TERRAIN)) {
+		if (!world.getBlockState(pos.down(5)).isIn(ModTags.GEN_TERRAIN)) {
 			return false;
 		}
 		
@@ -80,7 +82,7 @@ public class ArchFeature extends Feature<NoFeatureConfig> {
 		if (side > 47) {
 			side = 47;
 		}
-		arch.fillArea(level, pos, AABBAcc.ofSize(Vector3d.copyCentered(pos), side, side, side));
+		arch.fillArea(world, pos, AABBAcc.ofSize(Vector3d.copyCentered(pos), side, side, side));
 		
 		return true;
 	}

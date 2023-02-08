@@ -10,6 +10,9 @@ import mod.beethoven92.betterendforge.config.jsons.JsonConfigKeeper.IntegerEntry
 import mod.beethoven92.betterendforge.config.jsons.JsonConfigKeeper.RangeEntry;
 import mod.beethoven92.betterendforge.config.jsons.JsonConfigKeeper.StringEntry;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public abstract class JsonConfig 
 {
 	public static final String CONFIG_SYNC_PREFIX = "CONFIG_";
@@ -74,7 +77,7 @@ public abstract class JsonConfig
 			StringEntry entry = keeper.registerEntry(key, new StringEntry(defaultValue));
 			return entry.getValue();
 		}
-		return str;
+		return str != null ? str : defaultValue;
 	}
 	
 	protected String getString(JsonConfigKey key)
@@ -107,7 +110,7 @@ public abstract class JsonConfig
 			IntegerEntry entry = keeper.registerEntry(key, new IntegerEntry(defaultValue));
 			return entry.getValue();
 		}
-		return val;
+		return val != null ? val : defaultValue;
 	}
 
 	public int getInt(JsonConfigKey key)

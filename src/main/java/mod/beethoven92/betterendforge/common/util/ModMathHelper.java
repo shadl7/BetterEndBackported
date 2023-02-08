@@ -65,8 +65,8 @@ public class ModMathHelper
 		} 
 		else 
 		{
-			float var6 = (hue - (float) Math.floor(hue)) * 6.0F;
-			float var7 = var6 - (float) Math.floor(var6);
+			float var6 = (hue - (float) Math.floor((double) hue)) * 6.0F;
+			float var7 = var6 - (float) Math.floor((double) var6);
 			float var8 = brightness * (1.0F - saturation);
 			float var9 = brightness * (1.0F - saturation * var7);
 			float var10 = brightness * (1.0F - saturation * (1.0F - var7));
@@ -251,12 +251,12 @@ public class ModMathHelper
 	
 	public static int min(int a, int b) 
 	{
-		return Math.min(a, b);
+		return a < b ? a : b;
 	}
 	
 	public static int max(int a, int b) 
 	{
-		return Math.max(a, b);
+		return a > b ? a : b;
 	}
 	
 	public static int min(int a, int b, int c) 
@@ -271,12 +271,12 @@ public class ModMathHelper
 	
 	public static float min(float a, float b) 
 	{
-		return Math.min(a, b);
+		return a < b ? a : b;
 	}
 	
 	public static float max(float a, float b) 
 	{
-		return Math.max(a, b);
+		return a > b ? a : b;
 	}
 	
 	public static float max(float a, float b, float c) 
@@ -288,7 +288,7 @@ public class ModMathHelper
 		return value * RAD_TO_DEG;
 	}
 	
-	public static float degreesToRadians(float value) {
+	public static final float degreesToRadians(float value) {
 		return value / RAD_TO_DEG;
 	}
 	

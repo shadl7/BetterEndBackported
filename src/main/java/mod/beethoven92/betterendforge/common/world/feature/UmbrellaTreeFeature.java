@@ -91,8 +91,11 @@ public class UmbrellaTreeFeature extends Feature<NoFeatureConfig>
 		List<Center> centers = Lists.newArrayList();
 		
 		float scale = 1;
-		scale = ModMathHelper.randRange(1F, 1.7F, rand);
-
+		if (config != null) 
+		{
+			scale = ModMathHelper.randRange(1F, 1.7F, rand);
+		}
+		
 		for (int i = 0; i < count; i++)
 		{
 			float angle = (float) i / (float) count * ModMathHelper.PI2 + ModMathHelper.randRange(0, var, rand) + start;
@@ -122,7 +125,8 @@ public class UmbrellaTreeFeature extends Feature<NoFeatureConfig>
 				mem = new SDFTranslate().setTranslate(px, py, pz).setSource(mem);
 				sdf = new SDFSmoothUnion().setRadius(2).setSourceA(sdf).setSourceB(mem);
 				centers.add(new Center(pos.getX() + (double) (px * scale), pos.getY() + (double) (py * scale), pos.getZ() + (double) (pz * scale), radius * scale));
-
+				
+				vec = spline.get(0);
 			}
 		}
 		
@@ -238,7 +242,7 @@ public class UmbrellaTreeFeature extends Feature<NoFeatureConfig>
 		}
 	}
 	
-	private static class Center
+	private class Center 
 	{
 		final double px;
 		final double py;

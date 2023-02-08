@@ -4,13 +4,17 @@ import com.google.common.collect.ImmutableMap;
 
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.world.structure.*;
+import mod.beethoven92.betterendforge.common.world.structure.piece.CavePiece;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.structure.Structure;
+import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraftforge.event.RegistryEvent.Register;
 
-import java.util.Objects;
+import java.util.Collection;
+import java.util.function.Supplier;
 
 public class ModStructures 
 {
@@ -45,7 +49,7 @@ public class ModStructures
     public static <F extends Structure<?>> void setupStructure(F structure,
     		StructureSeparationSettings structureSeparationSettings)
     {
-        Structure.NAME_STRUCTURE_BIMAP.put(Objects.requireNonNull(structure.getRegistryName()).toString(), structure);
+        Structure.NAME_STRUCTURE_BIMAP.put(structure.getRegistryName().toString(), structure);
 
         DimensionStructuresSettings.field_236191_b_ =
                 ImmutableMap.<Structure<?>, StructureSeparationSettings>builder()

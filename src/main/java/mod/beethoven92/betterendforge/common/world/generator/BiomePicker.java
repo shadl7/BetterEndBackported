@@ -36,9 +36,10 @@ public class BiomePicker
 	public void clearMutables() 
 	{
 		maxChance = maxChanceUnmutable;
-        if (biomes.size() > biomeCount) {
-            biomes.subList(biomeCount, biomes.size()).clear();
-        }
+		for (int i = biomes.size() - 1; i >= biomeCount; i--)
+		{
+			biomes.remove(i);
+		}
 	}
 	
 	public BetterEndBiome getBiome(Random random) 
@@ -53,7 +54,7 @@ public class BiomePicker
 	
 	public boolean containsImmutable(ResourceLocation id) 
 	{
-		return !immutableIDs.contains(id);
+		return immutableIDs.contains(id);
 	}
 	
 	public void removeMutableBiome(ResourceLocation id) 

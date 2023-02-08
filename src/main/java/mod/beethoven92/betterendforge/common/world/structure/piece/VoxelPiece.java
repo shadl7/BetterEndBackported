@@ -17,7 +17,7 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 
 public class VoxelPiece extends StructurePiece
 {
-	private final StructureWorld world;
+	private StructureWorld world;
 	
 	public VoxelPiece(Consumer<StructureWorld> function, int id) 
 	{

@@ -90,11 +90,11 @@ public class BlockHelper
 	}
 	
 	public static BlockState rotateHorizontal(BlockState state, Rotation rotation, DirectionProperty facing) {
-		return state.with(facing, rotation.rotate(state.get(facing)));
+		return (BlockState) state.with(facing, rotation.rotate((Direction) state.get(facing)));
 	}
 
 	public static BlockState mirrorHorizontal(BlockState state, Mirror mirror, DirectionProperty facing) {
-		return state.rotate(mirror.toRotation(state.get(facing)));
+		return state.rotate(mirror.toRotation((Direction) state.get(facing)));
 	}
 	
 	public static Direction getRandomHorizontalDirection(Random rand)

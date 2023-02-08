@@ -66,7 +66,7 @@ public class LucerniaFeature extends Feature<NoFeatureConfig> {
 			float leavesRadius = (size * 0.13F + ModMathHelper.randRange(0.8F, 1.5F, random)) * 1.4F;
 			OpenSimplexNoise noise = new OpenSimplexNoise(random.nextLong());
 			leavesBall(world, pos.add(last.getX(), last.getY(), last.getZ()), leavesRadius, random, noise,
-                    true);
+					config != null);
 		}
 
 		makeRoots(world, pos.add(0, ModMathHelper.randRange(3, 5, random), 0), size * 0.35F, random);

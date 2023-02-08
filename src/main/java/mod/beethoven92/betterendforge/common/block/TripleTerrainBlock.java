@@ -56,7 +56,8 @@ public class TripleTerrainBlock extends TerrainBlock
 		if (shape == TripleShape.BOTTOM) 
 		{
 			super.randomTick(state, world, pos, random);
-        }
+			return;
+		}
 		else if (random.nextInt(16) == 0) 
 		{
 			boolean bottom = canSurviveBottom(world, pos);
@@ -78,7 +79,7 @@ public class TripleTerrainBlock extends TerrainBlock
 				{
 					world.setBlockState(pos, state.with(SHAPE, TripleShape.BOTTOM));
 				}
-				else if (!top)
+				else if (!top && bottom) 
 				{
 					world.setBlockState(pos, state.with(SHAPE, TripleShape.TOP));
 				}

@@ -17,11 +17,13 @@ import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.Mutable;
+import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorld;
 
 public abstract class SDF 
 {
-	private final List<Function<PosInfo, BlockState>> postProcesses = Lists.newArrayList();
+	private List<Function<PosInfo, BlockState>> postProcesses = Lists.newArrayList();
 	
 	private Function<BlockState, Boolean> canReplace = (state) -> {
 		return state.getMaterial().isReplaceable();
@@ -81,10 +83,10 @@ public abstract class SDF
 			ends.addAll(add);
 			add.clear();
 			
-			run = !ends.isEmpty();
+			run &= !ends.isEmpty();
 		}
 		
-		List<PosInfo> infos = new ArrayList<>(mapWorld.values());
+		List<PosInfo> infos = new ArrayList<PosInfo>(mapWorld.values());
 		if (infos.size() > 0) 
 		{
 			Collections.sort(infos);
@@ -135,7 +137,7 @@ public abstract class SDF
 			}
 		}
 
-		List<PosInfo> infos = new ArrayList<>(mapWorld.values());
+		List<PosInfo> infos = new ArrayList<PosInfo>(mapWorld.values());
 		if (infos.size() > 0) {
 			Collections.sort(infos);
 			postProcesses.forEach((postProcess) -> {
@@ -201,10 +203,10 @@ public abstract class SDF
 			ends.addAll(add);
 			add.clear();
 			
-			run = !ends.isEmpty();
+			run &= !ends.isEmpty();
 		}
 		
-		List<PosInfo> infos = new ArrayList<>(mapWorld.values());
+		List<PosInfo> infos = new ArrayList<PosInfo>(mapWorld.values());
 		if (infos.size() > 0) 
 		{
 			Collections.sort(infos);
@@ -270,10 +272,10 @@ public abstract class SDF
 			ends.addAll(add);
 			add.clear();
 			
-			run = !ends.isEmpty();
+			run &= !ends.isEmpty();
 		}
 		
-		List<PosInfo> infos = new ArrayList<>(mapWorld.values());
+		List<PosInfo> infos = new ArrayList<PosInfo>(mapWorld.values());
 		Collections.sort(infos);
 		postProcesses.forEach((postProcess) -> {
 			infos.forEach((info) -> {

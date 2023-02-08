@@ -1,10 +1,10 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import java.util.Objects;
 import java.util.Random;
 
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
+import mod.beethoven92.betterendforge.common.util.FeatureHelper;
 import mod.beethoven92.betterendforge.common.util.StructureHelper;
 import mod.beethoven92.betterendforge.common.util.WorldDataAPI;
 import mod.beethoven92.betterendforge.common.world.generator.GeneratorOptions;
@@ -28,6 +28,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 
+import mod.beethoven92.betterendforge.config.CommonConfig;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -38,7 +39,7 @@ import net.minecraft.world.gen.feature.EndSpikeFeatureConfig;
 public abstract class EndSpikeFeatureMixin 
 {
 
-	@Inject(method = "generate*", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "generate", at = @At("HEAD"), cancellable = true)
 	private void beGenerateSpike(ISeedReader world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos,
 								 EndSpikeFeatureConfig endSpikeFeatureConfig, CallbackInfoReturnable<Boolean> info)
 	{
@@ -53,9 +54,11 @@ public abstract class EndSpikeFeatureMixin
 		int x = spike.getCenterX();
 		int z = spike.getCenterZ();
 		int radius = spike.getRadius();
-		int minY;
+		int minY = 0;
 
-		if ((long) x * (long) x + (long) z * (long) z < 10000) {
+		long lx = (long) x;
+		long lz = (long) z;
+		if (lx * lx + lz * lz < 10000) {
 			String pillarID = String.format("%d_%d", x, z);
 			CompoundNBT pillar = WorldDataAPI.getCompoundTag(BetterEnd.MOD_ID, "pillars");
 			boolean haveValue = pillar.contains(pillarID);
@@ -140,7 +143,7 @@ public abstract class EndSpikeFeatureMixin
 			BlockHelper.setWithoutUpdate(world, mut, Blocks.BEDROCK);
 
 			EnderCrystalEntity crystal = EntityType.END_CRYSTAL.create(world.getWorld());
-			Objects.requireNonNull(crystal).setBeamTarget(config.getCrystalBeamTarget());
+			crystal.setBeamTarget(config.getCrystalBeamTarget());
 			crystal.setInvulnerable(config.isCrystalInvulnerable());
 			crystal.setLocationAndAngles(x + 0.5D, maxY + 1, z + 0.5D, random.nextFloat() * 360.0F, 0.0F);
 			world.addEntity(crystal);
@@ -155,12 +158,12 @@ public abstract class EndSpikeFeatureMixin
 							if (bl || bl2 || bl3) {
 								boolean bl4 = px == -2 || px == 2 || bl3;
 								boolean bl5 = pz == -2 || pz == 2 || bl3;
-								BlockState blockState = Blocks.IRON_BARS
+								BlockState blockState = (BlockState) ((BlockState) ((BlockState) ((BlockState) Blocks.IRON_BARS
 										.getDefaultState()
-										.with(PaneBlock.NORTH, bl4 && pz != -2).with(
+										.with(PaneBlock.NORTH, bl4 && pz != -2)).with(
 										PaneBlock.SOUTH,
 										bl4 && pz != 2
-								).with(PaneBlock.WEST, bl5 && px != -2).with(
+								)).with(PaneBlock.WEST, bl5 && px != -2)).with(
 										PaneBlock.EAST,
 										bl5 && px != 2
 								);

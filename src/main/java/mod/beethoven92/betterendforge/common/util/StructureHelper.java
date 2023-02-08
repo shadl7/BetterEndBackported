@@ -45,7 +45,7 @@ public class StructureHelper
 	{
 		if (datapack.isDirectory()) 
 		{
-			return readStructure(datapack + "/" + path);
+			return readStructure(datapack.toString() + "/" + path);
 		}
 		else if (datapack.isFile() && datapack.getName().endsWith(".zip")) 
 		{

@@ -19,7 +19,7 @@ public class BiomeContainerMixin implements IBiomeArray
 
 	@Final
 	@Shadow
-	public static int BIOMES_SIZE;
+	private static int BIOMES_SIZE;
 
 	@Final
 	@Shadow

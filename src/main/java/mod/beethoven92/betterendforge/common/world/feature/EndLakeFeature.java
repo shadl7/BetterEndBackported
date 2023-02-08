@@ -160,7 +160,7 @@ public class EndLakeFeature extends Feature<NoFeatureConfig>
 			}
 		}
 		
-		double aspect = (radius / depth);
+		double aspect = ((double) radius / (double) depth);
 
 		for (int x = blockPos.getX() - dist; x <= blockPos.getX() + dist; x++) 
 		{

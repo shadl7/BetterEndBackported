@@ -31,17 +31,17 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 
 public class PaintedMountainPiece extends StructurePiece
 {
-	private final Map<Integer, Integer> heightmap = Maps.newHashMap();
-	private final OpenSimplexNoise noise1;
-	private final OpenSimplexNoise noise2;
-	private final BlockPos center;
-	private final float radius;
-	private final float height;
-	private final float r2;
-	private final ResourceLocation biomeID;
-	private final BlockState[] slises;
-	private final int seed1;
-	private final int seed2;
+	private Map<Integer, Integer> heightmap = Maps.newHashMap();
+	private OpenSimplexNoise noise1;
+	private OpenSimplexNoise noise2;
+	private BlockPos center;
+	private float radius;
+	private float height;
+	private float r2;
+	private ResourceLocation biomeID;
+	private BlockState[] slises;
+	private int seed1;
+	private int seed2;
 	
 	public PaintedMountainPiece(BlockPos center, float radius, float height, Random random, Biome biome, BlockState[] slises)
 	{
@@ -145,7 +145,7 @@ public class PaintedMountainPiece extends StructurePiece
 					minY = Math.max(minY, map2.getHeight(x, z));
 					if (minY > 56)
 					{
-						float maxY = dist * height * getHeightClamp(world, px, pz);
+						float maxY = dist * height * getHeightClamp(world, 8, px, pz);
 						if (maxY > 0) {
 							maxY *= (float) noise1.eval(px * 0.05, pz * 0.05) * 0.3F + 0.7F;
 							maxY *= (float) noise1.eval(px * 0.1, pz * 0.1) * 0.1F + 0.9F;
@@ -199,20 +199,20 @@ public class PaintedMountainPiece extends StructurePiece
 		return h;
 	}
 	
-	private float getHeightClamp(ISeedReader world, int posX, int posZ)
+	private float getHeightClamp(ISeedReader world, int radius, int posX, int posZ) 
 	{
 		Mutable mut = new Mutable();
 		float height = 0;
 		float max = 0;
-		for (int x = -8; x <= 8; x++)
+		for (int x = -radius; x <= radius; x++)
 		{
 			mut.setX(posX + x);
 			int x2 = x * x;
-			for (int z = -8; z <= 8; z++)
+			for (int z = -radius; z <= radius; z++) 
 			{
 				mut.setZ(posZ + z);
 				int z2 = z * z;
-				float mult = 1 - (float) Math.sqrt(x2 + z2) / 8;
+				float mult = 1 - (float) Math.sqrt(x2 + z2) / radius;
 				if (mult > 0) {
 					max += mult;
 					height += getHeight(world, mut) * mult;
@@ -220,6 +220,6 @@ public class PaintedMountainPiece extends StructurePiece
 			}
 		}
 		height /= max;
-		return MathHelper.clamp(height / 8, 0, 1);
+		return MathHelper.clamp(height / radius, 0, 1);
 	}
 }

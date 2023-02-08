@@ -14,13 +14,14 @@ import mod.beethoven92.betterendforge.common.util.StructureHelper;
 import mod.beethoven92.betterendforge.common.world.feature.BiomeNBTStructures.StructureInfo;
 import mod.beethoven92.betterendforge.common.world.feature.NBTFeature.TerrainMerge;
 import mod.beethoven92.betterendforge.config.Configs;
+import mod.beethoven92.betterendforge.config.jsons.JsonConfigs;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 
 public class BetterEndBiome 
 {
-	protected final List<BetterEndBiome> subbiomes = Lists.newArrayList();
+	protected List<BetterEndBiome> subbiomes = Lists.newArrayList();
     
 	private final Biome biome;
 	
@@ -39,7 +40,7 @@ public class BetterEndBiome
 	
 	private Biome actualBiome;
 	
-	private final List<StructureInfo> nbtStructures = Lists.newArrayList();
+	private List<StructureInfo> nbtStructures = Lists.newArrayList();
 	
 	public BetterEndBiome(BiomeTemplate template)
 	{
@@ -116,7 +117,7 @@ public class BetterEndBiome
 
 	public boolean isSame(BetterEndBiome biome) 
 	{
-		return biome != this && (!biome.hasParentBiome() || biome.getParentBiome() != this);
+		return biome == this || (biome.hasParentBiome() && biome.getParentBiome() == this);
 	}
 	
 	public boolean canGenerate(float chance) 
@@ -223,7 +224,7 @@ public class BetterEndBiome
 			return true;
 		}
 		BetterEndBiome biome = (BetterEndBiome) obj;
-		return biome != null && biome.id.equals(id);
+		return biome == null ? false : biome.id.equals(id);
 	}
 	
 	@Override

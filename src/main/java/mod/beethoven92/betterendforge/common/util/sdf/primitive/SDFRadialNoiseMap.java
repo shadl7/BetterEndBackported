@@ -56,8 +56,9 @@ public class SDFRadialNoiseMap extends SDFDisplacement {
         return this;
     }
 
-    public void setOffset(int x, int z) {
+    public SDFRadialNoiseMap setOffset(int x, int z) {
         offsetX = (short) (x & 32767);
         offsetZ = (short) (z & 32767);
+        return this;
     }
 }

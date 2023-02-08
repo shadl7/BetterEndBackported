@@ -18,12 +18,12 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
 // NEEDS RE-WRITE
 public class ModConfiguredSurfaceBuilders 
 {
-	public static final RegistryKey<ConfiguredSurfaceBuilder<?>> CRYSTAL_SURFACE = makeKey("crystal_surface");
-	public static final RegistryKey<ConfiguredSurfaceBuilder<?>> MEGALAKE_SURFACE = makeKey("megalake_surface");
-	public static final RegistryKey<ConfiguredSurfaceBuilder<?>> MUSHROOMLAND_SURFACE = makeKey("mushroomland_surface");
-	public static final RegistryKey<ConfiguredSurfaceBuilder<?>> SULPHURIC_SURFACE = makeKey("sulphuric_surface");
-	public static final RegistryKey<ConfiguredSurfaceBuilder<?>> NEON_OASUS_SURFACE = makeKey("neon_oasis_surface");
-	public static final RegistryKey<ConfiguredSurfaceBuilder<?>> UMBRA_SURFACE = makeKey("umbra_surface");
+	public static RegistryKey<ConfiguredSurfaceBuilder<?>> CRYSTAL_SURFACE = makeKey("crystal_surface");
+	public static RegistryKey<ConfiguredSurfaceBuilder<?>> MEGALAKE_SURFACE = makeKey("megalake_surface");
+	public static RegistryKey<ConfiguredSurfaceBuilder<?>> MUSHROOMLAND_SURFACE = makeKey("mushroomland_surface");
+	public static RegistryKey<ConfiguredSurfaceBuilder<?>> SULPHURIC_SURFACE = makeKey("sulphuric_surface");
+	public static RegistryKey<ConfiguredSurfaceBuilder<?>> NEON_OASUS_SURFACE = makeKey("neon_oasis_surface");
+	public static RegistryKey<ConfiguredSurfaceBuilder<?>> UMBRA_SURFACE = makeKey("umbra_surface");
 	
 	private static RegistryKey<ConfiguredSurfaceBuilder<?>> makeKey(final String name) 
 	{

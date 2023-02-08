@@ -23,10 +23,10 @@ public class TenaneaPetalParticle extends SpriteTexturedParticle
 	private double nextVY;
 	private double nextVZ;
 
-	protected TenaneaPetalParticle(ClientWorld world, double x, double y, double z,
-                                   IAnimatedSprite spriteWithAge)
+	protected TenaneaPetalParticle(ClientWorld world, double x, double y, double z, double r, 
+			double g, double b, IAnimatedSprite spriteWithAge)
 	{
-		super(world, x, y, z, 1, 1, 1);
+		super(world, x, y, z, r, g, b);
 		
 		this.selectSpriteWithAge(spriteWithAge);
 		
@@ -106,7 +106,7 @@ public class TenaneaPetalParticle extends SpriteTexturedParticle
 	    public Particle makeParticle(BasicParticleType type, ClientWorld worldIn, double x, double y, double z,
 	    		double xSpeed, double ySpeed, double zSpeed) 
 	    {
-	    	return new TenaneaPetalParticle(worldIn, x, y, z, sprite);
+	    	return new TenaneaPetalParticle(worldIn, x, y, z, 1, 1, 1, sprite);
 	    }
 	}
 }

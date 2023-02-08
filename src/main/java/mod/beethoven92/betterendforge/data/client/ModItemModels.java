@@ -9,11 +9,10 @@ import mod.beethoven92.betterendforge.common.init.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
-
-import java.util.Objects;
 
 public class ModItemModels extends ItemModelProvider
 {
@@ -68,10 +67,10 @@ public class ModItemModels extends ItemModelProvider
 		simpleItem(ModItems.MUSIC_DISC_STRANGE_AND_ALIEN.get());
 	}
 	
-	private void simpleItem(Item item) {
-		String name = Objects.requireNonNull(item.getRegistryName()).getPath();
-        singleTexture(name, mcLoc(ITEM_FOLDER + "/generated"), "layer0", modLoc(ITEM_FOLDER + "/" + name));
-    }
+	private ItemModelBuilder simpleItem(Item item) {
+		String name = item.getRegistryName().getPath();
+		return singleTexture(name, mcLoc(ITEM_FOLDER + "/generated"), "layer0", modLoc(ITEM_FOLDER + "/" + name));
+	}
 	
 	private void registerWoodenMaterialItemModels(WoodenMaterial material)
 	{

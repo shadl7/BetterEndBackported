@@ -711,9 +711,18 @@ public class ModBlocks
                                                             tickRandomly().
                                                             sound(SoundType.PLANT),
                                                             CHORUS_NYLIUM.get()));
+	
+//	public static final RegistryObject<Block> PEARLBERRY = registerBlockWithDefaultItem("pearlberry_seed",
+//			() -> new EndCropBlock(AbstractBlock.Properties.create(Material.PLANTS).
+//                                                            zeroHardnessAndResistance().
+//                                                            doesNotBlockMovement().
+//                                                            tickRandomly().
+//                                                            sound(SoundType.PLANT),
+//                                                            END_MOSS.get(), END_MYCELIUM.get()));
 
 
-    // WALL PLANTS
+
+	// WALL PLANTS
 	public static final RegistryObject<Block> PURPLE_POLYPORE = registerBlockWithDefaultItem("purple_polypore", 
 			() -> new WallMushroomBlock(AbstractBlock.Properties.create(Material.PLANTS).
 					                                             harvestTool(ToolType.AXE).
@@ -1173,7 +1182,8 @@ public class ModBlocks
 
 	public static <T extends Block> RegistryObject<T> registerBlockWithNoItem(String name, Supplier<? extends T> blockSupplier)
 	{
-        return BLOCKS.register(name, blockSupplier);
+		RegistryObject<T> block = BLOCKS.register(name, blockSupplier);
+		return block;
 	}
 
 
@@ -1188,7 +1198,8 @@ public class ModBlocks
 	
 	public static RegistryObject<Block> registerFlowerPotBlock(String name, Supplier<? extends Block> plant)
 	{
-        return BLOCKS.register(name, () -> new FlowerPotBlock(plant.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
+		RegistryObject<Block> flowerPot = BLOCKS.register(name, () -> new FlowerPotBlock(plant.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
+		return flowerPot;
 	}
 	
 	public static WoodenMaterial createWoodenMaterial(String name, MaterialColor woodColor, MaterialColor planksColor) {

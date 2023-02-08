@@ -154,14 +154,14 @@ public class ModBlockTagsProvider extends BlockTagsProvider
 		
 		getOrCreateBuilder(Tags.Blocks.CHESTS_WOODEN).add(material.chest.get());
 		
-		getOrCreateBuilder(BlockTags.createOptional(frl())).add(material.craftingTable.get());
+		getOrCreateBuilder(BlockTags.createOptional(frl("workbench"))).add(material.craftingTable.get());
 		
 		// Used by the Metal Barrels mod
 		getOrCreateBuilder(ModTags.BLOCK_BARRELS).add(material.barrel.get());
 	}
 	
-	private ResourceLocation frl() {
-		return new ResourceLocation(ForgeVersion.MOD_ID, "workbench");
+	private ResourceLocation frl(String tag) {
+		return new ResourceLocation(ForgeVersion.MOD_ID, tag);
 	}
 	
 	private void registerStoneMaterialTags(StoneMaterial material)

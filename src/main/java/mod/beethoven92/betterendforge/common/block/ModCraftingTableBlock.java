@@ -50,7 +50,7 @@ public class ModCraftingTableBlock extends CraftingTableBlock {
 
 	private static class ModCraftingContainer extends WorkbenchContainer {
 
-		private final IWorldPosCallable worldPosCallable;
+		private IWorldPosCallable worldPosCallable;
 
 		public ModCraftingContainer(int syncid, PlayerInventory playerInv, IWorldPosCallable posCallable) {
 			super(syncid, playerInv, posCallable);
@@ -60,7 +60,8 @@ public class ModCraftingTableBlock extends CraftingTableBlock {
 		@Override
 		public boolean canInteractWith(PlayerEntity playerIn) {
 			return worldPosCallable.applyOrElse((world, pos) -> {
-				return world.getBlockState(pos).getBlock() instanceof ModCraftingTableBlock && playerIn.getDistanceSq(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) <= 64d;
+				return !(world.getBlockState(pos).getBlock() instanceof ModCraftingTableBlock) ? false
+						: playerIn.getDistanceSq(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5) <= 64d;
 			}, true);
 		}
 

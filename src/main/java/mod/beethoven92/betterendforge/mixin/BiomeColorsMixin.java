@@ -9,7 +9,9 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
+import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
+import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;
 import net.minecraft.world.IBlockDisplayReader;
@@ -18,7 +20,6 @@ import net.minecraft.world.biome.BiomeColors;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Comparator;
-import java.util.Objects;
 
 @Mixin(BiomeColors.class)
 public class BiomeColorsMixin {
@@ -36,7 +37,7 @@ public class BiomeColorsMixin {
 			for (int i = 0; i < OFFSETS.length; i++) {
 				mut.setX(blockPos.getX() + OFFSETS[i].x);
 				mut.setZ(blockPos.getZ() + OFFSETS[i].y);
-				if ((Objects.requireNonNull(view).getBlockState(mut).isIn(ModBlocks.BRIMSTONE.get()))) {
+				if ((view.getBlockState(mut).isIn(ModBlocks.BRIMSTONE.get()))) {
 					info.setReturnValue(i < 4 ? POISON_COLOR : STREAM_COLOR);
 					return;
 				}

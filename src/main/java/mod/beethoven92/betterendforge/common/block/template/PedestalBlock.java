@@ -138,7 +138,7 @@ public class PedestalBlock extends Block
 			Hand handIn, BlockRayTraceResult hit) 
 	{
 		if (worldIn.isRemote|| !state.isIn(this)) return ActionResultType.CONSUME;
-		if (this.isPlaceable(state))
+		if (!this.isPlaceable(state)) 
 		{
 			return ActionResultType.PASS;
 		}
@@ -167,8 +167,24 @@ public class PedestalBlock extends Block
 		}
 		return ActionResultType.PASS;
 	}
-
-    @Override
+	
+	/*public void checkRitual(World world, BlockPos pos) 
+	{
+		Mutable mut = new Mutable();
+		Point[] points = InfusionRitual.getMap();
+		for (Point p: points) 
+		{
+			mut.setPos(pos).move(p.x, 0, p.y);
+			BlockState state = world.getBlockState(mut);
+			if (state.getBlock() instanceof InfusionPedestal) 
+			{
+				((InfusionPedestal) state.getBlock()).checkRitual(world, mut);
+				break;
+			}
+		}
+	}*/
+	
+	@Override
 	public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
 	{
 		if (!state.isIn(newState.getBlock())) 
@@ -223,7 +239,7 @@ public class PedestalBlock extends Block
 	{
 		BlockState updated = this.getUpdatedState(stateIn, facing, facingState, worldIn, currentPos, facingPos);
 		if (!updated.isIn(this)) return updated;
-		if (this.isPlaceable(updated))
+		if (!this.isPlaceable(updated))
 		{
 			this.moveStoredStack(worldIn, updated, currentPos);
 		}
@@ -244,7 +260,8 @@ public class PedestalBlock extends Block
 			upSideSolid = newState.isSolidSide(world, posFrom, Direction.DOWN) || newState.isIn(BlockTags.WALLS);
 			hasPedestalOver = newState.getBlock() instanceof PedestalBlock;
 		} 
-		else {
+		else if (direction == Direction.DOWN) 
+		{
 			hasPedestalUnder = newState.getBlock() instanceof PedestalBlock;
 		}
 		if (!hasPedestalOver && hasPedestalUnder && upSideSolid)
@@ -299,7 +316,7 @@ public class PedestalBlock extends Block
 			BlockPos upPos = pos.up();
 			this.moveStoredStack(world, stack, world.getBlockState(upPos), upPos);
 		} 
-		else if (this.isPlaceable(state))
+		else if (!this.isPlaceable(state)) 
 		{
 			this.dropStoredStack(blockEntity, stack, pos);
 		} 
@@ -350,12 +367,12 @@ public class PedestalBlock extends Block
 	
 	protected boolean isPlaceable(BlockState state)
 	{
-		if (!state.isIn(this)) return true;
+		if (!state.isIn(this)) return false;
 		PedestalState currentState = state.get(STATE);
-		return currentState == PedestalState.BOTTOM ||
-				currentState == PedestalState.COLUMN ||
-				currentState == PedestalState.PILLAR ||
-				currentState == PedestalState.COLUMN_TOP;
+		return currentState != PedestalState.BOTTOM &&
+			   currentState != PedestalState.COLUMN &&
+			   currentState != PedestalState.PILLAR &&
+			   currentState != PedestalState.COLUMN_TOP;
 	}
 	
 	@Override

@@ -9,8 +9,8 @@ import net.minecraft.world.gen.feature.Feature;
 
 public class BetterEndCaveBiome extends BetterEndBiome
 {
-	private final WeightedList<Feature<?>> floorFeatures = new WeightedList<>();
-	private final WeightedList<Feature<?>> ceilFeatures = new WeightedList<>();
+	private WeightedList<Feature<?>> floorFeatures = new WeightedList<Feature<?>>();
+	private WeightedList<Feature<?>> ceilFeatures = new WeightedList<Feature<?>>();
 
 	public BetterEndCaveBiome(BiomeTemplate definition)
 	{

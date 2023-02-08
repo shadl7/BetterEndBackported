@@ -61,7 +61,9 @@ public class MegaLakeStructure extends Structure<NoFeatureConfig>
 			int y = chunkGenerator.getHeight(x, z, Type.WORLD_SURFACE_WG);
 			if (y > 5) 
 			{
-                float radius = ModMathHelper.randRange(50, 150, rand);
+				//float radius = ModMathHelper.randRange(50, 100, rand);
+				//float depth = ModMathHelper.randRange(10, 16, rand);
+				float radius = ModMathHelper.randRange(50, 150, rand);
 				float depth = ModMathHelper.randRange(6, 10, rand);
 				LakePiece piece = new LakePiece(new BlockPos(x, y, z), radius, depth, rand, biome);
 				this.components.add(piece);

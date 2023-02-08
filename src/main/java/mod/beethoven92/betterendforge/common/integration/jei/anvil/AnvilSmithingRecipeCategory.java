@@ -106,7 +106,7 @@ public class AnvilSmithingRecipeCategory implements IRecipeCategory<AnvilSmithin
 		guiItemStacks.set(ingredients);
 	}
 	
-	protected void drawToolDamage(AnvilSmithingRecipe recipe, MatrixStack matrixStack)
+	protected void drawToolDamage(AnvilSmithingRecipe recipe, MatrixStack matrixStack, int y) 
 	{
 		int damage = recipe.damage;
 		if (damage > 0) 
@@ -115,13 +115,13 @@ public class AnvilSmithingRecipeCategory implements IRecipeCategory<AnvilSmithin
 			Minecraft minecraft = Minecraft.getInstance();
 			FontRenderer fontRenderer = minecraft.fontRenderer;
 			int stringWidth = fontRenderer.getStringPropertyWidth(timeString);
-			fontRenderer.func_243248_b(matrixStack, timeString, background.getWidth() - stringWidth, 27, 0xFF808080);
+			fontRenderer.func_243248_b(matrixStack, timeString, background.getWidth() - stringWidth, y, 0xFF808080);
 		}
 	}
 	
 	@Override
 	public void draw(AnvilSmithingRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) 
 	{
-		drawToolDamage(recipe, matrixStack);
+		drawToolDamage(recipe, matrixStack, 27);
 	}
 }

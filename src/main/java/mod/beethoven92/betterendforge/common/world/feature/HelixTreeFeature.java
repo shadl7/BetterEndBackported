@@ -50,7 +50,7 @@ public class HelixTreeFeature extends Feature<NoFeatureConfig> {
 		
 		float dx;
 		float dz;
-		List<Vector3f> spline = new ArrayList<>(10);
+		List<Vector3f> spline = new ArrayList<Vector3f>(10);
 		for (int i = 0; i < 10; i++) {
 			float radius = (0.9F - i * 0.1F) * radiusRange;
 			dx = (float) Math.sin(i + angle) * radius;
@@ -118,7 +118,7 @@ public class HelixTreeFeature extends Feature<NoFeatureConfig> {
 			float div = point.getY() - lastPoint.getY();
 			for (float py = minY; py <= maxY; py += 0.2F) {
 				start.set(0, py, 0);
-				float delta = (py - minY) / div;
+				float delta = (float) (py - minY) / div;
 				float px = MathHelper.lerp(delta, lastPoint.getX(), point.getX());
 				float pz = MathHelper.lerp(delta, lastPoint.getZ(), point.getZ());
 				end.set(px, py, pz);

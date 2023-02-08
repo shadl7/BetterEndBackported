@@ -45,7 +45,7 @@ public abstract class EntityMixin implements TeleportingEntity
 	@Shadow
 	protected abstract PortalInfo func_241829_a(ServerWorld destination);
 
-	@Inject(method = "changeDimension*", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "changeDimension", at = @At("HEAD"), cancellable = true)
 	public void changeDimension(ServerWorld destination, CallbackInfoReturnable<Entity> info) 
 	{
 		if (!removed && beCanTeleport() && world instanceof ServerWorld)
@@ -83,7 +83,9 @@ public abstract class EntityMixin implements TeleportingEntity
 		if (beCanTeleport()) 
 		{
 			info.setReturnValue(new PortalInfo(new Vector3d(exitPos.getX() + 0.5D, exitPos.getY(), exitPos.getZ() + 0.5D), getMotion(), rotationYaw, rotationPitch));
-        }
+			//beResetExitPos();
+			//info.cancel();
+		}
 	}
 	
 	@Inject(method = "baseTick", at = @At("TAIL"))

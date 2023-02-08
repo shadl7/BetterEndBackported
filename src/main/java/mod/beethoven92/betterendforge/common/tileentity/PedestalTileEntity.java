@@ -17,8 +17,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.Objects;
-
 public class PedestalTileEntity extends TileEntity implements ITickableTileEntity
 {
 	private ItemStack activeItem = ItemStack.EMPTY;
@@ -65,7 +63,7 @@ public class PedestalTileEntity extends TileEntity implements ITickableTileEntit
 	{
 		this.activeItem = split;
 		this.markDirty();
-		Objects.requireNonNull(this.getWorld()).notifyBlockUpdate(this.getPos(), this.getBlockState(), this.getBlockState(), 3);
+		this.getWorld().notifyBlockUpdate(this.getPos(), this.getBlockState(), this.getBlockState(), 3);
 	}
 
 	public void removeStack(World world, BlockState state) 
@@ -139,7 +137,7 @@ public class PedestalTileEntity extends TileEntity implements ITickableTileEntit
 	@Override
 	public void onDataPacket(NetworkManager net, SUpdateTileEntityPacket pkt) 
 	{
-		BlockState blockState = Objects.requireNonNull(world).getBlockState(pos);
+		BlockState blockState = world.getBlockState(pos);
 	    read(blockState, pkt.getNbtCompound());
 	}
 

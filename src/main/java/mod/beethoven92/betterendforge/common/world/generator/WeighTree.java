@@ -40,7 +40,7 @@ public class WeighTree
 		}
 	}
 	
-	private abstract static class Node
+	private abstract class Node 
 	{
 		abstract BetterEndBiome getBiome(float value);
 	}

@@ -2,7 +2,6 @@ package mod.beethoven92.betterendforge.client.gui;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 import java.util.Set;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -46,8 +45,8 @@ public class EndStoneSmelterRecipeBookScreen extends BlastFurnaceRecipeGui
 	@Override
 	public void setupGhostRecipe(IRecipe<?> recipe, List<Slot> slots) 
 	{
-		this.ghostRecipe.clear();
-        ItemStack result = recipe.getRecipeOutput();
+		this.ghostRecipe.clear();;
+		ItemStack result = recipe.getRecipeOutput();
 		this.ghostRecipe.setRecipe(recipe);
 		this.ghostRecipe.addIngredient(Ingredient.fromStacks(result), (slots.get(3)).xPos, (slots.get(3)).yPos);
 		NonNullList<Ingredient> inputs = recipe.getIngredients();
@@ -89,7 +88,7 @@ public class EndStoneSmelterRecipeBookScreen extends BlastFurnaceRecipeGui
 			int slotX = this.fuelSlot.xPos + x;
 			int slotY = this.fuelSlot.yPos + y;
 			AbstractGui.fill(matrixStack, slotX, slotY, slotX + 16, slotY + 16, 822018048);
-			this.mc.getItemRenderer().renderItemAndEffectIntoGUI(Objects.requireNonNull(mc.player), this.getItem().getDefaultInstance(), slotX, slotY);
+			this.mc.getItemRenderer().renderItemAndEffectIntoGUI(mc.player, this.getItem().getDefaultInstance(), slotX, slotY);
 			RenderSystem.depthFunc(516);
 			AbstractGui.fill(matrixStack, slotX, slotY, slotX + 16, slotY + 16, 822083583);
 			RenderSystem.depthFunc(515);

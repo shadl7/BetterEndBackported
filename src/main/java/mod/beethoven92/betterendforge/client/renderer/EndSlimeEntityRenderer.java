@@ -19,12 +19,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
 public class EndSlimeEntityRenderer extends MobRenderer<EndSlimeEntity, EndSlimeEntityModel<EndSlimeEntity>> {
-	private static final ResourceLocation[] TEXTURE = new ResourceLocation[4];
-	private static final RenderType[] GLOW = new RenderType[4];
+	private static final ResourceLocation TEXTURE[] = new ResourceLocation[4];
+	private static final RenderType GLOW[] = new RenderType[4];
 
 	public EndSlimeEntityRenderer(EntityRendererManager entityRenderDispatcher) {
-		super(entityRenderDispatcher, new EndSlimeEntityModel<>(false), 0.25F);
-		this.addLayer(new OverlayFeatureRenderer<>(this));
+		super(entityRenderDispatcher, new EndSlimeEntityModel<EndSlimeEntity>(false), 0.25F);
+		this.addLayer(new OverlayFeatureRenderer<EndSlimeEntity>(this));
 		this.addLayer(new AbstractEyesLayer<EndSlimeEntity, EndSlimeEntityModel<EndSlimeEntity>>(this) {
 			@Override
 			public RenderType getRenderType() {
@@ -69,10 +69,10 @@ public class EndSlimeEntityRenderer extends MobRenderer<EndSlimeEntity, EndSlime
 		matrixStack.scale(j * h, 1.0F / j * h, j * h);
 	}
 
-	private static final class OverlayFeatureRenderer<T extends EndSlimeEntity>
+	private final class OverlayFeatureRenderer<T extends EndSlimeEntity>
 			extends LayerRenderer<T, EndSlimeEntityModel<T>> {
-		private final EndSlimeEntityModel<T> modelOrdinal = new EndSlimeEntityModel<>(true);
-		private final EndSlimeEntityModel<T> modelLake = new EndSlimeEntityModel<>(true);
+		private final EndSlimeEntityModel<T> modelOrdinal = new EndSlimeEntityModel<T>(true);
+		private final EndSlimeEntityModel<T> modelLake = new EndSlimeEntityModel<T>(true);
 
 		public OverlayFeatureRenderer(IEntityRenderer<T, EndSlimeEntityModel<T>> featureRendererContext) {
 			super(featureRendererContext);
