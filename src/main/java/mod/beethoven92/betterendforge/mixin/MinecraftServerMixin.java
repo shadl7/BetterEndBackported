@@ -42,12 +42,12 @@ public class MinecraftServerMixin
 	}
 	
 	@Inject(method = "func_241755_D_", at = @At(value = "HEAD"))
-	private final void be_GetOverworld(CallbackInfoReturnable<ServerWorld> info) 
+	private void be_GetOverworld(CallbackInfoReturnable<ServerWorld> info)
 	{
 	}
 	
 	@Inject(method = "func_240787_a_", at = @At(value = "TAIL"))
-	private final void be_CreateWorlds(IChunkStatusListener worldGenerationProgressListener, CallbackInfo info) 
+	private void be_CreateWorlds(IChunkStatusListener worldGenerationProgressListener, CallbackInfo info)
 	{
 	}
 	

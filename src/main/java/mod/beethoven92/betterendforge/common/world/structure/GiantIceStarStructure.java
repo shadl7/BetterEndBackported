@@ -29,12 +29,8 @@ import java.util.Random;
 
 public class GiantIceStarStructure extends SDFStructure
 {
-	private final float minSize = 20;
-	private final float maxSize = 35;
-	private final int minCount = 25;
-	private final int maxCount = 40;
-	
-	public GiantIceStarStructure(Codec<NoFeatureConfig> codec) 
+
+    public GiantIceStarStructure(Codec<NoFeatureConfig> codec)
 	{
 		super(codec);
 	}
@@ -54,8 +50,12 @@ public class GiantIceStarStructure extends SDFStructure
 	@Override
 	protected SDF getSDF(BlockPos pos, Random random)
 	{
-		float size = ModMathHelper.randRange(minSize, maxSize, random);
-		int count = ModMathHelper.randRange(minCount, maxCount, random);
+        float maxSize = 35;
+        float minSize = 20;
+        float size = ModMathHelper.randRange(minSize, maxSize, random);
+        int maxCount = 40;
+        int minCount = 25;
+        int count = ModMathHelper.randRange(minCount, maxCount, random);
 		List<Vector3f> points = getFibonacciPoints(count);
 		SDF sdf = null;
 		SDF spike = new SDFCappedCone().setRadius1(3 + (size - 5) * 0.2F).setRadius2(0).setHeight(size).setBlock(ModBlocks.DENSE_SNOW.get());

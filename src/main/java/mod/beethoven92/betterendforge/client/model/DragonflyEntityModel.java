@@ -17,10 +17,8 @@ public class DragonflyEntityModel extends EntityModel<DragonflyEntity>
 	private final ModelRenderer wing_2;
 	private final ModelRenderer wing_3;
 	private final ModelRenderer wing_4;
-	private final ModelRenderer legs_1;
-	private final ModelRenderer legs_2;
-	
-	public DragonflyEntityModel()
+
+    public DragonflyEntityModel()
 	{
 		super(RenderType::getEntityCutout);
 		
@@ -70,14 +68,14 @@ public class DragonflyEntityModel extends EntityModel<DragonflyEntity>
 		wing_4.mirror = true;
 		wing_4.setTextureOffset(4, 17).addBox(0.0F, 0.0F, -2.5F, 12.0F, 0.0F, 3.0F, 0.0F);
 
-		legs_1 = new ModelRenderer(this);
+        ModelRenderer legs_1 = new ModelRenderer(this);
 		legs_1.setRotationPoint(-1.0F, 0.0F, 1.0F);
 		model.addChild(legs_1);
 		//setRotationAngle(legs_1, 0.0F, 0.0F, -0.5236F);
 		legs_1.rotateAngleZ = -0.5236F;
 		legs_1.setTextureOffset(50, 1).addBox(0.0F, 0.0F, 0.0F, 0.0F, 3.0F, 6.0F, 0.0F);
 
-		legs_2 = new ModelRenderer(this);
+        ModelRenderer legs_2 = new ModelRenderer(this);
 		legs_2.setRotationPoint(-3.0F, 0.0F, 1.0F);
 		model.addChild(legs_2);
 		//setRotationAngle(legs_2, 0.0F, 0.0F, 0.5236F);

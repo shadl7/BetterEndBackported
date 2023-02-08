@@ -8,15 +8,13 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 
 public class PallidiumBlock extends TerrainBlock {
-	private final Block nextLevel;
-	
-	public PallidiumBlock(String thickness, Block nextLevel) {
+
+    public PallidiumBlock(String thickness, Block nextLevel) {
 		super(AbstractBlock.Properties.create(Material.ROCK, MaterialColor.LIGHT_GRAY).
 				setRequiresTool().
 				hardnessAndResistance(3.0F, 9.0F).
 				sound(SoundType.STONE));
-		this.nextLevel = nextLevel;
-	}
+    }
 	
 	public boolean canBePotted() {
 		return this == ModBlocks.PALLIDIUM_FULL.get();

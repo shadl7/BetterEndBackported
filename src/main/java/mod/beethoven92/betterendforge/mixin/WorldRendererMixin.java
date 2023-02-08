@@ -48,11 +48,6 @@ public abstract class WorldRendererMixin
 	private static Vector3f axis2;
 	private static Vector3f axis3;
 	private static Vector3f axis4;
-	private static float time;
-	private static float time2;
-	private static float time3;
-	private static float blind02;
-	private static float blind06;
 	private static boolean directOpenGL = false; // Unused
 	
 	@Shadow
@@ -91,9 +86,9 @@ public abstract class WorldRendererMixin
 	{
 		if (ClientOptions.isCustomSky())
 		{
-			time = (ticks % 360000) * 0.000017453292F;
-			time2 = time * 2;
-			time3 = time * 3;
+			float time = (ticks % 360000) * 0.000017453292F;
+			float time2 = time * 2;
+			float time3 = time * 3;
 			
 			FogRenderer.resetFog();
 			RenderSystem.enableTexture();
@@ -113,8 +108,8 @@ public abstract class WorldRendererMixin
 			}*/
 			
 			float blindA = 1F - BackgroundInfo.blindness;
-			blind02 = blindA * 0.2F;
-			blind06 = blindA * 0.6F;
+			float blind02 = blindA * 0.2F;
+			float blind06 = blindA * 0.6F;
 			
 			if (blindA > 0) 
 			{

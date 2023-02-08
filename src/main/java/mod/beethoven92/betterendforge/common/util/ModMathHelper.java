@@ -284,11 +284,11 @@ public class ModMathHelper
 		return max(a, max(b, c));
 	}
 	
-	public static final float radiansToDegrees(float value) {
+	public static float radiansToDegrees(float value) {
 		return value * RAD_TO_DEG;
 	}
 	
-	public static final float degreesToRadians(float value) {
+	public static float degreesToRadians(float value) {
 		return value / RAD_TO_DEG;
 	}
 	
