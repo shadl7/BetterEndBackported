@@ -36,6 +36,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
+import java.util.Objects;
+
 public class EndSignBlock extends AbstractSignBlock {
 	public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_0_15;
 	public static final BooleanProperty FLOOR = BooleanProperty.create("floor");
@@ -92,20 +94,20 @@ public class EndSignBlock extends AbstractSignBlock {
 
 	@Override
 	public void onBlockPlacedBy(World world, BlockPos pos, BlockState state, @Nullable LivingEntity placer, ItemStack stack) {
-		if (placer != null && placer instanceof PlayerEntity) {
+		if (placer instanceof PlayerEntity) {
 			ESignTileEntity sign = (ESignTileEntity) world.getTileEntity(pos);
 			if (!world.isRemote) {
-				sign.setEditor((PlayerEntity) placer);
+				Objects.requireNonNull(sign).setEditor((PlayerEntity) placer);
 				((ServerPlayerEntity) placer).connection.sendPacket(new SOpenSignMenuPacket(pos));
 			} else
-				sign.setEditable(true);
+				Objects.requireNonNull(sign).setEditable(true);
 		}
 	}
 
 	@Override
 	public BlockState updatePostPlacement(BlockState state, Direction facing, BlockState neighborState,
 			IWorld world, BlockPos pos, BlockPos neighborPos) {
-		if ((Boolean) state.get(WATERLOGGED)) {
+		if (state.get(WATERLOGGED)) {
 			world.getPendingFluidTicks().scheduleTick(pos, Fluids.WATER, Fluids.WATER.getTickRate(world));
 		}
 
@@ -125,11 +127,10 @@ public class EndSignBlock extends AbstractSignBlock {
 			IWorld worldView = ctx.getWorld();
 			BlockPos blockPos = ctx.getPos();
 			Direction[] directions = ctx.getNearestLookingDirections();
-			Direction[] var7 = directions;
 			int var8 = directions.length;
 
 			for (int var9 = 0; var9 < var8; ++var9) {
-				Direction direction = var7[var9];
+				Direction direction = directions[var9];
 				if (direction.getAxis().isHorizontal()) {
 					Direction direction2 = direction.getOpposite();
 					int rot = MathHelper.floor((180.0 + direction2.getHorizontalAngle() * 16.0 / 360.0) + 0.5 + 4) & 15;
@@ -146,11 +147,11 @@ public class EndSignBlock extends AbstractSignBlock {
 
 	@Override
 	public BlockState rotate(BlockState state, Rotation rotation) {
-		return (BlockState) state.with(ROTATION, rotation.rotate((Integer) state.get(ROTATION), 16));
+		return state.with(ROTATION, rotation.rotate(state.get(ROTATION), 16));
 	}
 
 	@Override
 	public BlockState mirror(BlockState state, Mirror mirror) {
-		return (BlockState) state.with(ROTATION, mirror.mirrorRotation((Integer) state.get(ROTATION), 16));
+		return state.with(ROTATION, mirror.mirrorRotation(state.get(ROTATION), 16));
 	}
 }

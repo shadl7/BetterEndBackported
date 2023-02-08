@@ -30,8 +30,8 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 	public Ingredient input;
 	public ItemStack output;
 	public int time = 1;
-	public Ingredient[] catalysts = new Ingredient[8];
-	public Map<Integer, Ingredient> ingredientPositions = Maps.newHashMap();
+	public final Ingredient[] catalysts = new Ingredient[8];
+	public final Map<Integer, Ingredient> ingredientPositions = Maps.newHashMap();
 
 	public InfusionRecipe(ResourceLocation id) {
 		this(id, null, null);
@@ -52,9 +52,7 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 	public NonNullList<Ingredient> getIngredients() {
 		NonNullList<Ingredient> list = NonNullList.create();
 		list.add(input);
-		for (Ingredient catalyst : catalysts) {
-			list.add(catalyst);
-		}
+        list.addAll(Arrays.asList(catalysts));
 		return list;
 	}
 
@@ -108,7 +106,7 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 		private Ingredient input;
 		private ItemStack output;
 		private int time = 1;
-		private Ingredient[] catalysts = new Ingredient[8];
+		private final Ingredient[] catalysts = new Ingredient[8];
 
 		private Builder() {
 			Arrays.fill(catalysts, Ingredient.EMPTY);
@@ -158,8 +156,8 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 			if (output == null)
 				Illegal("Output for Infusion recipe can't be null, recipe %s", id);
 			int empty = 0;
-			for (int i = 0; i < catalysts.length; i++) {
-				if (catalysts[i].hasNoMatchingItems())
+			for (Ingredient catalyst : catalysts) {
+				if (catalyst.hasNoMatchingItems())
 					empty++;
 			}
 			if (empty == catalysts.length) {
@@ -172,11 +170,11 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 		}
 
 		public static class Result implements IFinishedRecipe {
-			private ResourceLocation id;
-			private Ingredient input;
-			private ItemStack output;
-			private int time;
-			private Ingredient[] catalysts = new Ingredient[8];
+			private final ResourceLocation id;
+			private final Ingredient input;
+			private final ItemStack output;
+			private final int time;
+			private Ingredient[] catalysts;
 			
 			private Result(ResourceLocation id, Ingredient input, ItemStack output, int time, Ingredient[] catalysts) {
 				this.id = id;

@@ -9,7 +9,6 @@ import com.mojang.serialization.codecs.RecordCodecBuilder;
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.world.biome.BetterEndBiome;
-import mod.beethoven92.betterendforge.config.CommonConfig;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.registry.Registry;
@@ -34,8 +33,8 @@ public class BetterEndBiomeProvider extends BiomeProvider
 	private final Registry<Biome> lookupRegistry;
 	private final Biome centerBiome;
 	private final Biome barrens;
-	private BiomeMap mapLand;
-	private BiomeMap mapVoid;
+	private final BiomeMap mapLand;
+	private final BiomeMap mapVoid;
 	private final long seed;
 
 	
@@ -65,11 +64,7 @@ public class BetterEndBiomeProvider extends BiomeProvider
 			{
 				list.add(biome);
 			}
-			/*if (biome.getCategory() == Category.THEEND) 
-			{
-				list.add(biome);
-			}*/
-		});
+        });
 		return list;
 	}
 

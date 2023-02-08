@@ -9,13 +9,11 @@ import com.google.common.collect.Maps;
 
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFFlatWave;
 import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale;
 import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFSmoothUnion;
 import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFTranslate;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFCappedCone;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFRadialNoiseMap;
-import mod.beethoven92.betterendforge.config.CommonConfig;
 import net.minecraft.util.math.BlockPos;
 
 public class IslandLayer
@@ -24,7 +22,7 @@ public class IslandLayer
 	private final SDFRadialNoiseMap noise;
 	private final SDF island;
 
-	private final List<BlockPos> positions = new ArrayList<BlockPos>(9);
+	private final List<BlockPos> positions = new ArrayList<>(9);
 	private final Map<BlockPos, SDF> islands = Maps.newHashMap();
 	private final OpenSimplexNoise density;
 	private final int seed;
@@ -70,12 +68,10 @@ public class IslandLayer
 			for (int pox = -1; pox < 2; pox++)
 			{
 				int px = pox + ix;
-				long px2 = px;
-				for (int poz = -1; poz < 2; poz++)
+                for (int poz = -1; poz < 2; poz++)
 				{
 					int pz = poz + iz;
-					long pz2 = pz;
-					if (GeneratorOptions.noRingVoid() || px2 * px2 + pz2 * pz2 > options.centerDist)
+                    if (GeneratorOptions.noRingVoid() || (long) px * (long) px + (long) pz * (long) pz > options.centerDist)
 					{
 						RANDOM.setSeed(getSeed(px, pz));
 						double posX = (px + RANDOM.nextFloat()) * options.distance;

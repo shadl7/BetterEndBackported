@@ -44,7 +44,7 @@ public class StripableBarkBlockTemplate extends BarkBlockTemplate
 			if (!worldIn.isRemote()) 
 			{
 				worldIn.setBlockState(pos, striped.getDefaultState().with(RotatedPillarBlock.AXIS, state.get(RotatedPillarBlock.AXIS)), 11);
-				if (player != null && !player.isCreative()) 
+				if (!player.isCreative())
 				{
 					player.getHeldItemMainhand().attemptDamageItem(1, worldIn.rand, (ServerPlayerEntity) player);
 				}

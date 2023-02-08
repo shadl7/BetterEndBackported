@@ -6,9 +6,9 @@ import mod.beethoven92.betterendforge.common.recipes.AnvilSmithingRecipe;
 
 public interface ExtendedRepairContainer
 {
-	public void be_updateCurrentRecipe(AnvilSmithingRecipe recipe);
-	public AnvilSmithingRecipe be_getCurrentRecipe();
-	public List<AnvilSmithingRecipe> be_getRecipes();
+	void be_updateCurrentRecipe(AnvilSmithingRecipe recipe);
+	AnvilSmithingRecipe be_getCurrentRecipe();
+	List<AnvilSmithingRecipe> be_getRecipes();
 	
 	default void be_nextRecipe() 
 	{

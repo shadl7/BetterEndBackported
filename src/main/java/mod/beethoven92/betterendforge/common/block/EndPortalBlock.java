@@ -80,7 +80,7 @@ public class EndPortalBlock extends NetherPortalBlock
 		if (worldIn instanceof ServerWorld && !entityIn.isPassenger() && !entityIn.isBeingRidden() 
 				&& entityIn.isNonBoss()) 
 		{
-			TeleportingEntity teleEntity = TeleportingEntity.class.cast(entityIn);
+			TeleportingEntity teleEntity = (TeleportingEntity) entityIn;
 			
 			//if (teleEntity.hasCooldown()) return;
 			// Checks if entity has nether portal cooldown
@@ -117,11 +117,8 @@ public class EndPortalBlock extends NetherPortalBlock
 			{
 				teleEntity.beSetExitPos(exitPos);
 				entityIn.changeDimension(destination);
-				if (entityIn != null) 
-				{
-					// Resets nether portal cooldown
-					entityIn.func_242279_ag();
-				}
+				// Resets nether portal cooldown
+				entityIn.func_242279_ag();
 				//teleEntity.beSetCooldown(300);
 			}
 		}
@@ -154,41 +151,38 @@ public class EndPortalBlock extends NetherPortalBlock
 			for (int i = 0; i < (step >> 1); i++) 
 			{
 				IChunk chunk = world.getChunk(checkPos);
-				
-				if (chunk != null) 
+
+				int ceil = chunk.getTopBlockY(Heightmap.Type.WORLD_SURFACE, checkPos.getX() & 15, checkPos.getZ() & 15);
+				if (ceil > 5)
 				{
-					int ceil = chunk.getTopBlockY(Heightmap.Type.WORLD_SURFACE, checkPos.getX() & 15, checkPos.getZ() & 15);
-					if (ceil > 5) 
+					checkPos.setY(ceil);
+					while (checkPos.getY() > 5)
 					{
-						checkPos.setY(ceil);
-						while (checkPos.getY() > 5) 
+						BlockState state = world.getBlockState(checkPos);
+						if (state.isIn(this))
 						{
-							BlockState state = world.getBlockState(checkPos);
-							if (state.isIn(this))
+							Axis axis = state.get(AXIS);
+							checkPos = this.findCenter(world, checkPos, axis);
+
+							Direction frontDir = Direction.getFacingFromAxisDirection(axis, AxisDirection.POSITIVE).rotateY();
+							Direction entityDir = entity.getHorizontalFacing();
+							if (entityDir.getAxis().isVertical())
 							{
-								Axis axis = state.get(AXIS);
-								checkPos = this.findCenter(world, checkPos, axis);
-
-								Direction frontDir = Direction.getFacingFromAxisDirection(axis, AxisDirection.POSITIVE).rotateY();
-								Direction entityDir = entity.getHorizontalFacing();
-								if (entityDir.getAxis().isVertical()) 
-								{				
-									entityDir = frontDir;
-								}
-
-								if (frontDir == entityDir || frontDir.getOpposite() == entityDir) 
-								{
-									return checkPos.offset(entityDir);
-								}
-								else 
-								{
-									entity.getRotatedYaw(Rotation.CLOCKWISE_90);
-									entityDir = entityDir.rotateY();
-									return checkPos.offset(entityDir);
-								}
+								entityDir = frontDir;
 							}
-							checkPos.move(Direction.DOWN);
+
+							if (frontDir == entityDir || frontDir.getOpposite() == entityDir)
+							{
+								return checkPos.offset(entityDir);
+							}
+							else
+							{
+								entity.getRotatedYaw(Rotation.CLOCKWISE_90);
+								entityDir = entityDir.rotateY();
+								return checkPos.offset(entityDir);
+							}
 						}
+						checkPos.move(Direction.DOWN);
 					}
 				}
 				checkPos.move(direction);

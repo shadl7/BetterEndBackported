@@ -1,6 +1,7 @@
 package mod.beethoven92.betterendforge.common.capability;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
@@ -10,7 +11,6 @@ import com.google.common.collect.ImmutableList;
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.world.generator.GeneratorOptions;
-import mod.beethoven92.betterendforge.config.CommonConfig;
 import net.minecraft.block.PortalInfo;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
@@ -44,7 +44,7 @@ public class EndData implements INBTSerializable<CompoundNBT> {
 	@CapabilityInject(EndData.class)
 	public static final Capability<EndData> CAPABILITY = null;
 
-	private Set<UUID> players;
+	private final Set<UUID> players;
 	private BlockPos spawn;
 
 	public EndData() {
@@ -121,14 +121,14 @@ public class EndData implements INBTSerializable<CompoundNBT> {
 	}
 
 	public static void playerLogin(ServerPlayerEntity player) {
-		World end = player.getServer().getWorld(World.THE_END);
+		World end = Objects.requireNonNull(player.getServer()).getWorld(World.THE_END);
 		if (end == null)
 			return;
 		end.getCapability(CAPABILITY).ifPresent(c -> c.login(player));
 	}
 
 	public static void playerRespawn(ServerPlayerEntity player) {
-		World end = player.getServer().getWorld(World.THE_END);
+		World end = Objects.requireNonNull(player.getServer()).getWorld(World.THE_END);
 		if (end == null)
 			return;
 		end.getCapability(CAPABILITY).ifPresent(c -> c.teleportToSpawn(player));
@@ -152,14 +152,13 @@ public class EndData implements INBTSerializable<CompoundNBT> {
 			spawn = NBTUtil.readBlockPos(nbt.getCompound("spawn"));
 
 		ListNBT list = nbt.getList("players", Constants.NBT.TAG_INT_ARRAY);
-		for (int i = 0; i < list.size(); i++)
-			players.add(NBTUtil.readUniqueId(list.get(i)));
+		for (INBT inbt : list) players.add(NBTUtil.readUniqueId(inbt));
 	}
 
 	@EventBusSubscriber(modid = BetterEnd.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)
 	public static class Provider implements ICapabilitySerializable<INBT> {
 
-		private LazyOptional<EndData> instance = LazyOptional.of(CAPABILITY::getDefaultInstance);
+		private final LazyOptional<EndData> instance = LazyOptional.of(CAPABILITY::getDefaultInstance);
 
 		@Override
 		public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {

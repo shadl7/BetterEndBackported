@@ -22,10 +22,10 @@ public class SnowflakeParticle extends SpriteTexturedParticle
 	private double nextVY;
 	private double nextVZ;
 	
-	protected SnowflakeParticle(ClientWorld world, double x, double y, double z, double vx, 
-			double vy, double vz, IAnimatedSprite spriteWithAge) 
+	protected SnowflakeParticle(ClientWorld world, double x, double y, double z,
+                                IAnimatedSprite spriteWithAge)
 	{
-		super(world, x, y, z, vx, vy, vz);
+		super(world, x, y, z, 1, 1, 1);
 		
 		this.selectSpriteWithAge(spriteWithAge);
 		
@@ -100,7 +100,7 @@ public class SnowflakeParticle extends SpriteTexturedParticle
 	    public Particle makeParticle(BasicParticleType type, ClientWorld worldIn, double x, double y, double z,
 	    		double xSpeed, double ySpeed, double zSpeed) 
 	    {
-	    	return new SnowflakeParticle(worldIn, x, y, z, 1, 1, 1, sprite);
+	    	return new SnowflakeParticle(worldIn, x, y, z, sprite);
 	    }
 	}
 }

@@ -2,8 +2,6 @@ package mod.beethoven92.betterendforge.common.world.feature;
 
 import java.util.Random;
 
-import com.mojang.serialization.Codec;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties.LumecornShape;
 import mod.beethoven92.betterendforge.common.block.LumecornBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;

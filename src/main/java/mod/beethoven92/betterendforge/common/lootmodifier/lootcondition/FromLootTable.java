@@ -13,7 +13,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class FromLootTable implements ILootCondition {
 
-	private ResourceLocation table;
+	private final ResourceLocation table;
 	
 	public FromLootTable(ResourceLocation table) {
 		this.table = table;

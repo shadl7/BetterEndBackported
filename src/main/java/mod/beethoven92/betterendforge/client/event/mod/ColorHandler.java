@@ -2,6 +2,7 @@ package mod.beethoven92.betterendforge.client.event.mod;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.block.AuroraCrystalBlock;
@@ -31,10 +32,10 @@ public class ColorHandler
 	public static void BlockColorHandler(ColorHandlerEvent.Block event)
 	{
 		event.getBlockColors().register((state, reader, pos, color) -> 
-		                 {return AuroraCrystalBlock.getBlockColor(pos);}, ModBlocks.AURORA_CRYSTAL.get());
+		                 {return AuroraCrystalBlock.getBlockColor(Objects.requireNonNull(pos));}, ModBlocks.AURORA_CRYSTAL.get());
 		
 		event.getBlockColors().register((state, reader, pos, color) -> 
-		                 {return TenaneaFlowersBlock.getBlockColor(pos);}, ModBlocks.TENANEA_FLOWERS.get());
+		                 {return TenaneaFlowersBlock.getBlockColor(Objects.requireNonNull(pos));}, ModBlocks.TENANEA_FLOWERS.get());
 		
 		event.getBlockColors().register((state, reader, pos, color) -> 
         				 {return RespawnObeliskBlock.getBlockColor(pos);}, ModBlocks.RESPAWN_OBELISK.get());
@@ -53,7 +54,7 @@ public class ColorHandler
                          ModBlocks.JELLYSHROOM_CAP_PURPLE.get());
 		
 		event.getBlockColors().register((state, reader, pos, color) ->
-						 {return ModLanternBlock.getBlockColor(state, reader, pos, color);}, 
+						 {return ModLanternBlock.getBlockColor(state, reader, Objects.requireNonNull(pos), color);},
 						 getLanterns());
 		
 		event.getBlockColors().register((state, reader, pos, color) ->

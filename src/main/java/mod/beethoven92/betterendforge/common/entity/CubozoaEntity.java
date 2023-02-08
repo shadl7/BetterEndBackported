@@ -114,17 +114,8 @@ public class CubozoaEntity extends AbstractGroupFishEntity {
 	protected float getStandingEyeHeight(Pose pose, EntitySize dimensions) {
 		return dimensions.height * 0.5F;
 	}
-	
-	/*@Override
-	protected void dropLoot(DamageSource source, boolean causedByPlayer) {
-		int count = rand.nextInt(3);
-		if (count > 0) {
-			ItemEntity drop = new ItemEntity(world, getPosX(), getPosY(), getPosZ(), new ItemStack(ModItems.GELATINE.get(), count));
-			this.world.addEntity(drop);
-		}
-	}*/
 
-	@Override
+    @Override
 	protected ItemStack getFishBucket() {
 		ItemStack bucket = ModItems.BUCKET_CUBOZOA.get().getDefaultInstance();
 		CompoundNBT tag = bucket.getOrCreateTag();

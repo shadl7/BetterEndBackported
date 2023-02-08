@@ -15,13 +15,8 @@ public class ModRecipeManager
 
 	public static void addRecipe(IRecipeType<?> type, IRecipe<?> recipe) 
 	{
-		Map<ResourceLocation, IRecipe<?>> list = RECIPES.get(type);
-		if (list == null) 
-		{
-			list = Maps.newHashMap();
-			RECIPES.put(type, list);
-		}
-		list.put(recipe.getId(), recipe);
+        Map<ResourceLocation, IRecipe<?>> list = RECIPES.computeIfAbsent(type, k -> Maps.newHashMap());
+        list.put(recipe.getId(), recipe);
 	}
 	
 	public static Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> getMap(Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> recipes) 
@@ -40,13 +35,8 @@ public class ModRecipeManager
 			Map<ResourceLocation, IRecipe<?>> list = RECIPES.get(type);
 			if (list != null)
 			{
-				Map<ResourceLocation, IRecipe<?>> typeList = result.get(type);
-				if (typeList == null) 
-				{
-					typeList = Maps.newHashMap();
-					result.put(type, typeList);
-				}
-				for (Entry<ResourceLocation, IRecipe<?>> entry : list.entrySet()) {
+                Map<ResourceLocation, IRecipe<?>> typeList = result.computeIfAbsent(type, k -> Maps.newHashMap());
+                for (Entry<ResourceLocation, IRecipe<?>> entry : list.entrySet()) {
 					ResourceLocation id = entry.getKey();
 					if (!typeList.containsKey(id))
 						typeList.put(id, entry.getValue());

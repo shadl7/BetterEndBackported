@@ -117,7 +117,7 @@ public class EternalRitual
 			if (valid) 
 			{
 				EternalPedestalTileEntity pedestal = (EternalPedestalTileEntity) world.getTileEntity(checkPos);
-				Item pItem = pedestal.getStack().getItem();
+				Item pItem = Objects.requireNonNull(pedestal).getStack().getItem();
 				if (item == null)
 				{
 					item = pItem;
@@ -128,11 +128,7 @@ public class EternalRitual
 				}
 			}
 		}
-		/*if (valid)
-		{
-			this.activatePortal();
-		}*/
-		if (valid && item != null) 
+        if (valid && item != null)
 		{
 			this.activatePortal(item);
 		}
@@ -324,20 +320,17 @@ public class EternalRitual
 				for (int i = 0; i < (step >> 1); i++)
 				{
 					IChunk chunk = world.getChunk(checkPos);
-					if (chunk != null)
+					int ceil = chunk.getTopBlockY(Heightmap.Type.WORLD_SURFACE, checkPos.getX() & 15, checkPos.getZ() & 15) + 1;
+					if (ceil < 2) continue;
+					checkPos.setY(ceil);
+					while (checkPos.getY() > 2)
 					{
-						int ceil = chunk.getTopBlockY(Heightmap.Type.WORLD_SURFACE, checkPos.getX() & 15, checkPos.getZ() & 15) + 1;
-						if (ceil < 2) continue;
-						checkPos.setY(ceil);
-						while (checkPos.getY() > 2) 
+						if(checkIsAreaValid(targetWorld, checkPos, portalAxis))
 						{
-							if(checkIsAreaValid(targetWorld, checkPos, portalAxis)) 
-							{
-								EternalRitual.generatePortal(targetWorld, checkPos, portalAxis);
-								return checkPos.toImmutable();
-							}
-							checkPos.move(Direction.DOWN);
+							EternalRitual.generatePortal(targetWorld, checkPos, portalAxis);
+							return checkPos.toImmutable();
 						}
+						checkPos.move(Direction.DOWN);
 					}
 					checkPos.move(direction);
 				}
@@ -362,9 +355,7 @@ public class EternalRitual
 	
 	private World getTargetWorld(int state) 
 	{
-		//RegistryKey<World> target = world.getDimensionKey() == World.THE_END ? World.OVERWORLD : World.THE_END;
-		//return Objects.requireNonNull(world.getServer()).getWorld(target);
-		if (world.getDimensionKey() == World.THE_END) 
+        if (world.getDimensionKey() == World.THE_END)
 		{
 			return EndPortals.getWorld(world.getServer(), state);
 		}
@@ -561,7 +552,6 @@ public class EternalRitual
 			{
 				this.center = initial.west(5).north(4);
 			}
-			return;
 		}
 	}
 	

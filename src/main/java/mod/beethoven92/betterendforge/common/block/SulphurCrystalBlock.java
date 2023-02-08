@@ -54,7 +54,7 @@ public class SulphurCrystalBlock extends AttachedBlock implements IWaterLoggable
 	@Override
 	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
 	{
-		Direction direction = (Direction) state.get(FACING);
+		Direction direction = state.get(FACING);
 		BlockPos blockPos = pos.offset(direction.getOpposite());
 		return worldIn.getBlockState(blockPos).isIn(ModBlocks.BRIMSTONE.get());
 	}

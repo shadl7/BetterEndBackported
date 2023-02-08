@@ -32,13 +32,10 @@ public class AttachedBlock extends Block
 		IWorldReader worldView = context.getWorld();
 		BlockPos blockPos = context.getPos();
 		Direction[] directions = context.getNearestLookingDirections();
-		for (int i = 0; i < directions.length; ++i) 
-		{
-			Direction direction = directions[i];
+		for (Direction direction : directions) {
 			Direction direction2 = direction.getOpposite();
-			blockState = (BlockState) blockState.with(FACING, direction2);
-			if (blockState.isValidPosition(worldView, blockPos)) 
-			{
+			blockState = blockState.with(FACING, direction2);
+			if (blockState.isValidPosition(worldView, blockPos)) {
 				return blockState;
 			}
 		}
@@ -62,7 +59,7 @@ public class AttachedBlock extends Block
 	@Override
 	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos)
 	{
-		Direction direction = (Direction) state.get(FACING);
+		Direction direction = state.get(FACING);
 		BlockPos blockPos = pos.offset(direction.getOpposite());
 		return hasEnoughSolidSide(worldIn, blockPos, direction) || worldIn.getBlockState(blockPos).isIn(BlockTags.LEAVES);
 	}

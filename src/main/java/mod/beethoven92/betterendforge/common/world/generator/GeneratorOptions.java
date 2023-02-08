@@ -1,12 +1,10 @@
 package mod.beethoven92.betterendforge.common.world.generator;
 
 import mod.beethoven92.betterendforge.config.Configs;
-import mod.beethoven92.betterendforge.config.jsons.JsonConfigs;
 //import net.minecraft.core.BlockPos;
 //import net.minecraft.util.Mth;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.common.ForgeConfigSpec;
 //import ru.betterend.config.Configs;
 
 public class GeneratorOptions {
@@ -147,7 +145,7 @@ public class GeneratorOptions {
 	}
 
 	public static boolean generateObsidianPlatform() {
-		return generateObsidianPlatform;
+		return !generateObsidianPlatform;
 	}
 
 	public static int getEndCityFailChance() {

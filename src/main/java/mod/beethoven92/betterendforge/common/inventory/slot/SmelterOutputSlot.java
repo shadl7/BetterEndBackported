@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 
 public class SmelterOutputSlot extends Slot
 {
-	private PlayerEntity player;
+	private final PlayerEntity player;
 	private int amount;
 
 	public SmelterOutputSlot(PlayerEntity player, IInventory inventoryIn, int index, int xPosition, int yPosition) 

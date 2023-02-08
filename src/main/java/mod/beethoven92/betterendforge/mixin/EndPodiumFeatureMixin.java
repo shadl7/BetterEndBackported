@@ -9,22 +9,17 @@ import mod.beethoven92.betterendforge.common.world.generator.GeneratorOptions;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.world.chunk.ChunkStatus;
-import net.minecraft.world.gen.feature.EndSpikeFeatureConfig;
 import net.minecraft.world.gen.Heightmap;
-import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
-import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import mod.beethoven92.betterendforge.config.CommonConfig;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
@@ -36,7 +31,7 @@ public abstract class EndPodiumFeatureMixin
 {
 	@Shadow @Final private boolean activePortal;
 
-	@Inject(method = "generate", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "generate*", at = @At("HEAD"), cancellable = true)
 	private void beGeneratePortal(ISeedReader level, ChunkGenerator chunkGenerator, Random random, BlockPos origin,
 								  NoFeatureConfig config, CallbackInfoReturnable<Boolean> info)
 	{
@@ -47,12 +42,11 @@ public abstract class EndPodiumFeatureMixin
 		}
 
 		else if (GeneratorOptions.replacePortal() && FMLLoader.getLoadingModList().getModFileById("endergetic") == null) {
-			ISeedReader world = level;
-			BlockPos blockPos = be_updatePos(origin, world);
+			BlockPos blockPos = be_updatePos(origin, level);
 			Template structure = StructureHelper.readStructure(BetterEnd.makeID(activePortal ? "portal/end_portal_active" : "portal/end_portal_inactive"));
 			Vector3i size = structure.getSize();
 			blockPos = blockPos.add(-(size.getX() >> 1), -1, -(size.getZ() >> 1));
-			structure.func_237146_a_(world, blockPos, blockPos, new PlacementSettings(), random, 2);
+			structure.func_237146_a_(level, blockPos, blockPos, new PlacementSettings(), random, 2);
 			info.setReturnValue(true);
 			info.cancel();
 		}

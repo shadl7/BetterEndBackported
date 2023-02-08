@@ -26,9 +26,8 @@ public class EndAnvilBlock extends AnvilBlock
 	@Override
 	public boolean hasTileEntity(BlockState state) 
 	{
-		if (ModList.get().isLoaded("apotheosis") && Registry.BLOCK_ENTITY_TYPE.getOptional(new ResourceLocation("apotheosis", "anvil")).isPresent()) return true;
-		return false;
-	}
+        return ModList.get().isLoaded("apotheosis") && Registry.BLOCK_ENTITY_TYPE.getOptional(new ResourceLocation("apotheosis", "anvil")).isPresent();
+    }
 	
 	@Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) 

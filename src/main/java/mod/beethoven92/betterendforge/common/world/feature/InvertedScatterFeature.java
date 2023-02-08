@@ -49,15 +49,7 @@ public abstract class InvertedScatterFeature extends Feature<NoFeatureConfig>
 					float x = pr * (float) Math.cos(theta);
 					float z = pr * (float) Math.sin(theta);
 
-					/*POS.setPos(center.getX() + x, center.getY() - 7, center.getZ() + z);
-
-					int up = BlockHelper.upRay(world, POS, 16);
-					
-					if (up > 14) continue;
-					
-					POS.setY(POS.getY() + up);*/
-					
-					POS.setPos(pos.getX() + x, POS.getY(), pos.getZ() + z);
+                    POS.setPos(pos.getX() + x, POS.getY(), pos.getZ() + z);
 					
 					if (canGenerate(world, random, pos, POS, r)) 
 					{

@@ -9,7 +9,6 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunk;
-import net.minecraft.world.gen.surfacebuilders.ConfiguredSurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
 
@@ -28,19 +27,17 @@ public class DoubleBlockSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConf
 
 
 	
-	public DoubleBlockSurfaceBuilder setBlock1(Block block) 
+	public void setBlock1(Block block)
 	{
 		BlockState stone = Blocks.END_STONE.getDefaultState();
 		config1 = new SurfaceBuilderConfig(block.getDefaultState(), stone, stone);
-		return this;
-	}
+    }
 	
-	public DoubleBlockSurfaceBuilder setBlock2(Block block) 
+	public void setBlock2(Block block)
 	{
 		BlockState stone = Blocks.END_STONE.getDefaultState();
 		config2 = new SurfaceBuilderConfig(block.getDefaultState(), stone, stone);
-		return this;
-	}
+    }
 	
 	@Override
 	public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise,

@@ -1,11 +1,7 @@
 package mod.beethoven92.betterendforge.common.init;
 
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -13,7 +9,6 @@ import com.google.common.collect.Sets;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import mod.beethoven92.betterendforge.common.util.FeatureHelper;
 import mod.beethoven92.betterendforge.common.util.JsonFactory;
 import mod.beethoven92.betterendforge.common.world.biome.*;
 import mod.beethoven92.betterendforge.common.world.biome.cave.*;
@@ -22,7 +17,6 @@ import mod.beethoven92.betterendforge.common.world.generator.BiomePicker;
 import mod.beethoven92.betterendforge.common.world.generator.EndBiomeType;
 import mod.beethoven92.betterendforge.common.world.generator.GeneratorOptions;
 import mod.beethoven92.betterendforge.config.Configs;
-import mod.beethoven92.betterendforge.config.jsons.JsonConfigs;
 import net.minecraft.client.Minecraft;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.RegistryKey;
@@ -52,8 +46,8 @@ public class ModBiomes
 	
 	// Vanilla Land
 	public static final BetterEndBiome END = registerBiome(Biomes.THE_END, EndBiomeType.LAND, 1F);
-	public static final BetterEndBiome END_MIDLANDS = registerSubBiome(Biomes.END_MIDLANDS, END, 0.5F);
-	public static final BetterEndBiome END_HIGHLANDS = registerSubBiome(Biomes.END_HIGHLANDS, END, 0.5F);
+	public static final BetterEndBiome END_MIDLANDS = registerSubBiome(Biomes.END_MIDLANDS);
+	public static final BetterEndBiome END_HIGHLANDS = registerSubBiome(Biomes.END_HIGHLANDS);
 		
 	// Vanilla Void
 	public static final BetterEndBiome END_BARRENS = registerBiome(Biomes.END_BARRENS, EndBiomeType.VOID, 1F);
@@ -118,9 +112,9 @@ public class ModBiomes
 				
 				if (Configs.BIOME_CONFIG.getBoolean(id, "enabled", true))
 				{
-					if (!LAND_BIOMES.containsImmutable(id) && !VOID_BIOMES.containsImmutable(id) && !SUBBIOMES_UNMUTABLES.contains(id)) 
+					if (LAND_BIOMES.containsImmutable(id) && VOID_BIOMES.containsImmutable(id) && !SUBBIOMES_UNMUTABLES.contains(id))
 					{
-						JsonObject config = configs.get(id.getNamespace());
+						JsonObject config = configs.get(Objects.requireNonNull(id).getNamespace());
 						if (config == null) 
 						{
 							config = loadJsonConfig(id.getNamespace());
@@ -262,9 +256,9 @@ public class ModBiomes
 		return registerBiome(WorldGenRegistries.BIOME.getOrThrow(key), type, genChance);
 	}
 	
-	private static BetterEndBiome registerSubBiome(RegistryKey<Biome> key, BetterEndBiome parent, float genChance) 
+	private static BetterEndBiome registerSubBiome(RegistryKey<Biome> key)
 	{
-		return registerSubBiome(WorldGenRegistries.BIOME.getOrThrow(key), parent, genChance, true);
+		return registerSubBiome(WorldGenRegistries.BIOME.getOrThrow(key), ModBiomes.END, (float) 0.5, true);
 	}
 	
 	private static void addToPicker(BetterEndBiome biome, EndBiomeType type) 
@@ -310,7 +304,7 @@ public class ModBiomes
 		if (endBiome == null) 
 		{
 			Minecraft minecraft = Minecraft.getInstance();
-			ResourceLocation id = minecraft.world.func_241828_r().getRegistry(Registry.BIOME_KEY).getKey(biome);
+			ResourceLocation id = Objects.requireNonNull(minecraft.world).func_241828_r().getRegistry(Registry.BIOME_KEY).getKey(biome);
 			endBiome = id == null ? END : ID_MAP.getOrDefault(id, END);
 			CLIENT.put(biome, endBiome);
 		}

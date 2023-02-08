@@ -6,12 +6,12 @@ public interface TeleportingEntity
 {
 	boolean beCanTeleport();
 
-	public abstract void beSetExitPos(BlockPos pos);
-	public abstract BlockPos beGetExitPos();
+	void beSetExitPos(BlockPos pos);
+	BlockPos beGetExitPos();
 	void beResetExitPos();
 
-	public abstract long beGetCooldown();
-	public abstract void beSetCooldown(long time);
+	long beGetCooldown();
+	void beSetCooldown(long time);
 
 	default boolean hasCooldown()
 	{

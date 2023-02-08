@@ -71,8 +71,8 @@ public class EndCrystalRenderer
 		float g = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
 		matrices.push();
 		matrices.translate(0.0D, 2.0D, 0.0D);
-		matrices.rotate(Vector3f.YP.rotation((float)(-Math.atan2((double) dz, (double) dx)) - 1.5707964F));
-		matrices.rotate(Vector3f.XP.rotation((float)(-Math.atan2((double) f, (double) dy)) - 1.5707964F));
+		matrices.rotate(Vector3f.YP.rotation((float)(-Math.atan2(dz, dx)) - 1.5707964F));
+		matrices.rotate(Vector3f.XP.rotation((float)(-Math.atan2(f, dy)) - 1.5707964F));
 		IVertexBuilder iVertexBuilder = bufferIn.getBuffer(CRYSTAL_BEAM_LAYER);
 		float h = 0.0F - ((float) age + tickDelta) * 0.01F;
 		float i = MathHelper.sqrt(dx * dx + dy * dy + dz * dz) / 32.0F - ((float) age + tickDelta) * 0.01F;

@@ -5,5 +5,5 @@ import net.minecraft.item.DyeColor;
 
 public interface IDyedBlock 
 {
-	public abstract Block createFromColor(DyeColor color);
+	Block createFromColor(DyeColor color);
 }

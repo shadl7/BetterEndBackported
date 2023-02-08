@@ -66,7 +66,7 @@ public class SmaragdantCrystalShardBlock extends AttachedBlock implements IWater
 	@Override
 	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
 	{
-		Direction direction = (Direction) state.get(FACING);
+		Direction direction = state.get(FACING);
 		BlockPos blockPos = pos.offset(direction.getOpposite());
 		return worldIn.getBlockState(blockPos).isSolidSide(worldIn, blockPos, direction);
 	}

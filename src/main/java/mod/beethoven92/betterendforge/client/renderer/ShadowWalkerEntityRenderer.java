@@ -14,7 +14,7 @@ public class ShadowWalkerEntityRenderer extends BipedRenderer<ShadowWalkerEntity
 	
 	public ShadowWalkerEntityRenderer(EntityRendererManager rendererManager) 
 	{
-		super(rendererManager, new PlayerModel<ShadowWalkerEntity>(0.0F, false), 0.5F);
+		super(rendererManager, new PlayerModel<>(0.0F, false), 0.5F);
 	}
 
 	@Override

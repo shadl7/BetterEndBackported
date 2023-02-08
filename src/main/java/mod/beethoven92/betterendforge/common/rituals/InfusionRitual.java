@@ -33,7 +33,7 @@ public class InfusionRitual implements IInventory
 	private int time = 0;
 		
 	private InfusionPedestalTileEntity input;
-	private PedestalTileEntity[] catalysts = new PedestalTileEntity[8];
+	private final PedestalTileEntity[] catalysts = new PedestalTileEntity[8];
 	
 	public InfusionRitual(World world, BlockPos pos) 
 	{

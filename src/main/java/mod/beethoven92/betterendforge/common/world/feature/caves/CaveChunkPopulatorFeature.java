@@ -1,7 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.feature.caves;
 
 import com.google.common.collect.Sets;
-import com.mojang.serialization.Codec;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.world.biome.BetterEndCaveBiome;

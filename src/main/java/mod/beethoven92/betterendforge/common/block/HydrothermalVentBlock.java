@@ -132,7 +132,7 @@ public class HydrothermalVentBlock extends Block implements IWaterLoggable
 	@Override
 	public FluidState getFluidState(BlockState state) 
 	{
-		return (Boolean) state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();
+		return state.get(WATERLOGGED) ? Fluids.WATER.getStillFluidState(false) : Fluids.EMPTY.getDefaultState();
 	}
 	
 	@Override

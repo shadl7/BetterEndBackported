@@ -52,7 +52,7 @@ public class WallPlantBlock extends PlantBlock
 	@Override
 	public boolean isValidPosition(BlockState state, IWorldReader worldIn, BlockPos pos) 
 	{
-		Direction direction = (Direction)state.get(FACING);
+		Direction direction = state.get(FACING);
 		BlockPos blockPos = pos.offset(direction.getOpposite());
 		BlockState blockState = worldIn.getBlockState(blockPos);
 		return isValidSupport(worldIn, blockPos, blockState, direction);
@@ -70,15 +70,11 @@ public class WallPlantBlock extends PlantBlock
 		IWorldReader worldView = context.getWorld();
 		BlockPos blockPos = context.getPos();
 		Direction[] directions = context.getNearestLookingDirections();
-		for (int i = 0; i < directions.length; ++i) 
-		{
-			Direction direction = directions[i];
-			if (direction.getAxis().isHorizontal()) 
-			{
+		for (Direction direction : directions) {
+			if (direction.getAxis().isHorizontal()) {
 				Direction direction2 = direction.getOpposite();
 				blockState = blockState.with(FACING, direction2);
-				if (blockState.isValidPosition(worldView, blockPos)) 
-				{
+				if (blockState.isValidPosition(worldView, blockPos)) {
 					return blockState;
 				}
 			}

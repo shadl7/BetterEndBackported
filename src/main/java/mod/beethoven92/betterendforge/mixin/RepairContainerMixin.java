@@ -74,13 +74,13 @@ public abstract class RepairContainerMixin extends AbstractRepairContainer imple
 	}
 	
 	@Inject(method = "func_230301_a_", at = @At("HEAD"), cancellable = true)
-	protected void be_onTakeOutput(PlayerEntity player, ItemStack stack, CallbackInfoReturnable<ItemStack> info) 
+	protected void be_onTakeOutput(PlayerEntity player, CallbackInfoReturnable<ItemStack> info)
 	{
 		if (be_currentRecipe != null)
 		{
 			this.field_234643_d_.getStackInSlot(1).shrink(be_currentRecipe.inputCount);
-			
-			stack = be_currentRecipe.craft(this.field_234643_d_, player);
+
+            ItemStack stack = be_currentRecipe.craft(this.field_234643_d_, player);
 			
 			this.onCraftMatrixChanged(field_234643_d_);
 

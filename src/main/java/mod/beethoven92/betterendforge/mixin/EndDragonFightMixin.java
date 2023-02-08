@@ -54,7 +54,7 @@ public class EndDragonFightMixin {
 	}
 	
 	@Shadow
-	private void generatePortal(boolean bl) {
+	private void generatePortal() {
 	}
 	
 	@Shadow
@@ -70,13 +70,12 @@ public class EndDragonFightMixin {
 				BlockPattern.PatternHelper blockPatternMatch = this.findExitPortal();
 				if (blockPatternMatch == null) {
 					LOGGER.debug("Couldn't find a portal, so we made one.");
-					generatePortal(true);
+					generatePortal();
 				}
 				else {
 					LOGGER.debug("Found the exit portal & temporarily using it.");
 				}
-				
-				blockPos = exitPortalLocation;
+
 			}
 			
 			List<EnderCrystalEntity> crystals = Lists.newArrayList();

@@ -61,23 +61,5 @@ public class LumecornBlock extends Block {
 			return stateIn;
 		}
 	}
-	
-//	@Override
-//	public List<ItemStack> getDroppedStacks(BlockState state, LootContext.Builder builder) {
-//		LumecornShape shape = state.get(SHAPE);
-//		if (shape == LumecornShape.BOTTOM_BIG || shape == LumecornShape.BOTTOM_SMALL || shape == LumecornShape.MIDDLE) {
-//			if (MHelper.RANDOM.nextBoolean()) {
-//				return Collections.singletonList(new ItemStack(EndBlocks.LUMECORN_SEED));
-//			}
-//			else {
-//				return Collections.emptyList();
-//			}
-//		}
-//		if (MHelper.RANDOM.nextBoolean()) {
-//			return Collections.singletonList(new ItemStack(EndItems.LUMECORN_ROD));
-//		}
-//		else {
-//			return Collections.emptyList();
-//		}
-//	}
+
 }

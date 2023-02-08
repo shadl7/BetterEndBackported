@@ -64,7 +64,7 @@ public class EndStoneSmelter extends Block
 			   worldIn.playSound(x, y, z, SoundEvents.BLOCK_BLASTFURNACE_FIRE_CRACKLE, SoundCategory.BLOCKS, 1.0F, 1.0F, false);
 			}
 
-			Direction direction = (Direction)stateIn.get(FACING);
+			Direction direction = stateIn.get(FACING);
 			Direction.Axis axis = direction.getAxis();
 			double defOffset = rand.nextDouble() * 0.6D - 0.3D;
 			double offX = axis == Direction.Axis.X ? direction.getXOffset() * 0.52D : defOffset;

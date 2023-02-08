@@ -24,7 +24,8 @@ public class BetterEndMusicDiscLootModifier extends LootModifier {
 			ModItems.MUSIC_DISC_EO_DRACONA, ModItems.MUSIC_DISC_GRASPING_AT_STARS,
 			ModItems.MUSIC_DISC_STRANGE_AND_ALIEN);
 
-	private int min, max;
+	private final int min;
+    private final int max;
 
 	public BetterEndMusicDiscLootModifier(ILootCondition[] conditionsIn, int min, int max) {
 		super(conditionsIn);

@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import java.util.function.Supplier;
-
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -15,7 +13,6 @@ import net.minecraft.world.gen.DimensionSettings;
 
 import mod.beethoven92.betterendforge.common.world.generator.TerrainGenerator;
 import mod.beethoven92.betterendforge.common.world.generator.GeneratorOptions;
-import mod.beethoven92.betterendforge.config.CommonConfig;
 import net.minecraft.world.biome.provider.BiomeProvider;
 
 import java.util.function.Supplier;

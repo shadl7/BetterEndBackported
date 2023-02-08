@@ -4,7 +4,6 @@ import com.mojang.serialization.Codec;
 
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.world.structure.piece.CavePiece;
-import mod.beethoven92.betterendforge.common.world.structure.piece.MountainPiece;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.MutableBoundingBox;

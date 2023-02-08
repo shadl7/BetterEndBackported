@@ -2,6 +2,7 @@ package mod.beethoven92.betterendforge.client.renderer;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Objects;
 
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -33,7 +34,7 @@ import net.minecraft.util.math.vector.Vector3f;
 
 public class EndSignTileEntityRenderer extends TileEntityRenderer<ESignTileEntity> {
 	private static final HashMap<Block, RenderType> LAYERS = Maps.newHashMap();
-	private static RenderType defaultLayer;
+	private static final RenderType defaultLayer;
 	private final SignModel model = new SignTileEntityRenderer.SignModel();
 
 	public EndSignTileEntityRenderer(TileEntityRendererDispatcher dispatcher) {
@@ -46,7 +47,7 @@ public class EndSignTileEntityRenderer extends TileEntityRenderer<ESignTileEntit
 		matrixStack.push();
 
 		matrixStack.translate(0.5D, 0.5D, 0.5D);
-		float angle = -((float) ((Integer) state.get(StandingSignBlock.ROTATION) * 360) / 16.0F);
+		float angle = -((float) (state.get(StandingSignBlock.ROTATION) * 360) / 16.0F);
 
 		BlockState blockState = signBlockEntity.getBlockState();
 		if (blockState.get(EndSignBlock.FLOOR)) {
@@ -76,11 +77,11 @@ public class EndSignTileEntityRenderer extends TileEntityRenderer<ESignTileEntit
 		for (int s = 0; s < 4; ++s) {
 			IReorderingProcessor orderedText = signBlockEntity.getTextBeingEditedOnRow(s, (text) -> {
 				List<IReorderingProcessor> list = textRenderer.trimStringToWidth(text, 90);
-				return list.isEmpty() ? IReorderingProcessor.field_242232_a : (IReorderingProcessor) list.get(0);
+				return list.isEmpty() ? IReorderingProcessor.field_242232_a : list.get(0);
 			});
 			if (orderedText != null) {
 				float t = (float) (-textRenderer.func_243245_a(orderedText) / 2);
-				textRenderer.func_238416_a_((IReorderingProcessor) orderedText, t, (float) (s * 10 - 20), q, false,
+				textRenderer.func_238416_a_(orderedText, t, (float) (s * 10 - 20), q, false,
 						matrixStack.getLast().getMatrix(), provider, false, 0, light);
 			}
 		}
@@ -110,7 +111,7 @@ public class EndSignTileEntityRenderer extends TileEntityRenderer<ESignTileEntit
 			if (item.get() instanceof BlockItem) {
 				Block block = ((BlockItem) item.get()).getBlock();
 				if (block instanceof EndSignBlock) {
-					String name = block.getRegistryName().getPath();
+					String name = Objects.requireNonNull(block.getRegistryName()).getPath();
 					RenderType layer = RenderType.getEntitySolid(
 							new ResourceLocation(BetterEnd.MOD_ID, "textures/entity/sign/" + name + ".png"));
 					LAYERS.put(block, layer);

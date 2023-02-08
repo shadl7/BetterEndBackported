@@ -1,10 +1,6 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
@@ -32,7 +28,7 @@ public class RecipeManagerMixin
 	@Shadow
 	private Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> recipes;
 
-	@Inject(method = "apply", at = @At(value = "RETURN"))
+	@Inject(method = "apply*", at = @At(value = "RETURN"))
 	private void beSetRecipes(Map<ResourceLocation, JsonElement> map, IResourceManager resourceManager, 
 			IProfiler profiler, CallbackInfo info)
 	{
@@ -45,12 +41,16 @@ public class RecipeManagerMixin
 		return null;
 	}
 
+	/**
+	 * @author Doctor Who
+	 * @reason Saving The World
+	 */
 	@Overwrite
 	public <C extends IInventory, T extends IRecipe<C>> Optional<T> getRecipe(IRecipeType<T> type, 
 			C inventory, World world) 
 	{
-		Collection<IRecipe<C>> values = getRecipes(type).values();
-		List<IRecipe<C>> list = new ArrayList<IRecipe<C>>(values);
+		Collection<IRecipe<C>> values = Objects.requireNonNull(getRecipes(type)).values();
+		List<IRecipe<C>> list = new ArrayList<>(values);
 		list.sort((v1, v2) -> {
 			boolean b1 = v1.getId().getNamespace().equals("minecraft");
 			boolean b2 = v2.getId().getNamespace().equals("minecraft");

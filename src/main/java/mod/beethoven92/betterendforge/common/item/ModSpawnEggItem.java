@@ -3,6 +3,7 @@ package mod.beethoven92.betterendforge.common.item;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Objects;
 import java.util.function.Supplier;
 
 import org.apache.logging.log4j.LogManager;
@@ -41,7 +42,7 @@ public class ModSpawnEggItem extends SpawnEggItem {
 		}
 	};
 
-	private Supplier<EntityType<?>> type;
+	private final Supplier<EntityType<?>> type;
 
 	public ModSpawnEggItem(Supplier<EntityType<?>> typeIn, int primaryColorIn, int secondaryColorIn,
 			Properties builder) {
@@ -70,7 +71,7 @@ public class ModSpawnEggItem extends SpawnEggItem {
 			Map<EntityType<?>, SpawnEggItem> eggs = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class,
 					null, "field_195987_b");
 			for (Entry<Supplier<EntityType<?>>, SpawnEggItem> entry : MOD_EGGS.entrySet())
-				eggs.put(entry.getKey().get(), entry.getValue());
+				Objects.requireNonNull(eggs).put(entry.getKey().get(), entry.getValue());
 			} catch (Exception e) {
 				LOGGER.warn("Unable to access SpawnEggItem.EGGS");
 			} 

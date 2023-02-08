@@ -118,7 +118,7 @@ public class EndStoneSmelterContainer extends RecipeBookContainer<IInventory>
 
 	protected boolean isSmeltable(ItemStack itemStack) 
 	{
-		return this.world.getRecipeManager().getRecipe(AlloyingRecipe.TYPE, new Inventory(new ItemStack[]{itemStack}), this.world).isPresent();
+		return this.world.getRecipeManager().getRecipe(AlloyingRecipe.TYPE, new Inventory(itemStack), this.world).isPresent();
 	}
 
 	public boolean isFuel(ItemStack itemStack) 
@@ -159,14 +159,14 @@ public class EndStoneSmelterContainer extends RecipeBookContainer<IInventory>
 						return ItemStack.EMPTY;
 					}
 				} 
-				else if (index >= 4 && index < 31) 
+				else if (index < 31)
 				{
 					if (!this.mergeItemStack(itemStack2, 31, 40, false)) 
 					{
 						return ItemStack.EMPTY;
 					}
 				} 
-				else if (index >= 31 && index < 40 && !this.mergeItemStack(itemStack2, 4, 31, false)) 
+				else if (index < 40 && !this.mergeItemStack(itemStack2, 4, 31, false))
 				{
 					return ItemStack.EMPTY;
 				}

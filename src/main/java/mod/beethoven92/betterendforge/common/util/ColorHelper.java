@@ -22,8 +22,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class ColorHelper 
 {
-	private static Map<ResourceLocation, Integer> colorPalette = Maps.newHashMap();
-	private static float[] floatBuffer = new float[4];
+	private static final Map<ResourceLocation, Integer> colorPalette = Maps.newHashMap();
+	private static final float[] floatBuffer = new float[4];
 	
 	public static float[] toFloatArray(int color) 
 	{

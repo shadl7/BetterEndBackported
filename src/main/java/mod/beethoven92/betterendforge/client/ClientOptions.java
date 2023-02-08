@@ -1,8 +1,6 @@
 package mod.beethoven92.betterendforge.client;
 
 import mod.beethoven92.betterendforge.config.Configs;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 //import ru.betterend.config.Configs;
 
 

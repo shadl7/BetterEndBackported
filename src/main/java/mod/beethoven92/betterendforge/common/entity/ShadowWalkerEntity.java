@@ -139,7 +139,7 @@ public class ShadowWalkerEntity extends MonsterEntity
 		return attack;
 	}
 	
-	private final class AttackGoal extends MeleeAttackGoal 
+	private static final class AttackGoal extends MeleeAttackGoal
 	{
 		private final ShadowWalkerEntity walker;
 		private int ticks;
@@ -169,14 +169,7 @@ public class ShadowWalkerEntity extends MonsterEntity
 		{
 			super.tick();
 			++this.ticks;
-			if (this.ticks >= 5 && this.func_234041_j_() < this.func_234042_k_() / 2) 
-			{
-				this.walker.setAggroed(true);
-			}
-			else 
-			{
-				this.walker.setAggroed(false);
-			}
+			this.walker.setAggroed(this.ticks >= 5 && this.func_234041_j_() < this.func_234042_k_() / 2);
 		}
 	}
 }

@@ -21,7 +21,7 @@ public class GlowingPillarLuminophorBlock extends Block {
 
 	@Override
 	public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-		return state.get(NATURAL) ? world.getBlockState(pos.down()).isIn(ModBlocks.GLOWING_PILLAR_ROOTS.get()) : true;
+		return !state.get(NATURAL) || world.getBlockState(pos.down()).isIn(ModBlocks.GLOWING_PILLAR_ROOTS.get());
 	}
 
 	@Override

@@ -21,11 +21,7 @@ public class MengerSpongeFeature extends UnderwaterPlantScatter
 			{
 				return false;
 			}
-			/*if (state.isIn(ModBlocks.END_LILY.get()))
-			{
-				return false;
-			}*/
-			return !state.getFluidState().isEmpty() || state.getMaterial().isReplaceable();
+            return !state.getFluidState().isEmpty() || state.getMaterial().isReplaceable();
 		};
 	}
 	

@@ -91,12 +91,9 @@ public class InfusionPedestal extends PedestalBlock
 		}
 		
 		ActionResultType result = ActionResultType.FAIL;
-		if (handIn != null) 
-		{
-			result = super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
-		}
-		
-		if (result == ActionResultType.SUCCESS) 
+        result = super.onBlockActivated(state, worldIn, pos, player, handIn, hit);
+
+        if (result == ActionResultType.SUCCESS)
 		{
 			if (pedestal != null) 
 			{
@@ -114,28 +111,8 @@ public class InfusionPedestal extends PedestalBlock
 		}
 		return result;
 	}
-	
-	/*@Override
-	public void checkRitual(World world, BlockPos pos) 
-	{
-		TileEntity blockEntity = world.getTileEntity(pos);
-		if (blockEntity instanceof InfusionPedestalTileEntity) 
-		{
-			InfusionPedestalTileEntity pedestal = (InfusionPedestalTileEntity) blockEntity;
-			if (pedestal.hasRitual()) 
-			{
-				pedestal.getRitual().checkRecipe();
-			} 
-			else 
-			{
-				InfusionRitual ritual = new InfusionRitual(world, pos);
-				pedestal.linkRitual(ritual);
-				ritual.checkRecipe();
-			}
-		}
-	}*/
-	
-	@Override
+
+    @Override
 	public TileEntity createTileEntity(BlockState state, IBlockReader world) 
 	{
 		return new InfusionPedestalTileEntity();

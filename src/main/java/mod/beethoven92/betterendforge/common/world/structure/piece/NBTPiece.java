@@ -23,13 +23,13 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 
 public class NBTPiece extends StructurePiece
 {
-	private ResourceLocation structureID;
-	private Rotation rotation;
-	private Mirror mirror;
-	private Template structure;
-	private BlockPos pos;
-	private int erosion;
-	private boolean cover;
+	private final ResourceLocation structureID;
+	private final Rotation rotation;
+	private final Mirror mirror;
+	private final Template structure;
+	private final BlockPos pos;
+	private final int erosion;
+	private final boolean cover;
 	
 	public NBTPiece(ResourceLocation structureID, Template structure, BlockPos pos, int erosion, boolean cover, Random random)
 	{

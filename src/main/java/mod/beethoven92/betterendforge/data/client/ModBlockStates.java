@@ -1,10 +1,6 @@
 package mod.beethoven92.betterendforge.data.client;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.block.BlockProperties.PedestalState;
@@ -106,7 +102,7 @@ public class ModBlockStates extends BlockStateProvider
 		registerMetalMaterialBlockStates(ModBlocks.TERMINITE);
 		
 		// COLORED MATERIALS
-		registerColoredMaterialBlockStates(ModBlocks.HYDRALUX_PETAL_BLOCK_COLORED, "block_petal_colored");
+		registerColoredMaterialBlockStates();
 		bulbLanterns("iron", ModBlocks.IRON_BULB_LANTERN.get(), ModBlocks.IRON_BULB_LANTERN_COLORED);
 		
 		// PEDESTALS
@@ -326,13 +322,13 @@ public class ModBlockStates extends BlockStateProvider
 		makeBlockItemFromExistingModel(material.anvil.get(), "block/" + material.name + "_anvil_0");
 	}
 	
-	private void registerColoredMaterialBlockStates(ColoredMaterial material, String blockModel)
+	private void registerColoredMaterialBlockStates()
 	{
-		for (Block block : material.getBlocks())
+		for (Block block : ModBlocks.HYDRALUX_PETAL_BLOCK_COLORED.getBlocks())
 		{
-			ModelFile model = models().getExistingFile(modLoc("block/" + blockModel));
+			ModelFile model = models().getExistingFile(modLoc("block/" + "block_petal_colored"));
 			simpleBlock(block, model);
-			makeBlockItemFromExistingModel(block, "block/" + blockModel);
+			makeBlockItemFromExistingModel(block, "block/" + "block_petal_colored");
 		}
 	}
 	
@@ -358,7 +354,7 @@ public class ModBlockStates extends BlockStateProvider
                boolean powered = state.get(WoodButtonBlock.POWERED);
 
                return ConfiguredModel.builder()
-               .modelFile(powered == true ? buttonPressed : button)
+               .modelFile(powered ? buttonPressed : button)
                .rotationX(state.get(BlockStateProperties.FACE).ordinal() * 90)
                .rotationY((((int) state.get(BlockStateProperties.HORIZONTAL_FACING).getHorizontalAngle() + angleOffset) + (state.get(BlockStateProperties.FACE) == AttachFace.CEILING ? 180 : 0)) % 360)
                .build();
@@ -374,7 +370,7 @@ public class ModBlockStates extends BlockStateProvider
            boolean powered = state.get(PressurePlateBlock.POWERED);
 
            return ConfiguredModel.builder()
-           .modelFile(powered == true ? plateDown : plate)
+           .modelFile(powered ? plateDown : plate)
            .build();
         });
     }
@@ -565,14 +561,14 @@ public class ModBlockStates extends BlockStateProvider
     
     private void flowerPotBlock(Block pot_block, Block plant)
     {
-    	ModelFile pot = models().withExistingParent("potted_" + plant.getRegistryName().getPath(), mcLoc("block/flower_pot_cross"))
+    	ModelFile pot = models().withExistingParent("potted_" + Objects.requireNonNull(plant.getRegistryName()).getPath(), mcLoc("block/flower_pot_cross"))
     			.texture("plant", modLoc("block/" + plant.getRegistryName().getPath()));
     	simpleBlock(pot_block, pot);
     }
     
     private void chainBlock(Block chain_block)
     {
-    	ModelFile chain = models().withExistingParent(chain_block.getRegistryName().getPath(), mcLoc("block/chain"))
+    	ModelFile chain = models().withExistingParent(Objects.requireNonNull(chain_block.getRegistryName()).getPath(), mcLoc("block/chain"))
     			.texture("particle", modLoc("block/" + chain_block.getRegistryName().getPath()))
     			.texture("all", modLoc("block/" + chain_block.getRegistryName().getPath()));
     	axisBlock((RotatedPillarBlock)chain_block, chain, chain);
@@ -580,7 +576,7 @@ public class ModBlockStates extends BlockStateProvider
     
     private void barsBlock(Block barsBlock) 
     {
-        ModelFile post = models().withExistingParent(barsBlock.getRegistryName().
+        ModelFile post = models().withExistingParent(Objects.requireNonNull(barsBlock.getRegistryName()).
         		getPath() + "_post", modLoc("metal_bars_post")).
         		texture("top", modLoc("block/" + barsBlock.getRegistryName().getPath() + "_top"));
         ModelFile side = models().withExistingParent(barsBlock.getRegistryName().
@@ -600,7 +596,7 @@ public class ModBlockStates extends BlockStateProvider
     
     private void chandelierBlock(Block chandelier)
     {
-		ModelFile ceil = models().withExistingParent(chandelier.getRegistryName().getPath() + "_ceil", 
+		ModelFile ceil = models().withExistingParent(Objects.requireNonNull(chandelier.getRegistryName()).getPath() + "_ceil",
 				modLoc("chandelier_ceil")).
 				texture("rod", modLoc("block/" + chandelier.getRegistryName().getPath() + "_floor")).
 				texture("texture", modLoc("block/" + chandelier.getRegistryName().getPath() + "_ceil"));
@@ -618,18 +614,16 @@ public class ModBlockStates extends BlockStateProvider
            switch (dir) 
            {
            case DOWN:
-        	   break;
+			   case UP:
+			   case SOUTH:
+				   break;
            case EAST:
         	   y = 270;
         	   break;
            case NORTH:
         	   y = 180;
         	   break;
-           case SOUTH:
-        	   break;
-           case UP:
-        	   break;
-           case WEST:
+			   case WEST:
         	   y = 90;
         	   break;
            }
@@ -665,9 +659,7 @@ public class ModBlockStates extends BlockStateProvider
            case NORTH:
         	   y = 180;
         	   break;
-           case SOUTH:
-        	   break;
-           case WEST:
+			   case WEST:
         	   y = 90;
         	   break;
 		   default:
@@ -708,9 +700,7 @@ public class ModBlockStates extends BlockStateProvider
            case EAST:
         	   y = 90;
         	   break;
-           case NORTH:
-        	   break;
-           case SOUTH:
+			   case SOUTH:
         	   y = 180;
         	   break;
            case WEST:
@@ -736,7 +726,7 @@ public class ModBlockStates extends BlockStateProvider
        	           
            int size = state.get(StalactiteBlock.SIZE);
            
-           ModelFile currentSize = models().withExistingParent(block.getRegistryName().getPath() + "_" + size, mcLoc("block/cross"))
+           ModelFile currentSize = models().withExistingParent(Objects.requireNonNull(block.getRegistryName()).getPath() + "_" + size, mcLoc("block/cross"))
          		   .texture("cross", modLoc("block/" + block.getRegistryName().getPath() + "_" + size));
            
            return ConfiguredModel.builder()

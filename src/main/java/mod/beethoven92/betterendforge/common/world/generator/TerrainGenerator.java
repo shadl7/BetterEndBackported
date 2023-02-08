@@ -9,7 +9,6 @@ import com.google.common.collect.Lists;
 import java.util.List;
 import com.google.common.collect.Maps;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
-import mod.beethoven92.betterendforge.config.CommonConfig;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
