@@ -1,8 +1,8 @@
 package mod.beethoven92.betterendforge.common.world.generator;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.world.biome.BetterEndBiome;
+
+import java.util.Random;
 
 public class BiomeChunk 
 {

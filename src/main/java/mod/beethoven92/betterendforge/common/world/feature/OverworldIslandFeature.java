@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
 import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFDisplacement;
 import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFTranslate;
@@ -14,6 +12,8 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import java.util.Random;
 
 public class OverworldIslandFeature extends Feature<NoFeatureConfig>
 {

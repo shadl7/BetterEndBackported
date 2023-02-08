@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import javax.annotation.Nullable;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
 import mod.beethoven92.betterendforge.common.init.ModItems;
 import mod.beethoven92.betterendforge.common.particles.InfusionParticleData;
@@ -16,11 +14,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Direction;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
@@ -31,6 +25,8 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
+import javax.annotation.Nullable;
 
 public class RespawnObeliskBlock extends Block {
 	private static final VoxelShape VOXEL_SHAPE_BOTTOM = Block.makeCuboidShape(1, 0, 1, 15, 16, 15);
@@ -113,16 +109,7 @@ public class RespawnObeliskBlock extends Block {
 		super.onBlockHarvested(world, pos, state, player);
 	}
 
-	/*@Override
-	public List<ItemStack> getDrops(BlockState state, LootContext.Builder builder) {
-		if (state.get(SHAPE) == TripleShape.BOTTOM) {
-			return Lists.newArrayList(new ItemStack(this));
-		} else {
-			return Lists.newArrayList();
-		}
-	}*/
-
-	@Override
+    @Override
 	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player,
 			Hand hand, BlockRayTraceResult hit) {
 		ItemStack itemStack = player.getHeldItem(hand);

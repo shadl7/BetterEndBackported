@@ -1,8 +1,5 @@
 package mod.beethoven92.betterendforge.common.event.forge;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.init.ModStructures;
@@ -15,6 +12,9 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = BetterEnd.MOD_ID)
 public class WorldLoadHandler 

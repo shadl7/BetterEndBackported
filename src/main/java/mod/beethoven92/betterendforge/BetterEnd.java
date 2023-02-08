@@ -1,50 +1,39 @@
 package mod.beethoven92.betterendforge;
 
 import mod.beethoven92.betterendforge.client.ClientOptions;
+import mod.beethoven92.betterendforge.client.PhysicalClientSide;
 import mod.beethoven92.betterendforge.common.init.*;
+import mod.beethoven92.betterendforge.common.teleporter.EndPortals;
+import mod.beethoven92.betterendforge.common.world.TerraforgedIntegrationWorldType;
+import mod.beethoven92.betterendforge.common.world.feature.BiomeNBTStructures;
+import mod.beethoven92.betterendforge.common.world.generator.BetterEndBiomeProvider;
 import mod.beethoven92.betterendforge.common.world.generator.GeneratorOptions;
 import mod.beethoven92.betterendforge.config.Configs;
+import mod.beethoven92.betterendforge.server.PhysicalServerSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.world.ForgeWorldType;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.event.world.BiomeLoadingEvent;
-import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistryEntry;
-
-import java.io.File;
-import java.nio.file.Path;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import mod.beethoven92.betterendforge.client.PhysicalClientSide;
-import mod.beethoven92.betterendforge.common.recipes.ModRecipeManager;
-import mod.beethoven92.betterendforge.common.teleporter.EndPortals;
-import mod.beethoven92.betterendforge.common.world.TerraforgedIntegrationWorldType;
-import mod.beethoven92.betterendforge.common.world.feature.BiomeNBTStructures;
-import mod.beethoven92.betterendforge.common.world.generator.BetterEndBiomeProvider;
-import mod.beethoven92.betterendforge.config.ClientConfig;
-import mod.beethoven92.betterendforge.config.CommonConfig;
-import mod.beethoven92.betterendforge.config.jsons.JsonConfigs;
-import mod.beethoven92.betterendforge.server.PhysicalServerSide;
+import java.io.File;
+import java.nio.file.Path;
 
 
 @Mod(BetterEnd.MOD_ID)

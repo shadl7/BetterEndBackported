@@ -1,11 +1,11 @@
 package mod.beethoven92.betterendforge.common.item;
 
-import java.util.function.Supplier;
-
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModItems;
 import net.minecraft.item.IItemTier;
 import net.minecraft.item.crafting.Ingredient;
+
+import java.util.function.Supplier;
 
 public enum ModItemTier implements IItemTier
 {

@@ -1,9 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
@@ -18,6 +14,10 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class IceStarFeature extends Feature<NoFeatureConfig>
 {

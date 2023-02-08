@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.block.template;
 
-import java.util.EnumMap;
-
 import com.google.common.collect.Maps;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
@@ -12,6 +9,8 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraftforge.common.IForgeShearable;
+
+import java.util.EnumMap;
 
 public class FurBlock extends AttachedBlock implements IForgeShearable
 {

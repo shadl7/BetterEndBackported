@@ -1,15 +1,14 @@
 package mod.beethoven92.betterendforge.common.block.material;
 
-import java.util.Map;
-import java.util.function.Supplier;
-
 import com.google.common.collect.Maps;
-
 import mod.beethoven92.betterendforge.common.block.IDyedBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.item.DyeColor;
 import net.minecraftforge.fml.RegistryObject;
+
+import java.util.Map;
+import java.util.function.Supplier;
 
 public class ColoredMaterial
 {

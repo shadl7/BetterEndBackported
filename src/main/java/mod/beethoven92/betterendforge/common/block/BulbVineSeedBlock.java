@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
 import mod.beethoven92.betterendforge.common.block.template.PlantBlockWithAge;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
@@ -14,6 +12,8 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class BulbVineSeedBlock extends PlantBlockWithAge
 {

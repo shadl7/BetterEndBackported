@@ -3,7 +3,6 @@ package mod.beethoven92.betterendforge.common.particles;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import com.mojang.serialization.Codec;
-
 import mod.beethoven92.betterendforge.common.init.ModParticleTypes;
 import mod.beethoven92.betterendforge.common.util.ColorHelper;
 import net.minecraft.command.arguments.ItemInput;

@@ -1,11 +1,11 @@
 package mod.beethoven92.betterendforge.common.world.generator;
 
-import java.util.HashMap;
-
 import mod.beethoven92.betterendforge.common.world.biome.BetterEndBiome;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MathHelper;
+
+import java.util.HashMap;
 
 public class BiomeMap 
 {

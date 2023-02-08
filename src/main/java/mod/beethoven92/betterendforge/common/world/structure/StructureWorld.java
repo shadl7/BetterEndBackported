@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.structure;
 
-import java.util.Map;
-
 import com.google.common.collect.Maps;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.nbt.CompoundNBT;
@@ -14,6 +11,8 @@ import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.chunk.IChunk;
+
+import java.util.Map;
 
 public class StructureWorld 
 {

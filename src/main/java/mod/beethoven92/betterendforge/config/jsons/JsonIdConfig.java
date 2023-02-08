@@ -1,13 +1,12 @@
 package mod.beethoven92.betterendforge.config.jsons;
 
-import java.util.function.BiFunction;
-
-import javax.annotation.Nullable;
-
 import mod.beethoven92.betterendforge.config.jsons.JsonConfigKeeper.Entry;
 import mod.beethoven92.betterendforge.config.jsons.JsonConfigKeeper.FloatRange;
 import mod.beethoven92.betterendforge.config.jsons.JsonConfigKeeper.IntegerRange;
 import net.minecraft.util.ResourceLocation;
+
+import javax.annotation.Nullable;
+import java.util.function.BiFunction;
 
 public class JsonIdConfig extends JsonConfig
 {

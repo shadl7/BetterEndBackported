@@ -1,9 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
@@ -28,6 +24,10 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.surfacebuilders.ISurfaceBuilderConfig;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Random;
 
 public abstract class NBTFeature extends Feature<NoFeatureConfig>
 {

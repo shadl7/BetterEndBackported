@@ -1,16 +1,7 @@
 package mod.beethoven92.betterendforge.client.event.mod;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import mod.beethoven92.betterendforge.BetterEnd;
-import mod.beethoven92.betterendforge.common.block.AuroraCrystalBlock;
-import mod.beethoven92.betterendforge.common.block.EndPortalBlock;
-import mod.beethoven92.betterendforge.common.block.HelixTreeLeavesBlock;
-import mod.beethoven92.betterendforge.common.block.JellyshroomCapBlock;
-import mod.beethoven92.betterendforge.common.block.ModLanternBlock;
-import mod.beethoven92.betterendforge.common.block.RespawnObeliskBlock;
-import mod.beethoven92.betterendforge.common.block.TenaneaFlowersBlock;
+import mod.beethoven92.betterendforge.common.block.*;
 import mod.beethoven92.betterendforge.common.block.material.ColoredMaterial;
 import mod.beethoven92.betterendforge.common.block.material.StoneMaterial;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
@@ -23,6 +14,9 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @EventBusSubscriber(modid = BetterEnd.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ColorHandler 

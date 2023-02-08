@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModParticleTypes;
 import mod.beethoven92.betterendforge.common.tileentity.HydrothermalVentTileEntity;
@@ -29,6 +27,8 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
+import java.util.Random;
 
 public class HydrothermalVentBlock extends Block implements IWaterLoggable
 {

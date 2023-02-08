@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import net.minecraft.util.math.BlockPos;
@@ -11,6 +9,8 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import java.util.Random;
 
 public abstract class FullHeightScatterFeature extends Feature<NoFeatureConfig>
 {

@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.item;
 
-import java.util.List;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.block.template.EndAnvilBlock;
 import net.minecraft.block.Block;
@@ -13,6 +11,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+
+import java.util.List;
 
 public class EndAnvilItem extends BlockItem {
 

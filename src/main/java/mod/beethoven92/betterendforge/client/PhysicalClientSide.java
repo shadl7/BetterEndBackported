@@ -2,15 +2,7 @@ package mod.beethoven92.betterendforge.client;
 
 import mod.beethoven92.betterendforge.IPhysicalSide;
 import mod.beethoven92.betterendforge.client.gui.EndStoneSmelterScreen;
-import mod.beethoven92.betterendforge.client.renderer.CubozoaRenderer;
-import mod.beethoven92.betterendforge.client.renderer.DragonflyEntityRenderer;
-import mod.beethoven92.betterendforge.client.renderer.EndChestTileEntityRenderer;
-import mod.beethoven92.betterendforge.client.renderer.EndFishEntityRenderer;
-import mod.beethoven92.betterendforge.client.renderer.EndSignTileEntityRenderer;
-import mod.beethoven92.betterendforge.client.renderer.EndSlimeEntityRenderer;
-import mod.beethoven92.betterendforge.client.renderer.PedestalRenderer;
-import mod.beethoven92.betterendforge.client.renderer.ShadowWalkerEntityRenderer;
-import mod.beethoven92.betterendforge.client.renderer.SilkMothEntityRenderer;
+import mod.beethoven92.betterendforge.client.renderer.*;
 import mod.beethoven92.betterendforge.common.block.material.MetalMaterial;
 import mod.beethoven92.betterendforge.common.block.material.StoneMaterial;
 import mod.beethoven92.betterendforge.common.block.material.WoodenMaterial;

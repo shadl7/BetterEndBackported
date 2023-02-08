@@ -1,14 +1,8 @@
 package mod.beethoven92.betterendforge.common.world.biome;
 
-import mod.beethoven92.betterendforge.common.init.ModBlocks;
-import mod.beethoven92.betterendforge.common.init.ModConfiguredFeatures;
-import mod.beethoven92.betterendforge.common.init.ModConfiguredStructures;
-import mod.beethoven92.betterendforge.common.init.ModEntityTypes;
-import mod.beethoven92.betterendforge.common.init.ModParticleTypes;
-import mod.beethoven92.betterendforge.common.init.ModSoundEvents;
+import mod.beethoven92.betterendforge.common.init.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.GenerationStage.Decoration;
 
 public class MegalakeGroveBiome extends BetterEndBiome 

@@ -1,17 +1,13 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.SnowBlock;
+import net.minecraft.block.*;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.lighting.LightEngine;
 import net.minecraft.world.server.ServerWorld;
+
+import java.util.Random;
 
 public class MossyObsidianBlock extends Block {
 	public MossyObsidianBlock() {

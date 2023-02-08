@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block.template;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -18,6 +16,8 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.IForgeShearable;
+
+import java.util.Random;
 
 public class PlantBlock extends Block implements IGrowable, IForgeShearable
 {

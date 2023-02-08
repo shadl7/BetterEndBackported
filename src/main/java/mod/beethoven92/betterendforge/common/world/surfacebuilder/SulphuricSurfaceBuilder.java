@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.surfacebuilder;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModSurfaceBuilders;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.world.generator.OpenSimplexNoise;
@@ -10,6 +8,8 @@ import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilder;
 import net.minecraft.world.gen.surfacebuilders.SurfaceBuilderConfig;
+
+import java.util.Random;
 
 public class SulphuricSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConfig>
 {

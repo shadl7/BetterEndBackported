@@ -3,7 +3,6 @@ package mod.beethoven92.betterendforge.client.model;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import mod.beethoven92.betterendforge.common.entity.EndSlimeEntity;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import net.minecraft.client.renderer.RenderType;

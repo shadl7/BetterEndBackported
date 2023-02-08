@@ -1,8 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.structure.piece;
 
-import java.util.Random;
-import java.util.function.Consumer;
-
 import mod.beethoven92.betterendforge.common.init.ModStructurePieces;
 import mod.beethoven92.betterendforge.common.world.structure.StructureWorld;
 import net.minecraft.nbt.CompoundNBT;
@@ -14,6 +11,9 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+
+import java.util.Random;
+import java.util.function.Consumer;
 
 public class VoxelPiece extends StructurePiece
 {

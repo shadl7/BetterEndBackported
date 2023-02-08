@@ -1,7 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.generator;
 
 import mod.beethoven92.betterendforge.config.jsons.JsonConfig;
-//import net.minecraft.util.Mth;
 import net.minecraft.util.math.MathHelper;
 //import ru.bclib.config.PathConfig;
 

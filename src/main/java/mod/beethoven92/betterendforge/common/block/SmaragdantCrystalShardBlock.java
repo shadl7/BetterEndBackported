@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.EnumMap;
-
 import com.google.common.collect.Maps;
-
 import mod.beethoven92.betterendforge.common.block.template.AttachedBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -22,6 +19,8 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
+
+import java.util.EnumMap;
 
 public class SmaragdantCrystalShardBlock extends AttachedBlock implements IWaterLoggable
 {

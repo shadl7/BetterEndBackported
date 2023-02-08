@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block.material;
 
-import java.util.function.Supplier;
-
 import mod.beethoven92.betterendforge.client.renderer.ChestItemTileEntityRenderer;
 import mod.beethoven92.betterendforge.common.block.EndBarrelBlock;
 import mod.beethoven92.betterendforge.common.block.EndSignBlock;
@@ -10,27 +8,9 @@ import mod.beethoven92.betterendforge.common.block.template.BarkBlockTemplate;
 import mod.beethoven92.betterendforge.common.block.template.PillarBlockTemplate;
 import mod.beethoven92.betterendforge.common.block.template.StripableBarkBlockTemplate;
 import mod.beethoven92.betterendforge.common.block.template.StripableLogBlockTemplate;
-import mod.beethoven92.betterendforge.common.init.ModBlocks;
-import mod.beethoven92.betterendforge.common.init.ModCreativeTabs;
-import mod.beethoven92.betterendforge.common.init.ModItems;
-import mod.beethoven92.betterendforge.common.init.ModTags;
-import mod.beethoven92.betterendforge.common.init.ModTileEntityTypes;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ChestBlock;
-import net.minecraft.block.ComposterBlock;
-import net.minecraft.block.DoorBlock;
-import net.minecraft.block.FenceBlock;
-import net.minecraft.block.FenceGateBlock;
-import net.minecraft.block.LadderBlock;
-import net.minecraft.block.PressurePlateBlock;
+import mod.beethoven92.betterendforge.common.init.*;
+import net.minecraft.block.*;
 import net.minecraft.block.PressurePlateBlock.Sensitivity;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.StairsBlock;
-import net.minecraft.block.TrapDoorBlock;
-import net.minecraft.block.WoodButtonBlock;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.BlockItem;
@@ -39,6 +19,8 @@ import net.minecraft.tags.ITag;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IWorldReader;
 import net.minecraftforge.fml.RegistryObject;
+
+import java.util.function.Supplier;
 
 // TO DO? Make all wooden blocks flammable so they can take and spread fire
 public class WoodenMaterial 

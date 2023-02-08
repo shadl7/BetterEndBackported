@@ -1,12 +1,7 @@
 package mod.beethoven92.betterendforge.common.world.feature.caves;
 
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.interfaces.IBiomeArray;
@@ -15,7 +10,6 @@ import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.world.biome.BetterEndBiome;
 import mod.beethoven92.betterendforge.common.world.biome.BetterEndCaveBiome;
 import mod.beethoven92.betterendforge.common.world.generator.GeneratorOptions;
-import mod.beethoven92.betterendforge.config.CommonConfig;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.Direction;
@@ -28,6 +22,10 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import java.util.List;
+import java.util.Random;
+import java.util.Set;
 
 public abstract class EndCaveFeature extends Feature<NoFeatureConfig>
 {
@@ -45,11 +43,7 @@ public abstract class EndCaveFeature extends Feature<NoFeatureConfig>
 	public boolean generate(ISeedReader world, ChunkGenerator generator, Random rand,
 			BlockPos pos, NoFeatureConfig config)
 	{
-		/*if (!(CommonConfig.isNewGeneratorEnabled() && GeneratorOptions.noRingVoid()) || pos.getX() * pos.getX() + pos.getZ() * pos.getZ() <= 22500)
-		{
-			return false;
-		}*/
-		if (!(GeneratorOptions.useNewGenerator() && GeneratorOptions.noRingVoid()))
+        if (!(GeneratorOptions.useNewGenerator() && GeneratorOptions.noRingVoid()))
 		{
 			if (pos.getX() * pos.getX() + pos.getZ() * pos.getZ() <= 22500)
 			{

@@ -1,9 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
 import mod.beethoven92.betterendforge.common.tileentity.EndBarrelTileEntity;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BarrelBlock;
@@ -22,6 +18,9 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
+import javax.annotation.Nullable;
+import java.util.Random;
 
 public class EndBarrelBlock extends BarrelBlock {
 	public EndBarrelBlock(AbstractBlock.Properties properties) {

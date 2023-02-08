@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModParticleTypes;
 import mod.beethoven92.betterendforge.common.interfaces.TeleportingEntity;
 import mod.beethoven92.betterendforge.common.teleporter.BetterEndTeleporter;
@@ -29,6 +27,8 @@ import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.Random;
 
 public class EndPortalBlock extends NetherPortalBlock
 {

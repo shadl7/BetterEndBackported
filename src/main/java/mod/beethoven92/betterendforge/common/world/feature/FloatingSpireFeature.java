@@ -1,10 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.List;
-import java.util.Random;
-
 import com.google.common.collect.Lists;
-
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.init.ModFeatures;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
@@ -19,6 +15,9 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap.Type;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import java.util.List;
+import java.util.Random;
 
 public class FloatingSpireFeature extends SpireFeature
 {

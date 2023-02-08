@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.item;
 
-import java.util.function.Supplier;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModItems;
@@ -10,6 +8,8 @@ import net.minecraft.item.IArmorMaterial;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.SoundEvents;
+
+import java.util.function.Supplier;
 
 public enum ModArmorMaterial implements IArmorMaterial
 {

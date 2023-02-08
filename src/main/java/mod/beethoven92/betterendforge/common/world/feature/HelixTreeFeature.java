@@ -1,10 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
-
 import mod.beethoven92.betterendforge.common.block.HelixTreeLeavesBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTags;
@@ -13,11 +8,7 @@ import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.SplineHelper;
 import mod.beethoven92.betterendforge.common.util.sdf.PosInfo;
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFRotation;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFSmoothUnion;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFTranslate;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFUnion;
+import mod.beethoven92.betterendforge.common.util.sdf.operator.*;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -29,6 +20,11 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
 
 public class HelixTreeFeature extends Feature<NoFeatureConfig> {
 	private static final Function<PosInfo, BlockState> POST;

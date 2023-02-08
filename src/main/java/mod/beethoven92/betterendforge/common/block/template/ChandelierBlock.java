@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.block.template;
 
-import java.util.EnumMap;
-
 import com.google.common.collect.Maps;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.Direction;
@@ -12,6 +9,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+
+import java.util.EnumMap;
 
 public class ChandelierBlock extends AttachedBlock
 {

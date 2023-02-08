@@ -1,14 +1,8 @@
 package mod.beethoven92.betterendforge.common.world.biome;
 
-import mod.beethoven92.betterendforge.common.init.ModConfiguredFeatures;
-import mod.beethoven92.betterendforge.common.init.ModConfiguredStructures;
-import mod.beethoven92.betterendforge.common.init.ModConfiguredSurfaceBuilders;
-import mod.beethoven92.betterendforge.common.init.ModEntityTypes;
-import mod.beethoven92.betterendforge.common.init.ModParticleTypes;
-import mod.beethoven92.betterendforge.common.init.ModSoundEvents;
+import mod.beethoven92.betterendforge.common.init.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
-import net.minecraft.world.gen.GenerationStage;
 import net.minecraft.world.gen.GenerationStage.Decoration;
 import net.minecraft.world.gen.feature.structure.StructureFeatures;
 

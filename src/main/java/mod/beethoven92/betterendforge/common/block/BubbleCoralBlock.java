@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.block.template.UnderwaterPlantBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -11,6 +9,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class BubbleCoralBlock extends UnderwaterPlantBlock
 {

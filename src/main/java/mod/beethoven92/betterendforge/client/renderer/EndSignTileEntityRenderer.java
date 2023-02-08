@@ -1,21 +1,13 @@
 package mod.beethoven92.betterendforge.client.renderer;
 
-import java.util.HashMap;
-import java.util.List;
-
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.block.EndSignBlock;
 import mod.beethoven92.betterendforge.common.init.ModItems;
 import mod.beethoven92.betterendforge.common.tileentity.ESignTileEntity;
-import net.minecraft.block.AbstractSignBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.StandingSignBlock;
-import net.minecraft.block.WoodType;
+import net.minecraft.block.*;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -30,6 +22,9 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.util.IReorderingProcessor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector3f;
+
+import java.util.HashMap;
+import java.util.List;
 
 public class EndSignTileEntityRenderer extends TileEntityRenderer<ESignTileEntity> {
 	private static final HashMap<Block, RenderType> LAYERS = Maps.newHashMap();

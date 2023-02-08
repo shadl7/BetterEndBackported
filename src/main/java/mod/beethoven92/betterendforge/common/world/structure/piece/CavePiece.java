@@ -1,7 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.structure.piece;
 
 import mod.beethoven92.betterendforge.common.init.ModStructurePieces;
-import mod.beethoven92.betterendforge.common.init.ModStructures;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
@@ -9,16 +8,13 @@ import mod.beethoven92.betterendforge.common.world.generator.OpenSimplexNoise;
 import net.minecraft.block.Blocks;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.nbt.NBTUtil;
-import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.util.math.MutableBoundingBox;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.structure.StructureManager;
-import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.template.TemplateManager;
-import net.minecraft.world.server.ServerWorld;
 
 import java.util.Random;
 
@@ -114,13 +110,4 @@ public class CavePiece extends BasePiece {
 
 
 	}
-
-
-	/**
-	 * (abstract) Helper method to read subclass data from NBT
-	 *
-	 * @param tagCompound
-	 */
-
-
 }

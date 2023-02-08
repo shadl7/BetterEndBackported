@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block.template;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties;
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
@@ -23,6 +21,8 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.common.IForgeShearable;
+
+import java.util.Random;
 
 public class EndVineBlock extends Block implements IGrowable, IForgeShearable
 {

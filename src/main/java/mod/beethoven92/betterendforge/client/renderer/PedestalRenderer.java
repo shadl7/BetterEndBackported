@@ -1,7 +1,6 @@
 package mod.beethoven92.betterendforge.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-
 import mod.beethoven92.betterendforge.common.block.EternalPedestal;
 import mod.beethoven92.betterendforge.common.block.template.PedestalBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;

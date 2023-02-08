@@ -1,7 +1,6 @@
 package mod.beethoven92.betterendforge.common.integration.jei.infusion;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-
 import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.gui.drawable.IDrawable;

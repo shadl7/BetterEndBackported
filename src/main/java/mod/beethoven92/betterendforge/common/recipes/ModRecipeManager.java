@@ -1,13 +1,12 @@
 package mod.beethoven92.betterendforge.common.recipes;
 
-import java.util.Map;
-import java.util.Map.Entry;
-
 import com.google.common.collect.Maps;
-
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class ModRecipeManager 
 {

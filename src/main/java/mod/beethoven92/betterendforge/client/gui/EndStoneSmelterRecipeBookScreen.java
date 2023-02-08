@@ -1,12 +1,7 @@
 package mod.beethoven92.betterendforge.client.gui;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import mod.beethoven92.betterendforge.common.tileentity.EndStoneSmelterTileEntity;
 import net.minecraft.client.gui.AbstractGui;
 import net.minecraft.client.gui.recipebook.BlastFurnaceRecipeGui;
@@ -17,6 +12,10 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
+
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
 
 public class EndStoneSmelterRecipeBookScreen extends BlastFurnaceRecipeGui
 {

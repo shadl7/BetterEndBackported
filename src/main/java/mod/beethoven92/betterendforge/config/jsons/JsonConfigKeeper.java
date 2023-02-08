@@ -1,19 +1,17 @@
 package mod.beethoven92.betterendforge.config.jsons;
 
-import java.lang.reflect.Type;
-import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Supplier;
-
-import javax.annotation.Nullable;
-
 import com.google.common.collect.Maps;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-
 import mod.beethoven92.betterendforge.common.util.JsonFactory;
 import net.minecraft.util.JSONUtils;
+
+import javax.annotation.Nullable;
+import java.lang.reflect.Type;
+import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 public final class JsonConfigKeeper 
 {

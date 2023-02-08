@@ -1,13 +1,13 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.block.EndLotusSeedBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockPos.Mutable;
 import net.minecraft.world.ISeedReader;
+
+import java.util.Random;
 
 public class EndLotusFeature extends ScatterFeature
 {

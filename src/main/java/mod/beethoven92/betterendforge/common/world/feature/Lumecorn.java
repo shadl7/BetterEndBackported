@@ -1,9 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
-import com.mojang.serialization.Codec;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties.LumecornShape;
 import mod.beethoven92.betterendforge.common.block.LumecornBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
@@ -18,6 +14,8 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import java.util.Random;
 
 public class Lumecorn extends Feature<NoFeatureConfig> {
 	public Lumecorn() {

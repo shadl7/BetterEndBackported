@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.data;
 
-import java.util.function.Consumer;
-
 import com.google.common.collect.ImmutableMap;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModItems;
@@ -18,6 +15,8 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.function.Consumer;
 
 public class InfusionRecipes extends RecipeProvider {
 	public InfusionRecipes(DataGenerator generatorIn) {

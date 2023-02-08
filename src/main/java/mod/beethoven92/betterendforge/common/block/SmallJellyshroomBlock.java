@@ -1,10 +1,6 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.EnumMap;
-import java.util.Random;
-
 import com.google.common.collect.Maps;
-
 import mod.beethoven92.betterendforge.common.block.template.AttachedBlock;
 import mod.beethoven92.betterendforge.common.init.ModFeatures;
 import mod.beethoven92.betterendforge.common.init.ModTags;
@@ -22,6 +18,9 @@ import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
+import java.util.EnumMap;
+import java.util.Random;
 
 public class SmallJellyshroomBlock extends AttachedBlock implements IGrowable
 {

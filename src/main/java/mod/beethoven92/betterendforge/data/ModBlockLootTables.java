@@ -1,22 +1,9 @@
 package mod.beethoven92.betterendforge.data;
 
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
 import mod.beethoven92.betterendforge.BetterEnd;
-import mod.beethoven92.betterendforge.common.block.BlockProperties;
+import mod.beethoven92.betterendforge.common.block.*;
 import mod.beethoven92.betterendforge.common.block.BlockProperties.HydraluxShape;
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
-import mod.beethoven92.betterendforge.common.block.BulbVineBlock;
-import mod.beethoven92.betterendforge.common.block.EndLilyBlock;
-import mod.beethoven92.betterendforge.common.block.HydraluxBlock;
-import mod.beethoven92.betterendforge.common.block.LanceleafBlock;
-import mod.beethoven92.betterendforge.common.block.LumecornBlock;
-import mod.beethoven92.betterendforge.common.block.RespawnObeliskBlock;
-import mod.beethoven92.betterendforge.common.block.ShadowBerryBlock;
-import mod.beethoven92.betterendforge.common.block.SilkMothNestBlock;
-import mod.beethoven92.betterendforge.common.block.SulphurCrystalBlock;
-import mod.beethoven92.betterendforge.common.block.UmbrellaTreeMembraneBlock;
 import mod.beethoven92.betterendforge.common.block.material.ColoredMaterial;
 import mod.beethoven92.betterendforge.common.block.material.MetalMaterial;
 import mod.beethoven92.betterendforge.common.block.material.StoneMaterial;
@@ -33,12 +20,7 @@ import net.minecraft.data.loot.BlockLootTables;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
-import net.minecraft.loot.ConstantRange;
-import net.minecraft.loot.ItemLootEntry;
-import net.minecraft.loot.LootEntry;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.RandomValueRange;
+import net.minecraft.loot.*;
 import net.minecraft.loot.conditions.BlockStateProperty;
 import net.minecraft.loot.conditions.ILootCondition;
 import net.minecraft.loot.conditions.RandomChance;
@@ -48,6 +30,9 @@ import net.minecraft.loot.functions.SetNBT;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class ModBlockLootTables extends BlockLootTables {
 	@Override

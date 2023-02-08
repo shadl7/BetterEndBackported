@@ -1,10 +1,10 @@
 package mod.beethoven92.betterendforge.common.util;
 
-import java.util.Random;
-
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.math.vector.Vector3i;
+
+import java.util.Random;
 
 public class ModMathHelper 
 {

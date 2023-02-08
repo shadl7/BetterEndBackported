@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.structure.piece;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModStructurePieces;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.StructureHelper;
@@ -20,6 +18,8 @@ import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+
+import java.util.Random;
 
 public class NBTPiece extends StructurePiece
 {

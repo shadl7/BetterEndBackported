@@ -1,7 +1,6 @@
 package mod.beethoven92.betterendforge.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
-
 import mod.beethoven92.betterendforge.common.tileentity.EChestTileEntity;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.IRenderTypeBuffer;

@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.init;
 
-import java.util.function.Supplier;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import net.minecraft.util.RegistryKey;
 import net.minecraft.util.ResourceLocation;
@@ -14,6 +12,8 @@ import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
+
+import java.util.function.Supplier;
 
 // NEEDS RE-WRITE
 public class ModConfiguredSurfaceBuilders 

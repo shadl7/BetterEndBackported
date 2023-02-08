@@ -1,20 +1,13 @@
 package mod.beethoven92.betterendforge.common.init;
 
 import com.google.common.collect.ImmutableMap;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.world.structure.*;
-import mod.beethoven92.betterendforge.common.world.structure.piece.CavePiece;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
-import net.minecraft.world.gen.feature.StructureFeature;
 import net.minecraft.world.gen.feature.structure.Structure;
-import net.minecraft.world.gen.feature.template.TemplateManager;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import net.minecraft.world.gen.settings.StructureSeparationSettings;
 import net.minecraftforge.event.RegistryEvent.Register;
-
-import java.util.Collection;
-import java.util.function.Supplier;
 
 public class ModStructures 
 {

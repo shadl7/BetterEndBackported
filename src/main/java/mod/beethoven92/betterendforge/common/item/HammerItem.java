@@ -1,12 +1,9 @@
 package mod.beethoven92.betterendforge.common.item;
 
-import java.util.UUID;
-
 import com.google.common.collect.ImmutableMultimap;
 import com.google.common.collect.ImmutableMultimap.Builder;
 import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
-
 import io.netty.util.internal.ThreadLocalRandom;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -24,6 +21,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ToolType;
+
+import java.util.UUID;
 
 public class HammerItem extends ToolItem
 {

@@ -1,10 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.structure.piece;
 
-import java.util.Map;
-import java.util.Random;
-
 import com.google.common.collect.Maps;
-
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModStructurePieces;
@@ -29,6 +25,9 @@ import net.minecraft.world.gen.Heightmap.Type;
 import net.minecraft.world.gen.feature.structure.StructureManager;
 import net.minecraft.world.gen.feature.structure.StructurePiece;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+
+import java.util.Map;
+import java.util.Random;
 
 public class MountainPiece extends StructurePiece
 {
@@ -232,12 +231,7 @@ public class MountainPiece extends StructurePiece
 		}
 		
 		h = world.getHeight(Type.WORLD_SURFACE_WG, pos.getX(), pos.getZ());
-		/*if (h < 57) 
-		{
-			heightmap.put(p, -4);
-			return -4;
-		}*/
-		h = MathHelper.abs(h - center.getY());
+        h = MathHelper.abs(h - center.getY());
 		if (h > 4)
 		{
 			h = 4 - h;

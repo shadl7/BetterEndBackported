@@ -1,9 +1,5 @@
 package mod.beethoven92.betterendforge.common.entity;
 
-import java.util.EnumSet;
-import java.util.List;
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.world.biome.BetterEndBiome;
@@ -36,6 +32,10 @@ import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+
+import java.util.EnumSet;
+import java.util.List;
+import java.util.Random;
 
 public class EndSlimeEntity extends SlimeEntity {
 	private static final DataParameter<Byte> VARIANT = EntityDataManager.createKey(EndSlimeEntity.class,

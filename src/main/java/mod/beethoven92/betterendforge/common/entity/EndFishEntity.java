@@ -1,8 +1,5 @@
 package mod.beethoven92.betterendforge.common.entity;
 
-import java.util.List;
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.init.ModItems;
 import net.minecraft.block.Blocks;
@@ -27,6 +24,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Random;
 
 public class EndFishEntity extends AbstractGroupFishEntity
 {

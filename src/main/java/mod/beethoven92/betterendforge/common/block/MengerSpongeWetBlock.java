@@ -32,14 +32,7 @@ public class MengerSpongeWetBlock extends WetSpongeBlock
 	    }
 	}
 
-	/*@Override
-	public void onBlockHarvested(World worldIn, BlockPos pos, BlockState state, PlayerEntity player) 
-	{
-		worldIn.destroyBlock(pos, !player.isCreative());
-		BlockHelper.setWithUpdate(worldIn, pos, Blocks.AIR);
-	}*/
-	
-	@Override
+    @Override
 	public void onPlayerDestroy(IWorld worldIn, BlockPos pos, BlockState state) 
 	{
 		BlockHelper.setWithUpdate(worldIn, pos, Blocks.AIR);

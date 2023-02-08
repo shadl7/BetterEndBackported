@@ -1,15 +1,11 @@
 package mod.beethoven92.betterendforge.common.world.generator;
 
-import java.util.List;
-
 import com.google.common.collect.Lists;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.world.biome.BetterEndBiome;
-import mod.beethoven92.betterendforge.config.CommonConfig;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SharedSeedRandom;
 import net.minecraft.util.registry.Registry;
@@ -19,6 +15,8 @@ import net.minecraft.world.biome.Biomes;
 import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.biome.provider.EndBiomeProvider;
 import net.minecraft.world.gen.SimplexNoiseGenerator;
+
+import java.util.List;
 
 public class BetterEndBiomeProvider extends BiomeProvider
 {
@@ -65,11 +63,7 @@ public class BetterEndBiomeProvider extends BiomeProvider
 			{
 				list.add(biome);
 			}
-			/*if (biome.getCategory() == Category.THEEND) 
-			{
-				list.add(biome);
-			}*/
-		});
+        });
 		return list;
 	}
 

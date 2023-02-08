@@ -1,9 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
-
 import com.google.common.collect.Lists;
 import mod.beethoven92.betterendforge.common.block.JellyshroomCapBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
@@ -11,11 +7,7 @@ import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.SplineHelper;
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFFlatWave;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale3D;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFSmoothUnion;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFSubtraction;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFTranslate;
+import mod.beethoven92.betterendforge.common.util.sdf.operator.*;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFSphere;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.material.Material;
@@ -26,6 +18,10 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
 
 public class JellyshroomFeature extends Feature<NoFeatureConfig>
 {

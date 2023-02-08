@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.rituals;
 
-import java.awt.Point;
-
 import mod.beethoven92.betterendforge.common.particles.InfusionParticleData;
 import mod.beethoven92.betterendforge.common.recipes.InfusionRecipe;
 import mod.beethoven92.betterendforge.common.tileentity.InfusionPedestalTileEntity;
@@ -16,6 +14,8 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
+
+import java.awt.*;
 
 public class InfusionRitual implements IInventory
 {

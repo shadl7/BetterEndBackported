@@ -1,16 +1,8 @@
 package mod.beethoven92.betterendforge.common.entity;
 
-import java.util.List;
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.init.ModItems;
-import net.minecraft.entity.EntitySize;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.ILivingEntityData;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.Pose;
-import net.minecraft.entity.SpawnReason;
+import net.minecraft.entity.*;
 import net.minecraft.entity.ai.attributes.AttributeModifierMap;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.passive.fish.AbstractGroupFishEntity;
@@ -32,6 +24,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.IServerWorld;
 import net.minecraft.world.World;
+
+import java.util.List;
+import java.util.Random;
 
 public class CubozoaEntity extends AbstractGroupFishEntity {
 	public static final int VARIANTS = 2;
@@ -114,15 +109,6 @@ public class CubozoaEntity extends AbstractGroupFishEntity {
 	protected float getStandingEyeHeight(Pose pose, EntitySize dimensions) {
 		return dimensions.height * 0.5F;
 	}
-	
-	/*@Override
-	protected void dropLoot(DamageSource source, boolean causedByPlayer) {
-		int count = rand.nextInt(3);
-		if (count > 0) {
-			ItemEntity drop = new ItemEntity(world, getPosX(), getPosY(), getPosZ(), new ItemStack(ModItems.GELATINE.get(), count));
-			this.world.addEntity(drop);
-		}
-	}*/
 
 	@Override
 	protected ItemStack getFishBucket() {

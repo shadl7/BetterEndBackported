@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.tileentity;
 
-import java.util.function.Function;
-
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
-
 import mod.beethoven92.betterendforge.common.init.ModTileEntityTypes;
 import net.minecraft.block.BlockState;
 import net.minecraft.command.CommandSource;
@@ -26,6 +23,8 @@ import net.minecraft.util.text.event.ClickEvent;
 import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import java.util.function.Function;
 
 public class ESignTileEntity extends TileEntity {
 	private final ITextComponent[] text = new ITextComponent[] { StringTextComponent.EMPTY, StringTextComponent.EMPTY,

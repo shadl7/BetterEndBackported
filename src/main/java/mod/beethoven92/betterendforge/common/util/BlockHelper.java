@@ -1,10 +1,6 @@
 package mod.beethoven92.betterendforge.common.util;
 
-import java.util.Random;
-import java.util.Set;
-
 import com.google.common.collect.Sets;
-
 import mod.beethoven92.betterendforge.common.block.BlueVineBlock;
 import mod.beethoven92.betterendforge.common.block.StalactiteBlock;
 import mod.beethoven92.betterendforge.common.block.template.DoublePlantBlock;
@@ -27,6 +23,9 @@ import net.minecraft.util.math.BlockPos.Mutable;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.IWorldWriter;
+
+import java.util.Random;
+import java.util.Set;
 
 public class BlockHelper 
 {

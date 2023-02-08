@@ -1,8 +1,8 @@
 package mod.beethoven92.betterendforge.common.world.generator;
 
-import java.util.List;
-
 import mod.beethoven92.betterendforge.common.world.biome.BetterEndBiome;
+
+import java.util.List;
 
 public class WeighTree 
 {

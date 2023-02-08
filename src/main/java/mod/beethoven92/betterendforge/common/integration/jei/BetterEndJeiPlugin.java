@@ -1,10 +1,6 @@
 package mod.beethoven92.betterendforge.common.integration.jei;
 
-import java.util.Objects;
-import java.util.Set;
-
 import com.google.common.collect.ImmutableSet;
-
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
@@ -27,6 +23,9 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.Objects;
+import java.util.Set;
 
 @JeiPlugin
 public class BetterEndJeiPlugin implements IModPlugin

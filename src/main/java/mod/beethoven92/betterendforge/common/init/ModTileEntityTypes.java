@@ -1,23 +1,11 @@
 package mod.beethoven92.betterendforge.common.init;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.google.common.collect.Lists;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.block.EndSignBlock;
 import mod.beethoven92.betterendforge.common.block.material.StoneMaterial;
 import mod.beethoven92.betterendforge.common.block.template.EndFurnaceBlock;
-import mod.beethoven92.betterendforge.common.tileentity.EChestTileEntity;
-import mod.beethoven92.betterendforge.common.tileentity.ESignTileEntity;
-import mod.beethoven92.betterendforge.common.tileentity.EndBarrelTileEntity;
-import mod.beethoven92.betterendforge.common.tileentity.EndFurnaceTileEntity;
-import mod.beethoven92.betterendforge.common.tileentity.EndStoneSmelterTileEntity;
-import mod.beethoven92.betterendforge.common.tileentity.EternalPedestalTileEntity;
-import mod.beethoven92.betterendforge.common.tileentity.HydrothermalVentTileEntity;
-import mod.beethoven92.betterendforge.common.tileentity.InfusionPedestalTileEntity;
-import mod.beethoven92.betterendforge.common.tileentity.PedestalTileEntity;
+import mod.beethoven92.betterendforge.common.tileentity.*;
 import net.minecraft.block.BarrelBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.ChestBlock;
@@ -26,6 +14,9 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ModTileEntityTypes 
 {

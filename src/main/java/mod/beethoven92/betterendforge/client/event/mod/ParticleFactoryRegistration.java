@@ -2,14 +2,7 @@ package mod.beethoven92.betterendforge.client.event.mod;
 
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.init.ModParticleTypes;
-import mod.beethoven92.betterendforge.common.particles.GeyserParticle;
-import mod.beethoven92.betterendforge.common.particles.GlowingSphereParticle;
-import mod.beethoven92.betterendforge.common.particles.InfusionParticle;
-import mod.beethoven92.betterendforge.common.particles.JungleSporeParticle;
-import mod.beethoven92.betterendforge.common.particles.PortalSphereParticle;
-import mod.beethoven92.betterendforge.common.particles.SnowflakeParticle;
-import mod.beethoven92.betterendforge.common.particles.SulphurParticle;
-import mod.beethoven92.betterendforge.common.particles.TenaneaPetalParticle;
+import mod.beethoven92.betterendforge.common.particles.*;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;

@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
@@ -19,6 +17,8 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
 import net.minecraftforge.common.Tags;
+
+import java.util.Random;
 
 public class EndLakeFeature extends Feature<NoFeatureConfig>
 {

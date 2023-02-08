@@ -1,7 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.structure;
 
 import com.mojang.serialization.Codec;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.world.structure.piece.MountainPiece;
 import net.minecraft.util.math.BlockPos;

@@ -1,19 +1,8 @@
 package mod.beethoven92.betterendforge.common.init;
 
-import java.util.function.Supplier;
-
 import mod.beethoven92.betterendforge.BetterEnd;
-import mod.beethoven92.betterendforge.common.item.CrystaliteArmor;
-import mod.beethoven92.betterendforge.common.item.EnchantedPetalItem;
-import mod.beethoven92.betterendforge.common.item.EndAnvilItem;
-import mod.beethoven92.betterendforge.common.item.GuideBookItem;
-import mod.beethoven92.betterendforge.common.item.HammerItem;
-import mod.beethoven92.betterendforge.common.item.ModArmorMaterial;
-import mod.beethoven92.betterendforge.common.item.ModItemTier;
-import mod.beethoven92.betterendforge.common.item.ModSpawnEggItem;
-import mod.beethoven92.betterendforge.common.item.UmbrellaClusterJuiceItem;
+import mod.beethoven92.betterendforge.common.item.*;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
-import net.minecraft.block.Block;
 import net.minecraft.fluid.Fluids;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
@@ -22,6 +11,8 @@ import net.minecraft.potion.Effects;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.function.Supplier;
 
 public class ModItems 
 {

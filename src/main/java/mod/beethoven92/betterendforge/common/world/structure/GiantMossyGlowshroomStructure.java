@@ -1,10 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.structure;
 
-import java.util.List;
-import java.util.Random;
-
 import com.mojang.serialization.Codec;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.block.MossyGlowshroomCapBlock;
 import mod.beethoven92.betterendforge.common.block.template.FurBlock;
@@ -13,16 +9,7 @@ import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.SplineHelper;
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFBinary;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFCoordModify;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFFlatWave;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFRound;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale3D;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFSmoothUnion;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFSubtraction;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFTranslate;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFUnion;
+import mod.beethoven92.betterendforge.common.util.sdf.operator.*;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFCappedCone;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFPrimitive;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFSphere;
@@ -34,6 +21,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.gen.GenerationStage.Decoration;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import java.util.List;
+import java.util.Random;
 
 public class GiantMossyGlowshroomStructure extends SDFStructure
 {

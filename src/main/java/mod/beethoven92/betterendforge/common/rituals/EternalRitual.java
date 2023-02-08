@@ -1,12 +1,6 @@
 package mod.beethoven92.betterendforge.common.rituals;
 
-import java.awt.Point;
-import java.util.Objects;
-import java.util.Random;
-import java.util.Set;
-
 import com.google.common.collect.Sets;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties;
 import mod.beethoven92.betterendforge.common.block.EndPortalBlock;
 import mod.beethoven92.betterendforge.common.block.RunedFlavoliteBlock;
@@ -35,6 +29,11 @@ import net.minecraft.world.chunk.IChunk;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Features;
 import net.minecraft.world.server.ServerWorld;
+
+import java.awt.*;
+import java.util.Objects;
+import java.util.Random;
+import java.util.Set;
 
 public class EternalRitual 
 {
@@ -128,11 +127,7 @@ public class EternalRitual
 				}
 			}
 		}
-		/*if (valid)
-		{
-			this.activatePortal();
-		}*/
-		if (valid && item != null) 
+        if (valid && item != null)
 		{
 			this.activatePortal(item);
 		}
@@ -362,9 +357,7 @@ public class EternalRitual
 	
 	private World getTargetWorld(int state) 
 	{
-		//RegistryKey<World> target = world.getDimensionKey() == World.THE_END ? World.OVERWORLD : World.THE_END;
-		//return Objects.requireNonNull(world.getServer()).getWorld(target);
-		if (world.getDimensionKey() == World.THE_END) 
+        if (world.getDimensionKey() == World.THE_END)
 		{
 			return EndPortals.getWorld(world.getServer(), state);
 		}

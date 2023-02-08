@@ -1,14 +1,9 @@
 package mod.beethoven92.betterendforge.common.recipes;
 
-import java.util.Arrays;
-import java.util.Map;
-import java.util.function.Consumer;
-
 import com.google.common.collect.Maps;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.mojang.serialization.JsonOps;
-
 import mod.beethoven92.betterendforge.common.init.ModRecipeSerializers;
 import mod.beethoven92.betterendforge.common.rituals.InfusionRitual;
 import net.minecraft.data.IFinishedRecipe;
@@ -21,6 +16,10 @@ import net.minecraft.util.IItemProvider;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Consumer;
 
 public class InfusionRecipe implements IRecipe<InfusionRitual> {
 	public final static String GROUP = "infusion";

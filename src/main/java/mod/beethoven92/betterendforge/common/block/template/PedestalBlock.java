@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block.template;
 
-import java.util.function.ToIntFunction;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties;
 import mod.beethoven92.betterendforge.common.block.BlockProperties.PedestalState;
 import mod.beethoven92.betterendforge.common.init.ModTileEntityTypes;
@@ -29,6 +27,8 @@ import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+
+import java.util.function.ToIntFunction;
 
 public class PedestalBlock extends Block
 {
@@ -167,24 +167,8 @@ public class PedestalBlock extends Block
 		}
 		return ActionResultType.PASS;
 	}
-	
-	/*public void checkRitual(World world, BlockPos pos) 
-	{
-		Mutable mut = new Mutable();
-		Point[] points = InfusionRitual.getMap();
-		for (Point p: points) 
-		{
-			mut.setPos(pos).move(p.x, 0, p.y);
-			BlockState state = world.getBlockState(mut);
-			if (state.getBlock() instanceof InfusionPedestal) 
-			{
-				((InfusionPedestal) state.getBlock()).checkRitual(world, mut);
-				break;
-			}
-		}
-	}*/
-	
-	@Override
+
+    @Override
 	public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
 	{
 		if (!state.isIn(newState.getBlock())) 

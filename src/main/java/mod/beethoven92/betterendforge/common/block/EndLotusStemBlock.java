@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Map;
-
 import com.google.common.collect.Maps;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -17,15 +14,17 @@ import net.minecraft.state.EnumProperty;
 import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.Direction;
+import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.Mirror;
 import net.minecraft.util.Rotation;
-import net.minecraft.util.Direction.Axis;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+
+import java.util.Map;
 
 public class EndLotusStemBlock extends Block implements IWaterLoggable
 {

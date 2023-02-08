@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.block.template;
 
-import java.util.Random;
-
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.state.IntegerProperty;
@@ -9,6 +7,8 @@ import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
 import net.minecraft.world.server.ServerWorld;
+
+import java.util.Random;
 
 public abstract class UnderwaterPlantBlockWithAge extends UnderwaterPlantBlock
 {

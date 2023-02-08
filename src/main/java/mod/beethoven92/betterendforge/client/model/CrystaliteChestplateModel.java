@@ -1,16 +1,15 @@
 package mod.beethoven92.betterendforge.client.model;
 
-import java.util.Collections;
-
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.model.BipedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.HandSide;
+
+import java.util.Collections;
 
 public class CrystaliteChestplateModel extends BipedModel<LivingEntity> {
 

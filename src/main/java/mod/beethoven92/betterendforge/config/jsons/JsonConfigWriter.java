@@ -1,14 +1,13 @@
 package mod.beethoven92.betterendforge.config.jsons;
 
-import java.io.File;
-import java.nio.file.Path;
-
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.util.JsonFactory;
 import net.minecraftforge.fml.loading.FMLPaths;
+
+import java.io.File;
+import java.nio.file.Path;
 
 public class JsonConfigWriter 
 {

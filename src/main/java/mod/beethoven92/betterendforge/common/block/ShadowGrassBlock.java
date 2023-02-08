@@ -1,11 +1,11 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.Random;
-
 import net.minecraft.block.BlockState;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+
+import java.util.Random;
 
 public class ShadowGrassBlock extends TerrainBlock
 {

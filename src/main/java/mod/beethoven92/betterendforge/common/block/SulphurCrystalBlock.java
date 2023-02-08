@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.EnumMap;
-
 import com.google.common.collect.Maps;
-
 import mod.beethoven92.betterendforge.common.block.template.AttachedBlock;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import net.minecraft.block.Block;
@@ -23,6 +20,8 @@ import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
+
+import java.util.EnumMap;
 
 public class SulphurCrystalBlock extends AttachedBlock implements IWaterLoggable
 {

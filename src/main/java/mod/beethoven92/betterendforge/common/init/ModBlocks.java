@@ -1,39 +1,18 @@
 package mod.beethoven92.betterendforge.common.init;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
-
 import com.google.common.collect.ImmutableList;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.block.*;
+import mod.beethoven92.betterendforge.common.block.EndPortalBlock;
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
 import mod.beethoven92.betterendforge.common.block.material.ColoredMaterial;
 import mod.beethoven92.betterendforge.common.block.material.MetalMaterial;
 import mod.beethoven92.betterendforge.common.block.material.StoneMaterial;
 import mod.beethoven92.betterendforge.common.block.material.WoodenMaterial;
-import mod.beethoven92.betterendforge.common.block.template.ChandelierBlock;
-import mod.beethoven92.betterendforge.common.block.template.EndCropBlock;
-import mod.beethoven92.betterendforge.common.block.template.EndFurnaceBlock;
-import mod.beethoven92.betterendforge.common.block.template.EndVineBlock;
-import mod.beethoven92.betterendforge.common.block.template.FurBlock;
-import mod.beethoven92.betterendforge.common.block.template.PedestalBlock;
-import mod.beethoven92.betterendforge.common.block.template.PlantBlockWithAge;
-import mod.beethoven92.betterendforge.common.block.template.UnderwaterWallPlantBlock;
-import mod.beethoven92.betterendforge.common.block.template.WallMushroomBlock;
-import mod.beethoven92.betterendforge.common.block.template.WallPlantBlock;
+import mod.beethoven92.betterendforge.common.block.template.*;
 import mod.beethoven92.betterendforge.common.item.ModArmorMaterial;
 import mod.beethoven92.betterendforge.common.item.ModItemTier;
-import net.minecraft.block.AbstractBlock;
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.FlowerPotBlock;
-import net.minecraft.block.LeavesBlock;
-import net.minecraft.block.RotatedPillarBlock;
-import net.minecraft.block.SlabBlock;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.StairsBlock;
+import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
 import net.minecraft.item.*;
@@ -42,6 +21,10 @@ import net.minecraftforge.common.ToolType;
 import net.minecraftforge.fml.RegistryObject;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
 
 public class ModBlocks 
 {
@@ -711,15 +694,6 @@ public class ModBlocks
                                                             tickRandomly().
                                                             sound(SoundType.PLANT),
                                                             CHORUS_NYLIUM.get()));
-	
-//	public static final RegistryObject<Block> PEARLBERRY = registerBlockWithDefaultItem("pearlberry_seed",
-//			() -> new EndCropBlock(AbstractBlock.Properties.create(Material.PLANTS).
-//                                                            zeroHardnessAndResistance().
-//                                                            doesNotBlockMovement().
-//                                                            tickRandomly().
-//                                                            sound(SoundType.PLANT),
-//                                                            END_MOSS.get(), END_MYCELIUM.get()));
-
 
 
 	// WALL PLANTS

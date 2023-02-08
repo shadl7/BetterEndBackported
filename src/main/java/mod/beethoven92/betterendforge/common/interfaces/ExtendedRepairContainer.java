@@ -1,8 +1,8 @@
 package mod.beethoven92.betterendforge.common.interfaces;
 
-import java.util.List;
-
 import mod.beethoven92.betterendforge.common.recipes.AnvilSmithingRecipe;
+
+import java.util.List;
 
 public interface ExtendedRepairContainer
 {

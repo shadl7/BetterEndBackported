@@ -2,18 +2,11 @@ package mod.beethoven92.betterendforge.common.util;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import mod.beethoven92.betterendforge.BetterEnd;
 import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.CompressedStreamTools;
-import net.minecraftforge.fml.ModContainer;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.fml.loading.FMLLoader;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 
 public class WorldDataAPI {
     private static final Map<String, CompoundNBT> TAGS = Maps.newHashMap();

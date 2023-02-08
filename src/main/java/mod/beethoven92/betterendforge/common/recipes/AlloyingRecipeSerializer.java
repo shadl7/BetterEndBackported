@@ -2,7 +2,6 @@ package mod.beethoven92.betterendforge.common.recipes;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;

@@ -1,23 +1,21 @@
 package mod.beethoven92.betterendforge.common.world.biome;
 
-import java.io.InputStream;
-import java.util.List;
-import java.util.Random;
-
 import com.google.common.collect.Lists;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.util.JsonFactory;
 import mod.beethoven92.betterendforge.common.util.StructureHelper;
 import mod.beethoven92.betterendforge.common.world.feature.BiomeNBTStructures.StructureInfo;
 import mod.beethoven92.betterendforge.common.world.feature.NBTFeature.TerrainMerge;
 import mod.beethoven92.betterendforge.config.Configs;
-import mod.beethoven92.betterendforge.config.jsons.JsonConfigs;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
+
+import java.io.InputStream;
+import java.util.List;
+import java.util.Random;
 
 public class BetterEndBiome 
 {

@@ -1,11 +1,11 @@
 package mod.beethoven92.betterendforge.common.util.sdf.primitive;
 
-import java.util.function.Function;
-
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
+
+import java.util.function.Function;
 
 public abstract class SDFPrimitive extends SDF
 {

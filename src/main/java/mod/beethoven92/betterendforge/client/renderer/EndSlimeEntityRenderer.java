@@ -2,7 +2,6 @@ package mod.beethoven92.betterendforge.client.renderer;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.client.model.EndSlimeEntityModel;
 import mod.beethoven92.betterendforge.common.entity.EndSlimeEntity;

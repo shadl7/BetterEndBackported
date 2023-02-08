@@ -1,8 +1,8 @@
 package mod.beethoven92.betterendforge.common.util.sdf.operator;
 
-import java.util.function.Function;
-
 import net.minecraft.util.math.vector.Vector3f;
+
+import java.util.function.Function;
 
 public class SDFDisplacement extends SDFUnary 
 {

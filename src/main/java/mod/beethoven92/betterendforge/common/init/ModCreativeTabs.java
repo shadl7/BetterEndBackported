@@ -1,10 +1,10 @@
 package mod.beethoven92.betterendforge.common.init;
 
-import java.util.function.Supplier;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+
+import java.util.function.Supplier;
 
 
 public class ModCreativeTabs 

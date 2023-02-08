@@ -2,7 +2,6 @@ package mod.beethoven92.betterendforge.client.gui;
 
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.inventory.EndStoneSmelterContainer;
 import net.minecraft.client.gui.recipebook.IRecipeShownListener;

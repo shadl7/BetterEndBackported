@@ -1,9 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
-
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
@@ -29,6 +25,10 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
 
 public class PythadendronFeature extends Feature<NoFeatureConfig>
 {

@@ -1,11 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.List;
-import java.util.Random;
-import java.util.function.Function;
-
 import com.google.common.collect.Lists;
-
 import mod.beethoven92.betterendforge.common.block.BlockProperties;
 import mod.beethoven92.betterendforge.common.block.BlockProperties.TripleShape;
 import mod.beethoven92.betterendforge.common.block.template.FurBlock;
@@ -15,11 +10,7 @@ import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.SplineHelper;
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFDisplacement;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFScale3D;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFSubtraction;
-import mod.beethoven92.betterendforge.common.util.sdf.operator.SDFTranslate;
+import mod.beethoven92.betterendforge.common.util.sdf.operator.*;
 import mod.beethoven92.betterendforge.common.util.sdf.primitive.SDFSphere;
 import mod.beethoven92.betterendforge.common.world.generator.OpenSimplexNoise;
 import net.minecraft.block.BlockState;
@@ -33,6 +24,10 @@ import net.minecraft.world.ISeedReader;
 import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import java.util.List;
+import java.util.Random;
+import java.util.function.Function;
 
 public class LucerniaFeature extends Feature<NoFeatureConfig> {
 	private static final Direction[] DIRECTIONS = Direction.values();

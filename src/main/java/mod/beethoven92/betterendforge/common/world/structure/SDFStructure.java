@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.structure;
 
-import java.util.Random;
-
 import com.mojang.serialization.Codec;
-
 import mod.beethoven92.betterendforge.common.util.sdf.SDF;
 import mod.beethoven92.betterendforge.common.world.structure.piece.VoxelPiece;
 import net.minecraft.util.math.BlockPos;
@@ -18,19 +15,16 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.TemplateManager;
 
+import java.util.Random;
+
 public abstract class SDFStructure extends Structure<NoFeatureConfig>
 {
 	public SDFStructure(Codec<NoFeatureConfig> p_i231997_1_) 
 	{
 		super(p_i231997_1_);
 	}
-	
-	/*public SDFStructure() 
-	{
-		super(NoFeatureConfig.field_236558_a_);
-	}*/
 
-	protected abstract SDF getSDF(BlockPos pos, Random random);
+    protected abstract SDF getSDF(BlockPos pos, Random random);
 	
 	@Override
 	public IStartFactory<NoFeatureConfig> getStartFactory() 

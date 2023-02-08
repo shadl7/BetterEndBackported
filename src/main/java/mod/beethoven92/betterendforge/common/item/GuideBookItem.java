@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.item;
 
-import java.util.List;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
@@ -17,6 +15,8 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.ModList;
 import vazkii.patchouli.api.PatchouliAPI;
+
+import java.util.List;
 
 public class GuideBookItem extends Item
 {

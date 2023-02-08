@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.tileentity;
 
-import javax.annotation.Nullable;
-
 import mod.beethoven92.betterendforge.common.block.template.PedestalBlock;
 import mod.beethoven92.betterendforge.common.init.ModItems;
 import mod.beethoven92.betterendforge.common.init.ModTileEntityTypes;
@@ -16,6 +14,8 @@ import net.minecraft.tileentity.TileEntityType;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+
+import javax.annotation.Nullable;
 
 public class PedestalTileEntity extends TileEntity implements ITickableTileEntity
 {

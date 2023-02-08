@@ -1,25 +1,20 @@
 package mod.beethoven92.betterendforge.data;
 
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.init.ModEntityTypes;
 import mod.beethoven92.betterendforge.common.init.ModItems;
 import net.minecraft.data.loot.EntityLootTables;
 import net.minecraft.entity.EntityType;
 import net.minecraft.item.Items;
-import net.minecraft.loot.ConstantRange;
-import net.minecraft.loot.ItemLootEntry;
-import net.minecraft.loot.LootContext;
-import net.minecraft.loot.LootPool;
-import net.minecraft.loot.LootTable;
-import net.minecraft.loot.RandomValueRange;
+import net.minecraft.loot.*;
 import net.minecraft.loot.conditions.EntityHasProperty;
 import net.minecraft.loot.functions.LootingEnchantBonus;
 import net.minecraft.loot.functions.SetCount;
 import net.minecraft.loot.functions.Smelt;
 import net.minecraftforge.registries.ForgeRegistries;
+
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 public class ModEntityLootTables extends EntityLootTables
 {

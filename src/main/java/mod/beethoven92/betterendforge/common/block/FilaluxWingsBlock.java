@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.block;
 
-import java.util.EnumMap;
-
 import com.google.common.collect.Maps;
-
 import mod.beethoven92.betterendforge.common.block.template.AttachedBlock;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.BlockState;
@@ -15,6 +12,8 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
+
+import java.util.EnumMap;
 
 public class FilaluxWingsBlock extends AttachedBlock {
 	private static final EnumMap<Direction, VoxelShape> BOUNDING_SHAPES = Maps.newEnumMap(Direction.class);

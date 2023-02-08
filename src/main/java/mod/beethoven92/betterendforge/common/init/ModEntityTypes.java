@@ -1,12 +1,7 @@
 package mod.beethoven92.betterendforge.common.init;
 
 import mod.beethoven92.betterendforge.BetterEnd;
-import mod.beethoven92.betterendforge.common.entity.CubozoaEntity;
-import mod.beethoven92.betterendforge.common.entity.DragonflyEntity;
-import mod.beethoven92.betterendforge.common.entity.EndFishEntity;
-import mod.beethoven92.betterendforge.common.entity.EndSlimeEntity;
-import mod.beethoven92.betterendforge.common.entity.ShadowWalkerEntity;
-import mod.beethoven92.betterendforge.common.entity.SilkMothEntity;
+import mod.beethoven92.betterendforge.common.entity.*;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntitySpawnPlacementRegistry;
 import net.minecraft.entity.EntityType;

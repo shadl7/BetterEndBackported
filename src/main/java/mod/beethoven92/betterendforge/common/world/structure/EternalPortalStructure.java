@@ -1,9 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.structure;
 
-import java.util.Random;
-
 import com.mojang.serialization.Codec;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import mod.beethoven92.betterendforge.common.util.StructureHelper;
@@ -26,6 +23,8 @@ import net.minecraft.world.gen.feature.structure.Structure;
 import net.minecraft.world.gen.feature.structure.StructureStart;
 import net.minecraft.world.gen.feature.template.Template;
 import net.minecraft.world.gen.feature.template.TemplateManager;
+
+import java.util.Random;
 
 public class EternalPortalStructure extends Structure<NoFeatureConfig>
 {

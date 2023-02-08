@@ -1,7 +1,5 @@
 package mod.beethoven92.betterendforge.common.world.feature;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import net.minecraft.util.math.BlockPos;
@@ -11,6 +9,8 @@ import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.NoFeatureConfig;
+
+import java.util.Random;
 
 public abstract class InvertedScatterFeature extends Feature<NoFeatureConfig>
 {
@@ -49,15 +49,7 @@ public abstract class InvertedScatterFeature extends Feature<NoFeatureConfig>
 					float x = pr * (float) Math.cos(theta);
 					float z = pr * (float) Math.sin(theta);
 
-					/*POS.setPos(center.getX() + x, center.getY() - 7, center.getZ() + z);
-
-					int up = BlockHelper.upRay(world, POS, 16);
-					
-					if (up > 14) continue;
-					
-					POS.setY(POS.getY() + up);*/
-					
-					POS.setPos(pos.getX() + x, POS.getY(), pos.getZ() + z);
+                    POS.setPos(pos.getX() + x, POS.getY(), pos.getZ() + z);
 					
 					if (canGenerate(world, random, pos, POS, r)) 
 					{

@@ -3,14 +3,9 @@ package mod.beethoven92.betterendforge.common.block;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.material.MaterialColor;
-import net.minecraft.client.renderer.model.IUnbakedModel;
-
-
-import java.util.Map;
 
 public class PallidiumBlock extends TerrainBlock {
 	private final Block nextLevel;

@@ -1,18 +1,17 @@
 package mod.beethoven92.betterendforge.common.world.generator;
 
-import java.awt.*;
-import java.util.Map;
-import java.util.Random;
-import java.util.concurrent.locks.ReentrantLock;
-
 import com.google.common.collect.Lists;
-import java.util.List;
 import com.google.common.collect.Maps;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
-import mod.beethoven92.betterendforge.config.CommonConfig;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.provider.BiomeProvider;
+
+import java.awt.*;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class TerrainGenerator {
 	private static final Map<Point, TerrainBoolCache> TERRAIN_BOOL_CACHE_MAP = Maps.newHashMap();
