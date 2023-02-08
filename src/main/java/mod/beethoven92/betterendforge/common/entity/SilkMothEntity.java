@@ -188,7 +188,7 @@ public class SilkMothEntity extends AnimalEntity implements IFlyingAnimal {
 				try {
 					SilkMothEntity.this.navigator
 							.setPath(SilkMothEntity.this.navigator.getPathToPos(new BlockPos(vec3d), 1), 1.0D);
-				} catch (Exception e) {
+				} catch (Exception ignored) {
 				}
 			}
 		}
