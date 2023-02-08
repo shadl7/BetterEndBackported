@@ -5,10 +5,13 @@
       "item": "betterendforge:gelatine"
     },
     {
+      "item": "minecraft:potion"
+    },
+    {
       "item": "minecraft:sugar"
     },
     {
-      "item": "minecraft:potion"
+      "item": "minecraft:sweet_berries"
     }
   ],
   "result": {
