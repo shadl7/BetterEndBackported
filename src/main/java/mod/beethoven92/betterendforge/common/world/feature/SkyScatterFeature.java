@@ -4,6 +4,7 @@ import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.Mutable;
 import net.minecraft.world.ISeedReader;
 
 import java.util.Random;
@@ -46,8 +47,8 @@ public abstract class SkyScatterFeature extends ScatterFeature {
 		return new BlockPos(pos.getX(), ModMathHelper.randRange(32, 192, world.getRandom()), pos.getZ());
 	}
 	
-	protected boolean getGroundPlant(ISeedReader world) {
-		ScatterFeature.POS.setY(ScatterFeature.POS.getY() + ModMathHelper.randRange(-getYOffset(), getYOffset(), world.getRandom()));
+	protected boolean getGroundPlant(ISeedReader world, Mutable pos) {
+		pos.setY(pos.getY() + ModMathHelper.randRange(-getYOffset(), getYOffset(), world.getRandom()));
 		return true;
 	}
 }

@@ -38,9 +38,9 @@ public abstract class UnderwaterPlantScatter extends ScatterFeature
 	}
 	
 	@Override
-	protected boolean getGroundPlant(ISeedReader world)
+	protected boolean getGroundPlant(ISeedReader world, Mutable pos) 
 	{
-		return getGround(world, ScatterFeature.POS).getY() < 128;
+		return getGround(world, pos).getY() < 128;
 	}
 	
 	@Override

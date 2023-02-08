@@ -43,7 +43,7 @@ public class EndDragonFightMixin {
 	}
 	
 	@Shadow
-	private void generatePortal() {
+	private void generatePortal(boolean bl) {
 	}
 	
 	@Shadow
@@ -59,7 +59,7 @@ public class EndDragonFightMixin {
 				BlockPattern.PatternHelper blockPatternMatch = this.findExitPortal();
 				if (blockPatternMatch == null) {
 					LOGGER.debug("Couldn't find a portal, so we made one.");
-					generatePortal();
+					generatePortal(true);
 				}
 				else {
 					LOGGER.debug("Found the exit portal & temporarily using it.");

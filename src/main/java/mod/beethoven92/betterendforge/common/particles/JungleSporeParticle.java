@@ -12,7 +12,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class JungleSporeParticle extends SimpleAnimatedParticle
 {
-	protected JungleSporeParticle(ClientWorld world, double x, double y, double z, IAnimatedSprite spriteWithAge)
+	protected JungleSporeParticle(ClientWorld world, double x, double y, double z, IAnimatedSprite spriteWithAge,
+			double r, double g, double b) 
 	{
 		super(world, x, y, z, spriteWithAge, 0);
 		
@@ -75,7 +76,7 @@ public class JungleSporeParticle extends SimpleAnimatedParticle
 		public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z,
 				double xSpeed, double ySpeed, double zSpeed) 
 		{
-			return new JungleSporeParticle(worldIn, x, y, z, this.sprites);
+			return new JungleSporeParticle(worldIn, x, y, z, this.sprites, 1, 1, 1);
 		}
 	}
 }

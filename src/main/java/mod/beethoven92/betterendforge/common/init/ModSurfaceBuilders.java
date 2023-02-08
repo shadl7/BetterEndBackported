@@ -44,7 +44,7 @@ public class ModSurfaceBuilders
 	public static class Configs
 	{
 		public static final SurfaceBuilderConfig CRYSTAL_SURFACE = 
-				makeTernaryConfig(ModBlocks.CRYSTAL_MOSS.get());
+				makeTernaryConfig(ModBlocks.CRYSTAL_MOSS.get(), Blocks.END_STONE, Blocks.END_STONE);
 		
 		public static final SurfaceBuilderConfig DUMMY = makeSimpleConfig(Blocks.END_STONE);
 		
@@ -65,11 +65,11 @@ public class ModSurfaceBuilders
 			return new SurfaceBuilderConfig(state, state, state);
 		}
 		
-		private static SurfaceBuilderConfig makeTernaryConfig(Block block1)
+		private static SurfaceBuilderConfig makeTernaryConfig(Block block1, Block block2, Block block3) 
 		{
 			BlockState state1 = block1.getDefaultState();
-			BlockState state2 = Blocks.END_STONE.getDefaultState();
-			BlockState state3 = Blocks.END_STONE.getDefaultState();
+			BlockState state2 = block2.getDefaultState();
+			BlockState state3 = block3.getDefaultState();
 			return new SurfaceBuilderConfig(state1, state2, state3);
 		}
 

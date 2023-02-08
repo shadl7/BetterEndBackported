@@ -1,5 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.structure.piece;
 
+import mod.beethoven92.betterendforge.common.init.ModStructurePieces;
 import mod.beethoven92.betterendforge.common.init.ModTags;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
@@ -23,7 +24,7 @@ public class CavePiece extends BasePiece {
 	private float radius;
 	
 	public CavePiece(BlockPos center, float radius, Random random) {
-		super(random.nextInt());
+		super(ModStructurePieces.CAVE_PIECE, random.nextInt());
 		this.center = center;
 		this.radius = radius;
 		this.noise = new OpenSimplexNoise(ModMathHelper.getSeed(534, center.getX(), center.getZ()));
@@ -31,7 +32,7 @@ public class CavePiece extends BasePiece {
 	}
 
 	public CavePiece(TemplateManager templateManager, CompoundNBT tag) {
-		super(tag);
+		super(ModStructurePieces.CAVE_PIECE, tag);
 		makeBoundingBox();
 	}
 

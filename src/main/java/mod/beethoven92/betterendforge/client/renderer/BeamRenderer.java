@@ -34,23 +34,23 @@ public class BeamRenderer
 		
 		matrices.push();
 		matrices.rotate(Vector3f.YP.rotation(-rotation));
-		renderBeam(matrices, iVertexBuilder, red, green, blue, alpha, minY, maxBY, beamIn, 0.0F, 0.0F, beamIn, 0.0F, xIn, xIn, 0.0F, minV, maxV);
+		renderBeam(matrices, iVertexBuilder, red, green, blue, alpha, minY, maxBY, beamIn, 0.0F, 0.0F, beamIn, 0.0F, xIn, xIn, 0.0F, 0.0F, 1.0F, minV, maxV);
 		
 		float xOut = -beamOut;
 		maxV = (float) maxY + minV;
-		renderBeam(matrices, iVertexBuilder, red, green, blue, alpha, minY, maxBY, xOut, xOut, beamOut, xOut, xOut, beamOut, beamOut, beamOut, minV, maxV);
+		renderBeam(matrices, iVertexBuilder, red, green, blue, alpha, minY, maxBY, xOut, xOut, beamOut, xOut, xOut, beamOut, beamOut, beamOut, 0.0F, 1.0F, minV, maxV);
 		matrices.pop();
 	}
 
-	private static void renderBeam(MatrixStack matrices, IVertexBuilder vertexBuilder, float red, float green, float blue, float alpha, int minY, int maxY, float x1, float d1, float x2, float d2, float x3, float d3, float x4, float d4, float minV, float maxV)
+	private static void renderBeam(MatrixStack matrices, IVertexBuilder vertexBuilder, float red, float green, float blue, float alpha, int minY, int maxY, float x1, float d1, float x2, float d2, float x3, float d3, float x4, float d4, float minU, float maxU, float minV, float maxV)
 	{
 		MatrixStack.Entry entry = matrices.getLast();
 		Matrix4f matrix4f = entry.getMatrix();
 		Matrix3f matrix3f = entry.getNormal();		
-		renderBeam(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxY, minY, x1, d1, x2, d2, (float) 0.0, (float) 1.0, minV, maxV);
-		renderBeam(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxY, minY, x4, d4, x3, d3, (float) 0.0, (float) 1.0, minV, maxV);
-		renderBeam(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxY, minY, x2, d2, x4, d4, (float) 0.0, (float) 1.0, minV, maxV);
-		renderBeam(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxY, minY, x3, d3, x1, d1, (float) 0.0, (float) 1.0, minV, maxV);
+		renderBeam(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxY, minY, x1, d1, x2, d2, minU, maxU, minV, maxV);
+		renderBeam(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxY, minY, x4, d4, x3, d3, minU, maxU, minV, maxV);
+		renderBeam(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxY, minY, x2, d2, x4, d4, minU, maxU, minV, maxV);
+		renderBeam(matrix4f, matrix3f, vertexBuilder, red, green, blue, alpha, maxY, minY, x3, d3, x1, d1, minU, maxU, minV, maxV);
 	}
 
 	private static void renderBeam(Matrix4f matrix4f, Matrix3f matrix3f, IVertexBuilder vertexBuilder, float red, float green, float blue, float alpha, int minY, int maxY, float minX, float minD, float maxX, float maxD, float minU, float maxU, float minV, float maxV) 

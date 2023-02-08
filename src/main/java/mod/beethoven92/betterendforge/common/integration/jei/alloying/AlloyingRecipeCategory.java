@@ -127,7 +127,7 @@ public class AlloyingRecipeCategory implements IRecipeCategory<AlloyingRecipe>
 		return this.cachedArrows.getUnchecked(smeltTime);
 	}
 	
-	protected void drawSmeltTime(AlloyingRecipe recipe, MatrixStack matrixStack)
+	protected void drawSmeltTime(AlloyingRecipe recipe, MatrixStack matrixStack, int y) 
 	{
 		int smeltTime = recipe.getSmeltTime();
 		if (smeltTime > 0) 
@@ -137,11 +137,11 @@ public class AlloyingRecipeCategory implements IRecipeCategory<AlloyingRecipe>
 			Minecraft minecraft = Minecraft.getInstance();
 			FontRenderer fontRenderer = minecraft.fontRenderer;
 			int stringWidth = fontRenderer.getStringPropertyWidth(timeString);
-			fontRenderer.func_243248_b(matrixStack, timeString, background.getWidth() - stringWidth, 45, 0xFF808080);
+			fontRenderer.func_243248_b(matrixStack, timeString, background.getWidth() - stringWidth, y, 0xFF808080);
 		}
 	}
 	
-	protected void drawExperience(AlloyingRecipe recipe, MatrixStack matrixStack)
+	protected void drawExperience(AlloyingRecipe recipe, MatrixStack matrixStack, int y) 
 	{
 		float experience = recipe.getExperience();
 		if (experience > 0) 
@@ -150,7 +150,7 @@ public class AlloyingRecipeCategory implements IRecipeCategory<AlloyingRecipe>
 			Minecraft minecraft = Minecraft.getInstance();
 			FontRenderer fontRenderer = minecraft.fontRenderer;
 			int stringWidth = fontRenderer.getStringPropertyWidth(experienceString);
-			fontRenderer.func_243248_b(matrixStack, experienceString, background.getWidth() - stringWidth, 0, 0xFF808080);
+			fontRenderer.func_243248_b(matrixStack, experienceString, background.getWidth() - stringWidth, y, 0xFF808080);
 		}
 	}
 	
@@ -162,7 +162,7 @@ public class AlloyingRecipeCategory implements IRecipeCategory<AlloyingRecipe>
 		IDrawableAnimated arrow = getArrow(recipe);
 		arrow.draw(matrixStack, 47, 18);
 
-	    drawExperience(recipe, matrixStack);
-		drawSmeltTime(recipe, matrixStack);
+	    drawExperience(recipe, matrixStack, 0);
+		drawSmeltTime(recipe, matrixStack, 45);
 	}
 }

@@ -17,7 +17,7 @@ public class FireflyParticle extends SimpleAnimatedParticle {
 	private double nextVY;
 	private double nextVZ;
 	
-	protected FireflyParticle(ClientWorld world, double x, double y, double z, IAnimatedSprite sprites) {
+	protected FireflyParticle(ClientWorld world, double x, double y, double z, IAnimatedSprite sprites, double r, double g, double b) {
 		super(world, x, y, z, sprites, 0);
 		setSprite(sprites.get(rand));
 		this.maxAge = ModMathHelper.randRange(150, 300, rand);
@@ -72,7 +72,7 @@ public class FireflyParticle extends SimpleAnimatedParticle {
 		@Override
 		public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z,
 				double xSpeed, double ySpeed, double zSpeed) {
-			return new FireflyParticle(worldIn, x, y, z, sprites);
+			return new FireflyParticle(worldIn, x, y, z, sprites, 1, 1, 1);
 		}
 	}
 }

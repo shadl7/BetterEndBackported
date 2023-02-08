@@ -99,7 +99,7 @@ public class InfusionRecipeCategory implements IRecipeCategory<InfusionRecipe>
 		guiItemStacks.set(ingredients);
 	}
 	
-	protected void drawInfusionTime(InfusionRecipe recipe, MatrixStack matrixStack)
+	protected void drawInfusionTime(InfusionRecipe recipe, MatrixStack matrixStack, int y) 
 	{
 		int infusionTime = recipe.time;
 		if (infusionTime > 0) 
@@ -108,13 +108,13 @@ public class InfusionRecipeCategory implements IRecipeCategory<InfusionRecipe>
 			Minecraft minecraft = Minecraft.getInstance();
 			FontRenderer fontRenderer = minecraft.fontRenderer;
 			int stringWidth = fontRenderer.getStringPropertyWidth(timeString);
-			fontRenderer.func_243248_b(matrixStack, timeString, background.getWidth() - stringWidth, 0, 0xFF808080);
+			fontRenderer.func_243248_b(matrixStack, timeString, background.getWidth() - stringWidth, y, 0xFF808080);
 		}
 	}
 	
 	@Override
 	public void draw(InfusionRecipe recipe, MatrixStack matrixStack, double mouseX, double mouseY) 
 	{
-		drawInfusionTime(recipe, matrixStack);
+		drawInfusionTime(recipe, matrixStack, 0);
 	}
 }

@@ -81,7 +81,7 @@ public class ModBlockStates extends BlockStateProvider
 		registerMetalMaterialBlockStates(ModBlocks.TERMINITE);
 		
 		// COLORED MATERIALS
-		registerColoredMaterialBlockStates();
+		registerColoredMaterialBlockStates(ModBlocks.HYDRALUX_PETAL_BLOCK_COLORED, "block_petal_colored");
 		bulbLanterns("iron", ModBlocks.IRON_BULB_LANTERN.get(), ModBlocks.IRON_BULB_LANTERN_COLORED);
 		
 		// PEDESTALS
@@ -301,13 +301,13 @@ public class ModBlockStates extends BlockStateProvider
 		makeBlockItemFromExistingModel(material.anvil.get(), "block/" + material.name + "_anvil_0");
 	}
 	
-	private void registerColoredMaterialBlockStates()
+	private void registerColoredMaterialBlockStates(ColoredMaterial material, String blockModel)
 	{
-		for (Block block : ModBlocks.HYDRALUX_PETAL_BLOCK_COLORED.getBlocks())
+		for (Block block : material.getBlocks())
 		{
-			ModelFile model = models().getExistingFile(modLoc("block/" + "block_petal_colored"));
+			ModelFile model = models().getExistingFile(modLoc("block/" + blockModel));
 			simpleBlock(block, model);
-			makeBlockItemFromExistingModel(block, "block/" + "block_petal_colored");
+			makeBlockItemFromExistingModel(block, "block/" + blockModel);
 		}
 	}
 	
