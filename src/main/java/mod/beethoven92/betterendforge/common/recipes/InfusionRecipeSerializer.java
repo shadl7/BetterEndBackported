@@ -34,10 +34,7 @@ public class InfusionRecipeSerializer extends net.minecraftforge.registries.Forg
 			recipe.ingredientPositions.put(index, item);
 		}
 		for (int i = 0; i < 8; i++) {
-			if (recipe.ingredientPositions.containsKey(i)) {
-				recipe.catalysts[i] = recipe.ingredientPositions.get(i);
-			} else
-				recipe.catalysts[i] = Ingredient.EMPTY;
+            recipe.catalysts[i] = recipe.ingredientPositions.getOrDefault(i, Ingredient.EMPTY);
 		}
 		return recipe;
 	}

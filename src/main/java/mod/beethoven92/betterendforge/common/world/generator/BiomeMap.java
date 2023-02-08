@@ -11,7 +11,7 @@ public class BiomeMap
 {
 	private static final SharedSeedRandom RANDOM = new SharedSeedRandom();
 	
-	private final HashMap<ChunkPos, BiomeChunk> maps = new HashMap<ChunkPos, BiomeChunk>();
+	private final HashMap<ChunkPos, BiomeChunk> maps = new HashMap<>();
 	private final int size;
 	private final int sizeXZ;
 	private final int depth;

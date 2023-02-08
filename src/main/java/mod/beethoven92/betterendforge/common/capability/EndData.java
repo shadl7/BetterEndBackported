@@ -150,8 +150,7 @@ public class EndData implements INBTSerializable<CompoundNBT> {
 			spawn = NBTUtil.readBlockPos(nbt.getCompound("spawn"));
 
 		ListNBT list = nbt.getList("players", Constants.NBT.TAG_INT_ARRAY);
-		for (int i = 0; i < list.size(); i++)
-			players.add(NBTUtil.readUniqueId(list.get(i)));
+        for (INBT inbt : list) players.add(NBTUtil.readUniqueId(inbt));
 	}
 
 	@EventBusSubscriber(modid = BetterEnd.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)

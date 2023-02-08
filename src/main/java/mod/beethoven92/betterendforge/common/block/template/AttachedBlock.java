@@ -32,16 +32,13 @@ public class AttachedBlock extends Block
 		IWorldReader worldView = context.getWorld();
 		BlockPos blockPos = context.getPos();
 		Direction[] directions = context.getNearestLookingDirections();
-		for (int i = 0; i < directions.length; ++i) 
-		{
-			Direction direction = directions[i];
-			Direction direction2 = direction.getOpposite();
-			blockState = blockState.with(FACING, direction2);
-			if (blockState.isValidPosition(worldView, blockPos)) 
-			{
-				return blockState;
-			}
-		}
+        for (Direction direction : directions) {
+            Direction direction2 = direction.getOpposite();
+            blockState = blockState.with(FACING, direction2);
+            if (blockState.isValidPosition(worldView, blockPos)) {
+                return blockState;
+            }
+        }
 		return null;
 	}
 	

@@ -79,7 +79,7 @@ public abstract class SDF
 			run &= !ends.isEmpty();
 		}
 		
-		List<PosInfo> infos = new ArrayList<PosInfo>(mapWorld.values());
+		List<PosInfo> infos = new ArrayList<>(mapWorld.values());
 		if (infos.size() > 0) 
 		{
 			Collections.sort(infos);
@@ -130,7 +130,7 @@ public abstract class SDF
 			}
 		}
 
-		List<PosInfo> infos = new ArrayList<PosInfo>(mapWorld.values());
+		List<PosInfo> infos = new ArrayList<>(mapWorld.values());
 		if (infos.size() > 0) {
 			Collections.sort(infos);
 			postProcesses.forEach((postProcess) -> {
@@ -199,7 +199,7 @@ public abstract class SDF
 			run &= !ends.isEmpty();
 		}
 		
-		List<PosInfo> infos = new ArrayList<PosInfo>(mapWorld.values());
+		List<PosInfo> infos = new ArrayList<>(mapWorld.values());
 		if (infos.size() > 0) 
 		{
 			Collections.sort(infos);
@@ -268,7 +268,7 @@ public abstract class SDF
 			run &= !ends.isEmpty();
 		}
 		
-		List<PosInfo> infos = new ArrayList<PosInfo>(mapWorld.values());
+		List<PosInfo> infos = new ArrayList<>(mapWorld.values());
 		Collections.sort(infos);
 		postProcesses.forEach((postProcess) -> {
 			infos.forEach((info) -> {

@@ -105,7 +105,7 @@ public class IceStarFeature extends Feature<NoFeatureConfig>
 	private List<Vector3f> getFibonacciPoints(int count) 
 	{
 		float max = count - 1;
-		List<Vector3f> result = new ArrayList<Vector3f>(count);
+		List<Vector3f> result = new ArrayList<>(count);
 		for (int i = 0; i < count; i++) 
 		{
 			float y = 1F - (i / max) * 2F;

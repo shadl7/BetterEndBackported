@@ -48,7 +48,7 @@ public class RecipeManagerMixin
 			C inventory, World world) 
 	{
 		Collection<IRecipe<C>> values = getRecipes(type).values();
-		List<IRecipe<C>> list = new ArrayList<IRecipe<C>>(values);
+		List<IRecipe<C>> list = new ArrayList<>(values);
 		list.sort((v1, v2) -> {
 			boolean b1 = v1.getId().getNamespace().equals("minecraft");
 			boolean b2 = v2.getId().getNamespace().equals("minecraft");

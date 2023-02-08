@@ -46,7 +46,7 @@ public class HelixTreeFeature extends Feature<NoFeatureConfig> {
 		
 		float dx;
 		float dz;
-		List<Vector3f> spline = new ArrayList<Vector3f>(10);
+		List<Vector3f> spline = new ArrayList<>(10);
 		for (int i = 0; i < 10; i++) {
 			float radius = (0.9F - i * 0.1F) * radiusRange;
 			dx = (float) Math.sin(i + angle) * radius;

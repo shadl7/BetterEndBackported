@@ -21,7 +21,7 @@ public class IslandLayer
 	private final SDFRadialNoiseMap noise;
 	private final SDF island;
 
-	private final List<BlockPos> positions = new ArrayList<BlockPos>(9);
+	private final List<BlockPos> positions = new ArrayList<>(9);
 	private final Map<BlockPos, SDF> islands = Maps.newHashMap();
 	private final OpenSimplexNoise density;
 	private final int seed;

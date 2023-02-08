@@ -130,17 +130,16 @@ public class ESignTileEntity extends TileEntity {
 		ITextComponent[] var2 = this.text;
 		int var3 = var2.length;
 
-		for (int var4 = 0; var4 < var3; ++var4) {
-			ITextComponent text = var2[var4];
-			Style style = text == null ? null : text.getStyle();
-			if (style != null && style.getClickEvent() != null) {
-				ClickEvent clickEvent = style.getClickEvent();
-				if (clickEvent.getAction() == ClickEvent.Action.RUN_COMMAND) {
-					player.getServer().getCommandManager()
-							.handleCommand(this.getCommandSource((ServerPlayerEntity) player), clickEvent.getValue());
-				}
-			}
-		}
+        for (ITextComponent text : var2) {
+            Style style = text == null ? null : text.getStyle();
+            if (style != null && style.getClickEvent() != null) {
+                ClickEvent clickEvent = style.getClickEvent();
+                if (clickEvent.getAction() == ClickEvent.Action.RUN_COMMAND) {
+                    player.getServer().getCommandManager()
+                            .handleCommand(this.getCommandSource((ServerPlayerEntity) player), clickEvent.getValue());
+                }
+            }
+        }
 
 		return true;
 	}

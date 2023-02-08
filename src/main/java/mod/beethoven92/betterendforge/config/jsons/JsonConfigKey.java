@@ -4,7 +4,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class JsonConfigKey 
 {
-	private final String path[];
+	private final String[] path;
 	private final String entry;
 	private final boolean root;
 	

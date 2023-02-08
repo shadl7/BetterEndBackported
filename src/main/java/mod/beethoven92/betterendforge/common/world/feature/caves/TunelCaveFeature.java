@@ -137,21 +137,13 @@ public class TunelCaveFeature extends EndCaveFeature {
 			else if (world.getBlockState(mut).getMaterial().isReplaceable()) {
 				mut.setY(bpos.getY() - 1);
 				if (world.getBlockState(mut).isIn(ModTags.GEN_TERRAIN)) {
-					Set<BlockPos> floorPositions = floorSets.get(bio);
-					if (floorPositions == null) {
-						floorPositions = Sets.newHashSet();
-						floorSets.put(bio, floorPositions);
-					}
-					floorPositions.add(mut.toImmutable());
+                    Set<BlockPos> floorPositions = floorSets.computeIfAbsent(bio, k -> Sets.newHashSet());
+                    floorPositions.add(mut.toImmutable());
 				}
 				mut.setY(bpos.getY() + 1);
 				if (world.getBlockState(mut).isIn(ModTags.GEN_TERRAIN)) {
-					Set<BlockPos> ceilPositions = ceilSets.get(bio);
-					if (ceilPositions == null) {
-						ceilPositions = Sets.newHashSet();
-						ceilSets.put(bio, ceilPositions);
-					}
-					ceilPositions.add(mut.toImmutable());
+                    Set<BlockPos> ceilPositions = ceilSets.computeIfAbsent(bio, k -> Sets.newHashSet());
+                    ceilPositions.add(mut.toImmutable());
 				}
 				setBiome(world, bpos, bio);
 			}

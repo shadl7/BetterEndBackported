@@ -83,7 +83,7 @@ public abstract class ChorusFlowerBlockMixin extends Block
 		BlockState down = world.getBlockState(pos.down());
 		if (down.isIn(Blocks.CHORUS_PLANT) || down.isIn(ModTags.GEN_TERRAIN)) 
 		{
-			world.setBlockState(pos, this.getDefaultState().with(ChorusFlowerBlock.AGE, Integer.valueOf(5)), 2);
+			world.setBlockState(pos, this.getDefaultState().with(ChorusFlowerBlock.AGE, 5), 2);
 			world.playEvent(1034, pos, 0);
 		}
 		info.cancel();

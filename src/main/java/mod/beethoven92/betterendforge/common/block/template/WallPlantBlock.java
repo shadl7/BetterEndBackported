@@ -69,19 +69,15 @@ public class WallPlantBlock extends PlantBlock
 		IWorldReader worldView = context.getWorld();
 		BlockPos blockPos = context.getPos();
 		Direction[] directions = context.getNearestLookingDirections();
-		for (int i = 0; i < directions.length; ++i) 
-		{
-			Direction direction = directions[i];
-			if (direction.getAxis().isHorizontal()) 
-			{
-				Direction direction2 = direction.getOpposite();
-				blockState = blockState.with(FACING, direction2);
-				if (blockState.isValidPosition(worldView, blockPos)) 
-				{
-					return blockState;
-				}
-			}
-		}
+        for (Direction direction : directions) {
+            if (direction.getAxis().isHorizontal()) {
+                Direction direction2 = direction.getOpposite();
+                blockState = blockState.with(FACING, direction2);
+                if (blockState.isValidPosition(worldView, blockPos)) {
+                    return blockState;
+                }
+            }
+        }
 		return null;
 	}
 	
