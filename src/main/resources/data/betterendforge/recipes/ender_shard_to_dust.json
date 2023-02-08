@@ -1,0 +1,10 @@
+{
+  "type": "betterendforge:anvil_smithing",
+  "input":
+  {
+      "item": "betterendforge:ender_shard"
+  },
+  "result": "betterendforge:ender_dust",
+  "level": 0,
+  "damage": 3
+}

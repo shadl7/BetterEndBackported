@@ -1,0 +1,12 @@
+{
+  "type": "betterendforge:anvil_smithing",
+  "input":
+  {
+      "item": "betterendforge:thallasium_ingot"
+  },
+  "result": "betterendforge:thallasium_axe_head",
+  "inputCount": 3,
+  "level": 2,
+  "damage": 2,
+  "anvilLevel": 2
+}
