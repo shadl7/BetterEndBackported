@@ -1,20 +1,6 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
-
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import com.google.gson.JsonElement;
-
 import mod.beethoven92.betterendforge.common.recipes.ModRecipeManager;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.crafting.IRecipe;
@@ -25,6 +11,14 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.Util;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Overwrite;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.*;
 
 @Mixin(RecipeManager.class)
 public class RecipeManagerMixin 
@@ -32,7 +26,7 @@ public class RecipeManagerMixin
 	@Shadow
 	private Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> recipes;
 
-	@Inject(method = "apply", at = @At(value = "RETURN"))
+	@Inject(method = "apply*", at = @At(value = "RETURN"))
 	private void beSetRecipes(Map<ResourceLocation, JsonElement> map, IResourceManager resourceManager, 
 			IProfiler profiler, CallbackInfo info)
 	{
@@ -45,6 +39,10 @@ public class RecipeManagerMixin
 		return null;
 	}
 
+	/**
+	 * @author Doctor Who
+	 * @reason Saving The World
+	 */
 	@Overwrite
 	public <C extends IInventory, T extends IRecipe<C>> Optional<T> getRecipe(IRecipeType<T> type, 
 			C inventory, World world) 

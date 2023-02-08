@@ -1,11 +1,16 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import javax.annotation.Nullable;
-
+import net.minecraft.entity.player.ServerPlayerEntity;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.network.IPacket;
+import net.minecraft.network.NetworkManager;
+import net.minecraft.scoreboard.ServerScoreboard;
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.PlayerList;
+import net.minecraft.util.registry.DynamicRegistries;
+import net.minecraft.util.text.ChatType;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.server.ServerWorld;
 import org.apache.logging.log4j.Logger;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -14,48 +19,10 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import com.mojang.authlib.GameProfile;
-import com.mojang.serialization.Dynamic;
-
-import io.netty.buffer.Unpooled;
-import mod.beethoven92.betterendforge.config.CommonConfig;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityType;
-import net.minecraft.entity.player.ServerPlayerEntity;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.nbt.NBTDynamicOps;
-import net.minecraft.network.IPacket;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.network.play.ServerPlayNetHandler;
-import net.minecraft.network.play.server.SCustomPayloadPlayPacket;
-import net.minecraft.network.play.server.SHeldItemChangePacket;
-import net.minecraft.network.play.server.SJoinGamePacket;
-import net.minecraft.network.play.server.SPlayEntityEffectPacket;
-import net.minecraft.network.play.server.SPlayerAbilitiesPacket;
-import net.minecraft.network.play.server.SPlayerListItemPacket;
-import net.minecraft.network.play.server.SServerDifficultyPacket;
-import net.minecraft.network.play.server.STagsListPacket;
-import net.minecraft.network.play.server.SUpdateRecipesPacket;
-import net.minecraft.potion.EffectInstance;
-import net.minecraft.scoreboard.ServerScoreboard;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.management.PlayerList;
-import net.minecraft.server.management.PlayerProfileCache;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.Util;
-import net.minecraft.util.registry.DynamicRegistries;
-import net.minecraft.util.text.ChatType;
-import net.minecraft.util.text.IFormattableTextComponent;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.DimensionType;
-import net.minecraft.world.GameRules;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.BiomeManager;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.IWorldInfo;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 @Mixin(PlayerList.class)
 public class PlayerListMixin 
@@ -118,7 +85,7 @@ public class PlayerListMixin
 	@Shadow
 	public void sendWorldInfo(ServerPlayerEntity playerIn, ServerWorld worldIn) {}
 	
-	@Inject(method = "initializeConnectionToPlayer", at = @At(value = "HEAD"), cancellable = true)
+	@Inject(method = "initializeConnectionToPlayer", at = @At(value = "HEAD"))
 	public void be_initializeConnectionToPlayer(NetworkManager netManager, ServerPlayerEntity playerIn, CallbackInfo info) 
 	{
 //		if (CommonConfig.swapOverworldWithEnd())

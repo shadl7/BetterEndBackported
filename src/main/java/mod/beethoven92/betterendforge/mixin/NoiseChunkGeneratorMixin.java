@@ -1,7 +1,11 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import java.util.function.Supplier;
-
+import mod.beethoven92.betterendforge.common.world.generator.GeneratorOptions;
+import mod.beethoven92.betterendforge.common.world.generator.TerrainGenerator;
+import net.minecraft.world.biome.provider.BiomeProvider;
+import net.minecraft.world.gen.ChunkGenerator;
+import net.minecraft.world.gen.DimensionSettings;
+import net.minecraft.world.gen.NoiseChunkGenerator;
 import net.minecraft.world.gen.settings.DimensionStructuresSettings;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -9,14 +13,6 @@ import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.NoiseChunkGenerator;
-import net.minecraft.world.gen.DimensionSettings;
-
-import mod.beethoven92.betterendforge.common.world.generator.TerrainGenerator;
-import mod.beethoven92.betterendforge.common.world.generator.GeneratorOptions;
-import mod.beethoven92.betterendforge.config.CommonConfig;
-import net.minecraft.world.biome.provider.BiomeProvider;
 
 import java.util.function.Supplier;
 

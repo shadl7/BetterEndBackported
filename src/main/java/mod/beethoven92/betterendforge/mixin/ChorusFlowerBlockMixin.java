@@ -1,10 +1,17 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import java.util.Random;
-
-import javax.annotation.Nullable;
-
+import mod.beethoven92.betterendforge.common.init.ModBlocks;
+import mod.beethoven92.betterendforge.common.init.ModTags;
+import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.world.generator.GeneratorOptions;
+import net.minecraft.block.*;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.shapes.ISelectionContext;
+import net.minecraft.util.math.shapes.VoxelShape;
+import net.minecraft.world.IBlockReader;
+import net.minecraft.world.IWorldReader;
+import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -13,25 +20,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import mod.beethoven92.betterendforge.common.init.ModBlocks;
-import mod.beethoven92.betterendforge.common.init.ModTags;
-import mod.beethoven92.betterendforge.common.util.BlockHelper;
-import mod.beethoven92.betterendforge.config.CommonConfig;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.Blocks;
-import net.minecraft.block.ChorusFlowerBlock;
-import net.minecraft.block.ChorusPlantBlock;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.IWorldReader;
-import net.minecraft.world.World;
-import net.minecraft.world.server.ServerWorld;
+import java.util.Random;
 
 @Mixin(value = ChorusFlowerBlock.class, priority = 100)
 public abstract class ChorusFlowerBlockMixin extends Block

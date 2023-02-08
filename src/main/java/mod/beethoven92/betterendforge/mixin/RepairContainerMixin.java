@@ -1,16 +1,5 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.stream.Collectors;
-
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
 import mod.beethoven92.betterendforge.common.block.template.EndAnvilBlock;
 import mod.beethoven92.betterendforge.common.interfaces.ExtendedRepairContainer;
 import mod.beethoven92.betterendforge.common.recipes.AnvilSmithingRecipe;
@@ -28,6 +17,16 @@ import net.minecraft.tags.BlockTags;
 import net.minecraft.util.IWorldPosCallable;
 import net.minecraft.util.IntReferenceHolder;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Mixin(RepairContainer.class)
 public abstract class RepairContainerMixin extends AbstractRepairContainer implements ExtendedRepairContainer

@@ -1,10 +1,7 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.util.BlockHelper;
-import mod.beethoven92.betterendforge.common.util.FeatureHelper;
 import mod.beethoven92.betterendforge.common.util.StructureHelper;
 import mod.beethoven92.betterendforge.common.util.WorldDataAPI;
 import mod.beethoven92.betterendforge.common.world.generator.GeneratorOptions;
@@ -14,11 +11,16 @@ import net.minecraft.block.PaneBlock;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.item.EnderCrystalEntity;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Vector3i;
+import net.minecraft.world.ISeedReader;
 import net.minecraft.world.IServerWorld;
+import net.minecraft.world.gen.ChunkGenerator;
 import net.minecraft.world.gen.Heightmap;
 import net.minecraft.world.gen.Heightmap.Type;
+import net.minecraft.world.gen.feature.EndSpikeFeature;
+import net.minecraft.world.gen.feature.EndSpikeFeatureConfig;
 import net.minecraft.world.gen.feature.template.PlacementSettings;
 import net.minecraft.world.gen.feature.template.Template;
 import org.spongepowered.asm.mixin.Mixin;
@@ -27,19 +29,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-
-import mod.beethoven92.betterendforge.config.CommonConfig;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ISeedReader;
-import net.minecraft.world.gen.ChunkGenerator;
-import net.minecraft.world.gen.feature.EndSpikeFeature;
-import net.minecraft.world.gen.feature.EndSpikeFeatureConfig;
+import java.util.Random;
 
 @Mixin(EndSpikeFeature.class)
 public abstract class EndSpikeFeatureMixin 
 {
 
-	@Inject(method = "generate", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "generate*", at = @At("HEAD"), cancellable = true)
 	private void beGenerateSpike(ISeedReader world, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos,
 								 EndSpikeFeatureConfig endSpikeFeatureConfig, CallbackInfoReturnable<Boolean> info)
 	{

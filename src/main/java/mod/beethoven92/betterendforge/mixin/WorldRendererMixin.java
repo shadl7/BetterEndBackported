@@ -1,29 +1,13 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import java.util.Random;
-
-import mod.beethoven92.betterendforge.client.ClientOptions;
-import org.lwjgl.opengl.GL11;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.systems.RenderSystem;
-
 import mod.beethoven92.betterendforge.BetterEnd;
+import mod.beethoven92.betterendforge.client.ClientOptions;
 import mod.beethoven92.betterendforge.common.util.BackgroundInfo;
 import mod.beethoven92.betterendforge.common.util.ModMathHelper;
-import mod.beethoven92.betterendforge.config.ClientConfig;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.FogRenderer;
-import net.minecraft.client.renderer.RenderTypeBuffers;
-import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.WorldRenderer;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexBuffer;
@@ -33,6 +17,15 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector3f;
+import org.lwjgl.opengl.GL11;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Random;
 
 @Mixin(WorldRenderer.class)
 public abstract class WorldRendererMixin 

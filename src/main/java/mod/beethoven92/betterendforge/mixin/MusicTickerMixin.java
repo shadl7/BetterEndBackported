@@ -1,16 +1,6 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import java.util.Random;
-
 import mod.beethoven92.betterendforge.client.ClientOptions;
-import org.spongepowered.asm.mixin.Final;
-import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-
-import mod.beethoven92.betterendforge.config.ClientConfig;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.BackgroundMusicSelector;
 import net.minecraft.client.audio.ISound;
@@ -18,6 +8,14 @@ import net.minecraft.client.audio.LocatableSound;
 import net.minecraft.client.audio.MusicTicker;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import org.spongepowered.asm.mixin.Final;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import java.util.Random;
 
 @Mixin(MusicTicker.class)
 public class MusicTickerMixin 

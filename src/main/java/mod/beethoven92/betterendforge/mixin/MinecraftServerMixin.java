@@ -1,7 +1,13 @@
 package mod.beethoven92.betterendforge.mixin;
 
-import java.util.Map;
-
+import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.management.PlayerList;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.world.World;
+import net.minecraft.world.chunk.listener.IChunkStatusListener;
+import net.minecraft.world.server.ServerWorld;
+import net.minecraft.world.storage.IServerConfiguration;
+import net.minecraft.world.storage.IServerWorldInfo;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -10,16 +16,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import mod.beethoven92.betterendforge.config.CommonConfig;
-import net.minecraft.server.MinecraftServer;
-import net.minecraft.server.management.PlayerList;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.world.World;
-import net.minecraft.world.chunk.listener.IChunkStatusListener;
-import net.minecraft.world.gen.settings.DimensionGeneratorSettings;
-import net.minecraft.world.server.ServerWorld;
-import net.minecraft.world.storage.IServerConfiguration;
-import net.minecraft.world.storage.IServerWorldInfo;
+import java.util.Map;
 
 @Mixin(MinecraftServer.class)
 public class MinecraftServerMixin 
@@ -44,7 +41,7 @@ public class MinecraftServerMixin
 	{		
 	}
 	
-	@Inject(method = "func_241755_D_", at = @At(value = "HEAD"), cancellable = true)
+	@Inject(method = "func_241755_D_", at = @At(value = "HEAD"))
 	private final void be_GetOverworld(CallbackInfoReturnable<ServerWorld> info) 
 	{
 //		if (CommonConfig.swapOverworldWithEnd()) 
@@ -77,7 +74,7 @@ public class MinecraftServerMixin
 //		}
 	}
 	
-	@Inject(method = "func_240786_a_", at = @At(value = "HEAD"), cancellable = true)
+	@Inject(method = "func_240786_a_", at = @At(value = "HEAD"))
 	private static void be_SetupSpawn(ServerWorld world, IServerWorldInfo serverWorldProperties,
 			boolean bonusChest, boolean debugWorld, boolean bl, CallbackInfo info) 
 	{

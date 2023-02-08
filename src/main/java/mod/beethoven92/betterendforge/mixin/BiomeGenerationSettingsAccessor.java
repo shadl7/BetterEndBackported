@@ -3,9 +3,6 @@ package mod.beethoven92.betterendforge.mixin;
 import net.minecraft.world.biome.BiomeGenerationSettings;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
 import net.minecraft.world.gen.feature.StructureFeature;
-//import net.minecraft.world.level.biome.BiomeGenerationSettings;
-//import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
-//import net.minecraft.world.level.levelgen.feature.ConfiguredStructureFeature;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.gen.Accessor;
 

@@ -1,21 +1,18 @@
 package mod.beethoven92.betterendforge.mixin;
 
 import mod.beethoven92.betterendforge.client.ClientOptions;
+import mod.beethoven92.betterendforge.common.init.ModBlocks;
+import mod.beethoven92.betterendforge.common.util.ModMathHelper;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos.Mutable;
+import net.minecraft.world.IBlockDisplayReader;
+import net.minecraft.world.biome.BiomeColors;
 import net.minecraftforge.fml.ModList;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-
-import mod.beethoven92.betterendforge.common.init.ModBlocks;
-import mod.beethoven92.betterendforge.common.util.BlockHelper;
-import mod.beethoven92.betterendforge.common.util.ModMathHelper;
-import net.minecraft.util.Direction;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockPos.Mutable;
-import net.minecraft.world.IBlockDisplayReader;
-import net.minecraft.world.biome.BiomeColors;
 
 import java.awt.*;
 import java.util.Arrays;
