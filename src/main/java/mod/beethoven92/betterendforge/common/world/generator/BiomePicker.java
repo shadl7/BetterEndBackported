@@ -35,9 +35,8 @@ public class BiomePicker
 	public void clearMutables() 
 	{
 		maxChance = maxChanceUnmutable;
-		for (int i = biomes.size() - 1; i >= biomeCount; i--)
-		{
-			biomes.remove(i);
+		if (biomes.size() > biomeCount) {
+			biomes.subList(biomeCount, biomes.size()).clear();
 		}
 	}
 	

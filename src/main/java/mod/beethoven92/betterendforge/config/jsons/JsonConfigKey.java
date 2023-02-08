@@ -83,12 +83,12 @@ public class JsonConfigKey
 		{
 			return String.format("[root]:%s", entry);
 		}
-		String p = path[0];
+		StringBuilder p = new StringBuilder(path[0]);
 		for (int i = 1; i < path.length; i++) 
 		{
-			p += "." + path[i];
+			p.append(".").append(path[i]);
 		}
-		return String.format("%s:%s", p, entry);
+		return String.format("%s:%s", p.toString(), entry);
 	}
 	
 	private void validate(String entry)

@@ -51,9 +51,7 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 	public NonNullList<Ingredient> getIngredients() {
 		NonNullList<Ingredient> list = NonNullList.create();
 		list.add(input);
-		for (Ingredient catalyst : catalysts) {
-			list.add(catalyst);
-		}
+		list.addAll(Arrays.asList(catalysts));
 		return list;
 	}
 
