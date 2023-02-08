@@ -1,8 +1,0 @@
-{
-	"parent": "betterendforge:block/lit_stairs",
-	"textures": {
-		"bottom": "betterendforge:block/smaragdant_crystal_bricks",
-		"top": "betterendforge:block/smaragdant_crystal_bricks",
-		"side": "betterendforge:block/smaragdant_crystal_bricks"
-	}
-}

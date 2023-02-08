@@ -1,8 +1,0 @@
-{
-    "parent": "block/outer_stairs", 
-    "textures": {
-        "bottom": "betterendforge:block/chorus_planks",
-        "side": "betterendforge:block/chorus_planks",
-        "top": "betterendforge:block/chorus_planks"
-    }
-}
