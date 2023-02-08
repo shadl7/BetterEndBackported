@@ -65,9 +65,7 @@ public class JellyshroomFeature extends Feature<NoFeatureConfig>
 		float radius = height * ModMathHelper.randRange(0.15F, 0.25F, rand);
 		List<Vector3f> spline = SplineHelper.makeSpline(0, -1, 0, 0, height, 0, 3);
 		SplineHelper.offsetParts(spline, rand, 0.5F, 0, 0.5F);
-		SDF sdf = SplineHelper.buildSDF(spline, radius, 0.8F, (bpos) -> {
-			return bark;
-		});
+		SDF sdf = SplineHelper.buildSDF(spline, radius, 0.8F, (bpos) -> bark);
 		
 		radius = height * ModMathHelper.randRange(0.7F, 0.9F, rand);
 		if (radius < 1.5F) 

@@ -114,7 +114,7 @@ public class ShadowWalkerEntity extends MonsterEntity
 		if (MonsterEntity.canMonsterSpawnInLight(type, world, spawnReason, pos, random)) 
 		{
 			AxisAlignedBB box = new AxisAlignedBB(pos).grow(16);
-			List<ShadowWalkerEntity> entities = world.getEntitiesWithinAABB(ShadowWalkerEntity.class, box, (entity) -> { return true; });
+			List<ShadowWalkerEntity> entities = world.getEntitiesWithinAABB(ShadowWalkerEntity.class, box, (entity) -> true);
 			return entities.size() < 6;
 		}
 		return false;

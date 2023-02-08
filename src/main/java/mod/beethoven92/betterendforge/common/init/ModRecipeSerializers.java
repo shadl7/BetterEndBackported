@@ -22,11 +22,11 @@ public class ModRecipeSerializers
 	public static final RegistryObject<AlloyingRecipeSerializer<AlloyingRecipe>> ALLOYING = RECIPE_SERIALIZERS.register("alloying", 
 			() -> new AlloyingRecipeSerializer<>(AlloyingRecipe::new));
 	
-	public static final RegistryObject<InfusionRecipeSerializer> INFUSION = RECIPE_SERIALIZERS.register("infusion", 
-			() -> new InfusionRecipeSerializer());
+	public static final RegistryObject<InfusionRecipeSerializer> INFUSION = RECIPE_SERIALIZERS.register("infusion",
+            InfusionRecipeSerializer::new);
 	
-	public static final RegistryObject<AnvilSmithingRecipeSerializer> ANVIL_SMITHING = RECIPE_SERIALIZERS.register("anvil_smithing", 
-			() -> new AnvilSmithingRecipeSerializer());
+	public static final RegistryObject<AnvilSmithingRecipeSerializer> ANVIL_SMITHING = RECIPE_SERIALIZERS.register("anvil_smithing",
+            AnvilSmithingRecipeSerializer::new);
 	
 	public static <T extends IRecipe<?>> IRecipeType<T> registerRecipeType(String type) 
 	{

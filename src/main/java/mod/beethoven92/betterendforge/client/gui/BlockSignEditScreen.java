@@ -35,9 +35,7 @@ public class BlockSignEditScreen extends Screen {
 	private int ticksSinceOpened;
 	private int currentRow;
 	private TextInputUtil selectionManager;
-	private final String[] text = Util.make(new String[4], (strings) -> {
-		Arrays.fill(strings, "");
-	});
+	private final String[] text = Util.make(new String[4], (strings) -> Arrays.fill(strings, ""));
 
 	public BlockSignEditScreen(ESignTileEntity sign) {
 		super(new TranslationTextComponent("sign.edit"));
@@ -48,19 +46,13 @@ public class BlockSignEditScreen extends Screen {
 	protected void init() {
 		this.minecraft.keyboardListener.enableRepeatEvents(true);
 		this.addButton(new Button(this.width / 2 - 100, this.height / 4 + 120, 200, 20, DialogTexts.GUI_DONE,
-				(buttonWidget) -> {
-					this.finishEditing();
-				}));
+				(buttonWidget) -> this.finishEditing()));
 		this.sign.setEditable(false);
-		this.selectionManager = new TextInputUtil(() -> {
-			return this.text[this.currentRow];
-		}, (string) -> {
+		this.selectionManager = new TextInputUtil(() -> this.text[this.currentRow], (string) -> {
 			this.text[this.currentRow] = string;
 			this.sign.setTextOnRow(this.currentRow, new StringTextComponent(string));
 		}, TextInputUtil.getClipboardTextSupplier(this.minecraft), TextInputUtil.getClipboardTextSetter(this.minecraft),
-				(string) -> {
-					return this.minecraft.fontRenderer.getStringWidth(string) <= 90;
-				});
+				(string) -> this.minecraft.fontRenderer.getStringWidth(string) <= 90);
 	}
 
 	@Override

@@ -68,9 +68,7 @@ public class AnvilSmithingRecipe implements IRecipe<IInventory>
 	{
 		NonNullList<Ingredient> defaultedList = NonNullList.create();
 
-		defaultedList.add(Ingredient.fromStacks(ModTags.HAMMERS.getAllElements().stream().filter(hammer -> {
-			return ((ToolItem) hammer).getTier().getHarvestLevel() >= level;
-		}).map(ItemStack::new)));
+		defaultedList.add(Ingredient.fromStacks(ModTags.HAMMERS.getAllElements().stream().filter(hammer -> ((ToolItem) hammer).getTier().getHarvestLevel() >= level).map(ItemStack::new)));
 
 		// Needed for JEI to display the amount of input items required by this recipe
 		ItemStack amount = new ItemStack(input.getMatchingStacks()[0].getItem(), inputCount);
@@ -92,9 +90,7 @@ public class AnvilSmithingRecipe implements IRecipe<IInventory>
 			if (!checkHammerDurability(craftingInventory, player)) return ItemStack.EMPTY;
 			
 			ItemStack hammer = craftingInventory.getStackInSlot(0);
-			hammer.damageItem(this.damage, player, entity -> {
-				entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
-			});
+			hammer.damageItem(this.damage, player, entity -> entity.sendBreakAnimation(EquipmentSlotType.MAINHAND));
 		}
 		return this.getCraftingResult(craftingInventory);
 	}

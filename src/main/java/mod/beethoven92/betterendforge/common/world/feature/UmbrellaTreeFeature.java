@@ -103,9 +103,7 @@ public class UmbrellaTreeFeature extends Feature<NoFeatureConfig>
 			if (SplineHelper.canGenerate(spline, pos, world, REPLACE)) 
 			{
 				float rScale = (scale - 1) * 0.4F + 1;
-				SDF branch = SplineHelper.buildSDF(spline, 1.2F * rScale, 0.8F * rScale, (bpos) -> {
-					return wood;
-				});
+				SDF branch = SplineHelper.buildSDF(spline, 1.2F * rScale, 0.8F * rScale, (bpos) -> wood);
 	
 				Vector3f vec = spline.get(spline.size() - 1);
 				float radius = (size + ModMathHelper.randRange(0, size * 0.5F, rand)) * 0.4F;

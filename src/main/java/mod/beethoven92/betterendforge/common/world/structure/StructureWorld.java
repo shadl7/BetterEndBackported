@@ -99,9 +99,7 @@ public class StructureWorld
 		tag.putInt("maxZ", maxZ);
 		ListNBT map = new ListNBT();
 		tag.put("parts", map);
-		parts.forEach((pos, part) -> {
-			map.add(part.toNBT(pos.x, pos.z));
-		});
+		parts.forEach((pos, part) -> map.add(part.toNBT(pos.x, pos.z)));
 		return tag;
 	}
 	
@@ -148,9 +146,7 @@ public class StructureWorld
 		
 		void placeChunk(IChunk chunk) 
 		{
-			blocks.forEach((pos, state) -> {
-				chunk.setBlockState(pos, state, false);
-			});
+			blocks.forEach((pos, state) -> chunk.setBlockState(pos, state, false));
 		}
 		
 		CompoundNBT toNBT(int x, int z) 

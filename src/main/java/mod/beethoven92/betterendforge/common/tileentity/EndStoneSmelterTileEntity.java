@@ -119,9 +119,7 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 		compound.putShort("SmeltTimeTotal", (short) smeltTimeTotal);
 		ItemStackHelper.saveAllItems(compound, this.items);
 		CompoundNBT usedRecipes = new CompoundNBT();
-		this.recipesUsed.forEach((identifier, integer) -> {
-			usedRecipes.putInt(identifier.toString(), integer);
-		});
+		this.recipesUsed.forEach((identifier, integer) -> usedRecipes.putInt(identifier.toString(), integer));
 		compound.put("RecipesUsed", usedRecipes);
 		
 		return compound;

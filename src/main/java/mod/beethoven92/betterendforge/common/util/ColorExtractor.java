@@ -108,14 +108,7 @@ public class ColorExtractor
 	
 	private static class Center 
 	{
-		static final Comparator<Center> COMPARATOR = new Comparator<Center>() 
-		{
-			@Override
-			public int compare(Center c1, Center c2) 
-			{
-				return Integer.compare(c1.getColor(), c2.getColor());
-			}
-		};
+		static final Comparator<Center> COMPARATOR = (c1, c2) -> Integer.compare(c1.getColor(), c2.getColor());
 		
 		List<Integer> colors = new ArrayList<>();
 		double a, r, g, b;

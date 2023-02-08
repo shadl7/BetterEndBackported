@@ -55,9 +55,7 @@ public class ObsidianBoulderFeature extends Feature<NoFeatureConfig> {
 		float sz = ModMathHelper.randRange(0.7F, 1.3F, random);
 		sphere = new SDFScale3D().setScale(sx, sy, sz).setSource(sphere);
 		OpenSimplexNoise noise = new OpenSimplexNoise(random.nextLong());
-		sphere = new SDFDisplacement().setFunction((vec) -> {
-			return (float) (noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 1.5F);
-		}).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> (float) (noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 1.5F)).setSource(sphere);
 		
 		BlockState mossy = ModBlocks.MOSSY_OBSIDIAN.get().getDefaultState();
 		sphere.addPostProcess((info) -> {
@@ -65,8 +63,6 @@ public class ObsidianBoulderFeature extends Feature<NoFeatureConfig> {
 				return mossy;
 			}
 			return info.getState();
-		}).setReplaceFunction((state) -> {
-			return state.getMaterial().isReplaceable() || state.isIn(ModTags.GEN_TERRAIN) || state.getMaterial().equals(Material.PLANTS);
-		}).fillRecursive(world, pos);
+		}).setReplaceFunction((state) -> state.getMaterial().isReplaceable() || state.isIn(ModTags.GEN_TERRAIN) || state.getMaterial().equals(Material.PLANTS)).fillRecursive(world, pos);
 	}
 }

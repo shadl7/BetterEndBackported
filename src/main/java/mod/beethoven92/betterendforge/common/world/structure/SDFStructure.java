@@ -51,7 +51,7 @@ public abstract class SDFStructure extends Structure<NoFeatureConfig>
 			if (y > 5) 
 			{
 				BlockPos start = new BlockPos(x, y, z);
-				VoxelPiece piece = new VoxelPiece((world) -> { ((SDFStructure) this.getStructure()).getSDF(start, this.rand).fillRecursive(world, start); }, rand.nextInt());
+				VoxelPiece piece = new VoxelPiece((world) -> ((SDFStructure) this.getStructure()).getSDF(start, this.rand).fillRecursive(world, start), rand.nextInt());
 				this.components.add(piece);
 			}
 			this.recalculateStructureSize();

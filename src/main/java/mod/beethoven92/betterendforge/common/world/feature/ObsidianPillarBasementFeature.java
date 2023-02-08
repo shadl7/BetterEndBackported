@@ -43,9 +43,7 @@ public class ObsidianPillarBasementFeature extends Feature<NoFeatureConfig> {
 		pillar = new SDFTranslate().setTranslate(0, height * 0.5F - 3, 0).setSource(pillar);
 		SDF cut = new SDFFlatland().setBlock(Blocks.OBSIDIAN);
 		OpenSimplexNoise noise = new OpenSimplexNoise(random.nextLong());
-		cut = new SDFDisplacement().setFunction((vec) -> {
-			return (float) (noise.eval(vec.getX() * 0.2, vec.getZ() * 0.2) * 3);
-		}).setSource(cut);
+		cut = new SDFDisplacement().setFunction((vec) -> (float) (noise.eval(vec.getX() * 0.2, vec.getZ() * 0.2) * 3)).setSource(cut);
 		Vector3f vec = ModMathHelper.randomHorizontal(random);
 		float angle = random.nextFloat() * 0.5F + (float) Math.PI;
 		cut = new SDFRotation().setRotation(vec, angle).setSource(cut);
@@ -61,9 +59,7 @@ public class ObsidianPillarBasementFeature extends Feature<NoFeatureConfig> {
 				return mossy;
 			}
 			return info.getState();
-		}).setReplaceFunction((state) -> {
-			return state.getMaterial().isReplaceable() || state.isIn(ModTags.GEN_TERRAIN) || state.getMaterial().equals(Material.PLANTS);
-		}).fillRecursive(world, pos);
+		}).setReplaceFunction((state) -> state.getMaterial().isReplaceable() || state.isIn(ModTags.GEN_TERRAIN) || state.getMaterial().equals(Material.PLANTS)).fillRecursive(world, pos);
 		
 		return true;
 	}

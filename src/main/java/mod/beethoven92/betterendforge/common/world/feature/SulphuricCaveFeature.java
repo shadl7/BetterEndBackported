@@ -135,9 +135,7 @@ public class SulphuricCaveFeature extends Feature<NoFeatureConfig>
 				}
 			}
 		}
-		brimstone.forEach((blockPos) -> {
-			placeBrimstone(world, blockPos, rand);
-		});
+		brimstone.forEach((blockPos) -> placeBrimstone(world, blockPos, rand));
 		
 		if (rand.nextInt(4) == 0) 
 		{

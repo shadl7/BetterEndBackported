@@ -73,7 +73,7 @@ public class PedestalBlock extends Block
 	}
 	
 	public static ToIntFunction<BlockState> light() {
-		return (state) -> {return state.get(HAS_LIGHT) ? 12 : 0;};
+		return (state) -> state.get(HAS_LIGHT) ? 12 : 0;
 	}
 	
 	public float getHeight(BlockState state) 

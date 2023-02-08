@@ -281,9 +281,7 @@ public class BiomeTemplate
 					new MobSpawnInfo.Spawners(info.entity, info.weight, info.minGroupSize, info.maxGroupSize));
 		}
 		
-		spawns.forEach((entry) -> {
-			spawnSettings.withSpawner(entry.type.getClassification(), entry);
-		});
+		spawns.forEach((entry) -> spawnSettings.withSpawner(entry.type.getClassification(), entry));
 		
 		// Set biome general features
 		if (surface != null)

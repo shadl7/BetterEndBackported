@@ -133,7 +133,7 @@ public class DragonflyEntity extends AnimalEntity implements IFlyingAnimal
 			BlockPos pos, Random random)
 	{
 		AxisAlignedBB box = new AxisAlignedBB(pos).grow(16);
-		List<DragonflyEntity> list = world.getEntitiesWithinAABB(DragonflyEntity.class, box, (entity) -> { return true; });
+		List<DragonflyEntity> list = world.getEntitiesWithinAABB(DragonflyEntity.class, box, (entity) -> true);
 		int y = world.getChunk(pos).getTopBlockY(Type.WORLD_SURFACE, pos.getX() & 15, pos.getY() & 15);
 		
 		// FIX dragonfly spawning too much and preventing other entities to spawn

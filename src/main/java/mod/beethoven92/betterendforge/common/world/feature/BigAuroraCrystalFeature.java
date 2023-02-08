@@ -44,12 +44,10 @@ public class BigAuroraCrystalFeature extends Feature<NoFeatureConfig>
 		SDF prism = new SDFHexPrism().setHeight(height).setRadius(ModMathHelper.randRange(1.7F, 3F, rand)).setBlock(ModBlocks.AURORA_CRYSTAL.get());
 		Vector3f vec = ModMathHelper.randomHorizontal(rand);
 		prism = new SDFRotation().setRotation(vec, rand.nextFloat()).setSource(prism);
-		prism.setReplaceFunction((bState) -> {
-			return bState.getMaterial().isReplaceable()
-					|| bState.isIn(ModTags.GEN_TERRAIN)
-					|| bState.getMaterial().equals(Material.PLANTS)
-					|| bState.getMaterial().equals(Material.LEAVES);
-		});
+		prism.setReplaceFunction((bState) -> bState.getMaterial().isReplaceable()
+                || bState.isIn(ModTags.GEN_TERRAIN)
+                || bState.getMaterial().equals(Material.PLANTS)
+                || bState.getMaterial().equals(Material.LEAVES));
 		prism.fillRecursive(world, pos);
 		BlockHelper.setWithoutUpdate(world, pos, ModBlocks.AURORA_CRYSTAL.get());
 		

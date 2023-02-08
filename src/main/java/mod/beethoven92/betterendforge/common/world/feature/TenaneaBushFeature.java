@@ -63,8 +63,8 @@ public class TenaneaBushFeature extends Feature<NoFeatureConfig>
 		BlockState leaves = ModBlocks.TENANEA_LEAVES.get().getDefaultState();
 		SDF sphere = new SDFSphere().setRadius(radius).setBlock(leaves);
 		sphere = new SDFScale3D().setScale(1, 0.75F, 1).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> { return (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 3; }).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> { return ModMathHelper.randRange(-2F, 2F, rand); }).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 3).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> ModMathHelper.randRange(-2F, 2F, rand)).setSource(sphere);
 		sphere = new SDFSubtraction().setSourceA(sphere).setSourceB(new SDFTranslate().setTranslate(0, -radius, 0).setSource(sphere));
 		sphere.setReplaceFunction(REPLACE);
 		List<BlockPos> support = Lists.newArrayList();

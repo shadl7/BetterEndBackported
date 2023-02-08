@@ -55,9 +55,7 @@ public class HammerItem extends ToolItem
 	@Override
 	public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) 
 	{
-		stack.damageItem(1, attacker, ((entity) -> {
-			entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
-		}));
+		stack.damageItem(1, attacker, ((entity) -> entity.sendBreakAnimation(EquipmentSlotType.MAINHAND)));
 		
 		return true;
 	}
@@ -68,9 +66,7 @@ public class HammerItem extends ToolItem
 	{
 		if (!worldIn.isRemote && state.getBlockHardness(worldIn, pos) != 0.0F) 
 		{
-			stack.damageItem(1, entityLiving, ((entity) -> {
-				entity.sendBreakAnimation(EquipmentSlotType.MAINHAND);
-			}));
+			stack.damageItem(1, entityLiving, ((entity) -> entity.sendBreakAnimation(EquipmentSlotType.MAINHAND)));
 		}
 
 		return true;

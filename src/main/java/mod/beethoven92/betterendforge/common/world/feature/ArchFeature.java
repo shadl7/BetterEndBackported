@@ -56,16 +56,14 @@ public class ArchFeature extends Feature<NoFeatureConfig> {
 		
 		final float smallRadiusF = smallRadius;
 		OpenSimplexNoise noise = new OpenSimplexNoise(random.nextLong());
-		arch = new SDFDisplacement().setFunction((vec) -> {
-			return (float) (Math.abs(noise.eval(vec.getX() * 0.1,
-				vec.getY() * 0.1,
-				vec.getZ() * 0.1
-			)) * 3F + Math.abs(noise.eval(
-				vec.getX() * 0.3,
-				vec.getY() * 0.3 + 100,
-				vec.getZ() * 0.3
-			)) * 1.3F) - smallRadiusF * Math.abs(1 - vec.getY() / bigRadius);
-		}).setSource(arch);
+		arch = new SDFDisplacement().setFunction((vec) -> (float) (Math.abs(noise.eval(vec.getX() * 0.1,
+            vec.getY() * 0.1,
+            vec.getZ() * 0.1
+        )) * 3F + Math.abs(noise.eval(
+            vec.getX() * 0.3,
+            vec.getY() * 0.3 + 100,
+            vec.getZ() * 0.3
+        )) * 1.3F) - smallRadiusF * Math.abs(1 - vec.getY() / bigRadius)).setSource(arch);
 		
 		List<BlockPos> surface = Lists.newArrayList();
 		arch.addPostProcess((info) -> {

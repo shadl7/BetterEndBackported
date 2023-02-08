@@ -17,9 +17,7 @@ public class AnvilSmithingRecipeSerializer extends net.minecraftforge.registries
 		Ingredient input = Ingredient.deserialize(json.get("input"));
 		String resultStr = JSONUtils.getString(json, "result");
 		ResourceLocation resultId = new ResourceLocation(resultStr);
-		ItemStack output = new ItemStack(Registry.ITEM.getOptional(resultId).orElseThrow(() -> {
-			return new IllegalStateException("Item: " + resultStr + " does not exists!");
-		}));
+		ItemStack output = new ItemStack(Registry.ITEM.getOptional(resultId).orElseThrow(() -> new IllegalStateException("Item: " + resultStr + " does not exists!")));
 		int inputCount = JSONUtils.getInt(json, "inputCount", 1);
 		int level = JSONUtils.getInt(json, "level", 1);
 		int damage = JSONUtils.getInt(json, "damage", 1);

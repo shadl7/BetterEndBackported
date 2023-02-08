@@ -36,11 +36,7 @@ public class OverworldIslandFeature extends Feature<NoFeatureConfig>
 			return Blocks.STONE.getDefaultState();
 		});
 		cone = new SDFTranslate().setTranslate(0, -3, 0).setSource(cone);
-		cone = new SDFDisplacement().setFunction((pos) -> {
-			return (float) NOISE.eval(CENTER.getX() + pos.getX(), CENTER.getY() + pos.getY(), CENTER.getZ() + pos.getZ());
-		}).setSource(cone).setReplaceFunction(state -> {
-			return state.isIn(Blocks.WATER) || state.getMaterial().isReplaceable();
-		});
+		cone = new SDFDisplacement().setFunction((pos) -> (float) NOISE.eval(CENTER.getX() + pos.getX(), CENTER.getY() + pos.getY(), CENTER.getZ() + pos.getZ())).setSource(cone).setReplaceFunction(state -> state.isIn(Blocks.WATER) || state.getMaterial().isReplaceable());
 		ISLAND = cone;
 	}
 	

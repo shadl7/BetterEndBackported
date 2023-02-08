@@ -70,12 +70,12 @@ public class ModItems
 	public final static RegistryObject<Item> AETERNIUM_SWORD_HANDLE = ITEMS.register("aeternium_sword_handle", () -> new Item(new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB)));
 	
 	// SPAWN EGGS
-	public static final RegistryObject<ModSpawnEggItem> DRAGONFLY_SPAWN_EGG = ITEMS.register("spawn_egg_dragonfly", () -> new ModSpawnEggItem(() -> ModEntityTypes.DRAGONFLY.get(), ModMathHelper.getColor(32, 42, 176), ModMathHelper.getColor(115, 225, 249), new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB)));
-	public static final RegistryObject<ModSpawnEggItem> END_FISH_SPAWN_EGG = ITEMS.register("spawn_egg_end_fish", () -> new ModSpawnEggItem(() -> ModEntityTypes.END_FISH.get(), ModMathHelper.getColor(3, 50, 76), ModMathHelper.getColor(120, 206, 255), new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB)));
-	public static final RegistryObject<ModSpawnEggItem> SHADOW_WALKER_SPAWN_EGG = ITEMS.register("spawn_egg_shadow_walker", () -> new ModSpawnEggItem(() -> ModEntityTypes.SHADOW_WALKER.get(), ModMathHelper.getColor(30, 30, 30), ModMathHelper.getColor(5, 5, 5), new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB)));
-	public static final RegistryObject<ModSpawnEggItem> END_SLIME_SPAWN_EGG = ITEMS.register("spawn_egg_end_slime", () -> new ModSpawnEggItem(() -> ModEntityTypes.END_SLIME.get(), ModMathHelper.getColor(28, 28, 28), ModMathHelper.getColor(99, 11, 99), new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB)));
-	public static final RegistryObject<ModSpawnEggItem> CUBOZOA_SPAWN_EGG = ITEMS.register("spawn_egg_cubozoa", () -> new ModSpawnEggItem(() -> ModEntityTypes.CUBOZOA.get(), ModMathHelper.getColor(151, 77, 181), ModMathHelper.getColor(93, 176, 238), new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB)));
-	public static final RegistryObject<ModSpawnEggItem> SILK_MOTH_SPAWN_EGG = ITEMS.register("spawn_egg_silk_moth", () -> new ModSpawnEggItem(() -> ModEntityTypes.SILK_MOTH.get(), ModMathHelper.getColor(0, 0, 0), ModMathHelper.getColor(225, 225, 225), new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB)));
+	public static final RegistryObject<ModSpawnEggItem> DRAGONFLY_SPAWN_EGG = ITEMS.register("spawn_egg_dragonfly", () -> new ModSpawnEggItem(ModEntityTypes.DRAGONFLY::get, ModMathHelper.getColor(32, 42, 176), ModMathHelper.getColor(115, 225, 249), new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB)));
+	public static final RegistryObject<ModSpawnEggItem> END_FISH_SPAWN_EGG = ITEMS.register("spawn_egg_end_fish", () -> new ModSpawnEggItem(ModEntityTypes.END_FISH::get, ModMathHelper.getColor(3, 50, 76), ModMathHelper.getColor(120, 206, 255), new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB)));
+	public static final RegistryObject<ModSpawnEggItem> SHADOW_WALKER_SPAWN_EGG = ITEMS.register("spawn_egg_shadow_walker", () -> new ModSpawnEggItem(ModEntityTypes.SHADOW_WALKER::get, ModMathHelper.getColor(30, 30, 30), ModMathHelper.getColor(5, 5, 5), new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB)));
+	public static final RegistryObject<ModSpawnEggItem> END_SLIME_SPAWN_EGG = ITEMS.register("spawn_egg_end_slime", () -> new ModSpawnEggItem(ModEntityTypes.END_SLIME::get, ModMathHelper.getColor(28, 28, 28), ModMathHelper.getColor(99, 11, 99), new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB)));
+	public static final RegistryObject<ModSpawnEggItem> CUBOZOA_SPAWN_EGG = ITEMS.register("spawn_egg_cubozoa", () -> new ModSpawnEggItem(ModEntityTypes.CUBOZOA::get, ModMathHelper.getColor(151, 77, 181), ModMathHelper.getColor(93, 176, 238), new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB)));
+	public static final RegistryObject<ModSpawnEggItem> SILK_MOTH_SPAWN_EGG = ITEMS.register("spawn_egg_silk_moth", () -> new ModSpawnEggItem(ModEntityTypes.SILK_MOTH::get, ModMathHelper.getColor(0, 0, 0), ModMathHelper.getColor(225, 225, 225), new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB)));
 
 	// FOOD ITEMS
     public final static RegistryObject<Item> SHADOW_BERRY_RAW = ITEMS.register("shadow_berry_raw", () -> new Item(new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB).food(new Food.Builder().hunger(4).saturation(0.5F).build())));
@@ -93,8 +93,8 @@ public class ModItems
 	public final static RegistryObject<Item> UMBRELLA_CLUSTER_JUICE = ITEMS.register("umbrella_cluster_juice", () -> new UmbrellaClusterJuiceItem(new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB).maxStackSize(1).food(new Food.Builder().hunger(5).saturation(0.7F).build())));
 	
 	// MISC ITEMS
-	public final static RegistryObject<Item> BUCKET_END_FISH = ITEMS.register("bucket_end_fish", () -> new FishBucketItem(() -> ModEntityTypes.END_FISH.get(), () -> Fluids.WATER, new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB).maxStackSize(1)));
-	public final static RegistryObject<Item> BUCKET_CUBOZOA = ITEMS.register("bucket_cubozoa", () -> new FishBucketItem(() -> ModEntityTypes.CUBOZOA.get(), () -> Fluids.WATER, new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB).maxStackSize(1)));
+	public final static RegistryObject<Item> BUCKET_END_FISH = ITEMS.register("bucket_end_fish", () -> new FishBucketItem(ModEntityTypes.END_FISH::get, () -> Fluids.WATER, new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB).maxStackSize(1)));
+	public final static RegistryObject<Item> BUCKET_CUBOZOA = ITEMS.register("bucket_cubozoa", () -> new FishBucketItem(ModEntityTypes.CUBOZOA::get, () -> Fluids.WATER, new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB).maxStackSize(1)));
 	public final static RegistryObject<Item> GUIDE_BOOK = ITEMS.register("guidebook", () -> new GuideBookItem(new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB).maxStackSize(1)));
 	public final static RegistryObject<Item> FLAMAEA = ITEMS.register("flamaea", () -> new LilyPadItem(ModBlocks.FLAMAEA.get(), new Item.Properties().group(ModCreativeTabs.CREATIVE_TAB)));
 	

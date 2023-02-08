@@ -36,9 +36,7 @@ public class OreLayerFeature extends Feature<NoFeatureConfig>
 		SDF body = SPHERE;
 		body = new SDFScale3D().setScale(1, 0.2F, 1).setSource(body);
 		body = NOISE.setSource(body);
-		body.setReplaceFunction((state) -> {
-			return state.isIn(Blocks.END_STONE);
-		});
+		body.setReplaceFunction((state) -> state.isIn(Blocks.END_STONE));
 		
 		FUNCTION = body;
 	}

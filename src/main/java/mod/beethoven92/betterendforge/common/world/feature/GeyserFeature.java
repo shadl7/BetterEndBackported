@@ -40,9 +40,7 @@ public class GeyserFeature extends Feature<NoFeatureConfig>
 	
 	static 
 	{
-		REPLACE1 = (state) -> {
-			return state.isAir() || (state.isIn(ModTags.GEN_TERRAIN));
-		};
+		REPLACE1 = (state) -> state.isAir() || (state.isIn(ModTags.GEN_TERRAIN));
 		
 		REPLACE2 = (state) -> {
 			if (state.isIn(ModTags.GEN_TERRAIN) || state.isIn(ModBlocks.HYDROTHERMAL_VENT.get()) || state.isIn(ModBlocks.SULPHUR_CRYSTAL.get()))
@@ -56,9 +54,7 @@ public class GeyserFeature extends Feature<NoFeatureConfig>
 			return state.getMaterial().isReplaceable();
 		};
 		
-		IGNORE = (state) -> {
-			return state.isIn(Blocks.WATER) || state.isIn(Blocks.CAVE_AIR) || state.isIn(ModBlocks.SULPHURIC_ROCK.stone.get()) || state.isIn(ModBlocks.BRIMSTONE.get());
-		};
+		IGNORE = (state) -> state.isIn(Blocks.WATER) || state.isIn(Blocks.CAVE_AIR) || state.isIn(ModBlocks.SULPHURIC_ROCK.stone.get()) || state.isIn(ModBlocks.BRIMSTONE.get());
 	}
 	
 	public GeyserFeature() 
@@ -148,15 +144,11 @@ public class GeyserFeature extends Feature<NoFeatureConfig>
 
 		obj1 = new SDFCappedCone().setHeight(halfHeight + 5).setRadius1(radius1 * 0.5F).setRadius2(radius2);
 		sdf = new SDFTranslate().setTranslate(0, halfHeight - 13, 0).setSource(obj1);
-		sdf = new SDFDisplacement().setFunction((vec) -> {
-			return (float) noise.eval(vec.getX() * 0.3F, vec.getY() * 0.3F, vec.getZ() * 0.3F) * 0.5F;
-		}).setSource(sdf);
+		sdf = new SDFDisplacement().setFunction((vec) -> (float) noise.eval(vec.getX() * 0.3F, vec.getY() * 0.3F, vec.getZ() * 0.3F) * 0.5F).setSource(sdf);
 
 		obj2 = new SDFSphere().setRadius(radius1);
 		SDF cave = new SDFScale3D().setScale(1.5F, 1, 1.5F).setSource(obj2);
-		cave = new SDFDisplacement().setFunction((vec) -> {
-			return (float) noise.eval(vec.getX() * 0.1F, vec.getY() * 0.1F, vec.getZ() * 0.1F) * 2F;
-		}).setSource(cave);
+		cave = new SDFDisplacement().setFunction((vec) -> (float) noise.eval(vec.getX() * 0.1F, vec.getY() * 0.1F, vec.getZ() * 0.1F) * 2F).setSource(cave);
 		cave = new SDFTranslate().setTranslate(0, -halfHeight - 10, 0).setSource(cave);
 
 		sdf = new SDFSmoothUnion().setRadius(5).setSourceA(cave).setSourceB(sdf);
@@ -168,21 +160,15 @@ public class GeyserFeature extends Feature<NoFeatureConfig>
 
 		obj1.setBlock(ModBlocks.BRIMSTONE.get());
 		obj2.setBlock(ModBlocks.BRIMSTONE.get());
-		new SDFDisplacement().setFunction((vec) -> {
-			return -2F;
-		}).setSource(sdf).setReplaceFunction(REPLACE1).fillRecursiveIgnore(world, pos, IGNORE);
+		new SDFDisplacement().setFunction((vec) -> -2F).setSource(sdf).setReplaceFunction(REPLACE1).fillRecursiveIgnore(world, pos, IGNORE);
 
 		obj1.setBlock(ModBlocks.SULPHURIC_ROCK.stone.get());
 		obj2.setBlock(ModBlocks.SULPHURIC_ROCK.stone.get());
-		new SDFDisplacement().setFunction((vec) -> {
-			return -4F;
-		}).setSource(cave).setReplaceFunction(REPLACE1).fillRecursiveIgnore(world, pos, IGNORE);
+		new SDFDisplacement().setFunction((vec) -> -4F).setSource(cave).setReplaceFunction(REPLACE1).fillRecursiveIgnore(world, pos, IGNORE);
 
 		obj1.setBlock(Blocks.END_STONE);
 		obj2.setBlock(Blocks.END_STONE);
-		new SDFDisplacement().setFunction((vec) -> {
-			return -6F;
-		}).setSource(cave).setReplaceFunction(REPLACE1).fillRecursiveIgnore(world, pos, IGNORE);
+		new SDFDisplacement().setFunction((vec) -> -6F).setSource(cave).setReplaceFunction(REPLACE1).fillRecursiveIgnore(world, pos, IGNORE);
 
 		BlockHelper.setWithoutUpdate(world, pos, Blocks.WATER);
 		Mutable mut = new Mutable().setPos(pos);

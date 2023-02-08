@@ -55,8 +55,6 @@ public class RecipeManagerMixin
 			return b1 ^ b2 ? (b1 ? 1 : -1) : 0;
 		});
 
-		return list.stream().flatMap((recipe) -> {
-			return Util.streamOptional(type.matches(recipe, world, inventory));
-		}).findFirst();
+		return list.stream().flatMap((recipe) -> Util.streamOptional(type.matches(recipe, world, inventory))).findFirst();
 	}
 }

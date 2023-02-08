@@ -105,9 +105,7 @@ public class SilkMothNestBlock extends Block {
 			return;
 		}
 		int count = world
-				.getEntitiesWithinAABB(ModEntityTypes.SILK_MOTH.get(), new AxisAlignedBB(pos).grow(16), (entity) -> {
-					return true;
-				}).size();
+				.getEntitiesWithinAABB(ModEntityTypes.SILK_MOTH.get(), new AxisAlignedBB(pos).grow(16), (entity) -> true).size();
 		if (count > 8) {
 			return;
 		}

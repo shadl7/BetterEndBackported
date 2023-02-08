@@ -56,9 +56,7 @@ public class DragonTreeFeature extends Feature<NoFeatureConfig>
 			return state.getMaterial().isReplaceable();
 		};
 		
-		IGNORE = (state) -> {
-			return ModBlocks.DRAGON_TREE.isTreeLog(state);
-		};
+		IGNORE = ModBlocks.DRAGON_TREE::isTreeLog;
 		
 		POST = (info) -> {
 			if (ModBlocks.DRAGON_TREE.isTreeLog(info.getStateUp()) && ModBlocks.DRAGON_TREE.isTreeLog(info.getStateDown())) 
@@ -127,9 +125,7 @@ public class DragonTreeFeature extends Feature<NoFeatureConfig>
 		makeRoots(world, pos.add(last.getX(), last.getY(), last.getZ()), radius, rand);
 		
 		radius = ModMathHelper.randRange(1.2F, 2.3F, rand);
-		SDF function = SplineHelper.buildSDF(spline, radius, 1.2F, (bpos) -> {
-			return ModBlocks.DRAGON_TREE.bark.get().getDefaultState();
-		});
+		SDF function = SplineHelper.buildSDF(spline, radius, 1.2F, (bpos) -> ModBlocks.DRAGON_TREE.bark.get().getDefaultState());
 		
 		function.setReplaceFunction(REPLACE);
 		function.addPostProcess(POST);
@@ -191,8 +187,8 @@ public class DragonTreeFeature extends Feature<NoFeatureConfig>
 		sub = new SDFTranslate().setTranslate(0, -radius * 5, 0).setSource(sub);
 		sphere = new SDFSubtraction().setSourceA(sphere).setSourceB(sub);
 		sphere = new SDFScale3D().setScale(1, 0.5F, 1).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> { return (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 1.5F; }).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> { return random.nextFloat() * 3F - 1.5F; }).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 1.5F).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> random.nextFloat() * 3F - 1.5F).setSource(sphere);
 		Mutable mut = new Mutable();
 		sphere.addPostProcess((info) -> {
 			if (random.nextInt(5) == 0) 

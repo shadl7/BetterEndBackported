@@ -34,10 +34,10 @@ public class ModSurfaceBuilders
 
 	
 	public static final RegistryObject<SurfaceBuilder<SurfaceBuilderConfig>> SULPHURIC_SURFACE = SURFACE_BUILDERS.register("sulphuric_surface",
-			() -> new SulphuricSurfaceBuilder());
+            SulphuricSurfaceBuilder::new);
 
 	public static final RegistryObject<SurfaceBuilder<SurfaceBuilderConfig>> UMBRA_SURFACE = SURFACE_BUILDERS.register("umbra_surface",
-			() -> new UmbraSurfaceBuilder());
+            UmbraSurfaceBuilder::new);
 
 
 	// Built-in surface builder configurations

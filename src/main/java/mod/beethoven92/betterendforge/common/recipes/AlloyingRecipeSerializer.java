@@ -37,9 +37,7 @@ public class AlloyingRecipeSerializer<T extends AlloyingRecipe> extends net.mine
 	    {
 	    	String result = JSONUtils.getString(json, "result");
 	    	ResourceLocation resourcelocation = new ResourceLocation(result);
-	        output = new ItemStack(Registry.ITEM.getOptional(resourcelocation).orElseThrow(() -> {
-	        	return new IllegalStateException("Item: " + result + " does not exist");
-	      }));
+	        output = new ItemStack(Registry.ITEM.getOptional(resourcelocation).orElseThrow(() -> new IllegalStateException("Item: " + result + " does not exist")));
 	    }
 		float experience = JSONUtils.getFloat(json, "experience", 0.0F);
 		int smeltTime = JSONUtils.getInt(json, "smelttime", 350);

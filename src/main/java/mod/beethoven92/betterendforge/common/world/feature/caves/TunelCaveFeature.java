@@ -161,9 +161,7 @@ public class TunelCaveFeature extends EndCaveFeature {
 					.getTop();
 			placeFloor(world, biome, floorPositions, random, surfaceBlock);
 		});
-		ceilSets.forEach((biome, ceilPositions) -> {
-			placeCeil(world, biome, ceilPositions, random);
-		});
+		ceilSets.forEach((biome, ceilPositions) -> placeCeil(world, biome, ceilPositions, random));
 		BetterEndCaveBiome biome = ModBiomes.getCaveBiome(random);
 		placeWalls(world, biome, caveBlocks, random);
 		fixBlocks(world, caveBlocks);

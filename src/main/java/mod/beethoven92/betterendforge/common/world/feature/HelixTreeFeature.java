@@ -53,13 +53,13 @@ public class HelixTreeFeature extends Feature<NoFeatureConfig> {
 			dz = (float) Math.cos(i + angle) * radius;
 			spline.add(new Vector3f(dx, i * 2, dz));
 		}
-		SDF sdf = SplineHelper.buildSDF(spline, 1.7F, 0.5F, (p) -> { return ModBlocks.HELIX_TREE.bark.get().getDefaultState(); });
+		SDF sdf = SplineHelper.buildSDF(spline, 1.7F, 0.5F, (p) -> ModBlocks.HELIX_TREE.bark.get().getDefaultState());
 		SDF rotated = new SDFRotation().setRotation(Vector3f.YP, (float) Math.PI).setSource(sdf);
 		sdf = new SDFUnion().setSourceA(rotated).setSourceB(sdf);
 		
 		Vector3f lastPoint = spline.get(spline.size() - 1);
 		List<Vector3f> spline2 = SplineHelper.makeSpline(0, 0, 0, 0, 20, 0, 5);
-		SDF stem = SplineHelper.buildSDF(spline2, 1.0F, 0.5F, (p) -> { return ModBlocks.HELIX_TREE.bark.get().getDefaultState(); });
+		SDF stem = SplineHelper.buildSDF(spline2, 1.0F, 0.5F, (p) -> ModBlocks.HELIX_TREE.bark.get().getDefaultState());
 		stem = new SDFTranslate().setTranslate(lastPoint.getX(), lastPoint.getY(), lastPoint.getZ()).setSource(stem);
 		sdf = new SDFSmoothUnion().setRadius(3).setSourceA(sdf).setSourceB(stem);
 		
@@ -69,18 +69,12 @@ public class HelixTreeFeature extends Feature<NoFeatureConfig> {
 		float dy2 = 100 * scale;
 		sdf.addPostProcess(POST).fillArea(world, pos, new AxisAlignedBB(pos.add(-dx, dy1, -dx), pos.add(dx, dy2, dx)));
 		SplineHelper.scale(spline, scale);
-		SplineHelper.fillSplineForce(spline, world, ModBlocks.HELIX_TREE.bark.get().getDefaultState(), pos, (state) -> {
-			return state.getMaterial().isReplaceable();
-		});
+		SplineHelper.fillSplineForce(spline, world, ModBlocks.HELIX_TREE.bark.get().getDefaultState(), pos, (state) -> state.getMaterial().isReplaceable());
 		SplineHelper.rotateSpline(spline, (float) Math.PI);
-		SplineHelper.fillSplineForce(spline, world, ModBlocks.HELIX_TREE.bark.get().getDefaultState(), pos, (state) -> {
-			return state.getMaterial().isReplaceable();
-		});
+		SplineHelper.fillSplineForce(spline, world, ModBlocks.HELIX_TREE.bark.get().getDefaultState(), pos, (state) -> state.getMaterial().isReplaceable());
 		SplineHelper.scale(spline2, scale);
 		BlockPos leafStart = pos.add(lastPoint.getX() + 0.5, lastPoint.getY() + 0.5, lastPoint.getZ() + 0.5);
-		SplineHelper.fillSplineForce(spline2, world, ModBlocks.HELIX_TREE.log.get().getDefaultState(), leafStart, (state) -> {
-			return state.getMaterial().isReplaceable();
-		});
+		SplineHelper.fillSplineForce(spline2, world, ModBlocks.HELIX_TREE.log.get().getDefaultState(), leafStart, (state) -> state.getMaterial().isReplaceable());
 		
 		spline.clear();
 		//for (int i = 0; i <= 20; i++) {

@@ -52,9 +52,7 @@ public class GiganticAmaranitaFeature extends Feature<NoFeatureConfig> {
 		BlockHelper.setWithoutUpdate(world, pos, Blocks.AIR.getDefaultState());
 		
 		float radius = size * 0.17F;//MHelper.randRange(0.8F, 1.2F, random);
-		SDF function = SplineHelper.buildSDF(spline, radius, 0.2F, (bpos) -> {
-			return ModBlocks.AMARANITA_STEM.get().getDefaultState();
-		});
+		SDF function = SplineHelper.buildSDF(spline, radius, 0.2F, (bpos) -> ModBlocks.AMARANITA_STEM.get().getDefaultState());
 		
 		Vector3f capPos = spline.get(spline.size() - 1);
 		makeHead(world, pos.add(capPos.getX() + 0.5F, capPos.getY() + 1.5F ,capPos.getZ() + 0.5F), MathHelper.floor(size / 1.6F));
@@ -332,9 +330,7 @@ public class GiganticAmaranitaFeature extends Feature<NoFeatureConfig> {
 			return state.getMaterial().isReplaceable();
 		};
 		
-		IGNORE = (state) -> {
-			return ModBlocks.DRAGON_TREE.isTreeLog(state);
-		};
+		IGNORE = ModBlocks.DRAGON_TREE::isTreeLog;
 		
 		POST = (info) -> {
 			if (!info.getStateUp().isIn(ModBlocks.AMARANITA_STEM.get()) || !info.getStateDown().isIn(ModBlocks.AMARANITA_STEM.get())) {

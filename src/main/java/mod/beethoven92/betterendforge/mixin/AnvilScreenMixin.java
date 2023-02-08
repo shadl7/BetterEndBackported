@@ -54,9 +54,7 @@ public class AnvilScreenMixin extends AbstractRepairScreen<RepairContainer>
 	{
 		super.render(matrixStack, mouseX, mouseY, partialTicks);
 
-		this.be_buttons.forEach(button -> {
-			button.render(matrixStack, mouseX, mouseY, partialTicks);
-		});
+		this.be_buttons.forEach(button -> button.render(matrixStack, mouseX, mouseY, partialTicks));
 	}
 	
 	@Inject(method = "sendSlotContents", at = @At("HEAD"), cancellable = true)

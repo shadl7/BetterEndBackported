@@ -57,9 +57,7 @@ public class LacugroveFeature extends Feature<NoFeatureConfig>
 			return state.getMaterial().isReplaceable();
 		};
 		
-		IGNORE = (state) -> {
-			return ModBlocks.LACUGROVE.isTreeLog(state);
-		};
+		IGNORE = ModBlocks.LACUGROVE::isTreeLog;
 		
 		POST = (info) -> {
 			if (ModBlocks.LACUGROVE.isTreeLog(info.getStateUp()) && ModBlocks.LACUGROVE.isTreeLog(info.getStateDown()))
@@ -98,9 +96,7 @@ public class LacugroveFeature extends Feature<NoFeatureConfig>
 		leavesBall(world, blockPos.add(center.getX(), center.getY(), center.getZ()), radius, random, noise);
 		
 		radius = ModMathHelper.randRange(1.2F, 1.8F, random);
-		SDF function = SplineHelper.buildSDF(spline, radius, 0.7F, (bpos) -> {
-			return ModBlocks.LACUGROVE.bark.get().getDefaultState();
-		});
+		SDF function = SplineHelper.buildSDF(spline, radius, 0.7F, (bpos) -> ModBlocks.LACUGROVE.bark.get().getDefaultState());
 		
 		function.setReplaceFunction(REPLACE);
 		function.addPostProcess(POST);
@@ -160,8 +156,8 @@ public class LacugroveFeature extends Feature<NoFeatureConfig>
 	private void leavesBall(IServerWorld world, BlockPos pos, float radius, Random random, OpenSimplexNoise noise)
 	{
 		SDF sphere = new SDFSphere().setRadius(radius).setBlock(ModBlocks.LACUGROVE_LEAVES.get().getDefaultState().with(LeavesBlock.DISTANCE, 6));
-		sphere = new SDFDisplacement().setFunction((vec) -> { return (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 3; }).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> { return random.nextFloat() * 3F - 1.5F; }).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 3).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> random.nextFloat() * 3F - 1.5F).setSource(sphere);
 		sphere = new SDFSubtraction().setSourceA(sphere).setSourceB(new SDFTranslate().setTranslate(0, -radius - 2, 0).setSource(sphere));
 		Mutable mut = new Mutable();
 		sphere.addPostProcess((info) -> {

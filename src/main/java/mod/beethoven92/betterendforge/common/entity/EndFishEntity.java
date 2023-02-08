@@ -155,7 +155,7 @@ public class EndFishEntity extends AbstractGroupFishEntity
 			BlockPos pos, Random random) 
 	{
 		AxisAlignedBB box = new AxisAlignedBB(pos).grow(16);
-		List<EndFishEntity> list = world.getEntitiesWithinAABB(EndFishEntity.class, box, (entity) -> { return true; });
+		List<EndFishEntity> list = world.getEntitiesWithinAABB(EndFishEntity.class, box, (entity) -> true);
 		return list.size() < 9;
 	}
 }

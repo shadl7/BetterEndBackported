@@ -53,9 +53,7 @@ public class PythadendronFeature extends Feature<NoFeatureConfig>
 			return state.getMaterial().isReplaceable();
 		};
 		
-		IGNORE = (state) -> {
-			return ModBlocks.PYTHADENDRON.isTreeLog(state);
-		};
+		IGNORE = ModBlocks.PYTHADENDRON::isTreeLog;
 		
 		POST = (info) -> {
 			if (ModBlocks.PYTHADENDRON.isTreeLog(info.getStateUp()) && ModBlocks.PYTHADENDRON.isTreeLog(info.getStateDown()))
@@ -92,9 +90,7 @@ public class PythadendronFeature extends Feature<NoFeatureConfig>
 		float bsize = (10F - (size - 10F)) / 10F + 1.5F;
 		branch(last.getX(), last.getY(), last.getZ(), size * bsize, ModMathHelper.randRange(0, ModMathHelper.PI2, random), random, depth, world, pos);
 		
-		SDF function = SplineHelper.buildSDF(spline, 1.7F, 1.1F, (bpos) -> {
-			return ModBlocks.PYTHADENDRON.bark.get().getDefaultState();
-		});
+		SDF function = SplineHelper.buildSDF(spline, 1.7F, 1.1F, (bpos) -> ModBlocks.PYTHADENDRON.bark.get().getDefaultState());
 		function.setReplaceFunction(REPLACE);
 		function.addPostProcess(POST);
 		function.fillRecursive(world, pos);
@@ -160,8 +156,8 @@ public class PythadendronFeature extends Feature<NoFeatureConfig>
 		
 		SDF sphere = new SDFSphere().setRadius(radius).setBlock(ModBlocks.PYTHADENDRON_LEAVES.get().getDefaultState().with(LeavesBlock.DISTANCE, 6));
 		sphere = new SDFScale3D().setScale(1, 0.6F, 1).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> { return (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 3; }).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> { return random.nextFloat() * 3F - 1.5F; }).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 3).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> random.nextFloat() * 3F - 1.5F).setSource(sphere);
 		sphere = new SDFSubtraction().setSourceA(sphere).setSourceB(new SDFTranslate().setTranslate(0, -radius, 0).setSource(sphere));
 		Mutable mut = new Mutable();
 		sphere.addPostProcess((info) -> {

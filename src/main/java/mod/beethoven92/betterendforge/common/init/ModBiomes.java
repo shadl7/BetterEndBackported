@@ -154,9 +154,7 @@ public class ModBiomes
 		rebuildPicker(VOID_BIOMES, biomeRegistry);
 		rebuildPicker(CAVE_BIOMES, biomeRegistry);
 		
-		SUBBIOMES.forEach((endBiome) -> {
-			endBiome.updateActualBiomes(biomeRegistry);
-		});
+		SUBBIOMES.forEach((endBiome) -> endBiome.updateActualBiomes(biomeRegistry));
 		
 		CLIENT.clear();
 	}
@@ -164,9 +162,7 @@ public class ModBiomes
 	private static void rebuildPicker(BiomePicker picker, Registry<Biome> biomeRegistry) 
 	{
 		picker.rebuild();
-		picker.getBiomes().forEach((endBiome) -> {
-			endBiome.updateActualBiomes(biomeRegistry);
-		});
+		picker.getBiomes().forEach((endBiome) -> endBiome.updateActualBiomes(biomeRegistry));
 	}
 	
 	private static JsonObject loadJsonConfig(String namespace) 

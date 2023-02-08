@@ -43,9 +43,7 @@ public class FallenPillarFeature extends Feature<NoFeatureConfig> {
 				.setBlock(Blocks.OBSIDIAN);
 		pillar = new SDFTranslate().setTranslate(0, radius * 0.5F - 2, 0).setSource(pillar);
 		OpenSimplexNoise noise = new OpenSimplexNoise(random.nextLong());
-		pillar = new SDFDisplacement().setFunction((vec) -> {
-			return (float) (noise.eval(vec.getX() * 0.3, vec.getY() * 0.3, vec.getZ() * 0.3) * 0.5F);
-		}).setSource(pillar);
+		pillar = new SDFDisplacement().setFunction((vec) -> (float) (noise.eval(vec.getX() * 0.3, vec.getY() * 0.3, vec.getZ() * 0.3) * 0.5F)).setSource(pillar);
 		Vector3f vec = ModMathHelper.randomHorizontal(random);
 		float angle = (float) random.nextGaussian() * 0.05F + (float) Math.PI;
 		pillar = new SDFRotation().setRotation(vec, angle).setSource(pillar);
@@ -56,10 +54,8 @@ public class FallenPillarFeature extends Feature<NoFeatureConfig> {
 				return mossy;
 			}
 			return info.getState();
-		}).setReplaceFunction((state) -> {
-			return state.getMaterial().isReplaceable() || state.isIn(ModTags.GEN_TERRAIN)
-					|| state.getMaterial().equals(Material.PLANTS);
-		}).fillRecursive(world, pos);
+		}).setReplaceFunction((state) -> state.getMaterial().isReplaceable() || state.isIn(ModTags.GEN_TERRAIN)
+                || state.getMaterial().equals(Material.PLANTS)).fillRecursive(world, pos);
 
 		return true;
 	}

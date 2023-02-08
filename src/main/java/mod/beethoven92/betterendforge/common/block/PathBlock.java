@@ -14,7 +14,7 @@ public class PathBlock extends Block
 	
 	public PathBlock(Block block)
 	{
-		super(AbstractBlock.Properties.from(block).setAllowsSpawn((state, world, pos, type) -> { return false; }));
+		super(AbstractBlock.Properties.from(block).setAllowsSpawn((state, world, pos, type) -> false));
 		if (block instanceof TerrainBlock)
 		{
 			TerrainBlock terrain = (TerrainBlock)block;

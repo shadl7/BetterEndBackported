@@ -74,9 +74,7 @@ public class SpireFeature extends Feature<NoFeatureConfig>
 			sdf = addSegment(sdf, ModMathHelper.randRange(rMin, rMin + 1.5F, rand), rand);
 		}
 		OpenSimplexNoise noise = new OpenSimplexNoise(rand.nextLong());
-		sdf = new SDFDisplacement().setFunction((vec) -> {
-			return (float) (Math.abs(noise.eval(vec.getX() * 0.1, vec.getY() * 0.1, vec.getZ() * 0.1)) * 3F + Math.abs(noise.eval(vec.getX() * 0.3, vec.getY() * 0.3 + 100, vec.getZ() * 0.3)) * 1.3F);
-		}).setSource(sdf);
+		sdf = new SDFDisplacement().setFunction((vec) -> (float) (Math.abs(noise.eval(vec.getX() * 0.1, vec.getY() * 0.1, vec.getZ() * 0.1)) * 3F + Math.abs(noise.eval(vec.getX() * 0.3, vec.getY() * 0.3 + 100, vec.getZ() * 0.3)) * 1.3F)).setSource(sdf);
 		final BlockPos center = pos;
 		List<BlockPos> support = Lists.newArrayList();
 		sdf.setReplaceFunction(REPLACE).addPostProcess((info) -> {

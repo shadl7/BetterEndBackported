@@ -77,12 +77,8 @@ public class LucerniaFeature extends Feature<NoFeatureConfig> {
 		sub = new SDFTranslate().setTranslate(0, -radius * 5, 0).setSource(sub);
 		sphere = new SDFSubtraction().setSourceA(sphere).setSourceB(sub);
 		sphere = new SDFScale3D().setScale(1, 0.75F, 1).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> {
-			return (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 2F;
-		}).setSource(sphere);
-		sphere = new SDFDisplacement().setFunction((vec) -> {
-			return ModMathHelper.randRange(-1.5F, 1.5F, random);
-		}).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> (float) noise.eval(vec.getX() * 0.2, vec.getY() * 0.2, vec.getZ() * 0.2) * 2F).setSource(sphere);
+		sphere = new SDFDisplacement().setFunction((vec) -> ModMathHelper.randRange(-1.5F, 1.5F, random)).setSource(sphere);
 
 		Mutable mut = new Mutable();
 		for (Direction d1 : BlockHelper.HORIZONTAL_DIRECTIONS) {
@@ -202,9 +198,7 @@ public class LucerniaFeature extends Feature<NoFeatureConfig> {
 			return state.getMaterial().isReplaceable();
 		};
 
-		IGNORE = (state) -> {
-			return ModBlocks.LUCERNIA.isTreeLog(state);
-		};
+		IGNORE = ModBlocks.LUCERNIA::isTreeLog;
 
 		SPLINE = Lists.newArrayList(new Vector3f(0.00F, 0.00F, 0.00F), new Vector3f(0.10F, 0.35F, 0.00F),
 				new Vector3f(0.20F, 0.50F, 0.00F), new Vector3f(0.30F, 0.55F, 0.00F), new Vector3f(0.42F, 0.70F, 0.00F),

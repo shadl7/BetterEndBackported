@@ -15,7 +15,7 @@ public class ModParticleTypes
 			DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, BetterEnd.MOD_ID);
 	
 	public static final RegistryObject<ParticleType<InfusionParticleData>> INFUSION = PARTICLE_TYPES.register("infusion",
-			() -> new InfusionParticleType());
+            InfusionParticleType::new);
 	
 	public static final RegistryObject<BasicParticleType> PORTAL_SPHERE = PARTICLE_TYPES.register("portal_sphere",
 			() -> new BasicParticleType(false));

@@ -107,7 +107,7 @@ public class WoodenMaterial
 		ladder = registerBlockWithBurnItem(name + "_ladder", 
 				() -> new LadderBlock(materialPlanksNotSolid), 300);
 		chest = ModBlocks.registerBlock(name + "_chest",
-				() -> new ChestBlock(materialPlanksNotSolid, () -> ModTileEntityTypes.CHEST.get()) {
+				() -> new ChestBlock(materialPlanksNotSolid, ModTileEntityTypes.CHEST::get) {
 					public net.minecraft.tileentity.TileEntity createTileEntity(BlockState state,
 							net.minecraft.world.IBlockReader world) {
 						return ModTileEntityTypes.CHEST.get().create();

@@ -90,7 +90,7 @@ public class StoneMaterial
 		
 		furnace = ModBlocks.registerBlockWithDefaultItem(name + "_furnace", 
 				() -> new EndFurnaceBlock(AbstractBlock.Properties.from(bricks.get()).
-						setLightLevel((state) -> {return state.get(BlockStateProperties.LIT) ? 13 : 0;})));
+						setLightLevel((state) -> state.get(BlockStateProperties.LIT) ? 13 : 0)));
 		
 		MATERIALS.add(this);
 	}

@@ -110,7 +110,7 @@ public final class JsonConfigKeeper
 	public <T, E extends Entry<T>> E registerEntry(JsonConfigKey key, E entry) 
 	{
 		entry.setWriter(value -> this.storeValue(entry, value));
-		entry.setReader(() -> { return this.getValue(entry); });
+		entry.setReader(() -> this.getValue(entry));
 		this.initializeEntry(key, entry);
 		this.configEntries.put(key, entry);
 		return entry;

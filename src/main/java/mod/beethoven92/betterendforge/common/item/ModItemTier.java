@@ -9,15 +9,9 @@ import java.util.function.Supplier;
 
 public enum ModItemTier implements IItemTier
 {
-	THALLASIUM(2, 320, 7.0F, 1.5F, 12, () -> {
-		return Ingredient.fromItems(ModBlocks.THALLASIUM.ingot.get());
-	}),
-	TERMINITE(3, 1230, 8.5F, 3.0F, 14, () -> {
-		return Ingredient.fromItems(ModBlocks.TERMINITE.ingot.get());
-	}),
-	AETERNIUM(5, 2196, 10.0F, 4.5F, 18, () -> {
-		return Ingredient.fromItems(ModItems.AETERNIUM_INGOT.get());
-	});
+	THALLASIUM(2, 320, 7.0F, 1.5F, 12, () -> Ingredient.fromItems(ModBlocks.THALLASIUM.ingot.get())),
+	TERMINITE(3, 1230, 8.5F, 3.0F, 14, () -> Ingredient.fromItems(ModBlocks.TERMINITE.ingot.get())),
+	AETERNIUM(5, 2196, 10.0F, 4.5F, 18, () -> Ingredient.fromItems(ModItems.AETERNIUM_INGOT.get()));
 	
 	private final int maxUses;
 	private final float efficiency;

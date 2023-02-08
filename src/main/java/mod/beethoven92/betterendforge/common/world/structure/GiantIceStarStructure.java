@@ -148,7 +148,7 @@ public class GiantIceStarStructure extends SDFStructure
 			int x = (chunkX << 4) | ModMathHelper.randRange(4, 12, rand);
 			int z = (chunkZ << 4) | ModMathHelper.randRange(4, 12, rand);
 			BlockPos start = new BlockPos(x, ModMathHelper.randRange(32, 128, rand), z);
-			VoxelPiece piece = new VoxelPiece((world) -> { ((SDFStructure) this.getStructure()).getSDF(start, this.rand).fillRecursive(world, start); }, rand.nextInt());
+			VoxelPiece piece = new VoxelPiece((world) -> ((SDFStructure) this.getStructure()).getSDF(start, this.rand).fillRecursive(world, start), rand.nextInt());
 			this.components.add(piece);
 			this.recalculateStructureSize();
 		}

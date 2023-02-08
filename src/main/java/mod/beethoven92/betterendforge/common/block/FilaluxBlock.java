@@ -11,7 +11,7 @@ public class FilaluxBlock extends EndVineBlock {
 		super(AbstractBlock.Properties.create(Material.PLANTS).
                 zeroHardnessAndResistance().
                 doesNotBlockMovement().
-                setLightLevel((state) -> {return state.get(EndVineBlock.SHAPE) == TripleShape.BOTTOM ? 15 : 0;}).
+                setLightLevel((state) -> state.get(EndVineBlock.SHAPE) == TripleShape.BOTTOM ? 15 : 0).
                 sound(SoundType.PLANT));
 	}
 	
