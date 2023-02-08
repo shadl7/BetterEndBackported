@@ -1,9 +1,15 @@
 {
     "conditions": [
         {
-            "condition": "forge:loot_table_id",
-            "loot_table_id": "minecraft:entities/enderman"
+          "condition": "minecraft:random_chance",
+          "chance": 0.8
+        },
+        {
+            "condition": "betterendforge:from_loot_table",
+            "loot_table": "minecraft:entities/enderman"
         }
     ],
+    "min": 0,
+    "max": 3,
     "item": "minecraft:chorus_fruit"
 }
