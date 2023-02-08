@@ -80,7 +80,7 @@ public class EndSlimeEntity extends SlimeEntity {
 			this.setLake();
 		}
 		else if (biome == ModBiomes.AMBER_LAND) {
-			this.setAmber(true);
+			this.setAmber();
 		}
 		this.recalculateSize();
 		return data;
@@ -180,7 +180,7 @@ public class EndSlimeEntity extends SlimeEntity {
 		return getSlimeType() == 2;
 	}
 
-	protected void setAmber(boolean mossy) {
+	protected void setAmber() {
 		this.dataManager.set(VARIANT, (byte) 3);
 	}
 
@@ -194,7 +194,7 @@ public class EndSlimeEntity extends SlimeEntity {
 
 	public static boolean canSpawn(EntityType<EndSlimeEntity> type, IServerWorld world, SpawnReason spawnReason,
 			BlockPos pos, Random random) {
-		return isPermanentBiome(world, pos) || (notManyEntities(world, pos, 32, 3) && isWaterNear(world, pos, 32, 8));
+		return isPermanentBiome(world, pos) || (notManyEntities(world, pos) && isWaterNear(world, pos));
 	}
 
 	private static boolean isPermanentBiome(IServerWorld world, BlockPos pos) {
@@ -202,20 +202,20 @@ public class EndSlimeEntity extends SlimeEntity {
 		return ModBiomes.getFromBiome(biome) == ModBiomes.CHORUS_FOREST;
 	}
 
-	private static boolean notManyEntities(IServerWorld world, BlockPos pos, int radius, int maxCount) {
-		AxisAlignedBB box = new AxisAlignedBB(pos).grow(radius);
+	private static boolean notManyEntities(IServerWorld world, BlockPos pos) {
+		AxisAlignedBB box = new AxisAlignedBB(pos).grow(32);
 		List<EndSlimeEntity> list = world.getEntitiesWithinAABB(EndSlimeEntity.class, box, (entity) -> {
 			return true;
 		});
-		return list.size() <= maxCount;
+		return list.size() <= 3;
 	}
 
-	private static boolean isWaterNear(IServerWorld world, BlockPos pos, int radius, int radius2) {
-		for (int x = pos.getX() - radius; x <= pos.getX() + radius; x++) {
+	private static boolean isWaterNear(IServerWorld world, BlockPos pos) {
+		for (int x = pos.getX() - 32; x <= pos.getX() + 32; x++) {
 			POS.setX(x);
-			for (int z = pos.getZ() - radius; z <= pos.getZ() + radius; z++) {
+			for (int z = pos.getZ() - 32; z <= pos.getZ() + 32; z++) {
 				POS.setZ(z);
-				for (int y = pos.getY() - radius2; y <= pos.getY() + radius2; y++) {
+				for (int y = pos.getY() - 8; y <= pos.getY() + 8; y++) {
 					POS.setY(y);
 					if (world.getBlockState(POS).getBlock() == Blocks.WATER) {
 						return true;

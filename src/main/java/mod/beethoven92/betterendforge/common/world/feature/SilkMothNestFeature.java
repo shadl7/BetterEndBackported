@@ -24,13 +24,13 @@ public class SilkMothNestFeature extends Feature<NoFeatureConfig> {
 
 	private static final Mutable POS = new Mutable();
 	
-	private boolean canGenerate(ISeedReader world, BlockPos pos) {
-		BlockState state = world.getBlockState(pos.up());
+	private boolean canGenerate(ISeedReader world) {
+		BlockState state = world.getBlockState(SilkMothNestFeature.POS.up());
 		if (state.isIn(BlockTags.LEAVES) || state.isIn(BlockTags.LOGS)) {
-			state = world.getBlockState(pos);
-			if ((state.isAir() || state.isIn(ModBlocks.TENANEA_OUTER_LEAVES.get())) && world.isAirBlock(pos.down())) {
+			state = world.getBlockState(SilkMothNestFeature.POS);
+			if ((state.isAir() || state.isIn(ModBlocks.TENANEA_OUTER_LEAVES.get())) && world.isAirBlock(SilkMothNestFeature.POS.down())) {
 				for (Direction dir: BlockHelper.HORIZONTAL_DIRECTIONS) {
-                    return !world.getBlockState(pos.down().offset(dir)).getMaterial().blocksMovement();
+                    return !world.getBlockState(SilkMothNestFeature.POS.down().offset(dir)).getMaterial().blocksMovement();
                 }
 			}
 		}
@@ -46,7 +46,7 @@ public class SilkMothNestFeature extends Feature<NoFeatureConfig> {
 		POS.setPos(pos);
 		for (int y = maxY; y > minY; y--) {
 			POS.setY(y);
-			if (canGenerate(world, POS)) {
+			if (canGenerate(world)) {
 				Direction dir = BlockHelper.randomHorizontal(rand);
 				BlockHelper.setWithoutUpdate(world, POS, ModBlocks.SILK_MOTH_NEST.get().getDefaultState().with(BlockStateProperties.HORIZONTAL_FACING, dir).with(BlockProperties.ACTIVATED, false));
 				POS.setY(y - 1);

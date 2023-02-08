@@ -45,8 +45,8 @@ public class ModBiomes
 	
 	// Vanilla Land
 	public static final BetterEndBiome END = registerBiome(Biomes.THE_END, EndBiomeType.LAND, 1F);
-	public static final BetterEndBiome END_MIDLANDS = registerSubBiome(Biomes.END_MIDLANDS, END, 0.5F);
-	public static final BetterEndBiome END_HIGHLANDS = registerSubBiome(Biomes.END_HIGHLANDS, END, 0.5F);
+	public static final BetterEndBiome END_MIDLANDS = registerSubBiome(Biomes.END_MIDLANDS);
+	public static final BetterEndBiome END_HIGHLANDS = registerSubBiome(Biomes.END_HIGHLANDS);
 		
 	// Vanilla Void
 	public static final BetterEndBiome END_BARRENS = registerBiome(Biomes.END_BARRENS, EndBiomeType.VOID, 1F);
@@ -255,9 +255,9 @@ public class ModBiomes
 		return registerBiome(WorldGenRegistries.BIOME.getOrThrow(key), type, genChance);
 	}
 	
-	private static BetterEndBiome registerSubBiome(RegistryKey<Biome> key, BetterEndBiome parent, float genChance) 
+	private static BetterEndBiome registerSubBiome(RegistryKey<Biome> key)
 	{
-		return registerSubBiome(WorldGenRegistries.BIOME.getOrThrow(key), parent, genChance, true);
+		return registerSubBiome(WorldGenRegistries.BIOME.getOrThrow(key), ModBiomes.END, (float) 0.5, true);
 	}
 	
 	private static void addToPicker(BetterEndBiome biome, EndBiomeType type) 

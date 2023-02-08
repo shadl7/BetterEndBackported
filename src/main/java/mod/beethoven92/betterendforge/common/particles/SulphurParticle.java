@@ -18,10 +18,10 @@ public class SulphurParticle extends SpriteTexturedParticle
 	private double nextVY;
 	private double nextVZ;
 
-	protected SulphurParticle(ClientWorld world, double x, double y, double z, double r, 
-			double g, double b, IAnimatedSprite spriteWithAge)
+	protected SulphurParticle(ClientWorld world, double x, double y, double z,
+                              IAnimatedSprite spriteWithAge)
 	{
-		super(world, x, y, z, r, g, b);
+		super(world, x, y, z, 1, 1, 1);
 		
 		this.selectSpriteWithAge(spriteWithAge);
 		
@@ -100,7 +100,7 @@ public class SulphurParticle extends SpriteTexturedParticle
 	    public Particle makeParticle(BasicParticleType type, ClientWorld worldIn, double x, double y, double z,
 	    		double xSpeed, double ySpeed, double zSpeed) 
 	    {
-	    	return new SulphurParticle(worldIn, x, y, z, 1, 1, 1, sprite);
+	    	return new SulphurParticle(worldIn, x, y, z, sprite);
 	    }
 	}
 

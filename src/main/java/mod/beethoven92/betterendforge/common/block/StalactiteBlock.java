@@ -66,7 +66,7 @@ public class StalactiteBlock extends Block implements IWaterLoggable
 		if (dir == Direction.DOWN) 
 		{
 			System.out.println("Check up!");
-			if (isThis(world, pos.up()) || this.hasEnoughSolidSide(world, pos.up(), Direction.DOWN)) 
+			if (isThis(world, pos.up()) || hasEnoughSolidSide(world, pos.up(), Direction.DOWN))
 			{
 				System.out.println("Up true!");
 				return getDefaultState().with(IS_FLOOR, false).with(WATERLOGGED, water);

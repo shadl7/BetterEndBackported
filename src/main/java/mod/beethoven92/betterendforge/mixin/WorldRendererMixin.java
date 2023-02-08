@@ -187,17 +187,17 @@ public abstract class WorldRendererMixin
 	private void initStars() 
 	{
 		BufferBuilder buffer = Tessellator.getInstance().getBuffer();
-		stars1 = buildBufferStars(buffer, stars1, 0.1, 0.30, 3500, 41315);
-		stars2 = buildBufferStars(buffer, stars2, 0.1, 0.35, 2000, 35151);
-		stars3 = buildBufferUVStars(buffer, stars3, 0.4, 1.2, 1000, 61354);
-		stars4 = buildBufferUVStars(buffer, stars4, 0.4, 1.2, 1000, 61355);
-		nebulas1 = buildBufferFarFog(buffer, nebulas1, 40, 60, 30, 11515);
-		nebulas2 = buildBufferFarFog(buffer, nebulas2, 40, 60, 10, 14151);
+		stars1 = buildBufferStars(buffer, stars1, 0.30, 3500, 41315);
+		stars2 = buildBufferStars(buffer, stars2, 0.35, 2000, 35151);
+		stars3 = buildBufferUVStars(buffer, stars3, 61354);
+		stars4 = buildBufferUVStars(buffer, stars4, 61355);
+		nebulas1 = buildBufferFarFog(buffer, nebulas1, 30, 11515);
+		nebulas2 = buildBufferFarFog(buffer, nebulas2, 10, 14151);
 		horizon = buildBufferHorizon(buffer, horizon);
 		fog = buildBufferFog(buffer, fog);
 	}
 	
-	private VertexBuffer buildBufferStars(BufferBuilder bufferBuilder, VertexBuffer buffer, double minSize, double maxSize, int count, long seed)
+	private VertexBuffer buildBufferStars(BufferBuilder bufferBuilder, VertexBuffer buffer, double maxSize, int count, long seed)
 	{
 		if (buffer != null) 
 		{
@@ -205,14 +205,14 @@ public abstract class WorldRendererMixin
 		}
 
 		buffer = new VertexBuffer(DefaultVertexFormats.POSITION);
-		makeStars(bufferBuilder, minSize, maxSize, count, seed);
+		makeStars(bufferBuilder, 0.1, maxSize, count, seed);
 		bufferBuilder.finishDrawing();
 		buffer.upload(bufferBuilder);
 
 		return buffer;
 	}
 	
-	private VertexBuffer buildBufferUVStars(BufferBuilder bufferBuilder, VertexBuffer buffer, double minSize, double maxSize, int count, long seed) 
+	private VertexBuffer buildBufferUVStars(BufferBuilder bufferBuilder, VertexBuffer buffer, long seed)
 	{
 		if (buffer != null) 
 		{
@@ -220,14 +220,14 @@ public abstract class WorldRendererMixin
 		}
 
 		buffer = new VertexBuffer(DefaultVertexFormats.POSITION_TEX);
-		makeUVStars(bufferBuilder, minSize, maxSize, count, seed);
+		makeUVStars(bufferBuilder, 0.4, 1.2, 1000, seed);
 		bufferBuilder.finishDrawing();
 		buffer.upload(bufferBuilder);
 
 		return buffer;
 	}
 	
-	private VertexBuffer buildBufferFarFog(BufferBuilder bufferBuilder, VertexBuffer buffer, double minSize, double maxSize, int count, long seed)
+	private VertexBuffer buildBufferFarFog(BufferBuilder bufferBuilder, VertexBuffer buffer, int count, long seed)
 	{
 		if (buffer != null) 
 		{
@@ -235,7 +235,7 @@ public abstract class WorldRendererMixin
 		}
 
 		buffer = new VertexBuffer(DefaultVertexFormats.POSITION_TEX);
-		makeFarFog(bufferBuilder, minSize, maxSize, count, seed);
+		makeFarFog(bufferBuilder, 40, 60, count, seed);
 		bufferBuilder.finishDrawing();
 		buffer.upload(bufferBuilder);
 
@@ -250,7 +250,7 @@ public abstract class WorldRendererMixin
 		}
 
 		buffer = new VertexBuffer(DefaultVertexFormats.POSITION_TEX);
-		makeCylinder(bufferBuilder, 16, 50, 100);
+		makeCylinder(bufferBuilder, 100);
 		bufferBuilder.finishDrawing();
 		buffer.upload(bufferBuilder);
 
@@ -264,7 +264,7 @@ public abstract class WorldRendererMixin
 		}
 
 		buffer = new VertexBuffer(DefaultVertexFormats.POSITION_TEX);
-		makeCylinder(bufferBuilder, 16, 50, 70);
+		makeCylinder(bufferBuilder, 70);
 		bufferBuilder.finishDrawing();
 		buffer.upload(bufferBuilder);
 
@@ -419,25 +419,25 @@ public abstract class WorldRendererMixin
 		}
 	}
 	
-	private void makeCylinder(BufferBuilder buffer, int segments, double height, double radius) 
+	private void makeCylinder(BufferBuilder buffer, double radius)
 	{
 		buffer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		for (int i = 0; i < segments; i ++)
+		for (int i = 0; i < 16; i ++)
 		{
-			double a1 = (double) i * Math.PI * 2.0 / (double) segments;
-			double a2 = (double) (i + 1) * Math.PI * 2.0 / (double) segments;
+			double a1 = (double) i * Math.PI * 2.0 / (double) 16;
+			double a2 = (double) (i + 1) * Math.PI * 2.0 / (double) 16;
 			double px1 = Math.sin(a1) * radius;
 			double pz1 = Math.cos(a1) * radius;
 			double px2 = Math.sin(a2) * radius;
 			double pz2 = Math.cos(a2) * radius;
 			
-			float u0 = (float) i / (float) segments;
-			float u1 = (float) (i + 1) / (float) segments;
+			float u0 = (float) i / (float) 16;
+			float u1 = (float) (i + 1) / (float) 16;
 			
-			buffer.pos(px1, -height, pz1).tex(u0, 0).endVertex();
-			buffer.pos(px1, height, pz1).tex(u0, 1).endVertex();
-			buffer.pos(px2, height, pz2).tex(u1, 1).endVertex();
-			buffer.pos(px2, -height, pz2).tex(u1, 0).endVertex();
+			buffer.pos(px1, -(double) 50, pz1).tex(u0, 0).endVertex();
+			buffer.pos(px1, 50, pz1).tex(u0, 1).endVertex();
+			buffer.pos(px2, 50, pz2).tex(u1, 1).endVertex();
+			buffer.pos(px2, -(double) 50, pz2).tex(u1, 0).endVertex();
 		}
 	}
 }

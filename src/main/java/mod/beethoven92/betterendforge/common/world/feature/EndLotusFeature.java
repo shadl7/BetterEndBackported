@@ -34,9 +34,9 @@ public class EndLotusFeature extends ScatterFeature
 	}
 	
 	@Override
-	protected boolean getGroundPlant(ISeedReader world, Mutable pos) 
+	protected boolean getGroundPlant(ISeedReader world)
 	{
-		return getGround(world, pos).getY() < 128;
+		return getGround(world, ScatterFeature.POS).getY() < 128;
 	}
 	
 	@Override

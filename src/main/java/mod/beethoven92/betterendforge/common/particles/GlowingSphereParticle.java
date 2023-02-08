@@ -21,8 +21,7 @@ public class GlowingSphereParticle extends SimpleAnimatedParticle
 	private double nextVY;
 	private double nextVZ;
 	
-	protected GlowingSphereParticle(ClientWorld world, double x, double y, double z, IAnimatedSprite spriteWithAge, 
-			double r, double g, double b) 
+	protected GlowingSphereParticle(ClientWorld world, double x, double y, double z, IAnimatedSprite spriteWithAge)
 	{
 		super(world, x, y, z, spriteWithAge, 0);
 		setSprite(spriteWithAge.get(rand));
@@ -76,7 +75,7 @@ public class GlowingSphereParticle extends SimpleAnimatedParticle
 		public Particle makeParticle(BasicParticleType typeIn, ClientWorld worldIn, double x, double y, double z,
 				double xSpeed, double ySpeed, double zSpeed) 
 		{
-			return new GlowingSphereParticle(worldIn, x, y, z, this.sprites, 1, 1, 1);
+			return new GlowingSphereParticle(worldIn, x, y, z, this.sprites);
 		}
 	}
 }

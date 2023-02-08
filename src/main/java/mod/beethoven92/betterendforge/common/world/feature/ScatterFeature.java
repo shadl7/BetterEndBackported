@@ -44,15 +44,15 @@ public abstract class ScatterFeature extends Feature<NoFeatureConfig>
 		else return world.getBlockState(pos.down()).isIn(ModTags.END_GROUND);
     }
 	
-	protected boolean getGroundPlant(ISeedReader world, Mutable pos)
+	protected boolean getGroundPlant(ISeedReader world)
 	{
-		int down = BlockHelper.downRay(world, pos, 16);
+		int down = BlockHelper.downRay(world, ScatterFeature.POS, 16);
 		
 		if (down > Math.abs(getYOffset() * 2)) 
 		{
 			return false;
 		}
-		pos.setY(pos.getY() - down);
+		ScatterFeature.POS.setY(ScatterFeature.POS.getY() - down);
 		return true;
 	}
 	
@@ -87,7 +87,7 @@ public abstract class ScatterFeature extends Feature<NoFeatureConfig>
 			float z = pr * (float) Math.sin(theta);
 
 			POS.setPos(pos.getX() + x, pos.getY() + getYOffset(), pos.getZ() + z);
-			if (getGroundPlant(world, POS) && canGenerate(world, rand, pos, POS, r) 
+			if (getGroundPlant(world) && canGenerate(world, rand, pos, POS, r)
 					&& (getChance() < 2 || rand.nextInt(getChance()) == 0))
 			{
 				generate(world, rand, POS);
