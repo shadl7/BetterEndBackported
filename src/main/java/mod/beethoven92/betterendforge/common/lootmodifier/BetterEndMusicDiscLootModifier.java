@@ -60,5 +60,4 @@ public class BetterEndMusicDiscLootModifier extends LootModifier {
 			return json;
 		}
 	}
-
 }
