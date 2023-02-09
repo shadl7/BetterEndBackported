@@ -7,7 +7,3 @@ Clean up codes (Suggestions of IDEA) and fix a duplicate registry bug.
 [There is a script](https://github.com/MCTeamPotato/Tankoptimization/blob/main/Tankofpascript/ChorusFruitsFromEnderman.zs) I wrote that let Endermans drop Chorus Fruit so you won't go crazy about it. Use it with CraftTweaker pls.
 
 Another suggestion: use this mod with [this config file](https://github.com/MCTeamPotato/Tankoptimization/tree/main/Tankofpaconfig/betterendforge), it disables some ugly/incompatible/unreasonable settings.
-
-Q: Why Optimization tag?
-
-A: Cuz this mod does increase your FPS (lol).
