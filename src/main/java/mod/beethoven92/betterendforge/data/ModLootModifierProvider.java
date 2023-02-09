@@ -2,7 +2,6 @@ package mod.beethoven92.betterendforge.data;
 
 import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.init.ModLootModifiers;
-import mod.beethoven92.betterendforge.common.lootmodifier.BetterEndChorusFruitLootModifier;
 import mod.beethoven92.betterendforge.common.lootmodifier.BetterEndMusicDiscLootModifier;
 import mod.beethoven92.betterendforge.common.lootmodifier.lootcondition.FromLootTable;
 import net.minecraft.data.DataGenerator;
