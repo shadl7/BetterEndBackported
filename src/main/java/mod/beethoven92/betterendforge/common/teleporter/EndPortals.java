@@ -11,7 +11,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.server.ServerWorld;
 
 import java.io.File;
-import java.util.Iterator;
 
 
 public class EndPortals 
