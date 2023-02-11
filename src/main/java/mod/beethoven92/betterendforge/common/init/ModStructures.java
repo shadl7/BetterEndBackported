@@ -39,8 +39,6 @@ public class ModStructures
 		setupStructure(PAINTED_MOUNTAIN, new StructureSeparationSettings(3, 2, 12890));
 		setupStructure(ETERNAL_PORTAL, new StructureSeparationSettings(16, 6, 1289052454));
 		setupStructure(GIANT_ICE_STAR, new StructureSeparationSettings(16, 8, 128954));
-
-		ModStructurePieces.registerAllPieces();
 	}
 
 	public static <F extends Structure<?>> void setupStructure(F structure,
