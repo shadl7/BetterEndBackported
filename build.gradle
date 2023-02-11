@@ -18,7 +18,7 @@ mixin {
     add sourceSets.main, "betterendforge.refmap.json"
 }
 
-version = '1.16.5-2.7'
+version = '1.16.5-2.7.1'
 group = 'mod.beethoven92.betterendforge' 
 archivesBaseName = 'betterendforge'
 
