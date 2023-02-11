@@ -29,6 +29,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
+import java.util.Objects;
 import java.util.Random;
 
 @Mixin(EndSpikeFeature.class)
@@ -137,7 +138,7 @@ public abstract class EndSpikeFeatureMixin
 			BlockHelper.setWithoutUpdate(world, mut, Blocks.BEDROCK);
 
 			EnderCrystalEntity crystal = EntityType.END_CRYSTAL.create(world.getWorld());
-			crystal.setBeamTarget(config.getCrystalBeamTarget());
+			Objects.requireNonNull(crystal).setBeamTarget(config.getCrystalBeamTarget());
 			crystal.setInvulnerable(config.isCrystalInvulnerable());
 			crystal.setLocationAndAngles(x + 0.5D, maxY + 1, z + 0.5D, random.nextFloat() * 360.0F, 0.0F);
 			world.addEntity(crystal);

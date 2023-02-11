@@ -17,6 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import java.awt.*;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.Objects;
 
 @Mixin(BiomeColors.class)
 public class BiomeColorsMixin {
@@ -34,7 +35,7 @@ public class BiomeColorsMixin {
 			for (int i = 0; i < OFFSETS.length; i++) {
 				mut.setX(blockPos.getX() + OFFSETS[i].x);
 				mut.setZ(blockPos.getZ() + OFFSETS[i].y);
-				if ((view.getBlockState(mut).isIn(ModBlocks.BRIMSTONE.get()))) {
+				if ((Objects.requireNonNull(view).getBlockState(mut).isIn(ModBlocks.BRIMSTONE.get()))) {
 					info.setReturnValue(i < 4 ? POISON_COLOR : STREAM_COLOR);
 					return;
 				}

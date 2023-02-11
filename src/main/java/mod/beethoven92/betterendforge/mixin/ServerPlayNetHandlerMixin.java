@@ -20,6 +20,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import java.util.Objects;
+
 @Mixin(ServerPlayNetHandler.class)
 public class ServerPlayNetHandlerMixin {
 	@Final
@@ -48,7 +50,7 @@ public class ServerPlayNetHandlerMixin {
 				String[] strings = packet.getLines();
 
 				for (int i = 0; i < strings.length; ++i) {
-					signBlockEntity.setTextOnRow(i, new StringTextComponent(TextFormatting.getTextWithoutFormattingCodes(strings[i])));
+					signBlockEntity.setTextOnRow(i, new StringTextComponent(Objects.requireNonNull(TextFormatting.getTextWithoutFormattingCodes(strings[i]))));
 				}
 
 				signBlockEntity.markDirty();

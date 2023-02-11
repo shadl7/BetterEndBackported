@@ -1,7 +1,6 @@
 buildscript {
     repositories {
         maven { url = 'https://files.minecraftforge.net/maven' }
-        maven { url='https://dist.creeper.host/Sponge/maven' }
         maven { url='https://repo.spongepowered.org/maven' }
         jcenter()
         mavenCentral()
@@ -23,42 +22,18 @@ version = '1.16.5-2.7'
 group = 'mod.beethoven92.betterendforge' 
 archivesBaseName = 'betterendforge'
 
-
-repositories {
-    maven {
-        name = "ModMaven"
-        url = "https://modmaven.k-4u.nl/"
-    }
-    maven {
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
-    }
-    maven { 
-        url 'https://maven.blamejared.com' 
-    }
-}
-
-
 java.toolchain.languageVersion = JavaLanguageVersion.of(8) 
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
     mappings channel: 'snapshot', version: '20201028-1.16.3'
-    
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
-
     runs {
         client {
             properties 'mixin.env.disableRefMap': 'true'
-            
             workingDirectory project.file('run')
-
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
             property 'forge.logging.console.level', 'debug'
-            
             arg "-mixin.config=betterendforge.mixins.json"
-
             mods {
                 betterendforge {
                     source sourceSets.main
@@ -108,6 +83,21 @@ sourceSets {
     main.resources.srcDirs += 'src/generated/resources'
 }
 
+repositories {
+    maven {
+        name = "ModMaven"
+        url = "https://modmaven.k-4u.nl/"
+    }
+    maven {
+        name = "Progwml6 maven"
+        url = "https://dvs1.progwml6.com/files/maven/"
+    }
+    maven { 
+        url 'https://maven.blamejared.com' 
+    }
+}
+
+
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.0'
     annotationProcessor 'org.spongepowered:mixin:0.8.4:processor'
@@ -125,7 +115,7 @@ jar {
         attributes([
             "Specification-Title": "BetterEnd Forge",
             "Specification-Vendor": "Beethoven92",
-            "Specification-Version": "1", // We are version 1 of ourselves
+            "Specification-Version": "1", 
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
             "Implementation-Vendor" :"Beethoven92",

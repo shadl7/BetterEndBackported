@@ -47,7 +47,7 @@ public class RecipeManagerMixin
 	public <C extends IInventory, T extends IRecipe<C>> Optional<T> getRecipe(IRecipeType<T> type, 
 			C inventory, World world) 
 	{
-		Collection<IRecipe<C>> values = getRecipes(type).values();
+		Collection<IRecipe<C>> values = Objects.requireNonNull(getRecipes(type)).values();
 		List<IRecipe<C>> list = new ArrayList<>(values);
 		list.sort((v1, v2) -> {
 			boolean b1 = v1.getId().getNamespace().equals("minecraft");
