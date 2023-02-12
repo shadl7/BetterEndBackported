@@ -50,55 +50,35 @@ public class StalactiteBlock extends Block implements IWaterLoggable
 	}
 	
 	@Override
-	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context) 
+	public VoxelShape getShape(BlockState state, IBlockReader worldIn, BlockPos pos, ISelectionContext context)
 	{
 		return SHAPES[state.get(SIZE)];
 	}
 	
 	@Override
-	public BlockState getStateForPlacement(BlockItemUseContext context) 
-	{
+	public BlockState getStateForPlacement(BlockItemUseContext context) {
 		IWorldReader world = context.getWorld();
 		BlockPos pos = context.getPos();
 		Direction dir = context.getFace();
 		boolean water = world.getFluidState(pos).getFluid() == Fluids.WATER;
-		
-		if (dir == Direction.DOWN) 
-		{
-			System.out.println("Check up!");
-			if (isThis(world, pos.up()) || this.hasEnoughSolidSide(world, pos.up(), Direction.DOWN)) 
-			{
-				System.out.println("Up true!");
+		if (dir == Direction.DOWN) {
+			if (isThis(world, pos.up()) || this.hasEnoughSolidSide(world, pos.up(), Direction.DOWN)) {
 				return getDefaultState().with(IS_FLOOR, false).with(WATERLOGGED, water);
-			}
-			else if (isThis(world, pos.down()) || hasEnoughSolidSide(world, pos.down(), Direction.UP)) 
-			{
-				System.out.println("Up false!");
+			} else if (isThis(world, pos.down()) || hasEnoughSolidSide(world, pos.down(), Direction.UP)) {
 				return getDefaultState().with(IS_FLOOR, true).with(WATERLOGGED, water);
+			} else {
+				return null;
 			}
-			else 
-			{
+		} else {
+			if (isThis(world, pos.down()) || hasEnoughSolidSide(world, pos.down(), Direction.UP)) {
+				return getDefaultState().with(IS_FLOOR, true).with(WATERLOGGED, water);
+			} else if (isThis(world, pos.up()) || hasEnoughSolidSide(world, pos.up(), Direction.DOWN)) {
+				return getDefaultState().with(IS_FLOOR, false).with(WATERLOGGED, water);
+			} else {
 				return null;
 			}
 		}
-		else 
-		{
-			System.out.println("Check down!");
-			if (isThis(world, pos.down()) || hasEnoughSolidSide(world, pos.down(), Direction.UP)) 
-			{
-				System.out.println("Down true!");
-				return getDefaultState().with(IS_FLOOR, true).with(WATERLOGGED, water);
-			}
-			else if (isThis(world, pos.up()) || hasEnoughSolidSide(world, pos.up(), Direction.DOWN)) 
-			{
-				System.out.println("Down false!");
-				return getDefaultState().with(IS_FLOOR, false).with(WATERLOGGED, water);
-			}
-			else 
-			{
-				return null;
-			}
-		}
+
 	}
 	
 	@Override
