@@ -4,7 +4,7 @@ license="MIT License"
 issueTrackerURL="https://github.com/MCTeamPotato/Better-End-Potato-Edition/issues"
 [[mods]]
 modId="betterendforge"
-version="1.16.5-2.7"
+version="1.16.5-2.8"
 displayName="Better End Potato Edition"
 displayURL="https://www.curseforge.com/minecraft/mc-mods/betterend-re-forked"
 credits="Beethoven92, Vemerion, SomeoneElse, All the artistic rights and credits, except for Forge-specific portions of code, go to the original authors of the BetterEnd mod for the Fabric mod loader"

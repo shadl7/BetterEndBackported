@@ -1,33 +1,37 @@
 {
-	"required": true,
-	"package": "mod.beethoven92.betterendforge.mixin",
-	"compatibilityLevel": "JAVA_8",
-	"refmap": "betterendforge.refmap.json",
-	"mixins": [
-      "AnvilBlockMixin",
-      "BiomeContainerMixin",
-      "BiomeGenerationSettingsAccessor",
-      "BoneMealItemMixin",
-      "ChorusFlowerBlockMixin",
-      "ChorusPlantBlockMixin",
-      "ChorusPlantFeatureMixin",
-      "DimensionTypeMixin",
-      "EndCityStructureMixin",
-      "EndDragonFightMixin",
-      "EndermanEntityMixin",
-      "EndPodiumFeatureMixin",
-      "EndSpikeFeatureMixin",
-      "EndSpikeMixin",
-      "EntityMixin",
-      "MinecraftServerMixin",
-      "NoiseChunkGeneratorMixin",
-      "PlayerEntityMixin",
-      "PlayerListMixin",
-      "RecipeManagerMixin",
-      "RepairContainerMixin",
-      "ServerPlayerEntityMixin",
-      "ServerPlayNetHandlerMixin"
-    ],
+  "required": true,
+  "package": "mod.beethoven92.betterendforge.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "refmap": "betterendforge.refmap.json",
+  "mixins": [
+    "AnvilBlockMixin",
+    "BiomeContainerMixin",
+    "BiomeGenerationSettingsAccessor",
+    "BoneMealItemMixin",
+    "ChorusFlowerBlockMixin",
+    "ChorusPlantBlockMixin",
+    "ChorusPlantFeatureMixin",
+    "DimensionTypeMixin",
+    "EndCityBridgeMixin",
+    "EndCityPiecesMixin",
+    "EndCityStructureMixin",
+    "EndCityTowerMixin",
+    "EndDragonFightMixin",
+    "EndermanEntityMixin",
+    "EndPodiumFeatureMixin",
+    "EndSpikeFeatureMixin",
+    "EndSpikeMixin",
+    "EntityMixin",
+    "HouseTowerGeneratorMixin",
+    "MinecraftServerMixin",
+    "NoiseChunkGeneratorMixin",
+    "PlayerEntityMixin",
+    "PlayerListMixin",
+    "RecipeManagerMixin",
+    "RepairContainerMixin",
+    "ServerPlayerEntityMixin",
+    "ServerPlayNetHandlerMixin"
+  ],
   "client": [
     "AnvilScreenMixin",
     "BiomeColorsMixin",
@@ -38,8 +42,8 @@
     "SoundVolumeAccessor",
     "WorldRendererMixin"
   ],
-	"injectors": {
-		"defaultRequire": 1
-	},
+  "injectors": {
+    "defaultRequire": 1
+  },
   "minVersion": "0.8"
 }
