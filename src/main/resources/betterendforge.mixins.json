@@ -15,7 +15,6 @@
     "EndCityBridgeMixin",
     "EndCityPiecesMixin",
     "EndCityStructureMixin",
-    "EndCityTowerMixin",
     "EndDragonFightMixin",
     "EndermanEntityMixin",
     "EndPodiumFeatureMixin",

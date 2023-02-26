@@ -27,7 +27,7 @@ public class EndCityBridgeMixin {
      */
     @Overwrite
     public boolean generate(TemplateManager p_71180_, int p_71181_, EndCityPieces.CityTemplate p_71182_, BlockPos p_71183_, List<StructurePiece> p_71184_, Random p_71185_) {
-        Rotation rotation = p_71182_.placeSettings.getRotation();
+        Rotation rotation = p_71182_.getRotation();
 
         int i = p_71185_.nextInt(4) + 1;
         i += Math.max(0, (6 - (p_71181_ / 2)));
@@ -35,7 +35,6 @@ public class EndCityBridgeMixin {
         EndCityPieces.CityTemplate endcitypieces$endcitypiece = EndCityPieces.addHelper(p_71184_, EndCityPieces.addPiece(p_71180_, p_71182_, new BlockPos(0, 0, -4), "bridge_piece", rotation, true));
         endcitypieces$endcitypiece.componentType = -1;
         int j = 0;
-
         for(int k = 0; k < i; ++k) {
             if (p_71185_.nextBoolean()) {
                 endcitypieces$endcitypiece = EndCityPieces.addHelper(p_71184_, EndCityPieces.addPiece(p_71180_, endcitypieces$endcitypiece, new BlockPos(0, j, -4), "bridge_piece", rotation, true));

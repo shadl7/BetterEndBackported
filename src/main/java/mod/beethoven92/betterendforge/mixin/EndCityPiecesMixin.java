@@ -16,12 +16,6 @@ import java.util.Random;
 
 @Mixin(targets = "net.minecraft.world.gen.feature.structure.EndCityPieces$2")
 public class EndCityPiecesMixin {
-
-    @Redirect(at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I", ordinal = 3), method = "generate")
-    public int getCloudHeight(Random instance, int bound) {
-        return instance.nextInt(bound + 2);
-    }
-
     /**
      * @author Doctor Who
      * @reason Saving The World
