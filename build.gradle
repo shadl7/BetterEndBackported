@@ -20,7 +20,7 @@ mixin {
     config 'betterendforge.mixins.json'
 }
 
-version = '1.16.5-2.8'
+version = '1.16.5-2.8.1'
 group = 'mod.beethoven92.betterendforge' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'betterendforge'
 
