@@ -189,12 +189,3 @@ publishing {
         }
     }
 }
-
-curseforge {
-    project {
-        id = project.projectId
-        changelog = file('changelog.txt')
-        releaseType = project.curse_type
-        mainArtifact jar
-    }
-}
