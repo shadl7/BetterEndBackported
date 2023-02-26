@@ -36,9 +36,9 @@ public class HouseTowerGeneratorMixin {
 
                 EndCityPieces.recursiveChildren(p_71161_, EndCityPieces.TOWER_GENERATOR, p_71162_ + 1, endcitypieces$endcitypiece, (BlockPos)null, p_71165_, p_71166_);
             } else if (i == 1) {
-                endcitypieces$endcitypiece = EndCityPieces.addHelper(p_71161_, endcitypieces$endcitypiece, new BlockPos(-1, 0, -1), "second_floor_2", rotation, false);
-                endcitypieces$endcitypiece = EndCityPieces.addHelper(p_71161_, endcitypieces$endcitypiece, new BlockPos(-1, 4, -1), "third_floor_2", rotation, false);
-                endcitypieces$endcitypiece = EndCityPieces.addHelper(p_71161_, endcitypieces$endcitypiece, new BlockPos(-1, 8, -1), "third_roof", rotation, false);
+                endcitypieces$endcitypiece = EndCityPieces.addHelper(p_71165_, EndCityPieces.addPiece(p_71161_, endcitypieces$endcitypiece, new BlockPos(-1, 0, -1), "second_floor_2", rotation, false));
+                endcitypieces$endcitypiece = EndCityPieces.addHelper(p_71165_, EndCityPieces.addPiece(p_71161_, endcitypieces$endcitypiece, new BlockPos(-1, 4, -1), "third_floor_2", rotation, false));
+                endcitypieces$endcitypiece = EndCityPieces.addHelper(p_71165_, EndCityPieces.addPiece(p_71161_, endcitypieces$endcitypiece, new BlockPos(-1, 8, -1), "third_roof", rotation, false));
 
                 EndCityPieces.recursiveChildren(p_71161_, EndCityPieces.TOWER_GENERATOR, p_71162_ + 1, endcitypieces$endcitypiece, (BlockPos)null, p_71165_, p_71166_);
             } else if (i == 2) {
