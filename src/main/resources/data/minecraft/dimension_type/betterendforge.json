@@ -4,7 +4,7 @@
   "effects": "minecraft:the_end",
   "ambient_light": 0,
   "respawn_anchor_works": false,
-  "has_raids": false,
+  "has_raids": true,
   "min_y": 0,
   "height": 384,
   "natural": false,
