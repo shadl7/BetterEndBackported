@@ -9,8 +9,8 @@ import java.util.Random;
 
 public class BetterEndCaveBiome extends BetterEndBiome
 {
-	private WeightedList<Feature<?>> floorFeatures = new WeightedList<>();
-	private WeightedList<Feature<?>> ceilFeatures = new WeightedList<>();
+	private final WeightedList<Feature<?>> floorFeatures = new WeightedList<>();
+	private final WeightedList<Feature<?>> ceilFeatures = new WeightedList<>();
 
 	public BetterEndCaveBiome(BiomeTemplate definition)
 	{

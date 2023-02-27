@@ -17,7 +17,7 @@ import java.util.function.Consumer;
 
 public class VoxelPiece extends StructurePiece
 {
-	private StructureWorld world;
+	private final StructureWorld world;
 	
 	public VoxelPiece(Consumer<StructureWorld> function, int id) 
 	{

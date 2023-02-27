@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class FuelRegistry {
 
-	private static Map<IItemProvider, Integer> FUELS = new HashMap<>();
+	private static final Map<IItemProvider, Integer> FUELS = new HashMap<>();
 	
 	public static void onFuelBurnTimeEvent(FurnaceFuelBurnTimeEvent event) {
 		ItemStack stack = event.getItemStack();

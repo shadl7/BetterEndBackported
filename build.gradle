@@ -26,24 +26,21 @@ archivesBaseName = 'betterendforge'
 
 
 repositories {
-    // location of a maven mirror for JEI files, as a fallback
     maven {
         name = "ModMaven"
         url = "https://modmaven.k-4u.nl/"
     }
-    // location of the maven that hosts JEI files
     maven {
         name = "Progwml6 maven"
         url = "https://dvs1.progwml6.com/files/maven/"
     }
-    // Patchouli
     maven {
         url 'https://maven.blamejared.com'
     }
 }
 
 
-java.toolchain.languageVersion = JavaLanguageVersion.of(8) // Mojang ships Java 8 to end users, so your mod should target Java 8.
+java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 minecraft {
@@ -51,15 +48,9 @@ minecraft {
     mappings channel: 'snapshot', version: '20201028-1.16.3'
     runs {
         client {
-            // Needed to work with Patchouli in-dev
             properties 'mixin.env.disableRefMap': 'true'
-
             workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
             arg "-mixin.config=betterendforge.mixins.json"
@@ -72,15 +63,9 @@ minecraft {
         }
 
         server {
-            // Needed to work with Patchouli in-dev
             properties 'mixin.env.disableRefMap': 'true'
-
             workingDirectory project.file('run')
-
-            // Recommended logging data for a userdev environment
             property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
-
-            // Recommended logging level for the console
             property 'forge.logging.console.level', 'debug'
 
             arg "-mixin.config=betterendforge.mixins.json"

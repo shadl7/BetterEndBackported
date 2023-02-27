@@ -35,6 +35,7 @@ import net.minecraft.world.biome.Biome;
 
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class EndSlimeEntity extends SlimeEntity {
@@ -124,10 +125,10 @@ public class EndSlimeEntity extends SlimeEntity {
 				float h = ((float) (l / 2) - 0.5F) * f;
 				EndSlimeEntity slimeEntity = (EndSlimeEntity) this.getType().create(this.world);
 				if (this.isNoDespawnRequired()) {
-					slimeEntity.enablePersistence();
+					Objects.requireNonNull(slimeEntity).enablePersistence();
 				}
 
-				slimeEntity.setSlimeType(type);
+				Objects.requireNonNull(slimeEntity).setSlimeType(type);
 				slimeEntity.setCustomName(text);
 				slimeEntity.setNoAI(bl);
 				slimeEntity.setInvulnerable(this.isInvulnerable());
@@ -202,9 +203,7 @@ public class EndSlimeEntity extends SlimeEntity {
 
 	private static boolean notManyEntities(IServerWorld world, BlockPos pos, int radius, int maxCount) {
 		AxisAlignedBB box = new AxisAlignedBB(pos).grow(radius);
-		List<EndSlimeEntity> list = world.getEntitiesWithinAABB(EndSlimeEntity.class, box, (entity) -> {
-			return true;
-		});
+		List<EndSlimeEntity> list = world.getEntitiesWithinAABB(EndSlimeEntity.class, box, (entity) -> true);
 		return list.size() <= maxCount;
 	}
 
@@ -344,7 +343,7 @@ public class EndSlimeEntity extends SlimeEntity {
 
 		@Override
 		public void tick() {
-			EndSlimeEntity.this.faceEntity(EndSlimeEntity.this.getAttackTarget(), 10.0F, 10.0F);
+			EndSlimeEntity.this.faceEntity(Objects.requireNonNull(EndSlimeEntity.this.getAttackTarget()), 10.0F, 10.0F);
 			((EndSlimeMoveControl) EndSlimeEntity.this.getMoveHelper()).look(EndSlimeEntity.this.rotationYaw,
 					EndSlimeEntity.this.canDamagePlayer());
 		}

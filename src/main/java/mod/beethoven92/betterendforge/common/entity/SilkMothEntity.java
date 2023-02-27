@@ -38,6 +38,7 @@ import net.minecraft.world.server.ServerWorld;
 
 import javax.annotation.Nullable;
 import java.util.EnumSet;
+import java.util.Objects;
 import java.util.Random;
 
 public class SilkMothEntity extends AnimalEntity implements IFlyingAnimal {
@@ -82,7 +83,7 @@ public class SilkMothEntity extends AnimalEntity implements IFlyingAnimal {
 			hivePos = NBTUtil.readBlockPos(tag.getCompound("HivePos"));
 			ResourceLocation worldID = new ResourceLocation(tag.getString("HiveWorld"));
 			try {
-				hiveWorld = world.getServer().getWorld(RegistryKey.getOrCreateKey(Registry.WORLD_KEY, worldID));
+				hiveWorld = Objects.requireNonNull(world.getServer()).getWorld(RegistryKey.getOrCreateKey(Registry.WORLD_KEY, worldID));
 			} catch (Exception e) {
 				BetterEnd.LOGGER.warn("Silk Moth Hive World {} is missing!", worldID);
 				hivePos = null;
@@ -155,7 +156,7 @@ public class SilkMothEntity extends AnimalEntity implements IFlyingAnimal {
 		return y > 0 && pos.getY() >= y;
 	}
 
-	class MothLookControl extends LookController {
+	static class MothLookControl extends LookController {
 		MothLookControl(MobEntity entity) {
 			super(entity);
 		}

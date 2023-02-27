@@ -15,6 +15,7 @@ import net.minecraft.util.NonNullList;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class EndStoneSmelterRecipeBookScreen extends BlastFurnaceRecipeGui
@@ -87,7 +88,7 @@ public class EndStoneSmelterRecipeBookScreen extends BlastFurnaceRecipeGui
 			int slotX = this.fuelSlot.xPos + x;
 			int slotY = this.fuelSlot.yPos + y;
 			AbstractGui.fill(matrixStack, slotX, slotY, slotX + 16, slotY + 16, 822018048);
-			this.mc.getItemRenderer().renderItemAndEffectIntoGUI(mc.player, this.getItem().getDefaultInstance(), slotX, slotY);
+			this.mc.getItemRenderer().renderItemAndEffectIntoGUI(Objects.requireNonNull(mc.player), this.getItem().getDefaultInstance(), slotX, slotY);
 			RenderSystem.depthFunc(516);
 			AbstractGui.fill(matrixStack, slotX, slotY, slotX + 16, slotY + 16, 822083583);
 			RenderSystem.depthFunc(515);

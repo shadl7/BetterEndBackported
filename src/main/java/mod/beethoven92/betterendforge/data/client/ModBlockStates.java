@@ -540,14 +540,14 @@ public class ModBlockStates extends BlockStateProvider
     
     private void flowerPotBlock(Block pot_block, Block plant)
     {
-    	ModelFile pot = models().withExistingParent("potted_" + plant.getRegistryName().getPath(), mcLoc("block/flower_pot_cross"))
+    	ModelFile pot = models().withExistingParent("potted_" + Objects.requireNonNull(plant.getRegistryName()).getPath(), mcLoc("block/flower_pot_cross"))
     			.texture("plant", modLoc("block/" + plant.getRegistryName().getPath()));
     	simpleBlock(pot_block, pot);
     }
     
     private void chainBlock(Block chain_block)
     {
-    	ModelFile chain = models().withExistingParent(chain_block.getRegistryName().getPath(), mcLoc("block/chain"))
+    	ModelFile chain = models().withExistingParent(Objects.requireNonNull(chain_block.getRegistryName()).getPath(), mcLoc("block/chain"))
     			.texture("particle", modLoc("block/" + chain_block.getRegistryName().getPath()))
     			.texture("all", modLoc("block/" + chain_block.getRegistryName().getPath()));
     	axisBlock((RotatedPillarBlock)chain_block, chain, chain);
@@ -555,7 +555,7 @@ public class ModBlockStates extends BlockStateProvider
     
     private void barsBlock(Block barsBlock) 
     {
-        ModelFile post = models().withExistingParent(barsBlock.getRegistryName().
+        ModelFile post = models().withExistingParent(Objects.requireNonNull(barsBlock.getRegistryName()).
         		getPath() + "_post", modLoc("metal_bars_post")).
         		texture("top", modLoc("block/" + barsBlock.getRegistryName().getPath() + "_top"));
         ModelFile side = models().withExistingParent(barsBlock.getRegistryName().
@@ -575,7 +575,7 @@ public class ModBlockStates extends BlockStateProvider
     
     private void chandelierBlock(Block chandelier)
     {
-		ModelFile ceil = models().withExistingParent(chandelier.getRegistryName().getPath() + "_ceil", 
+		ModelFile ceil = models().withExistingParent(Objects.requireNonNull(chandelier.getRegistryName()).getPath() + "_ceil",
 				modLoc("chandelier_ceil")).
 				texture("rod", modLoc("block/" + chandelier.getRegistryName().getPath() + "_floor")).
 				texture("texture", modLoc("block/" + chandelier.getRegistryName().getPath() + "_ceil"));
@@ -705,7 +705,7 @@ public class ModBlockStates extends BlockStateProvider
        	           
            int size = state.get(StalactiteBlock.SIZE);
            
-           ModelFile currentSize = models().withExistingParent(block.getRegistryName().getPath() + "_" + size, mcLoc("block/cross"))
+           ModelFile currentSize = models().withExistingParent(Objects.requireNonNull(block.getRegistryName()).getPath() + "_" + size, mcLoc("block/cross"))
          		   .texture("cross", modLoc("block/" + block.getRegistryName().getPath() + "_" + size));
            
            return ConfiguredModel.builder()

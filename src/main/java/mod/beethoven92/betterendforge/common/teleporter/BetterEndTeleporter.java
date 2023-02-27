@@ -12,7 +12,7 @@ import java.util.function.Function;
 // avoid "Player moved wrongly" situations which results in teleporting player position being misplaced
 public class BetterEndTeleporter implements net.minecraftforge.common.util.ITeleporter
 {
-	BlockPos exitPos;
+	final BlockPos exitPos;
 	
 	public BetterEndTeleporter(BlockPos exitPos)
 	{

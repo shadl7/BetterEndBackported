@@ -17,6 +17,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -29,8 +30,8 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 	public Ingredient input;
 	public ItemStack output;
 	public int time = 1;
-	public Ingredient[] catalysts = new Ingredient[8];
-	public Map<Integer, Ingredient> ingredientPositions = Maps.newHashMap();
+	public final Ingredient[] catalysts = new Ingredient[8];
+	public final Map<Integer, Ingredient> ingredientPositions = Maps.newHashMap();
 
 	public InfusionRecipe(ResourceLocation id) {
 		this(id, null, null);
@@ -105,7 +106,7 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 		private Ingredient input;
 		private ItemStack output;
 		private int time = 1;
-		private Ingredient[] catalysts = new Ingredient[8];
+		private final Ingredient[] catalysts = new Ingredient[8];
 
 		private Builder() {
 			Arrays.fill(catalysts, Ingredient.EMPTY);
@@ -169,10 +170,10 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 		}
 
 		public static class Result implements IFinishedRecipe {
-			private ResourceLocation id;
-			private Ingredient input;
-			private ItemStack output;
-			private int time;
+			private final ResourceLocation id;
+			private final Ingredient input;
+			private final ItemStack output;
+			private final int time;
 			private Ingredient[] catalysts = new Ingredient[8];
 			
 			private Result(ResourceLocation id, Ingredient input, ItemStack output, int time, Ingredient[] catalysts) {
@@ -200,6 +201,7 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 				json.add("catalysts", jsonCatalysts);
 			}
 
+			@Nonnull
 			@Override
 			public ResourceLocation getID() {
 				return id;

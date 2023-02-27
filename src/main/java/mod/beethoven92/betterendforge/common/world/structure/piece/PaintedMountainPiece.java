@@ -30,17 +30,17 @@ import java.util.Random;
 
 public class PaintedMountainPiece extends StructurePiece
 {
-	private Map<Integer, Integer> heightmap = Maps.newHashMap();
-	private OpenSimplexNoise noise1;
-	private OpenSimplexNoise noise2;
-	private BlockPos center;
-	private float radius;
-	private float height;
-	private float r2;
-	private ResourceLocation biomeID;
-	private BlockState[] slises;
-	private int seed1;
-	private int seed2;
+	private final Map<Integer, Integer> heightmap = Maps.newHashMap();
+	private final OpenSimplexNoise noise1;
+	private final OpenSimplexNoise noise2;
+	private final BlockPos center;
+	private final float radius;
+	private final float height;
+	private final float r2;
+	private final ResourceLocation biomeID;
+	private final BlockState[] slises;
+	private final int seed1;
+	private final int seed2;
 	
 	public PaintedMountainPiece(BlockPos center, float radius, float height, Random random, Biome biome, BlockState[] slises)
 	{

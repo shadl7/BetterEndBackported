@@ -48,7 +48,7 @@ public abstract class WorldRendererMixin
 	private static Vector3f axis2;
 	private static Vector3f axis3;
 	private static Vector3f axis4;
-	private static boolean directOpenGL = false; // Unused
+	private static final boolean directOpenGL = false; // Unused
 	
 	@Shadow
 	@Final

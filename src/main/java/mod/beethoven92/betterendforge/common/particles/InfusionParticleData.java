@@ -15,6 +15,8 @@ import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.Objects;
+
 public class InfusionParticleData implements IParticleData
 {
 	public static final IParticleData.IDeserializer<InfusionParticleData> DESERIALIZER = 
@@ -36,8 +38,8 @@ public class InfusionParticleData implements IParticleData
 
 	public static final Codec<InfusionParticleData> CODEC = ItemStack.CODEC.xmap(InfusionParticleData::new, infusionParticleType -> infusionParticleType.itemStack);
 	
-	private ParticleType<InfusionParticleData> type;
-	private ItemStack itemStack;
+	private final ParticleType<InfusionParticleData> type;
+	private final ItemStack itemStack;
 	
 	public InfusionParticleData(ItemStack stack) 
 	{
@@ -67,7 +69,7 @@ public class InfusionParticleData implements IParticleData
 	@Override
 	public String getParameters() 
 	{
-		return Registry.PARTICLE_TYPE.getKey(this.getType()).toString();
+		return Objects.requireNonNull(Registry.PARTICLE_TYPE.getKey(this.getType())).toString();
 	}
 
 }

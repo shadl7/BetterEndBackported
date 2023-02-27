@@ -34,6 +34,7 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
 import java.util.function.Function;
@@ -42,7 +43,7 @@ public class EndData implements INBTSerializable<CompoundNBT> {
 	@CapabilityInject(EndData.class)
 	public static final Capability<EndData> CAPABILITY = null;
 
-	private Set<UUID> players;
+	private final Set<UUID> players;
 	private BlockPos spawn;
 
 	public EndData() {
@@ -119,14 +120,14 @@ public class EndData implements INBTSerializable<CompoundNBT> {
 	}
 
 	public static void playerLogin(ServerPlayerEntity player) {
-		World end = player.getServer().getWorld(World.THE_END);
+		World end = Objects.requireNonNull(player.getServer()).getWorld(World.THE_END);
 		if (end == null)
 			return;
 		end.getCapability(CAPABILITY).ifPresent(c -> c.login(player));
 	}
 
 	public static void playerRespawn(ServerPlayerEntity player) {
-		World end = player.getServer().getWorld(World.THE_END);
+		World end = Objects.requireNonNull(player.getServer()).getWorld(World.THE_END);
 		if (end == null)
 			return;
 		end.getCapability(CAPABILITY).ifPresent(c -> c.teleportToSpawn(player));
@@ -156,7 +157,7 @@ public class EndData implements INBTSerializable<CompoundNBT> {
 	@EventBusSubscriber(modid = BetterEnd.MOD_ID, bus = EventBusSubscriber.Bus.FORGE)
 	public static class Provider implements ICapabilitySerializable<INBT> {
 
-		private LazyOptional<EndData> instance = LazyOptional.of(CAPABILITY::getDefaultInstance);
+		private final LazyOptional<EndData> instance = LazyOptional.of(CAPABILITY::getDefaultInstance);
 
 		@Override
 		public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {

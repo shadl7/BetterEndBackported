@@ -31,18 +31,18 @@ import java.util.Random;
 
 public class MountainPiece extends StructurePiece
 {
-	private Map<Integer, Integer> heightmap = Maps.newHashMap();
+	private final Map<Integer, Integer> heightmap = Maps.newHashMap();
 	
-	private BlockPos center;
-	private float radius;
-	private float height;
-	private float r2;
-	private OpenSimplexNoise noise1;
-	private OpenSimplexNoise noise2;
-	private BlockState top;
-	private int seed1;
-	private int seed2;
-	private ResourceLocation biomeID;
+	private final BlockPos center;
+	private final float radius;
+	private final float height;
+	private final float r2;
+	private final OpenSimplexNoise noise1;
+	private final OpenSimplexNoise noise2;
+	private final BlockState top;
+	private final int seed1;
+	private final int seed2;
+	private final ResourceLocation biomeID;
 
 	public MountainPiece(BlockPos center, float radius, float height, Random rand, Biome biome) 
 	{

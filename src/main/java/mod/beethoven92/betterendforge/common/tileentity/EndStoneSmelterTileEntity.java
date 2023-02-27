@@ -40,6 +40,7 @@ import javax.annotation.Nullable;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITickableTileEntity, IRecipeHolder, IRecipeHelperPopulator, ISidedInventory
 {
@@ -156,7 +157,7 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 	{
 		List<IRecipe<?>> list = Lists.newArrayList();
 		for (Entry<ResourceLocation> entry : this.recipesUsed.object2IntEntrySet()) {
-			world.getRecipeManager().getRecipe(entry.getKey()).ifPresent((recipe) -> {
+			Objects.requireNonNull(world).getRecipeManager().getRecipe(entry.getKey()).ifPresent((recipe) -> {
 				list.add(recipe);
 				if (recipe instanceof AlloyingRecipe) {
 					AlloyingRecipe alloying = (AlloyingRecipe) recipe;
@@ -197,7 +198,7 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 		}
 		
 		boolean burning = this.isBurning();
-		if (!this.world.isRemote) 
+		if (!Objects.requireNonNull(this.world).isRemote)
 		{
 			ItemStack fuel = this.items.get(2);
 			if (!burning && (fuel.isEmpty() || items.get(0).isEmpty() && items.get(1).isEmpty())) 
@@ -324,7 +325,7 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 			output.grow(result.getCount());
 		}
 
-		if (!this.world.isRemote)
+		if (!Objects.requireNonNull(this.world).isRemote)
 		{
 			this.setRecipeUsed(recipe);
 		}
@@ -404,7 +405,7 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 	
 	protected int getSmeltTime()
 	{
-		int smeltTime = this.world.getRecipeManager().getRecipe(AlloyingRecipe.TYPE, this, world)
+		int smeltTime = Objects.requireNonNull(this.world).getRecipeManager().getRecipe(AlloyingRecipe.TYPE, this, world)
 				.map(AlloyingRecipe::getSmeltTime).orElse(0);
 		if (smeltTime == 0) 
 		{
@@ -447,7 +448,7 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 	@Override
 	public boolean isUsableByPlayer(PlayerEntity player) 
 	{
-		if (this.world.getTileEntity(this.pos) != this) 
+		if (Objects.requireNonNull(this.world).getTileEntity(this.pos) != this)
 		{
 			return false;
 		} 
@@ -560,7 +561,7 @@ public class EndStoneSmelterTileEntity extends LockableTileEntity implements ITi
 		return AVAILABLE_FUELS;
 	}
 	
-	net.minecraftforge.common.util.LazyOptional<? extends net.minecraftforge.items.IItemHandler>[] handlers =
+	final net.minecraftforge.common.util.LazyOptional<? extends net.minecraftforge.items.IItemHandler>[] handlers =
 			net.minecraftforge.items.wrapper.SidedInvWrapper.create(this, Direction.UP, Direction.DOWN, Direction.NORTH);
 
 	@Override

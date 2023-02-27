@@ -37,14 +37,14 @@ public class EndCityPiecesMixin {
             for(Tuple<Rotation, BlockPos> tuple : EndCityPieces.TOWER_BRIDGES) {
                 if (p_71175_.nextBoolean()) {
                     EndCityPieces.CityTemplate endcitypieces$endcitypiece2 = EndCityPieces.addHelper(p_71174_, EndCityPieces.addPiece(p_71170_, endcitypieces$endcitypiece1, tuple.getB(), "bridge_end", rotation.add(tuple.getA()), true));
-                    EndCityPieces.recursiveChildren(p_71170_, EndCityPieces.TOWER_BRIDGE_GENERATOR, p_71171_ + 1, endcitypieces$endcitypiece2, (BlockPos)null, p_71174_, p_71175_);
+                    EndCityPieces.recursiveChildren(p_71170_, EndCityPieces.TOWER_BRIDGE_GENERATOR, p_71171_ + 1, endcitypieces$endcitypiece2, null, p_71174_, p_71175_);
                 }
             }
 
             EndCityPieces.addHelper(p_71174_, EndCityPieces.addPiece(p_71170_, $$7, new BlockPos(-1, 4, -1), "tower_top", rotation, true));
         } else {
             if (p_71171_ < 15) {
-                return EndCityPieces.recursiveChildren(p_71170_, EndCityPieces.FAT_TOWER_GENERATOR, p_71171_ + 1, $$7, (BlockPos)null, p_71174_, p_71175_);
+                return EndCityPieces.recursiveChildren(p_71170_, EndCityPieces.FAT_TOWER_GENERATOR, p_71171_ + 1, $$7, null, p_71174_, p_71175_);
             }
 
             EndCityPieces.addHelper(p_71174_, EndCityPieces.addPiece(p_71170_, $$7, new BlockPos(-1, 4, -1), "tower_top", rotation, true));

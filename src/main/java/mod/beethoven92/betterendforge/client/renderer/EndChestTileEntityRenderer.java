@@ -24,10 +24,11 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.world.World;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class EndChestTileEntityRenderer extends TileEntityRenderer<EChestTileEntity> {
 	private static final HashMap<Block, RenderType[]> LAYERS = Maps.newHashMap();
-	private static RenderType[] defaultLayer;
+	private static final RenderType[] defaultLayer;
 
 	private static final int ID_NORMAL = 0;
 	private static final int ID_LEFT = 1;
@@ -158,7 +159,7 @@ public class EndChestTileEntityRenderer extends TileEntityRenderer<EChestTileEnt
 			if (item.get() instanceof BlockItem) {
 				Block block = ((BlockItem) item.get()).getBlock();
 				if (block instanceof ChestBlock) {
-					String name = block.getRegistryName().getPath();
+					String name = Objects.requireNonNull(block.getRegistryName()).getPath();
 					LAYERS.put(block, new RenderType[] {
 							RenderType.getEntityCutout(new ResourceLocation(BetterEnd.MOD_ID, "textures/entity/chest/" + name + ".png")),
 							RenderType.getEntityCutout(new ResourceLocation(BetterEnd.MOD_ID, "textures/entity/chest/" + name + "_left.png")),

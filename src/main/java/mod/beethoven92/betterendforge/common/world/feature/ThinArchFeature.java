@@ -25,7 +25,7 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 import java.util.Random;
 
 public class ThinArchFeature extends Feature<NoFeatureConfig> {
-    private Block block;
+    private final Block block;
 
     public ThinArchFeature(Block block)
     {

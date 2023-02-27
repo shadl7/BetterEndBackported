@@ -11,8 +11,8 @@ import java.util.Random;
 @OnlyIn(Dist.CLIENT)
 public class ColorExtractor
 {
-	private List<Center> centers = new ArrayList<>();
-	private List<Integer> colors;
+	private final List<Center> centers = new ArrayList<>();
+	private final List<Integer> colors;
 	private Integer result;
 	
 	public ColorExtractor(List<Integer> colors) 
@@ -108,9 +108,9 @@ public class ColorExtractor
 	
 	private static class Center 
 	{
-		static final Comparator<Center> COMPARATOR = (c1, c2) -> Integer.compare(c1.getColor(), c2.getColor());
+		static final Comparator<Center> COMPARATOR = Comparator.comparingInt(Center::getColor);
 		
-		List<Integer> colors = new ArrayList<>();
+		final List<Integer> colors = new ArrayList<>();
 		double a, r, g, b;
 		
 		Center(int color) 

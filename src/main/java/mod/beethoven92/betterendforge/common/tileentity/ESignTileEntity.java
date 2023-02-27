@@ -23,6 +23,7 @@ import net.minecraft.world.server.ServerWorld;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.Objects;
 import java.util.function.Function;
 
 public class ESignTileEntity extends TileEntity {
@@ -62,7 +63,7 @@ public class ESignTileEntity extends TileEntity {
 			if (this.world instanceof ServerWorld) {
 				try {
 					this.text[i] = TextComponentUtils.func_240645_a_(this.getCommandSource(null),
-							text, null, 0);
+                            Objects.requireNonNull(text), null, 0);
 				} catch (CommandSyntaxException var7) {
 					this.text[i] = text;
 				}
@@ -134,7 +135,7 @@ public class ESignTileEntity extends TileEntity {
             if (style != null && style.getClickEvent() != null) {
                 ClickEvent clickEvent = style.getClickEvent();
                 if (clickEvent.getAction() == ClickEvent.Action.RUN_COMMAND) {
-                    player.getServer().getCommandManager()
+                    Objects.requireNonNull(player.getServer()).getCommandManager()
                             .handleCommand(this.getCommandSource((ServerPlayerEntity) player), clickEvent.getValue());
                 }
             }
@@ -147,7 +148,7 @@ public class ESignTileEntity extends TileEntity {
 		String string = player == null ? "Sign" : player.getName().getString();
 		ITextComponent text = player == null ? new StringTextComponent("Sign") : player.getDisplayName();
 		return new CommandSource(ICommandSource.DUMMY, Vector3d.copyCentered(this.pos), Vector2f.ZERO,
-				(ServerWorld) this.world, 2, string, text, this.world.getServer(), player);
+				(ServerWorld) Objects.requireNonNull(this.world), 2, string, text, this.world.getServer(), player);
 	}
 
 	public DyeColor getTextColor() {
@@ -158,7 +159,7 @@ public class ESignTileEntity extends TileEntity {
 		if (value != this.getTextColor()) {
 			this.textColor = value;
 			this.markDirty();
-			this.world.notifyBlockUpdate(this.getPos(), this.getBlockState(), this.getBlockState(), 3);
+			Objects.requireNonNull(this.world).notifyBlockUpdate(this.getPos(), this.getBlockState(), this.getBlockState(), 3);
 			return true;
 		} else {
 			return false;

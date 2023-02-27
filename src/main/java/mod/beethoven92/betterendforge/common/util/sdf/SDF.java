@@ -16,7 +16,7 @@ import java.util.function.Function;
 
 public abstract class SDF 
 {
-	private List<Function<PosInfo, BlockState>> postProcesses = Lists.newArrayList();
+	private final List<Function<PosInfo, BlockState>> postProcesses = Lists.newArrayList();
 	
 	private Function<BlockState, Boolean> canReplace = (state) -> state.getMaterial().isReplaceable();
 

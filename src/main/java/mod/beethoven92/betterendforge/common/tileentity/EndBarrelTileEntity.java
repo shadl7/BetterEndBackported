@@ -22,6 +22,8 @@ import net.minecraft.util.math.vector.Vector3i;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 
+import java.util.Objects;
+
 public class EndBarrelTileEntity extends LockableLootTileEntity {
 	private NonNullList<ItemStack> inventory;
 	private int viewerCount;
@@ -101,14 +103,14 @@ public class EndBarrelTileEntity extends LockableLootTileEntity {
 	}
 
 	private void scheduleTick() {
-		this.world.getPendingBlockTicks().scheduleTick(this.getPos(), this.getBlockState().getBlock(), 5);
+		Objects.requireNonNull(this.world).getPendingBlockTicks().scheduleTick(this.getPos(), this.getBlockState().getBlock(), 5);
 	}
 
 	public void tick() {
 		int i = this.pos.getX();
 		int j = this.pos.getY();
 		int k = this.pos.getZ();
-		this.viewerCount = ChestTileEntity.calculatePlayersUsing(this.world, this, i, j, k);
+		this.viewerCount = ChestTileEntity.calculatePlayersUsing(Objects.requireNonNull(this.world), this, i, j, k);
 		if (this.viewerCount > 0) {
 			this.scheduleTick();
 		} else {
@@ -136,7 +138,7 @@ public class EndBarrelTileEntity extends LockableLootTileEntity {
 	}
 
 	private void setOpen(BlockState state, boolean open) {
-		this.world.setBlockState(this.getPos(), state.with(BarrelBlock.PROPERTY_OPEN, open), 3);
+		Objects.requireNonNull(this.world).setBlockState(this.getPos(), state.with(BarrelBlock.PROPERTY_OPEN, open), 3);
 	}
 
 	private void playSound(BlockState blockState, SoundEvent soundEvent) {
@@ -144,7 +146,7 @@ public class EndBarrelTileEntity extends LockableLootTileEntity {
 		double d = (double) this.pos.getX() + 0.5D + (double) vec3i.getX() / 2.0D;
 		double e = (double) this.pos.getY() + 0.5D + (double) vec3i.getY() / 2.0D;
 		double f = (double) this.pos.getZ() + 0.5D + (double) vec3i.getZ() / 2.0D;
-		this.world.playSound(null, d, e, f, soundEvent, SoundCategory.BLOCKS, 0.5F,
+		Objects.requireNonNull(this.world).playSound(null, d, e, f, soundEvent, SoundCategory.BLOCKS, 0.5F,
 				this.world.rand.nextFloat() * 0.1F + 0.9F);
 	}
 }

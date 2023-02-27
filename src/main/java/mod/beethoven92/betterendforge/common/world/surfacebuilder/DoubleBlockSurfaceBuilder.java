@@ -27,19 +27,17 @@ public class DoubleBlockSurfaceBuilder extends SurfaceBuilder<SurfaceBuilderConf
 
 
 	
-	public DoubleBlockSurfaceBuilder setBlock1(Block block) 
+	public void setBlock1(Block block)
 	{
 		BlockState stone = Blocks.END_STONE.getDefaultState();
 		config1 = new SurfaceBuilderConfig(block.getDefaultState(), stone, stone);
-		return this;
-	}
+    }
 	
-	public DoubleBlockSurfaceBuilder setBlock2(Block block) 
+	public void setBlock2(Block block)
 	{
 		BlockState stone = Blocks.END_STONE.getDefaultState();
 		config2 = new SurfaceBuilderConfig(block.getDefaultState(), stone, stone);
-		return this;
-	}
+    }
 	
 	@Override
 	public void buildSurface(Random random, IChunk chunkIn, Biome biomeIn, int x, int z, int startHeight, double noise,

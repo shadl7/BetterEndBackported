@@ -116,7 +116,7 @@ public class EternalRitual
 			if (valid) 
 			{
 				EternalPedestalTileEntity pedestal = (EternalPedestalTileEntity) world.getTileEntity(checkPos);
-				Item pItem = pedestal.getStack().getItem();
+				Item pItem = Objects.requireNonNull(pedestal).getStack().getItem();
 				if (item == null)
 				{
 					item = pItem;

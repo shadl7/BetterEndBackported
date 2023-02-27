@@ -31,8 +31,8 @@ public class BetterEndBiomeProvider extends BiomeProvider
 	private final Registry<Biome> lookupRegistry;
 	private final Biome centerBiome;
 	private final Biome barrens;
-	private BiomeMap mapLand;
-	private BiomeMap mapVoid;
+	private final BiomeMap mapLand;
+	private final BiomeMap mapVoid;
 	private final long seed;
 
 	

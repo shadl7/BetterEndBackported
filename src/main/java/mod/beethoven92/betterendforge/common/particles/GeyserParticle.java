@@ -10,7 +10,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class GeyserParticle extends SpriteTexturedParticle
 {
-	private Mutable mut = new Mutable();
+	private final Mutable mut = new Mutable();
 	private boolean changeDir = false;
 	private boolean check = true;
 

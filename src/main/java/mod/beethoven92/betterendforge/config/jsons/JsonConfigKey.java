@@ -86,7 +86,7 @@ public class JsonConfigKey
 		{
 			p.append(".").append(path[i]);
 		}
-		return String.format("%s:%s", p.toString(), entry);
+		return String.format("%s:%s", p, entry);
 	}
 	
 	private void validate(String entry)

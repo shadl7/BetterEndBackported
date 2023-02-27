@@ -48,7 +48,7 @@ public class ModCraftingTableBlock extends CraftingTableBlock {
 
 	private static class ModCraftingContainer extends WorkbenchContainer {
 
-		private IWorldPosCallable worldPosCallable;
+		private final IWorldPosCallable worldPosCallable;
 
 		public ModCraftingContainer(int syncid, PlayerInventory playerInv, IWorldPosCallable posCallable) {
 			super(syncid, playerInv, posCallable);

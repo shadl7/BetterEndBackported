@@ -125,11 +125,10 @@ public class BetterEnd
     }
 
     // Registration helper
-    public static <T extends IForgeRegistryEntry<T>> T register(IForgeRegistry<T> registry, T entry, String registryKey) 
+    public static <T extends IForgeRegistryEntry<T>> void register(IForgeRegistry<T> registry, T entry, String registryKey)
     {
         entry.setRegistryName(new ResourceLocation(BetterEnd.MOD_ID, registryKey));
         registry.register(entry);
-        return entry;
     }
 
 

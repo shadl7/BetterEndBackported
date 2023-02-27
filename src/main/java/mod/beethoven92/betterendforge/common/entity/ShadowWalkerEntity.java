@@ -135,7 +135,7 @@ public class ShadowWalkerEntity extends MonsterEntity
 		return attack;
 	}
 	
-	private final class AttackGoal extends MeleeAttackGoal 
+	private static final class AttackGoal extends MeleeAttackGoal
 	{
 		private final ShadowWalkerEntity walker;
 		private int ticks;

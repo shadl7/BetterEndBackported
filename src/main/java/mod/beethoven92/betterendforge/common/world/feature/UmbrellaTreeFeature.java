@@ -234,7 +234,7 @@ public class UmbrellaTreeFeature extends Feature<NoFeatureConfig>
 		}
 	}
 	
-	private class Center 
+	private static class Center
 	{
 		final double px;
 		final double py;

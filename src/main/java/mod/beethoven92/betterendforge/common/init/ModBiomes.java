@@ -113,7 +113,7 @@ public class ModBiomes
 				{
 					if (LAND_BIOMES.containsImmutable(id) && VOID_BIOMES.containsImmutable(id) && !SUBBIOMES_UNMUTABLES.contains(id))
 					{
-						JsonObject config = configs.get(id.getNamespace());
+						JsonObject config = configs.get(Objects.requireNonNull(id).getNamespace());
 						if (config == null) 
 						{
 							config = loadJsonConfig(id.getNamespace());
@@ -299,7 +299,7 @@ public class ModBiomes
 		if (endBiome == null) 
 		{
 			Minecraft minecraft = Minecraft.getInstance();
-			ResourceLocation id = minecraft.world.func_241828_r().getRegistry(Registry.BIOME_KEY).getKey(biome);
+			ResourceLocation id = Objects.requireNonNull(minecraft.world).func_241828_r().getRegistry(Registry.BIOME_KEY).getKey(biome);
 			endBiome = id == null ? END : ID_MAP.getOrDefault(id, END);
 			CLIENT.put(biome, endBiome);
 		}

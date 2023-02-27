@@ -68,7 +68,7 @@ public class EndSlimeEntityRenderer extends MobRenderer<EndSlimeEntity, EndSlime
 		matrixStack.scale(j * h, 1.0F / j * h, j * h);
 	}
 
-	private final class OverlayFeatureRenderer<T extends EndSlimeEntity>
+	private static final class OverlayFeatureRenderer<T extends EndSlimeEntity>
 			extends LayerRenderer<T, EndSlimeEntityModel<T>> {
 		private final EndSlimeEntityModel<T> modelOrdinal = new EndSlimeEntityModel<>(true);
 		private final EndSlimeEntityModel<T> modelLake = new EndSlimeEntityModel<>(true);

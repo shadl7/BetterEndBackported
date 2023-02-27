@@ -40,16 +40,16 @@ public class LakePiece extends StructurePiece
 	private static final BlockState AIR = Blocks.AIR.getDefaultState();
 	private static final BlockState WATER = Blocks.WATER.getDefaultState();
 	
-	private Map<Integer, Byte> heightmap = Maps.newHashMap();
+	private final Map<Integer, Byte> heightmap = Maps.newHashMap();
 	
-	private OpenSimplexNoise noise;
-	private BlockPos center;
-	private float radius;
-	private float aspect;
-	private float depth;
-	private int seed;
+	private final OpenSimplexNoise noise;
+	private final BlockPos center;
+	private final float radius;
+	private final float aspect;
+	private final float depth;
+	private final int seed;
 	
-	private ResourceLocation biomeID;
+	private final ResourceLocation biomeID;
 
 	
 	public LakePiece(BlockPos center, float radius, float depth, Random random, Biome biome) 

@@ -9,6 +9,8 @@ import net.minecraft.particles.ParticleTypes;
 import net.minecraft.tileentity.ITickableTileEntity;
 import net.minecraft.tileentity.TileEntity;
 
+import java.util.Objects;
+
 // Is this tile entity necessary?
 public class HydrothermalVentTileEntity extends TileEntity implements ITickableTileEntity
 {
@@ -20,7 +22,7 @@ public class HydrothermalVentTileEntity extends TileEntity implements ITickableT
 	@Override
 	public void tick() 
 	{
-		if (world.rand.nextInt(20) == 0) 
+		if (Objects.requireNonNull(world).rand.nextInt(20) == 0)
 		{
 			double x = pos.getX() + world.rand.nextDouble();
 			double y = pos.getY() + 0.9 + world.rand.nextDouble() * 0.3;

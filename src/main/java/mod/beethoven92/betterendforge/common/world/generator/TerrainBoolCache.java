@@ -1,7 +1,7 @@
 package mod.beethoven92.betterendforge.common.world.generator;
 
 public class TerrainBoolCache {
-	private byte[] data = new byte[16384];
+	private final byte[] data = new byte[16384];
 	
 	public static int scaleCoordinate(int value) {
 		return value >> 7;

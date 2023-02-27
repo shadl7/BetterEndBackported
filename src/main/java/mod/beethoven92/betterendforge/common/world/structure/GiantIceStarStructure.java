@@ -25,6 +25,7 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class GiantIceStarStructure extends SDFStructure
@@ -63,7 +64,7 @@ public class GiantIceStarStructure extends SDFStructure
 		for (Vector3f point: points) 
 		{
 			SDF rotated = spike;
-			point = ModMathHelper.normalize(point);
+			ModMathHelper.normalize(point);
 			float angle = ModMathHelper.angle(Vector3f.YP, point);
 			if (angle > 0.01F && angle < 3.14F) 
 			{
@@ -88,7 +89,7 @@ public class GiantIceStarStructure extends SDFStructure
 		final BlockState ancient = ModBlocks.ANCIENT_EMERALD_ICE.get().getDefaultState();
 		final SDF sdfCopy = sdf;
 		
-		return sdf.addPostProcess((info) -> {
+		return Objects.requireNonNull(sdf).addPostProcess((info) -> {
 			BlockPos bpos = info.getPos();
 			float px = bpos.getX() - center.getX();
 			float py = bpos.getY() - center.getY();

@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class BetterEndBiome 
 {
-	protected List<BetterEndBiome> subbiomes = Lists.newArrayList();
+	protected final List<BetterEndBiome> subbiomes = Lists.newArrayList();
     
 	private final Biome biome;
 	
@@ -38,7 +38,7 @@ public class BetterEndBiome
 	
 	private Biome actualBiome;
 	
-	private List<StructureInfo> nbtStructures = Lists.newArrayList();
+	private final List<StructureInfo> nbtStructures = Lists.newArrayList();
 	
 	public BetterEndBiome(BiomeTemplate template)
 	{

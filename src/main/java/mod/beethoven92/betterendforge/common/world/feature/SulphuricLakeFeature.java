@@ -169,9 +169,7 @@ public class SulphuricLakeFeature extends Feature<NoFeatureConfig>
 			}
 		}
 		
-		brimstone.forEach((bpos) -> {
-			placeBrimstone(world, bpos, rand);
-		});
+		brimstone.forEach((bpos) -> placeBrimstone(world, bpos, rand));
 		
 		return true;
 	}

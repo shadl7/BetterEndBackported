@@ -12,8 +12,8 @@ import java.util.Collections;
 
 public class CrystaliteBootsModel extends BipedModel<LivingEntity> {
 
-	public ModelRenderer leftBoot;
-	public ModelRenderer rightBoot;
+	public final ModelRenderer leftBoot;
+	public final ModelRenderer rightBoot;
 	
 	public CrystaliteBootsModel(float scale) {
 		super(RenderType::getEntityTranslucent, scale, 0.0F, 64, 48);
