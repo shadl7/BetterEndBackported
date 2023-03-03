@@ -17,6 +17,7 @@
     "EndCityStructureMixin",
     "EndDragonFightMixin",
     "EndermanEntityMixin",
+    "EndHeightMixin",
     "EndPodiumFeatureMixin",
     "EndSpikeFeatureMixin",
     "EndSpikeMixin",
