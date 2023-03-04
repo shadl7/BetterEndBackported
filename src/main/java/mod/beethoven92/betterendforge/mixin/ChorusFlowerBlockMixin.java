@@ -3,6 +3,7 @@ package mod.beethoven92.betterendforge.mixin;
 
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
 import mod.beethoven92.betterendforge.common.init.ModTags;
+import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.world.generator.GeneratorOptions;
 import net.minecraft.block.*;
 import net.minecraft.state.properties.BlockStateProperties;
@@ -54,7 +55,7 @@ public abstract class ChorusFlowerBlockMixin extends Block
 		BlockPos up = pos.up();
 		if(world.isAirBlock(up) && up.getY() < 256 && state.get(ChorusFlowerBlock.AGE) < 5) {
 			this.placeGrownFlower(world, up, state.get(ChorusFlowerBlock.AGE) + 1);
-			world.setBlockState(pos, plantBlock.getDefaultState().with(ChorusPlantBlock.UP, true).with(ChorusPlantBlock.DOWN, true), Constants.BlockFlags.NO_NEIGHBOR_DROPS);
+			BlockHelper.setWithoutUpdate(world, pos, plantBlock.getDefaultState().with(ChorusPlantBlock.UP, true).with(ChorusPlantBlock.DOWN, true));
 			info.cancel();
 		}
 	}

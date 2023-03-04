@@ -36,13 +36,11 @@ public abstract class ChorusPlantBlockMixin extends Block {
 	}
 
 	@Inject(method = "makeConnections", at = @At("RETURN"), cancellable = true)
-	private void beConnectionProperties(IBlockReader blockGetter, BlockPos blockPos, CallbackInfoReturnable<BlockState> info)
-	{
+	private void beConnectionProperties(IBlockReader blockGetter, BlockPos blockPos, CallbackInfoReturnable<BlockState> info) {
 		BlockState plant = info.getReturnValue();
 		if (plant.isIn(Blocks.CHORUS_PLANT) && blockGetter.getBlockState(blockPos.down()).isIn(ModTags.END_GROUND)) {
 			info.setReturnValue(plant.with(BlockStateProperties.DOWN, true));
 		}
-
 	}
 
 	@Inject(method = "isValidPosition", at = @At("HEAD"), cancellable = true)
@@ -62,5 +60,4 @@ public abstract class ChorusPlantBlockMixin extends Block {
 			info.setReturnValue(plant);
 		}
 	}
-
 }

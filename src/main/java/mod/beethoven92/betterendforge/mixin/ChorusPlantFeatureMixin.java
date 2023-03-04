@@ -3,9 +3,9 @@ package mod.beethoven92.betterendforge.mixin;
 
 import mod.beethoven92.betterendforge.common.block.BlockProperties;
 import mod.beethoven92.betterendforge.common.init.ModBlocks;
+import mod.beethoven92.betterendforge.common.util.BlockHelper;
 import mod.beethoven92.betterendforge.common.world.generator.GeneratorOptions;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.ChorusFlowerBlock;
+import net.minecraft.block.*;
 import net.minecraft.state.properties.BlockStateProperties;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ISeedReader;
@@ -27,9 +27,9 @@ public class ChorusPlantFeatureMixin {
 		if (structureWorldAccess.isAirBlock(blockPos) && structureWorldAccess.getBlockState(blockPos.down()).isIn(ModBlocks.CHORUS_NYLIUM.get())) {
 			ChorusFlowerBlock.generatePlant(structureWorldAccess, blockPos, random, (8 + random.nextInt(9)));
 			BlockState bottom = structureWorldAccess.getBlockState(blockPos);
-			if (!Objects.requireNonNull(bottom.getBlock().getRegistryName()).toString().equals("minecraft:chorus_plant")) {
+			if (bottom.isIn(Blocks.CHORUS_PLANT)) {
 				if (GeneratorOptions.changeChorusPlant()) {
-					structureWorldAccess.getWorld().setBlockState(blockPos, bottom.with(BlockProperties.ROOTS, true).with(BlockStateProperties.DOWN, true));
+					BlockHelper.setWithoutUpdate(structureWorldAccess, blockPos, bottom.with(BlockProperties.ROOTS, true).with(SixWayBlock.DOWN, true));
 				} else {
 					structureWorldAccess.getWorld().setBlockState(blockPos, bottom.with(BlockStateProperties.DOWN, true));
 				}
