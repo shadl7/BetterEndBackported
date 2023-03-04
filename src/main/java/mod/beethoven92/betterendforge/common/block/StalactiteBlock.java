@@ -62,7 +62,7 @@ public class StalactiteBlock extends Block implements IWaterLoggable
 		Direction dir = context.getFace();
 		boolean water = world.getFluidState(pos).getFluid() == Fluids.WATER;
 		if (dir == Direction.DOWN) {
-			if (isThis(world, pos.up()) || this.hasEnoughSolidSide(world, pos.up(), Direction.DOWN)) {
+			if (isThis(world, pos.up()) || hasEnoughSolidSide(world, pos.up(), Direction.DOWN)) {
 				return getDefaultState().with(IS_FLOOR, false).with(WATERLOGGED, water);
 			} else if (isThis(world, pos.down()) || hasEnoughSolidSide(world, pos.down(), Direction.UP)) {
 				return getDefaultState().with(IS_FLOOR, true).with(WATERLOGGED, water);

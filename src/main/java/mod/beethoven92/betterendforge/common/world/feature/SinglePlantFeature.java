@@ -12,8 +12,7 @@ import net.minecraft.world.ISeedReader;
 
 import java.util.Random;
 
-public class SinglePlantFeature extends ScatterFeature
-{
+public class SinglePlantFeature extends ScatterFeature {
 	private final Block plant;
 	private final boolean rawHeightmap;
 	private final int chance;
@@ -33,16 +32,14 @@ public class SinglePlantFeature extends ScatterFeature
 		this(plant, radius, rawHeightmap, 1);
 	}
 	
-	public SinglePlantFeature(Block plant, int radius, boolean rawHeightmap, int chance) 
-	{
+	public SinglePlantFeature(Block plant, int radius, boolean rawHeightmap, int chance) {
 		super(radius);
 		this.plant = plant;
 		this.rawHeightmap = rawHeightmap;
 		this.chance = chance;
 	}
 	
-	public int getChance() 
-	{
+	public int getChance() {
 		return chance;
 	}
 	

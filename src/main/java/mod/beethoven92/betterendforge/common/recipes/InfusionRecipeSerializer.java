@@ -50,10 +50,11 @@ public class InfusionRecipeSerializer extends net.minecraftforge.registries.Forg
 
 	private ItemStack readOutput(JsonObject json) {
 		JsonElement outputElem = json.get("output");
-		if (outputElem.isJsonObject())
+		if (outputElem.isJsonObject() && ItemStack.CODEC.parse(JsonOps.INSTANCE, outputElem).result().isPresent()) {
 			return ItemStack.CODEC.parse(JsonOps.INSTANCE, outputElem).result().get();
-		else
+		} else {
 			return new ItemStack(JSONUtils.getItem(outputElem, "output"));
+		}
 	}
 
 	@Override

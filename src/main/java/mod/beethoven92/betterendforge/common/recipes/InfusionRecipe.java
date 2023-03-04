@@ -187,7 +187,7 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 			@Override
 			public void serialize(JsonObject json) {
 				json.add("input", input.serialize());
-				json.add("output", ItemStack.CODEC.encodeStart(JsonOps.INSTANCE, output).result().get());
+				if (ItemStack.CODEC.encodeStart(JsonOps.INSTANCE, output).result().isPresent()) json.add("output", ItemStack.CODEC.encodeStart(JsonOps.INSTANCE, output).result().get());
 				json.addProperty("time", time);
 				JsonArray jsonCatalysts = new JsonArray();
 				for (int i = 0; i < catalysts.length; i++) {

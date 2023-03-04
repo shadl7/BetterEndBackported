@@ -65,7 +65,7 @@ public abstract class WorldRendererMixin
 	private int ticks;
 
 	@Inject(method = "<init>*", at = @At("TAIL"))
-	private void onInit(Minecraft client, RenderTypeBuffers rainTimeBuffersIn, CallbackInfo info) 
+	private void onInit(Minecraft client, RenderTypeBuffers rainTimeBuffersIn, CallbackInfo info)
 	{
 		initStars();
 		Random random = new Random(131);
@@ -80,7 +80,7 @@ public abstract class WorldRendererMixin
 
 		//directOpenGL = ModList.get().isLoaded("optifine") || ModList.get().isLoaded("immersive_portals");
 	}
-	
+
 	@Inject(method = "renderSkyEnd", at = @At("HEAD"), cancellable = true)
 	private void renderSkyEnd(MatrixStack matrices, CallbackInfo info) 
 	{
@@ -204,12 +204,13 @@ public abstract class WorldRendererMixin
 			buffer.close();
 		}
 
-		buffer = new VertexBuffer(DefaultVertexFormats.POSITION);
-		makeStars(bufferBuilder, minSize, maxSize, count, seed);
-		bufferBuilder.finishDrawing();
-		buffer.upload(bufferBuilder);
+		try (VertexBuffer vertexBuffer = new VertexBuffer(DefaultVertexFormats.POSITION)) {
+			makeStars(bufferBuilder, minSize, maxSize, count, seed);
+			bufferBuilder.finishDrawing();
+			vertexBuffer.upload(bufferBuilder);
 
-		return buffer;
+			return vertexBuffer;
+		}
 	}
 	
 	private VertexBuffer buildBufferUVStars(BufferBuilder bufferBuilder, VertexBuffer buffer, double minSize, double maxSize, int count, long seed) 
@@ -219,56 +220,50 @@ public abstract class WorldRendererMixin
 			buffer.close();
 		}
 
-		buffer = new VertexBuffer(DefaultVertexFormats.POSITION_TEX);
-		makeUVStars(bufferBuilder, minSize, maxSize, count, seed);
-		bufferBuilder.finishDrawing();
-		buffer.upload(bufferBuilder);
-
-		return buffer;
-	}
-	
-	private VertexBuffer buildBufferFarFog(BufferBuilder bufferBuilder, VertexBuffer buffer, double minSize, double maxSize, int count, long seed)
-	{
-		if (buffer != null) 
-		{
-			buffer.close();
+		try (VertexBuffer vertexBuffer = new VertexBuffer(DefaultVertexFormats.POSITION)) {
+			makeStars(bufferBuilder, minSize, maxSize, count, seed);
+			bufferBuilder.finishDrawing();
+			vertexBuffer.upload(bufferBuilder);
+			return vertexBuffer;
 		}
-
-		buffer = new VertexBuffer(DefaultVertexFormats.POSITION_TEX);
-		makeFarFog(bufferBuilder, minSize, maxSize, count, seed);
-		bufferBuilder.finishDrawing();
-		buffer.upload(bufferBuilder);
-
-		return buffer;
 	}
-	
-	private VertexBuffer buildBufferHorizon(BufferBuilder bufferBuilder, VertexBuffer buffer) 
-	{
-		if (buffer != null) 
-		{
-			buffer.close();
+
+	private VertexBuffer buildBufferFarFog(BufferBuilder bufferBuilder, VertexBuffer buffer, double minSize, double maxSize, int count, long seed) {
+		try (VertexBuffer vertexBuffer = new VertexBuffer(DefaultVertexFormats.POSITION_TEX)) {
+			makeFarFog(bufferBuilder, minSize, maxSize, count, seed);
+			bufferBuilder.finishDrawing();
+			vertexBuffer.upload(bufferBuilder);
+			return vertexBuffer;
 		}
-
-		buffer = new VertexBuffer(DefaultVertexFormats.POSITION_TEX);
-		makeCylinder(bufferBuilder, 16, 50, 100);
-		bufferBuilder.finishDrawing();
-		buffer.upload(bufferBuilder);
-
-		return buffer;
 	}
-	
-	private VertexBuffer buildBufferFog(BufferBuilder bufferBuilder, VertexBuffer buffer) 
-	{
+
+	private VertexBuffer buildBufferHorizon(BufferBuilder bufferBuilder, VertexBuffer buffer) {
+		try (VertexBuffer vertexBuffer = buffer != null ? buffer : new VertexBuffer(DefaultVertexFormats.POSITION_TEX)) {
+			makeCylinder(bufferBuilder, 16, 50, 100);
+			bufferBuilder.finishDrawing();
+			vertexBuffer.upload(bufferBuilder);
+			return vertexBuffer;
+		}
+	}
+
+	private VertexBuffer buildBufferFog(BufferBuilder bufferBuilder, VertexBuffer buffer) {
 		if (buffer != null) {
 			buffer.close();
 		}
 
-		buffer = new VertexBuffer(DefaultVertexFormats.POSITION_TEX);
-		makeCylinder(bufferBuilder, 16, 50, 70);
-		bufferBuilder.finishDrawing();
-		buffer.upload(bufferBuilder);
-
-		return buffer;
+		VertexBuffer newBuffer = null;
+		try {
+			newBuffer = new VertexBuffer(DefaultVertexFormats.POSITION_TEX);
+			makeCylinder(bufferBuilder, 16, 50, 70);
+			bufferBuilder.finishDrawing();
+			newBuffer.upload(bufferBuilder);
+			return newBuffer;
+		} catch (Exception e) {
+			if (newBuffer != null) {
+				newBuffer.close();
+			}
+			throw e;
+		}
 	}
 	
 	private void makeStars(BufferBuilder buffer, double minSize, double maxSize, int count, long seed) 

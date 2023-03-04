@@ -23,7 +23,7 @@ import java.util.Random;
 
 @Mixin(ChorusPlantFeature.class)
 public class ChorusPlantFeatureMixin {
-	@Inject(method = "generate", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "generate*", at = @At("HEAD"), cancellable = true)
 	private void be_generate(ISeedReader structureWorldAccess, ChunkGenerator chunkGenerator, Random random, BlockPos blockPos, NoFeatureConfig defaultFeatureConfig, CallbackInfoReturnable<Boolean> info) {
 		if (structureWorldAccess.isAirBlock(blockPos) && structureWorldAccess.getBlockState(blockPos.down()).isIn(ModBlocks.CHORUS_NYLIUM.get())) {
 			ChorusFlowerBlock.generatePlant(structureWorldAccess, blockPos, random, (8 + random.nextInt(9)));
