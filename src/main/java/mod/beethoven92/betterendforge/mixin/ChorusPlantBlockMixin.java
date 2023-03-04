@@ -55,14 +55,11 @@ public abstract class ChorusPlantBlockMixin extends Block {
 	}
 
 	@Inject(method = "updatePostPlacement", at = @At("RETURN"), cancellable = true)
-	private void updatePostPlacement(BlockState state, Direction direction, BlockState newState, IWorld world,
-			BlockPos pos, BlockPos posFrom, CallbackInfoReturnable<BlockState> info)
-	{
+	private void updatePostPlacement(BlockState state, Direction direction, BlockState newState, IWorld world, BlockPos pos, BlockPos posFrom, CallbackInfoReturnable<BlockState> info) {
 		BlockState plant = info.getReturnValue();
 		if (plant.isIn(Blocks.CHORUS_PLANT) && world.getBlockState(pos.down()).isIn(ModTags.END_GROUND)) {
 			plant = plant.with(BlockStateProperties.DOWN, true);
 			info.setReturnValue(plant);
-
 		}
 	}
 
