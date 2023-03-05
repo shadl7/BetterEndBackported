@@ -12,8 +12,7 @@ import net.minecraft.world.gen.feature.OreFeature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 import net.minecraftforge.event.RegistryEvent.Register;
 
-public class ModFeatures
-{
+public class ModFeatures {
 	// WATER PLANTS
 	public static final Feature<NoFeatureConfig> END_LOTUS = new EndLotusFeature(7);
 	public static final Feature<NoFeatureConfig> END_LOTUS_LEAF = new EndLotusLeafFeature(20);	
@@ -32,7 +31,6 @@ public class ModFeatures
 	public static final Feature<NoFeatureConfig> HYDRALUX = new HydraluxFeature(5);
 	public static final Feature<NoFeatureConfig> FLAMAEA = new SinglePlantFeature(ModBlocks.FLAMAEA.get(), 12, false, 5);
 	public static final Feature<NoFeatureConfig> POND_ANEMONE = new UnderwaterPlantFeature(ModBlocks.POND_ANEMONE.get(), 6);
-
 
 	// BUSHES
 	public static final Feature<NoFeatureConfig> PYTHADENDRON_BUSH = new BushFeature(ModBlocks.PYTHADENDRON_LEAVES.get(), ModBlocks.PYTHADENDRON.bark.get());
@@ -82,7 +80,6 @@ public class ModFeatures
 	public static final Feature<NoFeatureConfig> LUTEBUS = new SinglePlantFeature(ModBlocks.LUTEBUS.get(), 5, 2);
 	public static final Feature<NoFeatureConfig> INFLEXIA = new SinglePlantFeature(ModBlocks.INFLEXIA.get(), 7, false, 3);
 	public static final Feature<NoFeatureConfig> FLAMMALIX = new SinglePlantFeature(ModBlocks.FLAMMALIX.get(), 3, false, 7);
-
 
 	// SKY PLANTS
 	public static final Feature<NoFeatureConfig> FILALUX = new FilaluxFeature();
@@ -135,7 +132,6 @@ public class ModFeatures
 	public static final Feature<NoFeatureConfig> THIN_ARCH = new ThinArchFeature(ModBlocks.UMBRALITH.stone.get());
 	public static final Feature<NoFeatureConfig> UMBRALITH_ARCH = new ArchFeature(ModBlocks.UMBRALITH.stone.get(), UmbraSurfaceBuilder::getSurfaceState);
 
-
 	// TREES
 	public static final Feature<NoFeatureConfig> MOSSY_GLOWSHROOM = new MossyGlowshroomFeature();
 	public static final Feature<NoFeatureConfig> LACUGROVE = new LacugroveFeature();
@@ -174,10 +170,7 @@ public class ModFeatures
 	public static final Feature<NoFeatureConfig> CAVE_GRASS = new SingleBlockFeature(ModBlocks.CAVE_GRASS.get());
 	public static final Feature<NoFeatureConfig> RUBINEA = new VineFeature(ModBlocks.RUBINEA.get(), 8);
 
-	//Integration
-
-	public static void registerFeatures(Register<Feature<?>> event)
-    {
+	public static void registerFeatures(Register<Feature<?>> event) {
 		// WATER PLANTS
     	BetterEnd.register(event.getRegistry(), END_LOTUS, "end_lotus");
     	BetterEnd.register(event.getRegistry(), END_LOTUS_LEAF, "end_lotus_leaf");    	
@@ -208,6 +201,7 @@ public class ModFeatures
     	BetterEnd.register(event.getRegistry(), UMBRELLA_MOSS, "umbrella_moss");
     	BetterEnd.register(event.getRegistry(), CREEPING_MOSS, "creeping_moss");   	
     	BetterEnd.register(event.getRegistry(), CHORUS_GRASS, "chorus_grass");
+		BetterEnd.register(event.getRegistry(), CHORUS_MUSHROOM, "chorus_mushroom");
     	BetterEnd.register(event.getRegistry(), CRYSTAL_GRASS, "crystal_grass");
     	BetterEnd.register(event.getRegistry(), AMBER_GRASS, "amber_grass");
     	BetterEnd.register(event.getRegistry(), SHADOW_PLANT, "shadow_plant");  	
@@ -287,7 +281,6 @@ public class ModFeatures
     	BetterEnd.register(event.getRegistry(), OBSIDIAN_BOULDER, "obsidian_boulder");
 		BetterEnd.register(event.getRegistry(), THIN_ARCH, "thin_arch");
 		BetterEnd.register(event.getRegistry(), UMBRALITH_ARCH, "umbralith_arch");
-
 		// TREES
     	BetterEnd.register(event.getRegistry(), MOSSY_GLOWSHROOM, "mossy_glowshroom");
     	BetterEnd.register(event.getRegistry(), LACUGROVE, "lacugrove");   
