@@ -77,8 +77,6 @@ public abstract class WorldRendererMixin
 		axis2.normalize();
 		axis3.normalize();
 		axis4.normalize();
-
-		//directOpenGL = ModList.get().isLoaded("optifine") || ModList.get().isLoaded("immersive_portals");
 	}
 
 	@Inject(method = "renderSkyEnd", at = @At("HEAD"), cancellable = true)
@@ -92,20 +90,13 @@ public abstract class WorldRendererMixin
 			
 			FogRenderer.resetFog();
 			RenderSystem.enableTexture();
-			
-			//if (directOpenGL)
+
 			{
 				GL11.glEnable(GL11.GL_ALPHA_TEST);
 				GL11.glAlphaFunc(516, 0.0F);
 				GL11.glEnable(GL11.GL_BLEND);
 				RenderSystem.depthMask(false);
 			}
-			/*else 
-			{
-				RenderSystem.enableAlphaTest();
-				RenderSystem.alphaFunc(516, 0.0F);
-				RenderSystem.enableBlend();
-			}*/
 			
 			float blindA = 1F - BackgroundInfo.blindness;
 			float blind02 = blindA * 0.2F;

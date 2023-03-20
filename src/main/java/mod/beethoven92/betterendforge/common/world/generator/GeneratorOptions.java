@@ -3,7 +3,6 @@ package mod.beethoven92.betterendforge.common.world.generator;
 import mod.beethoven92.betterendforge.config.Configs;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-//import ru.betterend.config.Configs;
 
 public class GeneratorOptions {
 	public static boolean vanillaEndIntegration;
@@ -14,7 +13,6 @@ public class GeneratorOptions {
 	private static boolean hasPillars;
 	private static boolean hasDragonFights;
 	private static boolean swapOverworldToEnd;
-	private static boolean changeChorusPlant;
 	private static boolean removeChorusFromVanillaBiomes;
 	private static boolean newGenerator;
 	private static boolean noRingVoid;
@@ -41,8 +39,7 @@ public class GeneratorOptions {
 		hasPortal = Configs.GENERATOR_CONFIG.getBoolean("portal", "hasPortal", true);
 		hasPillars = Configs.GENERATOR_CONFIG.getBoolean("spikes", "hasSpikes", true);
 		hasDragonFights = Configs.GENERATOR_CONFIG.getBooleanRoot("hasDragonFights", true);
-		swapOverworldToEnd = Configs.GENERATOR_CONFIG.getBooleanRoot("swapOverworldToEnd", false	);
-		changeChorusPlant = Configs.GENERATOR_CONFIG.getBoolean("chorusPlant", "changeChorusPlant", true);
+		swapOverworldToEnd = Configs.GENERATOR_CONFIG.getBooleanRoot("swapOverworldToEnd", false);
 		removeChorusFromVanillaBiomes = Configs.GENERATOR_CONFIG.getBoolean(
 			"chorusPlant",
 			"removeChorusFromVanillaBiomes",
@@ -87,11 +84,11 @@ public class GeneratorOptions {
 			Configs.GENERATOR_CONFIG.getInt("spawn.point", "y", 65),
 			Configs.GENERATOR_CONFIG.getInt("spawn.point", "z", 0)
 		);
-		replacePortal = Configs.GENERATOR_CONFIG.getBoolean("portal", "customEndPortal", true);
-		replacePillars = Configs.GENERATOR_CONFIG.getBoolean("spikes", "customObsidianSpikes", true);
+		replacePortal = Configs.GENERATOR_CONFIG.getBoolean("portal", "customEndPortal", false);
+		replacePillars = Configs.GENERATOR_CONFIG.getBoolean("spikes", "customObsidianSpikes", false);
 		int circleRadius = Configs.GENERATOR_CONFIG.getInt("customGenerator", "voidRingSize", 1000);
 		islandDistBlock = (long) circleRadius * (long) circleRadius;
-		islandDistChunk = (circleRadius >> 3); // Twice bigger than normal
+		islandDistChunk = (circleRadius >> 3);
 	}
 
 	public static int getBiomeSizeLand() {
@@ -120,10 +117,6 @@ public class GeneratorOptions {
 
 	public static boolean swapOverworldToEnd() {
 		return swapOverworldToEnd;
-	}
-
-	public static boolean changeChorusPlant() {
-		return changeChorusPlant;
 	}
 
 	public static boolean removeChorusFromVanillaBiomes() {

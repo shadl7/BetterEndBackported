@@ -3,13 +3,14 @@ package mod.beethoven92.betterendforge;
 import mod.beethoven92.betterendforge.client.ClientOptions;
 import mod.beethoven92.betterendforge.client.PhysicalClientSide;
 import mod.beethoven92.betterendforge.common.init.*;
+import mod.beethoven92.betterendforge.common.interfaces.IPhysicalSide;
 import mod.beethoven92.betterendforge.common.teleporter.EndPortals;
-import mod.beethoven92.betterendforge.common.world.TerraforgedIntegrationWorldType;
+import mod.beethoven92.betterendforge.common.world.TerraForgedIntegrationWorldType;
 import mod.beethoven92.betterendforge.common.world.feature.BiomeNBTStructures;
 import mod.beethoven92.betterendforge.common.world.generator.BetterEndBiomeProvider;
 import mod.beethoven92.betterendforge.common.world.generator.GeneratorOptions;
 import mod.beethoven92.betterendforge.config.Configs;
-import mod.beethoven92.betterendforge.server.PhysicalServerSide;
+import mod.beethoven92.betterendforge.common.server.PhysicalServerSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.feature.Feature;
@@ -43,7 +44,7 @@ public class BetterEnd
 
     public static final Logger LOGGER = LogManager.getLogger();
     
-	public static final IPhysicalSide SIDE = 
+	public static final IPhysicalSide SIDE =
 			DistExecutor.safeRunForDist(() -> PhysicalClientSide::new, () -> PhysicalServerSide::new);
 
 	public static final Path CONFIG_PATH = new File(String.valueOf(FMLPaths.CONFIGDIR.get().resolve(MOD_ID))).toPath();
@@ -120,7 +121,7 @@ public class BetterEnd
         @SubscribeEvent
         public static void registerWorldtype(RegistryEvent.Register<ForgeWorldType> event)
         {
-            event.getRegistry().register(new TerraforgedIntegrationWorldType().setRegistryName(new ResourceLocation(MOD_ID, "world_type")));
+            event.getRegistry().register(new TerraForgedIntegrationWorldType().setRegistryName(new ResourceLocation(MOD_ID, "world_type")));
         }
     }
 
@@ -139,5 +140,4 @@ public class BetterEnd
 	public static ResourceLocation makeID(String path) {
 		return new ResourceLocation(MOD_ID, path);
 	}
-
 }

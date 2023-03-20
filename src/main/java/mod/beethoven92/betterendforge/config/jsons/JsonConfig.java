@@ -26,8 +26,7 @@ public abstract class JsonConfig
 		this(modID, group, autoSync, false);
 	}
 
-	public JsonConfig(String modID, String group, boolean autoSync, boolean diffContent)
-	{
+	public JsonConfig(String modID, String group, boolean autoSync, boolean diffContent) {
 		configID = modID + "." + group;
 		this.keeper = new JsonConfigKeeper(group);
 		this.registerEntries();
@@ -69,7 +68,7 @@ public abstract class JsonConfig
 			StringEntry entry = keeper.registerEntry(key, new StringEntry(defaultValue));
 			return entry.getValue();
 		}
-		return str != null ? str : defaultValue;
+		return str;
 	}
 	
 	protected String getString(JsonConfigKey key)
@@ -102,7 +101,7 @@ public abstract class JsonConfig
 			IntegerEntry entry = keeper.registerEntry(key, new IntegerEntry(defaultValue));
 			return entry.getValue();
 		}
-		return val != null ? val : defaultValue;
+		return val;
 	}
 
 	public int getInt(JsonConfigKey key)

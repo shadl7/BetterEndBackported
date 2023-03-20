@@ -26,13 +26,13 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(FogRenderer.class)
-public abstract class FogRendererMixin 
-{	
+public abstract class FogRendererMixin
+{
 	private static float lastFogDensity;
 	private static float fogDensity;
 	private static float lerp;
 	private static long time;
-	
+
 	@Shadow
 	private static float red;
 	@Shadow
@@ -41,80 +41,80 @@ public abstract class FogRendererMixin
 	private static float blue;
 
 	@Inject(method = "updateFogColor", at = @At("RETURN"))
-	private static void onRender(ActiveRenderInfo activeRenderInfoIn, float partialTicks, ClientWorld worldIn, 
+	private static void onRender(ActiveRenderInfo activeRenderInfoIn, float partialTicks, ClientWorld worldIn,
 			int renderDistanceChunks, float bossColorModifier, CallbackInfo info)
 	{
 		long l = Util.milliTime() - time;
 		time += l;
 		lerp += l * 0.001F;
 		if (lerp > 1) lerp = 1;
-		
+
 		FluidState fluidState = activeRenderInfoIn.getFluidState();
-		if (fluidState.isEmpty() && worldIn.getDimensionKey().equals(World.THE_END)) 
+		if (fluidState.isEmpty() && worldIn.getDimensionKey().equals(World.THE_END))
 		{
 			Entity entity = activeRenderInfoIn.getRenderViewEntity();
 			boolean skip = false;
-			if (entity instanceof LivingEntity) 
+			if (entity instanceof LivingEntity)
 			{
 				EffectInstance effect = ((LivingEntity) entity).getActivePotionEffect(Effects.NIGHT_VISION);
 				skip = effect != null && effect.getDuration() > 0;
 			}
-			if (!skip) 
+			if (!skip)
 			{
 				red *= 4;
 				green *= 4;
 				blue *= 4;
 			}
 		}
-		
+
 		BackgroundInfo.red = red;
 		BackgroundInfo.green = green;
 		BackgroundInfo.blue = blue;
 	}
-	
+
 
 	@Inject(at = @At("HEAD"), remap = false, method = "setupFog(Lnet/minecraft/client/renderer/ActiveRenderInfo;Lnet/minecraft/client/renderer/FogRenderer$FogType;FZF)V", cancellable = true)
-	private static void fogDensity(ActiveRenderInfo activeRenderInfoIn, FogRenderer.FogType fogTypeIn, 
+	private static void fogDensity(ActiveRenderInfo activeRenderInfoIn, FogRenderer.FogType fogTypeIn,
 			float farPlaneDistance, boolean nearFog, float partialTicks, CallbackInfo info)
 	{
 		Entity entity = activeRenderInfoIn.getRenderViewEntity();
 		Biome biome = entity.world.getBiome(entity.getPosition());
 		FluidState fluidState = activeRenderInfoIn.getFluidState();
-		
+
 		if (ClientOptions.useFogDensity() && biome.getCategory() == Category.THEEND && fluidState.isEmpty())
-		{			
+		{
 			BetterEndBiome endBiome = ModBiomes.getRenderBiome(biome);
-			if (fogDensity == 0) 
+			if (fogDensity == 0)
 			{
 				fogDensity = endBiome.getFogDensity();
 				lastFogDensity = fogDensity;
 			}
-			if (lerp == 1) 
+			if (lerp == 1)
 			{
 				lastFogDensity = fogDensity;
 				fogDensity = endBiome.getFogDensity();
 				lerp = 0;
 			}
-			
+
 			float fog = MathHelper.lerp(lerp, lastFogDensity, fogDensity);
 			BackgroundInfo.fog = fog;
 			float start = farPlaneDistance * 0.75F / fog;
 			float end = farPlaneDistance / fog;
-			
-			if (entity instanceof LivingEntity) 
+
+			if (entity instanceof LivingEntity)
 			{
 				LivingEntity le = (LivingEntity) entity;
 				EffectInstance effect = le.getActivePotionEffect(Effects.BLINDNESS);
-				if (effect != null) 
+				if (effect != null)
 				{
 					int duration = effect.getDuration();
-					if (duration > 20) 
+					if (duration > 20)
 					{
 						start = 0;
 						end *= 0.03F;
 						BackgroundInfo.blindness = 1;
 					}
-					else 
+					else
 					{
 						float delta = (float) duration / 20F;
 						BackgroundInfo.blindness = delta;
@@ -122,12 +122,12 @@ public abstract class FogRendererMixin
 						end = MathHelper.lerp(delta, end, end * 0.03F);
 					}
 				}
-				else 
+				else
 				{
 					BackgroundInfo.blindness = 0;
 				}
 			}
-			
+
 			RenderSystem.fogStart(start);
 			RenderSystem.fogEnd(end);
 			RenderSystem.fogMode(GlStateManager.FogMode.LINEAR);

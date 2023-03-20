@@ -12,7 +12,6 @@ import java.nio.file.Path;
 public class JsonConfigWriter 
 {
 	private final static Path GAME_CONFIG_DIR = new File(String.valueOf(FMLPaths.CONFIGDIR.get())).toPath();
-	//public final static File MOD_CONFIG_DIR = new File(String.valueOf(FMLPaths.CONFIGDIR.get().resolve(BetterEnd.MOD_ID)));
 	public final static File MOD_CONFIG_DIR = new File(GAME_CONFIG_DIR.toFile(), BetterEnd.MOD_ID);
 	
 	private final File configFile;
