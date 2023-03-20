@@ -5,7 +5,7 @@ import mod.beethoven92.betterendforge.client.PhysicalClientSide;
 import mod.beethoven92.betterendforge.common.init.*;
 import mod.beethoven92.betterendforge.common.interfaces.IPhysicalSide;
 import mod.beethoven92.betterendforge.common.teleporter.EndPortals;
-import mod.beethoven92.betterendforge.common.world.TerraForgedIntegrationWorldType;
+import mod.beethoven92.betterendforge.common.world.TerraforgedIntegrationWorldType;
 import mod.beethoven92.betterendforge.common.world.feature.BiomeNBTStructures;
 import mod.beethoven92.betterendforge.common.world.generator.BetterEndBiomeProvider;
 import mod.beethoven92.betterendforge.common.world.generator.GeneratorOptions;
@@ -121,7 +121,7 @@ public class BetterEnd
         @SubscribeEvent
         public static void registerWorldtype(RegistryEvent.Register<ForgeWorldType> event)
         {
-            event.getRegistry().register(new TerraForgedIntegrationWorldType().setRegistryName(new ResourceLocation(MOD_ID, "world_type")));
+            event.getRegistry().register(new TerraforgedIntegrationWorldType().setRegistryName(new ResourceLocation(MOD_ID, "world_type")));
         }
     }
 
