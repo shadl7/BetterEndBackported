@@ -16,6 +16,7 @@ import net.minecraft.world.biome.provider.BiomeProvider;
 import net.minecraft.world.biome.provider.EndBiomeProvider;
 import net.minecraft.world.gen.SimplexNoiseGenerator;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BetterEndBiomeProvider extends BiomeProvider
@@ -66,6 +67,7 @@ public class BetterEndBiomeProvider extends BiomeProvider
 		return list;
 	}
 
+	@Nonnull
 	@Override
 	public Biome getNoiseBiome(int x, int y, int z) 
 	{
@@ -106,12 +108,14 @@ public class BetterEndBiomeProvider extends BiomeProvider
 		}
 	}
 
+	@Nonnull
 	@Override
 	protected Codec<? extends BiomeProvider> getBiomeProviderCodec() 
 	{
 		return BETTER_END_CODEC;
 	}
 
+	@Nonnull
 	@Override
 	public BiomeProvider getBiomeProvider(long seed) 
 	{
