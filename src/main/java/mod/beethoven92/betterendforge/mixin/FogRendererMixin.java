@@ -41,17 +41,14 @@ public abstract class FogRendererMixin
 	private static float blue;
 
 	@Inject(method = "updateFogColor", at = @At("RETURN"))
-	private static void onRender(ActiveRenderInfo activeRenderInfoIn, float partialTicks, ClientWorld worldIn,
-			int renderDistanceChunks, float bossColorModifier, CallbackInfo info)
-	{
+	private static void onRender(ActiveRenderInfo activeRenderInfoIn, float partialTicks, ClientWorld worldIn, int renderDistanceChunks, float bossColorModifier, CallbackInfo info) {
 		long l = Util.milliTime() - time;
 		time += l;
 		lerp += l * 0.001F;
 		if (lerp > 1) lerp = 1;
 
 		FluidState fluidState = activeRenderInfoIn.getFluidState();
-		if (fluidState.isEmpty() && worldIn.getDimensionKey().equals(World.THE_END))
-		{
+		if (fluidState.isEmpty() && worldIn.getDimensionKey().equals(World.THE_END)) {
 			Entity entity = activeRenderInfoIn.getRenderViewEntity();
 			boolean skip = false;
 			if (entity instanceof LivingEntity)
@@ -71,7 +68,6 @@ public abstract class FogRendererMixin
 		BackgroundInfo.green = green;
 		BackgroundInfo.blue = blue;
 	}
-
 
 	@Inject(at = @At("HEAD"), remap = false, method = "setupFog(Lnet/minecraft/client/renderer/ActiveRenderInfo;Lnet/minecraft/client/renderer/FogRenderer$FogType;FZF)V", cancellable = true)
 	private static void fogDensity(ActiveRenderInfo activeRenderInfoIn, FogRenderer.FogType fogTypeIn,
