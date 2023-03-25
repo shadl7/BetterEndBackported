@@ -12,7 +12,6 @@ public class GeneratorOptions {
 	private static boolean hasPortal;
 	private static boolean hasPillars;
 	private static boolean hasDragonFights;
-	private static boolean swapOverworldToEnd;
 	private static boolean removeChorusFromVanillaBiomes;
 	private static boolean newGenerator;
 	private static boolean noRingVoid;
@@ -22,8 +21,6 @@ public class GeneratorOptions {
 	public static LayerOptions bigOptions;
 	public static LayerOptions mediumOptions;
 	public static LayerOptions smallOptions;
-	private static boolean changeSpawn;
-	private static BlockPos spawn;
 	private static BlockPos portal = BlockPos.ZERO;
 	private static boolean replacePortal;
 	private static boolean replacePillars;
@@ -39,7 +36,6 @@ public class GeneratorOptions {
 		hasPortal = Configs.GENERATOR_CONFIG.getBoolean("portal", "hasPortal", true);
 		hasPillars = Configs.GENERATOR_CONFIG.getBoolean("spikes", "hasSpikes", true);
 		hasDragonFights = Configs.GENERATOR_CONFIG.getBooleanRoot("hasDragonFights", true);
-		swapOverworldToEnd = Configs.GENERATOR_CONFIG.getBooleanRoot("swapOverworldToEnd", false);
 		removeChorusFromVanillaBiomes = Configs.GENERATOR_CONFIG.getBoolean(
 			"chorusPlant",
 			"removeChorusFromVanillaBiomes",
@@ -78,12 +74,6 @@ public class GeneratorOptions {
 			30,
 			false
 		);
-		changeSpawn = Configs.GENERATOR_CONFIG.getBoolean("spawn", "changeSpawn", false);
-		spawn = new BlockPos(
-			Configs.GENERATOR_CONFIG.getInt("spawn.point", "x", 20),
-			Configs.GENERATOR_CONFIG.getInt("spawn.point", "y", 65),
-			Configs.GENERATOR_CONFIG.getInt("spawn.point", "z", 0)
-		);
 		replacePortal = Configs.GENERATOR_CONFIG.getBoolean("portal", "customEndPortal", false);
 		replacePillars = Configs.GENERATOR_CONFIG.getBoolean("spikes", "customObsidianSpikes", false);
 		int circleRadius = Configs.GENERATOR_CONFIG.getInt("customGenerator", "voidRingSize", 1000);
@@ -115,10 +105,6 @@ public class GeneratorOptions {
 		return hasDragonFights;
 	}
 
-	public static boolean swapOverworldToEnd() {
-		return swapOverworldToEnd;
-	}
-
 	public static boolean removeChorusFromVanillaBiomes() {
 		return removeChorusFromVanillaBiomes;
 	}
@@ -141,14 +127,6 @@ public class GeneratorOptions {
 
 	public static int getEndCityFailChance() {
 		return endCityFailChance;
-	}
-
-	public static boolean changeSpawn() {
-		return changeSpawn;
-	}
-
-	public static BlockPos getSpawn() {
-		return spawn;
 	}
 
 	public static BlockPos getPortalPos() {
@@ -177,11 +155,6 @@ public class GeneratorOptions {
 
 	public static void setDirectSpikeHeight() {
 		directSpikeHeight = true;
-	}
-
-	public static boolean isVanillaEndIntegrationEnabled()
-	{
-		return vanillaEndIntegration;
 	}
 
 	public static boolean isDirectSpikeHeight() {
