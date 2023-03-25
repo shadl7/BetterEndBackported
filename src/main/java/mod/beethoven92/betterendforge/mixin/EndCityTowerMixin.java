@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.Random;
 
-@Mixin(targets = "net.minecraft.world.gen.feature.structure.EndCityPieces$3")
+@Mixin(targets = "net.minecraft.world.gen.feature.structure.EndCityPieces$4")
 public class EndCityTowerMixin {
     @Redirect(at = @At(value = "INVOKE", target = "Ljava/util/Random;nextInt(I)I"), method = "generate")
     public int getCloudHeight(Random instance, int bound) {
