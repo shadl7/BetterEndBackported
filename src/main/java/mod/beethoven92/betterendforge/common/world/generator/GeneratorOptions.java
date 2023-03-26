@@ -27,6 +27,8 @@ public class GeneratorOptions {
 	private static long islandDistBlock;
 	private static int islandDistChunk;
 	private static boolean directSpikeHeight;
+	private static boolean changeSpawn;
+	private static BlockPos spawn;
 
 	public static void init() {
 
@@ -73,6 +75,12 @@ public class GeneratorOptions {
 			70,
 			30,
 			false
+		);
+		changeSpawn = Configs.GENERATOR_CONFIG.getBoolean("spawn", "changeSpawn", false);
+		spawn = new BlockPos(
+				Configs.GENERATOR_CONFIG.getInt("spawn.point", "x", 20),
+				Configs.GENERATOR_CONFIG.getInt("spawn.point", "y", 65),
+				Configs.GENERATOR_CONFIG.getInt("spawn.point", "z", 0)
 		);
 		replacePortal = Configs.GENERATOR_CONFIG.getBoolean("portal", "customEndPortal", false);
 		replacePillars = Configs.GENERATOR_CONFIG.getBoolean("spikes", "customObsidianSpikes", false);
@@ -161,6 +169,14 @@ public class GeneratorOptions {
 		boolean height = directSpikeHeight;
 		directSpikeHeight = false;
 		return height;
+	}
+
+	public static boolean changeSpawn() {
+		return changeSpawn;
+	}
+
+	public static BlockPos getSpawn() {
+		return spawn;
 	}
 
 }

@@ -659,5 +659,7 @@
   "block.betterendforge.terminite_bulb_lantern_purple": "紫色球茎果终结铁灯",
   "block.betterendforge.terminite_bulb_lantern_red": "红色球茎果终结铁灯",
   "block.betterendforge.terminite_bulb_lantern_white": "白色球茎果终结铁灯",
-  "block.betterendforge.terminite_bulb_lantern_yellow": "黄色球茎果终结铁灯"
+  "block.betterendforge.terminite_bulb_lantern_yellow": "黄色球茎果终结铁灯",
+
+    "event.betterendforge.spawnInEnd": "更好的的末地：未找到合适出生点"
 }
