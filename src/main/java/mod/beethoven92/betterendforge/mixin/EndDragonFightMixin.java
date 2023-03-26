@@ -52,7 +52,7 @@ public class EndDragonFightMixin {
 	
 	@Inject(method = "tryRespawnDragon", at = @At("HEAD"), cancellable = true)
 	private void be_tryRespawnDragon(CallbackInfo info) {
-		if (GeneratorOptions.replacePortal() && GeneratorOptions.hasDragonFights() && this.dragonKilled && this.respawnState == null) {
+		if (GeneratorOptions.replacePortal() && this.dragonKilled && this.respawnState == null) {
 			BlockPos blockPos = exitPortalLocation;
 			if (blockPos == null) {
 				LOGGER.debug("Tried to respawn, but need to find the portal first.");

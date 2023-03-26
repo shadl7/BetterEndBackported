@@ -15,8 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class IslandLayer
-{
+public class IslandLayer {
 	private static final Random RANDOM = new Random();
 	private final SDFRadialNoiseMap noise;
 	private final SDF island;
@@ -83,7 +82,7 @@ public class IslandLayer
 				}
 			}
 
-			if (GeneratorOptions.hasCentralIsland() && Math.abs(ix) < GeneratorOptions.getIslandDistChunk() && Math.abs(iz) < GeneratorOptions
+			if (Math.abs(ix) < GeneratorOptions.getIslandDistChunk() && Math.abs(iz) < GeneratorOptions
 					.getIslandDistChunk()) {
 				int count = positions.size();
 				for (int n = 0; n < count; n++) {

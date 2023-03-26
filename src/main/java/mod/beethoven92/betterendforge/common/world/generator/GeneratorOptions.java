@@ -11,11 +11,9 @@ public class GeneratorOptions {
 	private static int biomeSizeCaves;
 	private static boolean hasPortal;
 	private static boolean hasPillars;
-	private static boolean hasDragonFights;
 	private static boolean removeChorusFromVanillaBiomes;
 	private static boolean newGenerator;
 	private static boolean noRingVoid;
-	private static boolean generateCentralIsland;
 	private static boolean generateObsidianPlatform;
 	private static int endCityFailChance;
 	public static LayerOptions bigOptions;
@@ -37,7 +35,6 @@ public class GeneratorOptions {
 		biomeSizeCaves = Configs.GENERATOR_CONFIG.getInt("biomeMap", "biomeSizeCaves", 32);
 		hasPortal = Configs.GENERATOR_CONFIG.getBoolean("portal", "hasPortal", true);
 		hasPillars = Configs.GENERATOR_CONFIG.getBoolean("spikes", "hasSpikes", true);
-		hasDragonFights = Configs.GENERATOR_CONFIG.getBooleanRoot("hasDragonFights", true);
 		removeChorusFromVanillaBiomes = Configs.GENERATOR_CONFIG.getBoolean(
 			"chorusPlant",
 			"removeChorusFromVanillaBiomes",
@@ -46,7 +43,6 @@ public class GeneratorOptions {
 		vanillaEndIntegration = Configs.GENERATOR_CONFIG.getBoolean("customGenerator", "vanillaEndIntegration", true);
 		newGenerator = Configs.GENERATOR_CONFIG.getBoolean("customGenerator", "useNewGenerator", true);
 		noRingVoid = Configs.GENERATOR_CONFIG.getBoolean("customGenerator", "noRingVoid", false);
-		generateCentralIsland = Configs.GENERATOR_CONFIG.getBoolean("customGenerator", "generateCentralIsland", true);
 		endCityFailChance = Configs.GENERATOR_CONFIG.getInt("customGenerator", "endCityFailChance", 5);
 		generateObsidianPlatform = Configs.GENERATOR_CONFIG.getBooleanRoot("generateObsidianPlatform", true);
 		bigOptions = new LayerOptions(
@@ -109,10 +105,6 @@ public class GeneratorOptions {
 		return hasPillars;
 	}
 
-	public static boolean hasDragonFights() {
-		return hasDragonFights;
-	}
-
 	public static boolean removeChorusFromVanillaBiomes() {
 		return removeChorusFromVanillaBiomes;
 	}
@@ -123,10 +115,6 @@ public class GeneratorOptions {
 
 	public static boolean useNewGenerator() {
 		return newGenerator;
-	}
-
-	public static boolean hasCentralIsland() {
-		return generateCentralIsland;
 	}
 
 	public static boolean generateObsidianPlatform() {
