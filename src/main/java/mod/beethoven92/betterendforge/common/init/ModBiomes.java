@@ -105,7 +105,7 @@ public class ModBiomes
 		Map<String, JsonObject> configs = Maps.newHashMap();
 		
 		biomeRegistry.forEach((biome) -> {
-			if (biome.getCategory() == Category.THEEND && Objects.requireNonNull(biome.getRegistryName()).getNamespace().equals("betterendforge")) {
+			if (biome.getCategory() == Category.THEEND) {
 				ResourceLocation id = biomeRegistry.getKey(biome);
 				if (Configs.BIOME_CONFIG.getBoolean(id, "enabled", true)) {
 					if (LAND_BIOMES.containsImmutable(id) && VOID_BIOMES.containsImmutable(id) && !SUBBIOMES_UNMUTABLES.contains(id)) {
@@ -114,7 +114,7 @@ public class ModBiomes
 							config = loadJsonConfig(id.getNamespace());
 							configs.put(id.getNamespace(), config);
 						}
-						
+
 						float fog = 1F;
 						float chance = 1F;
 					    boolean isVoid = false;

@@ -20,7 +20,7 @@ mixin {
     config 'betterendforge.mixins.json'
 }
 
-version = '1.16.5-2.9.1'
+version = '1.16.5-2.9.1-hotfix'
 group = 'mod.beethoven92.betterendforge'
 archivesBaseName = 'betterendforge'
 
@@ -103,16 +103,11 @@ sourceSets {
 
 dependencies {
     minecraft 'net.minecraftforge:forge:1.16.5-36.2.39'
-
     compileOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.62:api")
     runtimeOnly fg.deobf("mezz.jei:jei-1.16.4:7.6.0.62")
-
     compileOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-48:api")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-48")
-
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-
-
 }
 
 jar {
