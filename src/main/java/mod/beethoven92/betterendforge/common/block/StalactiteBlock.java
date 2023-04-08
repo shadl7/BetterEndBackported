@@ -65,15 +65,12 @@ public class StalactiteBlock extends Block implements IWaterLoggable
 		
 		if (dir == Direction.DOWN) 
 		{
-			System.out.println("Check up!");
 			if (isThis(world, pos.up()) || hasEnoughSolidSide(world, pos.up(), Direction.DOWN))
 			{
-				System.out.println("Up true!");
 				return getDefaultState().with(IS_FLOOR, false).with(WATERLOGGED, water);
 			}
 			else if (isThis(world, pos.down()) || hasEnoughSolidSide(world, pos.down(), Direction.UP)) 
 			{
-				System.out.println("Up false!");
 				return getDefaultState().with(IS_FLOOR, true).with(WATERLOGGED, water);
 			}
 			else 
@@ -83,15 +80,12 @@ public class StalactiteBlock extends Block implements IWaterLoggable
 		}
 		else 
 		{
-			System.out.println("Check down!");
 			if (isThis(world, pos.down()) || hasEnoughSolidSide(world, pos.down(), Direction.UP)) 
 			{
-				System.out.println("Down true!");
 				return getDefaultState().with(IS_FLOOR, true).with(WATERLOGGED, water);
 			}
 			else if (isThis(world, pos.up()) || hasEnoughSolidSide(world, pos.up(), Direction.DOWN)) 
 			{
-				System.out.println("Down false!");
 				return getDefaultState().with(IS_FLOOR, false).with(WATERLOGGED, water);
 			}
 			else 
