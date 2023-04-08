@@ -13,8 +13,6 @@ import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
-import java.util.Objects;
-
 public class ModItemModels extends ItemModelProvider
 {
 	public ModItemModels(DataGenerator generator, ExistingFileHelper existingFileHelper) 
@@ -69,7 +67,7 @@ public class ModItemModels extends ItemModelProvider
 	}
 	
 	private void simpleItem(Item item) {
-		String name = Objects.requireNonNull(item.getRegistryName()).getPath();
+		String name = item.getRegistryName().getPath();
         singleTexture(name, mcLoc(ITEM_FOLDER + "/generated"), "layer0", modLoc(ITEM_FOLDER + "/" + name));
     }
 	

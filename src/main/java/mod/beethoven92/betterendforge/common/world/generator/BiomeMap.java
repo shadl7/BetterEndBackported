@@ -70,11 +70,13 @@ public class BiomeMap
 		bx = MathHelper.floor(x);
 		bz = MathHelper.floor(z);
 		
-		if ((bx & BiomeChunk.MASK_WIDTH) == BiomeChunk.MASK_WIDTH) {
+		if ((bx & BiomeChunk.MASK_WIDTH) == BiomeChunk.MASK_WIDTH) 
+		{
 			x += (bz / 2) & 1;
 		}
 		
-		if ((bz & BiomeChunk.MASK_WIDTH) == BiomeChunk.MASK_WIDTH) {
+		if ((bz & BiomeChunk.MASK_WIDTH) == BiomeChunk.MASK_WIDTH) 
+		{
 			z += (bx / 2) & 1;
 		}
 		

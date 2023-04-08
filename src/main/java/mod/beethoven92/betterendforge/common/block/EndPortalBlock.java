@@ -81,8 +81,7 @@ public class EndPortalBlock extends NetherPortalBlock
 				&& entityIn.isNonBoss()) 
 		{
 			TeleportingEntity teleEntity = (TeleportingEntity) entityIn;
-			
-			//if (teleEntity.hasCooldown()) return;
+
 			// Checks if entity has nether portal cooldown
 			if (entityIn.func_242280_ah()) return;
 
@@ -90,8 +89,7 @@ public class EndPortalBlock extends NetherPortalBlock
 			boolean isOverworld = worldIn.getDimensionKey().equals(World.OVERWORLD);
 			MinecraftServer server = ((ServerWorld) worldIn).getServer();
 			ServerWorld destination = isOverworld ? server.getWorld(World.THE_END) : EndPortals.getWorld(server, state.get(PORTAL));
-			//ServerWorld destination = ((ServerWorld) worldIn).getServer().getWorld(isOverworld ? World.THE_END : World.OVERWORLD);
-	        
+
 			if (destination == null) 
 	        {
 	            return;
@@ -176,12 +174,12 @@ public class EndPortalBlock extends NetherPortalBlock
 									entityDir = frontDir;
 								}
 
-                                if (frontDir != entityDir && frontDir.getOpposite() != entityDir) {
-                                    entity.getRotatedYaw(Rotation.CLOCKWISE_90);
-                                    entityDir = entityDir.rotateY();
-                                }
-                                return checkPos.offset(entityDir);
-                            }
+								if (frontDir != entityDir && frontDir.getOpposite() != entityDir) {
+									entity.getRotatedYaw(Rotation.CLOCKWISE_90);
+									entityDir = entityDir.rotateY();
+								}
+								return checkPos.offset(entityDir);
+							}
 							checkPos.move(Direction.DOWN);
 						}
 					}

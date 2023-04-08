@@ -17,7 +17,6 @@ public class ModLootModifiers
 {
 	public static final GlobalLootModifierSerializer<BetterEndMusicDiscLootModifier> BETTER_END_MUSIC_DISC = null;
 
-
 	@SubscribeEvent
 	public static void onRegisterModifiers(RegistryEvent.Register<GlobalLootModifierSerializer<?>> event) {
 		LootConditions.register();

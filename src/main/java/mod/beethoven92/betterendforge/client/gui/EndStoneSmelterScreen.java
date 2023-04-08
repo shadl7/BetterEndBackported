@@ -16,8 +16,6 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.Objects;
-
 @OnlyIn(Dist.CLIENT)
 public class EndStoneSmelterScreen extends ContainerScreen<EndStoneSmelterContainer> implements IRecipeShownListener
 {
@@ -39,7 +37,7 @@ public class EndStoneSmelterScreen extends ContainerScreen<EndStoneSmelterContai
 	{
 		super.init();
 		this.narrow = this.width < 379;
-		this.recipeBook.init(width, height, Objects.requireNonNull(minecraft), narrow, container);
+		this.recipeBook.init(width, height, minecraft, narrow, container);
 		this.guiLeft = this.recipeBook.updateScreenPosition(narrow, width, xSize);
 		this.addButton(new ImageButton(this.guiLeft + 20, height / 2 - 49, 20, 18, 0, 0, 19, RECIPE_BUTTON_TEXTURE, (buttonWidget) -> {
 			this.recipeBook.initSearchBar(narrow);
@@ -81,7 +79,7 @@ public class EndStoneSmelterScreen extends ContainerScreen<EndStoneSmelterContai
 	protected void drawGuiContainerBackgroundLayer(MatrixStack matrixStack, float partialTicks, int x, int y) 
 	{		
 		RenderSystem.color4f(1.0F, 1.0F, 1.0F, 1.0F);
-		Objects.requireNonNull(this.minecraft).getTextureManager().bindTexture(BACKGROUND_TEXTURE);
+		this.minecraft.getTextureManager().bindTexture(BACKGROUND_TEXTURE);
 	    int i = this.guiLeft;
 	    int j = this.guiTop;
 		this.blit(matrixStack, i, j, 0, 0, this.xSize, this.ySize);

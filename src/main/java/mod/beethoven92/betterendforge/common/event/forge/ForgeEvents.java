@@ -24,6 +24,7 @@ import java.util.Objects;
 
 @Mod.EventBusSubscriber(modid = BetterEnd.MOD_ID)
 public class ForgeEvents {
+
 	@SubscribeEvent
 	public static void removeBlindness(PotionApplicableEvent event) {
 		LivingEntity entity = event.getEntityLiving();

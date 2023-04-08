@@ -22,7 +22,8 @@ public class UmbraValleyBiome extends BetterEndBiome
 				.addFeature(GenerationStage.Decoration.VEGETAL_DECORATION, ModConfiguredFeatures.FLAMMALIX)
 				.addFeature(GenerationStage.Decoration.RAW_GENERATION, ModConfiguredFeatures.THIN_ARCH)
 				.addFeature(GenerationStage.Decoration.RAW_GENERATION, ModConfiguredFeatures.UMBRALITH_ARCH)
-				.setGenChance(0.0F)
+
+
 		);
 	}
 }

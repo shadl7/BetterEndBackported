@@ -2,11 +2,12 @@ package mod.beethoven92.betterendforge.client;
 
 import mod.beethoven92.betterendforge.config.Configs;
 
+
 public class ClientOptions {
 	private static boolean customSky;
 	private static boolean useFogDensity;
 	private static boolean sulfurWaterColor;
-
+	
 	public static void init() {
 		customSky = Configs.CLIENT_CONFIG.getBooleanRoot("customSky", true);
 		useFogDensity = Configs.CLIENT_CONFIG.getBooleanRoot("useFogDensity", true);

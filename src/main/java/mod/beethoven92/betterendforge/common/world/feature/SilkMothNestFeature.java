@@ -30,8 +30,8 @@ public class SilkMothNestFeature extends Feature<NoFeatureConfig> {
 			state = world.getBlockState(pos);
 			if ((state.isAir() || state.isIn(ModBlocks.TENANEA_OUTER_LEAVES.get())) && world.isAirBlock(pos.down())) {
 				for (Direction dir: BlockHelper.HORIZONTAL_DIRECTIONS) {
-                    return !world.getBlockState(pos.down().offset(dir)).getMaterial().blocksMovement();
-                }
+					return !world.getBlockState(pos.down().offset(dir)).getMaterial().blocksMovement();
+				}
 			}
 		}
 		return false;

@@ -21,7 +21,6 @@ import org.apache.logging.log4j.Logger;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 import java.util.function.Supplier;
 
 @EventBusSubscriber(modid = BetterEnd.MOD_ID, bus = Bus.MOD)
@@ -70,7 +69,7 @@ public class ModSpawnEggItem extends SpawnEggItem {
 			Map<EntityType<?>, SpawnEggItem> eggs = ObfuscationReflectionHelper.getPrivateValue(SpawnEggItem.class,
 					null, "field_195987_b");
 			for (Entry<Supplier<EntityType<?>>, SpawnEggItem> entry : MOD_EGGS.entrySet())
-				Objects.requireNonNull(eggs).put(entry.getKey().get(), entry.getValue());
+				eggs.put(entry.getKey().get(), entry.getValue());
 			} catch (Exception e) {
 				LOGGER.warn("Unable to access SpawnEggItem.EGGS");
 			} 

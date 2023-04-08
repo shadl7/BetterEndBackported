@@ -27,7 +27,6 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.Objects;
 
 public class EndSignBlock extends AbstractSignBlock {
 	public static final IntegerProperty ROTATION = BlockStateProperties.ROTATION_0_15;
@@ -88,10 +87,11 @@ public class EndSignBlock extends AbstractSignBlock {
 		if (placer instanceof PlayerEntity) {
 			ESignTileEntity sign = (ESignTileEntity) world.getTileEntity(pos);
 			if (!world.isRemote) {
-				Objects.requireNonNull(sign).setEditor((PlayerEntity) placer);
+				if (sign != null) sign.setEditor((PlayerEntity) placer);
 				((ServerPlayerEntity) placer).connection.sendPacket(new SOpenSignMenuPacket(pos));
-			} else
-				Objects.requireNonNull(sign).setEditable(true);
+			} else if (sign != null) {
+				sign.setEditable(true);
+			}
 		}
 	}
 
@@ -118,9 +118,11 @@ public class EndSignBlock extends AbstractSignBlock {
 			IWorld worldView = ctx.getWorld();
 			BlockPos blockPos = ctx.getPos();
 			Direction[] directions = ctx.getNearestLookingDirections();
-            int var8 = directions.length;
+			Direction[] var7 = directions;
+			int var8 = directions.length;
 
-			for (Direction direction : directions) {
+			for (int var9 = 0; var9 < var8; ++var9) {
+				Direction direction = var7[var9];
 				if (direction.getAxis().isHorizontal()) {
 					Direction direction2 = direction.getOpposite();
 					int rot = MathHelper.floor((180.0 + direction2.getHorizontalAngle() * 16.0 / 360.0) + 0.5 + 4) & 15;

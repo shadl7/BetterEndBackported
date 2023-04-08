@@ -15,8 +15,6 @@ import net.minecraft.util.registry.Registry;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.Objects;
-
 public class InfusionParticleData implements IParticleData
 {
 	public static final IParticleData.IDeserializer<InfusionParticleData> DESERIALIZER = 
@@ -69,7 +67,7 @@ public class InfusionParticleData implements IParticleData
 	@Override
 	public String getParameters() 
 	{
-		return Objects.requireNonNull(Registry.PARTICLE_TYPE.getKey(this.getType())).toString();
+		return Registry.PARTICLE_TYPE.getKey(this.getType()).toString();
 	}
 
 }

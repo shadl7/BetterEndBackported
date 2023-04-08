@@ -13,7 +13,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(DimensionType.class)
-public abstract class DimensionTypeMixin {
+public abstract class DimensionTypeMixin 
+{
     @Inject(at = @At("HEAD"), method = "getEndChunkGenerator(Lnet/minecraft/util/registry/Registry;Lnet/minecraft/util/registry/Registry;J)Lnet/minecraft/world/gen/ChunkGenerator;", cancellable = true)
     private static void betterEndGenerator(Registry<Biome> registry, Registry<DimensionSettings> settings, long seed, CallbackInfoReturnable<ChunkGenerator> info) 
     {
@@ -21,4 +22,5 @@ public abstract class DimensionTypeMixin {
     			new BetterEndBiomeProvider(registry, seed), seed, 
     			() -> settings.getOrThrow(DimensionSettings.field_242737_f)));
     }
+
 }

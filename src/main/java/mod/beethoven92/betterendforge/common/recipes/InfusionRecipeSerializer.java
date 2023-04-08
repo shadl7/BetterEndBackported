@@ -34,7 +34,7 @@ public class InfusionRecipeSerializer extends net.minecraftforge.registries.Forg
 			recipe.ingredientPositions.put(index, item);
 		}
 		for (int i = 0; i < 8; i++) {
-            recipe.catalysts[i] = recipe.ingredientPositions.getOrDefault(i, Ingredient.EMPTY);
+			recipe.catalysts[i] = recipe.ingredientPositions.getOrDefault(i, Ingredient.EMPTY);
 		}
 		return recipe;
 	}
@@ -50,11 +50,10 @@ public class InfusionRecipeSerializer extends net.minecraftforge.registries.Forg
 
 	private ItemStack readOutput(JsonObject json) {
 		JsonElement outputElem = json.get("output");
-		if (outputElem.isJsonObject() && ItemStack.CODEC.parse(JsonOps.INSTANCE, outputElem).result().isPresent()) {
+		if (outputElem.isJsonObject())
 			return ItemStack.CODEC.parse(JsonOps.INSTANCE, outputElem).result().get();
-		} else {
+		else
 			return new ItemStack(JSONUtils.getItem(outputElem, "output"));
-		}
 	}
 
 	@Override

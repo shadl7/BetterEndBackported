@@ -24,7 +24,7 @@ public class BetterEndMusicDiscLootModifier extends LootModifier {
 			ModItems.MUSIC_DISC_STRANGE_AND_ALIEN);
 
 	private final int min;
-    private final int max;
+	private final int max;
 
 	public BetterEndMusicDiscLootModifier(ILootCondition[] conditionsIn, int min, int max) {
 		super(conditionsIn);
@@ -61,4 +61,5 @@ public class BetterEndMusicDiscLootModifier extends LootModifier {
 			return json;
 		}
 	}
+
 }

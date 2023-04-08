@@ -44,7 +44,7 @@ public abstract class EntityMixin implements TeleportingEntity
 	@Shadow
 	protected abstract PortalInfo func_241829_a(ServerWorld destination);
 
-	@Inject(method = "changeDimension*", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "changeDimension(Lnet/minecraft/world/server/ServerWorld;)Lnet/minecraft/entity/Entity;", at = @At("HEAD"), cancellable = true)
 	public void changeDimension(ServerWorld destination, CallbackInfoReturnable<Entity> info) 
 	{
 		if (!removed && beCanTeleport() && world instanceof ServerWorld)

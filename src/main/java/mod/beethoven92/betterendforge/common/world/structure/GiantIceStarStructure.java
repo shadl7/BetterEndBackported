@@ -25,13 +25,16 @@ import net.minecraft.world.gen.feature.template.TemplateManager;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 public class GiantIceStarStructure extends SDFStructure
 {
-
-    public GiantIceStarStructure(Codec<NoFeatureConfig> codec)
+	private final float minSize = 20;
+	private final float maxSize = 35;
+	private final int minCount = 25;
+	private final int maxCount = 40;
+	
+	public GiantIceStarStructure(Codec<NoFeatureConfig> codec) 
 	{
 		super(codec);
 	}
@@ -51,12 +54,8 @@ public class GiantIceStarStructure extends SDFStructure
 	@Override
 	protected SDF getSDF(BlockPos pos, Random random)
 	{
-        float maxSize = 35;
-        float minSize = 20;
-        float size = ModMathHelper.randRange(minSize, maxSize, random);
-        int maxCount = 40;
-        int minCount = 25;
-        int count = ModMathHelper.randRange(minCount, maxCount, random);
+		float size = ModMathHelper.randRange(minSize, maxSize, random);
+		int count = ModMathHelper.randRange(minCount, maxCount, random);
 		List<Vector3f> points = getFibonacciPoints(count);
 		SDF sdf = null;
 		SDF spike = new SDFCappedCone().setRadius1(3 + (size - 5) * 0.2F).setRadius2(0).setHeight(size).setBlock(ModBlocks.DENSE_SNOW.get());
@@ -64,7 +63,7 @@ public class GiantIceStarStructure extends SDFStructure
 		for (Vector3f point: points) 
 		{
 			SDF rotated = spike;
-			ModMathHelper.normalize(point);
+			point = ModMathHelper.normalize(point);
 			float angle = ModMathHelper.angle(Vector3f.YP, point);
 			if (angle > 0.01F && angle < 3.14F) 
 			{
@@ -89,7 +88,7 @@ public class GiantIceStarStructure extends SDFStructure
 		final BlockState ancient = ModBlocks.ANCIENT_EMERALD_ICE.get().getDefaultState();
 		final SDF sdfCopy = sdf;
 		
-		return Objects.requireNonNull(sdf).addPostProcess((info) -> {
+		return sdf.addPostProcess((info) -> {
 			BlockPos bpos = info.getPos();
 			float px = bpos.getX() - center.getX();
 			float py = bpos.getY() - center.getY();

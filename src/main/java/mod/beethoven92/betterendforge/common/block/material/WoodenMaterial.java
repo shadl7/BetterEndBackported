@@ -112,13 +112,13 @@ public class WoodenMaterial
 							net.minecraft.world.IBlockReader world) {
 						return ModTileEntityTypes.CHEST.get().create();
 					}
-                });
+				});
 		ModItems.ITEMS.register(name + "_chest", () -> new BlockItem(chest.get(), new Item.Properties()
 				.group(ModCreativeTabs.CREATIVE_TAB).setISTER(() -> ChestItemTileEntityRenderer::new)) {
 			public int getBurnTime(net.minecraft.item.ItemStack itemStack) {
 				return 300;
 			}
-        });
+		});
 
 		sign = registerBlockWithBurnItem(name + "_sign", 
 				() -> new EndSignBlock(AbstractBlock.Properties.create(Material.WOOD, planksColor).
@@ -134,7 +134,7 @@ public class WoodenMaterial
 					{
 						return 1;
 					}
-                }, 300);
+				}, 300);
 	}
 
 	public boolean isTreeLog(Block block) {
@@ -153,7 +153,7 @@ public class WoodenMaterial
 					public int getBurnTime(net.minecraft.item.ItemStack itemStack) {
 						return burnTime;
 					}
-                });
+				});
 		return block;
 	}
 }

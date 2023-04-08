@@ -71,8 +71,8 @@ public class JsonConfigKey
 				return false;
 			}
 		}
-        return entry.equals(other.entry);
-    }
+		return entry.equals(other.entry);
+	}
 	
 	@Override
 	public String toString() 

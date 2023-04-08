@@ -4,7 +4,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.vector.Vector3d;
 
 
-
 public class AABBAcc {
 
 

@@ -36,7 +36,8 @@ public class JungleSporeParticle extends SimpleAnimatedParticle
 			this.motionX = rand.nextGaussian() * 0.02;
 			this.motionY = rand.nextFloat() * 0.02 + 0.02;
 			this.motionZ = rand.nextGaussian() * 0.02;
-        }
+			ticks = 0;
+		}
 		
 		if (this.age <= 30) 
 		{

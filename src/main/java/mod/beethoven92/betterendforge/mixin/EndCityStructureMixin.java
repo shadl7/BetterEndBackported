@@ -17,7 +17,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(EndCityStructure.class)
 public abstract class EndCityStructureMixin 
 {
-	@Inject(method = "func_230363_a_*", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "func_230363_a_(Lnet/minecraft/world/gen/ChunkGenerator;Lnet/minecraft/world/biome/provider/BiomeProvider;JLnet/minecraft/util/SharedSeedRandom;IILnet/minecraft/world/biome/Biome;Lnet/minecraft/util/math/ChunkPos;Lnet/minecraft/world/gen/feature/NoFeatureConfig;)Z", at = @At("HEAD"), cancellable = true)
 	private void be_shouldStartAt(ChunkGenerator chunkGenerator, BiomeProvider biomeSource, long l, 
 			SharedSeedRandom chunkRandom, int i, int j, Biome biome, ChunkPos chunkPos,
 			NoFeatureConfig config, CallbackInfoReturnable<Boolean> info) 

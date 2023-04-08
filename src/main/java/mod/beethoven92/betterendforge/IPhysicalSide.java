@@ -1,4 +1,4 @@
-package mod.beethoven92.betterendforge.common.interfaces;
+package mod.beethoven92.betterendforge;
 
 import net.minecraftforge.eventbus.api.IEventBus;
 

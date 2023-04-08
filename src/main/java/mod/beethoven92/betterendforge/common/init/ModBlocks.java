@@ -1152,7 +1152,8 @@ public class ModBlocks
 
 	public static <T extends Block> RegistryObject<T> registerBlockWithNoItem(String name, Supplier<? extends T> blockSupplier)
 	{
-        return BLOCKS.register(name, blockSupplier);
+		RegistryObject<T> block = BLOCKS.register(name, blockSupplier);
+		return block;
 	}
 
 
@@ -1167,7 +1168,8 @@ public class ModBlocks
 	
 	public static RegistryObject<Block> registerFlowerPotBlock(String name, Supplier<? extends Block> plant)
 	{
-        return BLOCKS.register(name, () -> new FlowerPotBlock(plant.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
+		RegistryObject<Block> flowerPot = BLOCKS.register(name, () -> new FlowerPotBlock(plant.get(), AbstractBlock.Properties.create(Material.MISCELLANEOUS).zeroHardnessAndResistance().notSolid()));
+		return flowerPot;
 	}
 	
 	public static WoodenMaterial createWoodenMaterial(String name, MaterialColor woodColor, MaterialColor planksColor) {

@@ -35,7 +35,6 @@ import net.minecraft.world.biome.Biome;
 
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 public class EndSlimeEntity extends SlimeEntity {
@@ -125,10 +124,10 @@ public class EndSlimeEntity extends SlimeEntity {
 				float h = ((float) (l / 2) - 0.5F) * f;
 				EndSlimeEntity slimeEntity = (EndSlimeEntity) this.getType().create(this.world);
 				if (this.isNoDespawnRequired()) {
-					Objects.requireNonNull(slimeEntity).enablePersistence();
+					slimeEntity.enablePersistence();
 				}
 
-				Objects.requireNonNull(slimeEntity).setSlimeType(type);
+				slimeEntity.setSlimeType(type);
 				slimeEntity.setCustomName(text);
 				slimeEntity.setNoAI(bl);
 				slimeEntity.setInvulnerable(this.isInvulnerable());
@@ -269,7 +268,7 @@ public class EndSlimeEntity extends SlimeEntity {
 		public void tick() {
 			if (EndSlimeEntity.this.getRNG().nextFloat() < 0.8F) {
 				EndSlimeEntity.this.getJumpController().setJumping();
-            }
+			}
 
 			((EndSlimeMoveControl) EndSlimeEntity.this.getMoveHelper()).move(1.2D);
 		}
@@ -343,7 +342,7 @@ public class EndSlimeEntity extends SlimeEntity {
 
 		@Override
 		public void tick() {
-			EndSlimeEntity.this.faceEntity(Objects.requireNonNull(EndSlimeEntity.this.getAttackTarget()), 10.0F, 10.0F);
+			EndSlimeEntity.this.faceEntity(EndSlimeEntity.this.getAttackTarget(), 10.0F, 10.0F);
 			((EndSlimeMoveControl) EndSlimeEntity.this.getMoveHelper()).look(EndSlimeEntity.this.rotationYaw,
 					EndSlimeEntity.this.canDamagePlayer());
 		}

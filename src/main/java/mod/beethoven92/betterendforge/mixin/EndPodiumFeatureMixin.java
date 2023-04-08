@@ -30,22 +30,22 @@ public abstract class EndPodiumFeatureMixin
 {
 	@Shadow @Final private boolean activePortal;
 
-	@Inject(method = "generate*", at = @At("HEAD"), cancellable = true)
+	@Inject(method = "generate(Lnet/minecraft/world/ISeedReader;Lnet/minecraft/world/gen/ChunkGenerator;Ljava/util/Random;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/gen/feature/NoFeatureConfig;)Z", at = @At("HEAD"), cancellable = true)
 	private void beGeneratePortal(ISeedReader level, ChunkGenerator chunkGenerator, Random random, BlockPos origin,
 								  NoFeatureConfig config, CallbackInfoReturnable<Boolean> info)
 	{
-		if (!GeneratorOptions.hasPortal())
-		{
+		if (!GeneratorOptions.hasPortal()) {
 			info.setReturnValue(false);
 			info.cancel();
 		}
 
 		else if (GeneratorOptions.replacePortal() && FMLLoader.getLoadingModList().getModFileById("endergetic") == null) {
-            BlockPos blockPos = be_updatePos(origin, level);
+			ISeedReader world = level;
+			BlockPos blockPos = be_updatePos(origin, world);
 			Template structure = StructureHelper.readStructure(BetterEnd.makeID(activePortal ? "portal/end_portal_active" : "portal/end_portal_inactive"));
 			Vector3i size = structure.getSize();
 			blockPos = blockPos.add(-(size.getX() >> 1), -1, -(size.getZ() >> 1));
-			structure.func_237146_a_(level, blockPos, blockPos, new PlacementSettings(), random, 2);
+			structure.func_237146_a_(world, blockPos, blockPos, new PlacementSettings(), random, 2);
 			info.setReturnValue(true);
 			info.cancel();
 		}

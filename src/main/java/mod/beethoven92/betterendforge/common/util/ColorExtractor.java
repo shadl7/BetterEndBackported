@@ -51,7 +51,8 @@ public class ColorExtractor
 		});
 		if (toClear.size() > 0) 
 		{
-			toClear.forEach(centers::remove);
+			toClear.forEach(clear ->
+				centers.remove(clear));
 		}
 		this.centers.sort(Center.COMPARATOR);
 		
@@ -76,7 +77,7 @@ public class ColorExtractor
 				blue += center.b * weight;
 			}
 
-            int a = (int) Math.round(alpha / weights);
+			int a = (int) Math.round(alpha / weights);
 			int r = (int) Math.round(red / weights);
 			int g = (int) Math.round(green / weights);
 			int b = (int) Math.round(blue / weights);

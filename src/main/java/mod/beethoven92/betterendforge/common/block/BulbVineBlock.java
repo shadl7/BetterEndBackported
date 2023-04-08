@@ -8,6 +8,5 @@ public class BulbVineBlock extends EndVineBlock
 	{
 		super(properties);
 	}
-	
-	// NEED FIX: bulb vines appear to not be able to generate when the feature is using the method below
+
 }

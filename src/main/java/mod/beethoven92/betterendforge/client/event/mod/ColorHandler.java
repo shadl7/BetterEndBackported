@@ -17,7 +17,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @EventBusSubscriber(modid = BetterEnd.MOD_ID, bus = EventBusSubscriber.Bus.MOD, value = Dist.CLIENT)
 public class ColorHandler 
@@ -26,10 +25,10 @@ public class ColorHandler
 	public static void BlockColorHandler(ColorHandlerEvent.Block event)
 	{
 		event.getBlockColors().register((state, reader, pos, color) ->
-				AuroraCrystalBlock.getBlockColor(Objects.requireNonNull(pos)), ModBlocks.AURORA_CRYSTAL.get());
+				AuroraCrystalBlock.getBlockColor(pos), ModBlocks.AURORA_CRYSTAL.get());
 		
 		event.getBlockColors().register((state, reader, pos, color) ->
-				TenaneaFlowersBlock.getBlockColor(Objects.requireNonNull(pos)), ModBlocks.TENANEA_FLOWERS.get());
+				TenaneaFlowersBlock.getBlockColor(pos), ModBlocks.TENANEA_FLOWERS.get());
 		
 		event.getBlockColors().register((state, reader, pos, color) ->
 				RespawnObeliskBlock.getBlockColor(pos), ModBlocks.RESPAWN_OBELISK.get());

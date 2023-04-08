@@ -87,8 +87,8 @@ public class BiomeModification
 							feature = ((DecoratedFeatureConfig)feature.getConfig()).feature.get();
 						}
 
-                        return feature.feature instanceof ChorusPlantFeature;
-                    });
+						return feature.feature instanceof ChorusPlantFeature;
+					});
 				}
 			}
 		}

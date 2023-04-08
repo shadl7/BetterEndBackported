@@ -17,8 +17,8 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-import javax.annotation.Nonnull;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Map;
 import java.util.function.Consumer;
 
@@ -52,7 +52,7 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 	public NonNullList<Ingredient> getIngredients() {
 		NonNullList<Ingredient> list = NonNullList.create();
 		list.add(input);
-		list.addAll(Arrays.asList(catalysts));
+		Collections.addAll(list, catalysts);
 		return list;
 	}
 
@@ -156,10 +156,10 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 			if (output == null)
 				Illegal("Output for Infusion recipe can't be null, recipe %s", id);
 			int empty = 0;
-			for (Ingredient catalyst : catalysts) {
-				if (catalyst.hasNoMatchingItems())
-					empty++;
-			}
+            for (Ingredient catalyst : catalysts) {
+                if (catalyst.hasNoMatchingItems())
+                    empty++;
+            }
 			if (empty == catalysts.length) {
 				Illegal("At least one catalyst must be non empty, recipe %s", id);
 			}
@@ -187,13 +187,12 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 			@Override
 			public void serialize(JsonObject json) {
 				json.add("input", input.serialize());
-				if (ItemStack.CODEC.encodeStart(JsonOps.INSTANCE, output).result().isPresent()) {
-					json.add("output", ItemStack.CODEC.encodeStart(JsonOps.INSTANCE, output).result().get());
-				}
+				json.add("output", ItemStack.CODEC.encodeStart(JsonOps.INSTANCE, output).result().get());
 				json.addProperty("time", time);
 				JsonArray jsonCatalysts = new JsonArray();
 				for (int i = 0; i < catalysts.length; i++) {
-					if (catalysts[i] == Ingredient.EMPTY) continue;
+					if (catalysts[i] == Ingredient.EMPTY)
+						continue;
 					JsonObject catalyst = new JsonObject();
 					catalyst.add("item", catalysts[i].serialize());
 					catalyst.addProperty("index", i);
@@ -202,7 +201,6 @@ public class InfusionRecipe implements IRecipe<InfusionRitual> {
 				json.add("catalysts", jsonCatalysts);
 			}
 
-			@Nonnull
 			@Override
 			public ResourceLocation getID() {
 				return id;

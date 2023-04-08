@@ -15,9 +15,9 @@ import net.minecraft.world.gen.NoiseChunkGenerator;
 import net.minecraft.world.gen.settings.DimensionGeneratorSettings;
 import net.minecraftforge.common.world.ForgeWorldType;
 
-public class TerraforgedIntegrationWorldType extends ForgeWorldType
+public class TerraforgedIntegrationWorldType extends ForgeWorldType 
 { 
-	public TerraforgedIntegrationWorldType()
+	public TerraforgedIntegrationWorldType() 
 	{
         super(null);
     }

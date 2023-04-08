@@ -21,8 +21,6 @@ import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-import java.util.Objects;
-
 @OnlyIn(Dist.CLIENT)
 public class PedestalRenderer<T extends PedestalTileEntity> extends TileEntityRenderer<T>
 {
@@ -40,7 +38,7 @@ public class PedestalRenderer<T extends PedestalTileEntity> extends TileEntityRe
 			return;
 		}
 		
-		BlockState state = Objects.requireNonNull(tileEntityIn.getWorld()).getBlockState(tileEntityIn.getPos());
+		BlockState state = tileEntityIn.getWorld().getBlockState(tileEntityIn.getPos());
 		if (!(state.getBlock() instanceof PedestalBlock)) 
 		{
 			return;

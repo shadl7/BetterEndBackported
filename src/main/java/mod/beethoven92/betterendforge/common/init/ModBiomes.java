@@ -105,22 +105,28 @@ public class ModBiomes
 		Map<String, JsonObject> configs = Maps.newHashMap();
 		
 		biomeRegistry.forEach((biome) -> {
-			if (biome.getCategory() == Category.THEEND) {
+			if (biome.getCategory() == Category.THEEND) 
+			{
 				ResourceLocation id = biomeRegistry.getKey(biome);
-				if (Configs.BIOME_CONFIG.getBoolean(id, "enabled", true)) {
-					if (LAND_BIOMES.containsImmutable(id) && VOID_BIOMES.containsImmutable(id) && !SUBBIOMES_UNMUTABLES.contains(id)) {
-						JsonObject config = configs.get(Objects.requireNonNull(id).getNamespace());
-						if (config == null) {
+				
+				if (Configs.BIOME_CONFIG.getBoolean(id, "enabled", true))
+				{
+					if (LAND_BIOMES.containsImmutable(id) && VOID_BIOMES.containsImmutable(id) && !SUBBIOMES_UNMUTABLES.contains(id))
+					{
+						JsonObject config = configs.get(id.getNamespace());
+						if (config == null) 
+						{
 							config = loadJsonConfig(id.getNamespace());
 							configs.put(id.getNamespace(), config);
 						}
-
+						
 						float fog = 1F;
 						float chance = 1F;
 					    boolean isVoid = false;
 					    boolean hasCaves = true;
 					    JsonElement element = config.get(id.getPath());
-					    if (element != null && element.isJsonObject()) {
+					    if (element != null && element.isJsonObject()) 
+					    {
 					    	fog = JsonFactory.getFloat(element.getAsJsonObject(), "fog_density", 1);
 						    chance = JsonFactory.getFloat(element.getAsJsonObject(), "generation_chance", 1);
 						    isVoid = JsonFactory.getString(element.getAsJsonObject(), "type", "land").equals("void");
@@ -128,9 +134,12 @@ public class ModBiomes
 					    }
 					    
 					    BetterEndBiome endBiome = new BetterEndBiome(id, biome, fog, chance, hasCaves);
-					    if (isVoid) {
+					    if (isVoid) 
+					    {
 					    	VOID_BIOMES.addBiomeMutable(endBiome);
-					    } else {
+					    }
+					    else 
+					    {
 					     	LAND_BIOMES.addBiomeMutable(endBiome);
 					    }
 					    ID_MAP.put(id, endBiome);
@@ -290,7 +299,7 @@ public class ModBiomes
 		if (endBiome == null) 
 		{
 			Minecraft minecraft = Minecraft.getInstance();
-			ResourceLocation id = Objects.requireNonNull(minecraft.world).func_241828_r().getRegistry(Registry.BIOME_KEY).getKey(biome);
+			ResourceLocation id = minecraft.world.func_241828_r().getRegistry(Registry.BIOME_KEY).getKey(biome);
 			endBiome = id == null ? END : ID_MAP.getOrDefault(id, END);
 			CLIENT.put(biome, endBiome);
 		}

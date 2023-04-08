@@ -41,11 +41,11 @@ public class EndDragonFightMixin {
 	private BlockPattern.PatternHelper findExitPortal() {
 		return null;
 	}
-	
+
 	@Shadow
-	private void generatePortal(boolean bl) {
+	private void generatePortal(boolean active) {
 	}
-	
+
 	@Shadow
 	private void respawnDragon(List<EnderCrystalEntity> list) {
 	}

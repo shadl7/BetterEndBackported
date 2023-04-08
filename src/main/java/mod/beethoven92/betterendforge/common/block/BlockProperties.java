@@ -20,7 +20,6 @@ public class BlockProperties
 	public static final BooleanProperty ACTIVATED = BooleanProperty.create("active");
 	public static final BooleanProperty NATURAL = BooleanProperty.create("natural");
 	public static final BooleanProperty IS_FLOOR = BooleanProperty.create("is_floor");
-	public static final BooleanProperty ROOTS = BooleanProperty.create("roots");
 	
 	public static final IntegerProperty ROTATION = IntegerProperty.create("rotation", 0, 3);
 	public static final IntegerProperty FULLNESS = IntegerProperty.create("fullness", 0, 3);
@@ -28,7 +27,6 @@ public class BlockProperties
 	public static final IntegerProperty DESTRUCTION_LONG = IntegerProperty.create("destruction", 0, 8);
 	public static final IntegerProperty PORTAL = IntegerProperty.create("portal", 0, EndPortals.getCount());
 	public static final IntegerProperty SIZE = IntegerProperty.create("size", 0, 7);
-
 	
 	public enum TripleShape implements IStringSerializable
 	{

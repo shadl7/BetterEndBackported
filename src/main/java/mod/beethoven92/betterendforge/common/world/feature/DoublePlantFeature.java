@@ -15,8 +15,9 @@ public class DoublePlantFeature extends ScatterFeature
 	private final Block smallPlant;
 	private final Block largePlant;
 	private Block plant;
-
-	public DoublePlantFeature(Block smallPlant, Block largePlant, int radius) {
+	
+	public DoublePlantFeature(Block smallPlant, Block largePlant, int radius) 
+	{
 		super(radius);
 		this.smallPlant = smallPlant;
 		this.largePlant = largePlant;

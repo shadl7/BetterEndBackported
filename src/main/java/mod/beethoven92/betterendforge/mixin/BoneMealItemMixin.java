@@ -21,7 +21,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.util.Objects;
 import java.util.Random;
 
 // TO DO: consider replacing the mixin with events and block behaviours(see grass block grow method for example)
@@ -38,7 +37,7 @@ public abstract class BoneMealItemMixin
 		BlockPos blockPos = context.getPos();
 		
 		// FIX underwater seeds not being able to grow when using bonemeal on them
-		if (BoneMealItem.applyBonemeal(context.getItem(), world, blockPos, Objects.requireNonNull(context.getPlayer())))
+		if (BoneMealItem.applyBonemeal(context.getItem(), world, blockPos, context.getPlayer())) 
 		{
 	          if (!world.isRemote) 
 	          {
@@ -172,7 +171,7 @@ public abstract class BoneMealItemMixin
 		Block block = state.getBlock();
 		if (block == ModBlocks.END_MOSS.get() || block == ModBlocks.END_MYCELIUM.get()) 
 		{				
-			if (Objects.requireNonNull(world.getBiome(pos).getRegistryName()).equals(ModBiomes.GLOWING_GRASSLANDS.getID())) {
+			if (world.getBiome(pos).getRegistryName().equals(ModBiomes.GLOWING_GRASSLANDS.getID())) {
 				Block[] grasses = glowingGrasslandsGrass();
 				return grasses[world.rand.nextInt(grasses.length)].getDefaultState();
 			} else {

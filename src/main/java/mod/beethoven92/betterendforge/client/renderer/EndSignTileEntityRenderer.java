@@ -25,7 +25,6 @@ import net.minecraft.util.math.vector.Vector3f;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 public class EndSignTileEntityRenderer extends TileEntityRenderer<ESignTileEntity> {
 	private static final HashMap<Block, RenderType> LAYERS = Maps.newHashMap();
@@ -106,7 +105,7 @@ public class EndSignTileEntityRenderer extends TileEntityRenderer<ESignTileEntit
 			if (item.get() instanceof BlockItem) {
 				Block block = ((BlockItem) item.get()).getBlock();
 				if (block instanceof EndSignBlock) {
-					String name = Objects.requireNonNull(block.getRegistryName()).getPath();
+					String name = block.getRegistryName().getPath();
 					RenderType layer = RenderType.getEntitySolid(
 							new ResourceLocation(BetterEnd.MOD_ID, "textures/entity/sign/" + name + ".png"));
 					LAYERS.put(block, layer);

@@ -56,7 +56,7 @@ public class TripleTerrainBlock extends TerrainBlock
 		if (shape == TripleShape.BOTTOM) 
 		{
 			super.randomTick(state, world, pos, random);
-        }
+		}
 		else if (random.nextInt(16) == 0) 
 		{
 			boolean bottom = canSurviveBottom(world, pos);

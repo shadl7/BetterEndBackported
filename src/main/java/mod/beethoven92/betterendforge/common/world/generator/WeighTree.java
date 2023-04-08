@@ -45,7 +45,7 @@ public class WeighTree
 		abstract BetterEndBiome getBiome(float value);
 	}
 	
-	private static class Branch extends Node
+	private class Branch extends Node 
 	{
 		final float separator;
 		final Node min;
@@ -65,7 +65,7 @@ public class WeighTree
 		}
 	}
 	
-	private static class Leaf extends Node
+	private class Leaf extends Node 
 	{
 		final BetterEndBiome biome;
 		

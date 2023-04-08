@@ -15,7 +15,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class IslandLayer {
+public class IslandLayer
+{
 	private static final Random RANDOM = new Random();
 	private final SDFRadialNoiseMap noise;
 	private final SDF island;
@@ -66,10 +67,12 @@ public class IslandLayer {
 			for (int pox = -1; pox < 2; pox++)
 			{
 				int px = pox + ix;
-                for (int poz = -1; poz < 2; poz++)
+				long px2 = px;
+				for (int poz = -1; poz < 2; poz++)
 				{
 					int pz = poz + iz;
-                    if (GeneratorOptions.noRingVoid() || (long) px * (long) px + (long) pz * (long) pz > options.centerDist)
+					long pz2 = pz;
+					if (GeneratorOptions.noRingVoid() || px2 * px2 + pz2 * pz2 > options.centerDist)
 					{
 						RANDOM.setSeed(getSeed(px, pz));
 						double posX = (px + RANDOM.nextFloat()) * options.distance;

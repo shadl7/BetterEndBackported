@@ -24,7 +24,7 @@ public abstract class SDFStructure extends Structure<NoFeatureConfig>
 		super(p_i231997_1_);
 	}
 
-    protected abstract SDF getSDF(BlockPos pos, Random random);
+	protected abstract SDF getSDF(BlockPos pos, Random random);
 	
 	@Override
 	public IStartFactory<NoFeatureConfig> getStartFactory() 

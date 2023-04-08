@@ -1,6 +1,6 @@
 package mod.beethoven92.betterendforge.client;
 
-import mod.beethoven92.betterendforge.common.interfaces.IPhysicalSide;
+import mod.beethoven92.betterendforge.IPhysicalSide;
 import mod.beethoven92.betterendforge.client.gui.EndStoneSmelterScreen;
 import mod.beethoven92.betterendforge.client.renderer.*;
 import mod.beethoven92.betterendforge.common.block.material.MetalMaterial;

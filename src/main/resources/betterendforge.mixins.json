@@ -16,7 +16,6 @@
     "EndSpikeFeatureMixin",
     "EndSpikeMixin",
     "EntityMixin",
-    "MinecraftServerMixin",
     "NoiseChunkGeneratorMixin",
     "PlayerEntityMixin",
     "PlayerListMixin",

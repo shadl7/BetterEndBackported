@@ -168,7 +168,7 @@ public class PedestalBlock extends Block
 		return ActionResultType.PASS;
 	}
 
-    @Override
+	@Override
 	public void onReplaced(BlockState state, World worldIn, BlockPos pos, BlockState newState, boolean isMoving)
 	{
 		if (!state.isIn(newState.getBlock())) 

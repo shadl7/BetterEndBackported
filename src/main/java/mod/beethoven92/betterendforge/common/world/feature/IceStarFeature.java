@@ -17,7 +17,6 @@ import net.minecraft.world.gen.feature.NoFeatureConfig;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Random;
 
 public class IceStarFeature extends Feature<NoFeatureConfig>
@@ -50,7 +49,7 @@ public class IceStarFeature extends Feature<NoFeatureConfig>
 		for (Vector3f point: points) 
 		{
 			SDF rotated = spike;
-			ModMathHelper.normalize(point);
+			point = ModMathHelper.normalize(point);
 			float angle = ModMathHelper.angle(Vector3f.YP, point);
 			if (angle > 0.01F && angle < 3.14F) 
 			{
@@ -79,7 +78,7 @@ public class IceStarFeature extends Feature<NoFeatureConfig>
 		final BlockState ancient = ModBlocks.ANCIENT_EMERALD_ICE.get().getDefaultState();
 		final SDF sdfCopy = sdf;
 		
-		Objects.requireNonNull(sdf).addPostProcess((info) -> {
+		sdf.addPostProcess((info) -> {
 			BlockPos bpos = info.getPos();
 			float px = bpos.getX() - center.getX();
 			float py = bpos.getY() - center.getY();

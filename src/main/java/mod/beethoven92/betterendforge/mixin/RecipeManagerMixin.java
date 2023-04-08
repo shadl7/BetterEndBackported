@@ -26,7 +26,7 @@ public class RecipeManagerMixin
 	@Shadow
 	private Map<IRecipeType<?>, Map<ResourceLocation, IRecipe<?>>> recipes;
 
-	@Inject(method = "apply*", at = @At(value = "RETURN"))
+	@Inject(method = "apply(Ljava/util/Map;Lnet/minecraft/resources/IResourceManager;Lnet/minecraft/profiler/IProfiler;)V", at = @At(value = "RETURN"))
 	private void beSetRecipes(Map<ResourceLocation, JsonElement> map, IResourceManager resourceManager, 
 			IProfiler profiler, CallbackInfo info)
 	{
@@ -47,7 +47,8 @@ public class RecipeManagerMixin
 	public <C extends IInventory, T extends IRecipe<C>> Optional<T> getRecipe(IRecipeType<T> type, 
 			C inventory, World world) 
 	{
-		Collection<IRecipe<C>> values = Objects.requireNonNull(getRecipes(type)).values();
+		Collection<IRecipe<C>> values = null;
+		values = getRecipes(type).values();
 		List<IRecipe<C>> list = new ArrayList<>(values);
 		list.sort((v1, v2) -> {
 			boolean b1 = v1.getId().getNamespace().equals("minecraft");
