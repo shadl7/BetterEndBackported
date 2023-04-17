@@ -1,5 +1,6 @@
 package mod.beethoven92.betterendforge.mixin;
 
+import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.tileentity.ESignTileEntity;
 import net.minecraft.block.BlockState;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -11,9 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.server.ServerWorld;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -22,10 +20,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(ServerPlayNetHandler.class)
 public class ServerPlayNetHandlerMixin {
-	@Final
-	@Shadow
-	private static final Logger LOGGER = LogManager.getLogger();
-
 	@Shadow
 	public ServerPlayerEntity player;
 
@@ -41,7 +35,7 @@ public class ServerPlayNetHandlerMixin {
 			if (blockEntity instanceof ESignTileEntity) {
 				ESignTileEntity signBlockEntity = (ESignTileEntity) blockEntity;
 				if (!signBlockEntity.isEditable() || signBlockEntity.getEditor() != this.player) {
-					LOGGER.warn("Player {} just tried to change non-editable sign", this.player.getName().getString());
+					BetterEnd.LOGGER.warn("Player {} just tried to change non-editable sign", this.player.getName().getString());
 					return;
 				}
 
