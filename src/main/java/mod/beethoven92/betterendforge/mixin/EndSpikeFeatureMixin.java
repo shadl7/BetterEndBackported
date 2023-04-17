@@ -50,7 +50,7 @@ public abstract class EndSpikeFeatureMixin
 		int x = spike.getCenterX();
 		int z = spike.getCenterZ();
 		int radius = spike.getRadius();
-		int minY = 0;
+		int minY;
 
 		long lx = x;
 		long lz = z;
@@ -70,114 +70,64 @@ public abstract class EndSpikeFeatureMixin
 
 		GeneratorOptions.setDirectSpikeHeight();
 		int maxY = minY + spike.getHeight() - 64;
-
-		if (GeneratorOptions.replacePillars() && be_radiusInRange(radius)) {
-			radius--;
-			Template base = StructureHelper.readStructure(BetterEnd.makeID("pillars/pillar_base_" + radius));
-			Template top = StructureHelper.readStructure(BetterEnd.makeID("pillars/pillar_top_" + radius + (spike
-					.isGuarded() ? "_cage" : "")));
-			Vector3i side = base.getSize();
-			BlockPos pos1 = new BlockPos(x - (side.getX() >> 1), minY - 3, z - (side.getZ() >> 1));
-			minY = pos1.getY() + side.getY();
-			side = top.getSize();
-			BlockPos pos2 = new BlockPos(x - (side.getX() >> 1), maxY, z - (side.getZ() >> 1));
-			maxY = pos2.getY();
-
-			PlacementSettings data = new PlacementSettings();
-			base.func_237146_a_(world, pos1, pos1, data, random, 2);
-			top.func_237146_a_(world, pos2, pos2, data, random, 2);
-
-			int r2 = radius * radius + 1;
-			BlockPos.Mutable mut = new BlockPos.Mutable();
-			for (int px = -radius; px <= radius; px++) {
-				mut.setX(x + px);
-				int x2 = px * px;
-				for (int pz = -radius; pz <= radius; pz++) {
-					mut.setZ(z + pz);
-					int z2 = pz * pz;
-					if (x2 + z2 <= r2) {
-						for (int py = minY; py < maxY; py++) {
-							mut.setY(py);
-							if (world.getBlockState(mut).getMaterial().isReplaceable()) {
-								if ((px == radius || px == -radius || pz == radius || pz == -radius) && random.nextInt(
-										24) == 0) {
-									BlockHelper.setWithoutUpdate(world, mut, Blocks.CRYING_OBSIDIAN);
-								}
-								else {
-									BlockHelper.setWithoutUpdate(world, mut, Blocks.OBSIDIAN);
-								}
-							}
+		minY -= 15;
+		int r2 = radius * radius + 1;
+		BlockPos.Mutable mut = new BlockPos.Mutable();
+		for (int px = -radius; px <= radius; px++) {
+			mut.setX(x + px);
+			int x2 = px * px;
+			for (int pz = -radius; pz <= radius; pz++) {
+				mut.setZ(z + pz);
+				int z2 = pz * pz;
+				if (x2 + z2 <= r2) {
+					for (int py = minY; py < maxY; py++) {
+						mut.setY(py);
+						if (world.getBlockState(mut).getMaterial().isReplaceable()) {
+							BlockHelper.setWithoutUpdate(world, mut, Blocks.OBSIDIAN);
 						}
 					}
 				}
 			}
 		}
-		else {
-			minY -= 15;
-			int r2 = radius * radius + 1;
-			BlockPos.Mutable mut = new BlockPos.Mutable();
-			for (int px = -radius; px <= radius; px++) {
-				mut.setX(x + px);
-				int x2 = px * px;
-				for (int pz = -radius; pz <= radius; pz++) {
-					mut.setZ(z + pz);
-					int z2 = pz * pz;
-					if (x2 + z2 <= r2) {
-						for (int py = minY; py < maxY; py++) {
-							mut.setY(py);
-							if (world.getBlockState(mut).getMaterial().isReplaceable()) {
-								BlockHelper.setWithoutUpdate(world, mut, Blocks.OBSIDIAN);
-							}
-						}
-					}
-				}
-			}
 
-			mut.setX(x);
-			mut.setZ(z);
-			mut.setY(maxY);
-			BlockHelper.setWithoutUpdate(world, mut, Blocks.BEDROCK);
+		mut.setX(x);
+		mut.setZ(z);
+		mut.setY(maxY);
+		BlockHelper.setWithoutUpdate(world, mut, Blocks.BEDROCK);
 
-			EnderCrystalEntity crystal = EntityType.END_CRYSTAL.create(world.getWorld());
+		EnderCrystalEntity crystal = EntityType.END_CRYSTAL.create(world.getWorld());
+		if (crystal != null) {
 			crystal.setBeamTarget(config.getCrystalBeamTarget());
 			crystal.setInvulnerable(config.isCrystalInvulnerable());
 			crystal.setLocationAndAngles(x + 0.5D, maxY + 1, z + 0.5D, random.nextFloat() * 360.0F, 0.0F);
 			world.addEntity(crystal);
+		}
 
-			if (spike.isGuarded()) {
-				for (int px = -2; px <= 2; ++px) {
-					boolean bl = MathHelper.abs(px) == 2;
-					for (int pz = -2; pz <= 2; ++pz) {
-						boolean bl2 = MathHelper.abs(pz) == 2;
-						for (int py = 0; py <= 3; ++py) {
-							boolean bl3 = py == 3;
-							if (bl || bl2 || bl3) {
-								boolean bl4 = px == -2 || px == 2 || bl3;
-								boolean bl5 = pz == -2 || pz == 2 || bl3;
-								BlockState blockState = Blocks.IRON_BARS
-										.getDefaultState()
-										.with(PaneBlock.NORTH, bl4 && pz != -2).with(
-										PaneBlock.SOUTH,
-										bl4 && pz != 2
-								).with(PaneBlock.WEST, bl5 && px != -2).with(
-										PaneBlock.EAST,
-										bl5 && px != 2
-								);
-								BlockHelper.setWithoutUpdate(
-										world,
-										mut.setPos(spike.getCenterX() + px, maxY + py, spike.getCenterZ() + pz),
-										blockState
-								);
-							}
+		if (spike.isGuarded()) {
+			for (int px = -2; px <= 2; ++px) {
+				boolean bl = MathHelper.abs(px) == 2;
+				for (int pz = -2; pz <= 2; ++pz) {
+					boolean bl2 = MathHelper.abs(pz) == 2;
+					for (int py = 0; py <= 3; ++py) {
+						boolean bl3 = py == 3;
+						if (bl || bl2 || bl3) {
+							boolean bl4 = px == -2 || px == 2 || bl3;
+							boolean bl5 = pz == -2 || pz == 2 || bl3;
+							BlockState blockState = Blocks.IRON_BARS
+									.getDefaultState()
+									.with(PaneBlock.NORTH, bl4 && pz != -2).with(
+											PaneBlock.SOUTH,
+											bl4 && pz != 2
+									).with(PaneBlock.WEST, bl5 && px != -2).with(
+											PaneBlock.EAST,
+											bl5 && px != 2
+									);
+							BlockHelper.setWithoutUpdate(world, mut.setPos(spike.getCenterX() + px, maxY + py, spike.getCenterZ() + pz), blockState);
 						}
 					}
 				}
 			}
 		}
 		info.cancel();
-	}
-
-	private boolean be_radiusInRange(int radius) {
-		return radius > 1 && radius < 6;
 	}
 }

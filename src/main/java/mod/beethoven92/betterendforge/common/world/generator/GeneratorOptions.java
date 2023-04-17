@@ -1,7 +1,6 @@
 package mod.beethoven92.betterendforge.common.world.generator;
 
 import mod.beethoven92.betterendforge.config.Configs;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 
 public class GeneratorOptions {
@@ -17,8 +16,6 @@ public class GeneratorOptions {
     public static LayerOptions bigOptions;
     public static LayerOptions mediumOptions;
     public static LayerOptions smallOptions;
-    private static BlockPos portal = BlockPos.ZERO;
-    private static boolean replacePillars;
     private static long islandDistBlock;
     private static int islandDistChunk;
     private static boolean directSpikeHeight;
@@ -36,7 +33,6 @@ public class GeneratorOptions {
         bigOptions = new LayerOptions("customGenerator.layers.bigIslands", Configs.GENERATOR_CONFIG, 300, 200, 70, 10, false);
         mediumOptions = new LayerOptions("customGenerator.layers.mediumIslands", Configs.GENERATOR_CONFIG, 150, 100, 70, 20, true);
         smallOptions = new LayerOptions("customGenerator.layers.smallIslands", Configs.GENERATOR_CONFIG, 60, 50, 70, 30, false);
-        replacePillars = Configs.GENERATOR_CONFIG.getBoolean("spikes", "customObsidianSpikes", false);
         int circleRadius = Configs.GENERATOR_CONFIG.getInt("customGenerator", "voidRingSize", 1000);
         islandDistBlock = (long) circleRadius * (long) circleRadius;
         islandDistChunk = (circleRadius >> 3);
@@ -72,18 +68,6 @@ public class GeneratorOptions {
 
     public static int getEndCityFailChance() {
         return endCityFailChance;
-    }
-
-    public static BlockPos getPortalPos() {
-        return portal;
-    }
-
-    public static void setPortalPos(BlockPos portal) {
-        GeneratorOptions.portal = portal;
-    }
-
-    public static boolean replacePillars() {
-        return replacePillars;
     }
 
     public static long getIslandDistBlock() {
