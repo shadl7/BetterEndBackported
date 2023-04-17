@@ -19,6 +19,7 @@ public class GeneratorOptions {
     private static long islandDistBlock;
     private static int islandDistChunk;
     private static boolean directSpikeHeight;
+    public static boolean disableDragonFight;
 
     public static void init() {
         biomeSizeLand = Configs.GENERATOR_CONFIG.getInt("biomeMap", "biomeSizeLand", 256);
@@ -30,6 +31,7 @@ public class GeneratorOptions {
         newGenerator = Configs.GENERATOR_CONFIG.getBoolean("customGenerator", "useNewGenerator", true);
         noRingVoid = Configs.GENERATOR_CONFIG.getBoolean("customGenerator", "noRingVoid", false);
         endCityFailChance = Configs.GENERATOR_CONFIG.getInt("customGenerator", "endCityFailChance", 5);
+        disableDragonFight = Configs.GENERATOR_CONFIG.getBoolean("customGenerator", "disableDragonFight", false);
         bigOptions = new LayerOptions("customGenerator.layers.bigIslands", Configs.GENERATOR_CONFIG, 300, 200, 70, 10, false);
         mediumOptions = new LayerOptions("customGenerator.layers.mediumIslands", Configs.GENERATOR_CONFIG, 150, 100, 70, 20, true);
         smallOptions = new LayerOptions("customGenerator.layers.smallIslands", Configs.GENERATOR_CONFIG, 60, 50, 70, 30, false);

@@ -9,6 +9,7 @@
     "BiomeGenerationSettingsAccessor",
     "BoneMealItemMixin",
     "DimensionTypeMixin",
+    "DragonFightManagerMixin",
     "EndCityStructureMixin",
     "EndermanEntityMixin",
     "EndPodiumFeatureMixin",
