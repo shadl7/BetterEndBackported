@@ -51,8 +51,7 @@ public class ColorExtractor
 		});
 		if (toClear.size() > 0) 
 		{
-			toClear.forEach(clear ->
-				centers.remove(clear));
+			toClear.forEach(centers::remove);
 		}
 		this.centers.sort(Center.COMPARATOR);
 		

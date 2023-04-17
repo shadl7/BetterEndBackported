@@ -95,7 +95,6 @@ public class TerrainGenerator {
 		return biomeSource.getNoiseBiome(x, 0, z);
 	}
 
-
 	/**
 	 * Check if this is land
 	 * @param x - biome pos x

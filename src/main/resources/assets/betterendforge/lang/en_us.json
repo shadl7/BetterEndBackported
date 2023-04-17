@@ -821,7 +821,5 @@
 	"block.betterendforge.pallidium_tiny": "Tiny Pallidium Cover",
 	"block.betterendforge.flammalix": "Flammalix",
 
-	"block.betterendforge.charcoal_block": "Charcoal Block",
-
-	"event.betterendforge.spawnInEnd": "Better End: Failed to find good spawn place"
+	"block.betterendforge.charcoal_block": "Charcoal Block"
 }

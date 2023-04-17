@@ -4,16 +4,11 @@ import mod.beethoven92.betterendforge.BetterEnd;
 import mod.beethoven92.betterendforge.common.init.ModBiomes;
 import mod.beethoven92.betterendforge.common.init.ModConfiguredFeatures;
 import mod.beethoven92.betterendforge.common.init.ModConfiguredStructures;
-import mod.beethoven92.betterendforge.common.world.generator.GeneratorOptions;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.world.biome.Biome.Category;
 import net.minecraft.world.biome.MobSpawnInfo;
 import net.minecraft.world.gen.GenerationStage.Decoration;
-import net.minecraft.world.gen.feature.ChorusPlantFeature;
-import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.DecoratedFeature;
-import net.minecraft.world.gen.feature.DecoratedFeatureConfig;
 import net.minecraftforge.event.world.BiomeLoadingEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -61,35 +56,6 @@ public class BiomeModification
 			{
 				MobSpawnInfo.Spawners phantom = new MobSpawnInfo.Spawners(EntityType.byKey("deadlyendphantoms:specter").orElse(EntityType.PHANTOM), 10, 1, 2);
 				event.getSpawns().getSpawner(EntityClassification.MONSTER).add(phantom);
-			}
-		}
-    }
-    
-	@SubscribeEvent(priority = EventPriority.NORMAL)
-    public static void removeChorusFromVanillaBiomes(final BiomeLoadingEvent event) 
-    {	   	    
-		if (GeneratorOptions.removeChorusFromVanillaBiomes())
-		{
-			if (event.getCategory() == Category.THEEND) 
-			{
-				if (event.getName() == null || !event.getName().getNamespace().equals("minecraft")) return;
-				
-				String path = event.getName().getPath();
-				if (path.equals("end_highlands") || path.equals("end_midlands") || path.equals("small_end_islands"))
-				{   
-					event.getGeneration().getFeatures(Decoration.VEGETAL_DECORATION).removeIf((supplier) -> 
-					{
-						ConfiguredFeature<?, ?> feature = supplier.get();
-						
-						// Retrieve the original feature
-						while(feature.getFeature() instanceof DecoratedFeature)
-						{
-							feature = ((DecoratedFeatureConfig)feature.getConfig()).feature.get();
-						}
-
-						return feature.feature instanceof ChorusPlantFeature;
-					});
-				}
 			}
 		}
     }

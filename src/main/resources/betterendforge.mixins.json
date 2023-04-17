@@ -10,7 +10,6 @@
     "BoneMealItemMixin",
     "DimensionTypeMixin",
     "EndCityStructureMixin",
-    "EndDragonFightMixin",
     "EndermanEntityMixin",
     "EndPodiumFeatureMixin",
     "EndSpikeFeatureMixin",
@@ -21,7 +20,6 @@
     "PlayerListMixin",
     "RecipeManagerMixin",
     "RepairContainerMixin",
-    "ServerPlayerEntityMixin",
     "ServerPlayNetHandlerMixin"
   ],
   "client": [
