@@ -28,6 +28,8 @@ public class AuroraCrystalBlock extends AbstractGlassBlock
 
 	public static int getBlockColor(BlockPos pos) 
 	{
+		if(pos == null) return getItemColor();
+		
 		long i = (long) pos.getX() + (long) pos.getY() + (long) pos.getZ();
 		double delta = i * 0.1;
 		int index = MathHelper.floor(delta);
